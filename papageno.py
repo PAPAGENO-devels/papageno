@@ -293,4 +293,4 @@ code_emission.emit_precedence_matrix_header(intMatrix,len(terminals),commandline
 code_emission.emit_reduction_tree(vectorTree,commandline_args.out_header)
 
 # Generate rewrite_rules.h
-code_emission.emit_rewrite_rules(realRewrite, commandline_args.out_core)
+code_emission.emit_rewrite_rules(realRewrite,commandline_args.out_header)

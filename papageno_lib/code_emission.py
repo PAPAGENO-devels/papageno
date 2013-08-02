@@ -201,9 +201,9 @@ def emit_reduction_tree(vectorTree,out_header_path):
   vectorized_tree_c.write("""};\n#endif""")
   vectorized_tree_c.close()
 
-def emit_rewrite_rules(realRewrite, out_core):
+def emit_rewrite_rules(realRewrite, out_header):
   print "Generating lib/rewrite_rules.c"
-  rewrite_rules_c = open(out_core + "rewrite_rules.c", "w")
+  rewrite_rules_c = open(out_header + "rewrite_rules.h", "w")
   rewrite_rules_c.write("""#ifndef REWRITE_RULES_H_
 #define REWRITE_RULES_H_
 #include "config.h"
