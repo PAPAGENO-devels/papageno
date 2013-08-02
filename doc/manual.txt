@@ -1,0 +1,144 @@
+PAPAGENO -- Parallel Parser Generator for Operator grammars
+===========================================================
+
+PAPAGENO is a parallel parser generator for use with Floyd operator precedence
+grammars. It accepts a Bison-style description of the grammar and produces in 
+output the C implementation of a parallel parser using pthreads.
+
+System requirements
+-------------------
+
+In order to execute the generator the following is needed:
+
+  - Python 2.x
+
+In order to build and execute the parser the following is needed:
+
+  - gcc
+  - Make
+  - GNU Flex
+
+The generated source code employs only standard C library functions and an
+implementation of POSIX threads. The code has been benchmarked on the Linux
+NPTL POSIX thread implementation. The included makefile provides an automated
+regression test employing a Bison generated parser.
+
+Input grammar syntax
+--------------------
+
+The input grammar specification follows a syntax similar to the one used in
+other parser generators such as Yacc/Bison and is expressed as:
+
+  - grammar    = C_preamble, "%%", axiom, "%%", rules;
+  - C_preamble = C_code;
+  - axiom      = "%axiom", token;
+  - rules      = rule, {rule};
+  - rule       = token, ":", rhs, {"|", rhs}, ";";
+  - rhs        = token, {token}, ["{", C_mapped_code, "}"];
+  - token      = alphanum, {alphanum};
+  - alphanum   = ? Every alphanumeric character ?;
+
+where C_code indicates generic C code which will be prefixed to the
+implementation and C_mapped_code expresses generic C code performing the
+semantic action associated to the rule. In this code it is possible to refer
+to the semantic value of the tokens in the rule through the syntax $x, where
+x takes a numeric value (counting from one), to indicate the elements of the
+right hand side of the rule, while $$ indicates the left hand side.
+It is possible to include C style comments in the description of the grammar.
+
+A sample grammar specification for arithmetic expressions is bundled with
+the generator.
+
+Lexicon specification
+---------------------
+
+PAPAGENO employs Flex to generate the lexical analyzer to scan over the text.
+It is necessary to write a in.l file describing the scanner in which each token
+is associated with a correctly formed lex_token. 
+In order to do so the following code needs to be included in the specification
+file:
+
+> %{
+> #include "grammar_tokens.h"
+>
+> struct lex_token {
+>     gr_token token;
+>       void* semantic_value;
+> };
+>
+> extern struct lex_token* flex_token;
+> %}
+
+The scanner should assign the token identifier to the token field of the
+structure and make the semantic_value field point to the correct semantic
+value of the token as follows:
+
+> lex_token->token = <token_value>;
+> flex_token->semantic_value = <pointer_to_semantic_value>; 
+
+Whenever a token is recognized the lexer should return a value different
+than 0, since 0 indicates the end of the input.
+
+How to call the parser
+---------------------
+
+The generated parser is invoked in the source code through the function:
+
+> token_node *parse(int32_t threads, char *file_name);
+
+where <threads> is the number of threads to be used to parse the input and
+<file_name> is the full pathname of the file to be parsed.
+The function returns a pointer to the root of the abstract syntax tree
+resulting from the parsing of the input string.
+
+Using the generator
+---------------------
+
+The generator is invoked with the following syntax:
+
+papageno.py [-h] [--verbose verb] --inputfile inputfile
+                   [--out_header header_outpath] [--out_core source_outpath]
+
+Arguments:
+  -h, --help            show an help message and exit
+  --verbose verb, -v verb
+                        Verbosity level [0-2]
+  --inputfile inputfile, -i inputfile
+                        Grammar description file, mandatory
+  --out_header header_outpath
+                        Location where the output headerfiles should be
+                        generated. Defaults to ./include/ in the calling path
+  --out_core source_outpath
+                        Location where the output C files should be generated.
+                        Defaults to ./lib/ in the calling path
+
+
+The generator executes checks on the input grammar to assess whether it is in
+the required operator form or not. In particular,rules with consecutive 
+nonterminal symbols and precedence conflicts among terminal symbols. 
+Whenever such  problems occur, the generator outputs to stdout diagnostic 
+code that may help in transforming the grammar into the proper form.
+PAPAGENO also checks for repeated right hand sides and automatically 
+eliminates them to ease the parsing process.
+
+
+Output files
+------------
+
+PAPAGENO outputs a C implementation of the parallel operator
+precedence parser constituted by the following files:
+
+- grammar_tokens.h contains the definitions of terminals and nonterminals of
+  the grammar;
+- grammar_semantics.{h,c} contain information regarding the rules of the grammar
+  and the associated semantic actions;
+- grammar.{h,c} contain the actual structure of the grammar;
+- matrix.h contains the precedence matrix employed by the parser;
+- reduction_tree.c contains the reductions to be performed during the parsing
+  process, stored as a prefix tree;
+- rewrite_rules.c contains the generated rewrite sets;
+
+Together with the supplied libraries and headerfiles, they constitute the
+whole parallel parser.
+
+
