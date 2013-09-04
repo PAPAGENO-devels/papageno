@@ -8,8 +8,8 @@ $number_of_executions=3.0;
   3 => 'G80000',
   4 => 'G150000',
   5 => 'G1600000',
-#  6 => 'G10000000',
-#  7 => 'G75000000',
+  6 => 'G10000000',
+  7 => 'G75000000',
 );
 
 while( my($file_idx,$filename) =each(%input_files)){
@@ -35,10 +35,30 @@ while( my($file_idx,$filename) =each(%input_files)){
     $timing_lex[$file_idx][$threadno]  =$lex_time  /$number_of_executions;
   }
 }
-while( my($file_idx,$filename) =each(%input_files)){
-  print "timing for ".$filename." index".$file_idx."\n";
-  foreach $threadno(@thread_number){
-    print $timing_parse[$file_idx][$threadno]." ";
-  }
-  print "\n";
+
+open(LEX_RESULTS,">../results/lex_results.dat");
+open(PARSE_RESULTS,">../results/parse_results.dat");
+
+print LEX_RESULTS "threads ";
+print PARSE_RESULTS "threads ";
+
+foreach $file_idx(sort(keys(%input_files))){
+  print LEX_RESULTS $input_files{$file_idx}."\t";
+  print PARSE_RESULTS $input_files{$file_idx}."\t";
 }
+print LEX_RESULTS "\n";
+print PARSE_RESULTS "\n";
+
+foreach $threadno(@thread_number){
+  print LEX_RESULTS $threadno."\t";
+  print PARSE_RESULTS $threadno."\t";
+  foreach $file_idx(sort(keys(%input_files))){
+    print PARSE_RESULTS $timing_parse[$file_idx][$threadno]."\t";
+    print LEX_RESULTS $timing_lex[$file_idx][$threadno]."\t";
+  }
+  print LEX_RESULTS "\n";
+  print PARSE_RESULTS "\n";
+} 
+
+close(LEX_RESULTS);
+close(PARSE_RESULTS);
