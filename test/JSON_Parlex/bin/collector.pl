@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 $parser_name="./json_parser";
-$number_of_executions=3.0;
-@thread_number=("1","2","3","4");
+$number_of_executions=10.0;
+@thread_number=("2","3","4");
 %input_files=(
   1 => 'G2700',
   2 => 'G30000',

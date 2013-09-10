@@ -1,0 +1,111 @@
+ 
+\documentclass[a4paper,10pt]{article}
+
+\usepackage{times}
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+\usetikzlibrary{arrows}
+\usepackage{pgfplots}
+\usepackage{subfigure}
+\title{}
+\author{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+\end{abstract}
+
+\begin{figure}
+\begin{tikzpicture}[scale=1.5]
+ \begin{axis}[ymode=log,
+              xlabel=Number of Threads, 
+	      ylabel= Time,
+	      grid,
+	      xmin=1,
+	      xmax=4,
+	      enlarge x limits=0.01,
+ 	      every axis y label/.style={at={(ticklabel cs:0.5)}, rotate=90,anchor=near ticklabel,font=\footnotesize},
+ 	      every axis x label/.style={at={(ticklabel cs:0.5)},anchor=near ticklabel,font=\footnotesize}]
+  \addplot[mark=+] table[x=threads,y=G30000]{./parse_results.dat};  
+  \addplot[mark=+] table[x=threads,y=G80000]{./parse_results.dat};
+  \addplot[mark=+] table[x=threads,y=G150000]{./parse_results.dat};
+  \addplot[mark=+] table[x=threads,y=G1600000]{./parse_results.dat};
+  \addplot[mark=+] table[x=threads,y=G10000000]{./parse_results.dat};
+  \addplot[mark=+] table[x=threads,y=G75000000]{./parse_results.dat};
+ \end{axis}
+\end{tikzpicture}
+\caption{JSON Parallel Parse - Laptop (2 cores)}
+\end{figure}
+
+\begin{figure}
+\begin{tikzpicture}
+ \begin{axis}[ymode=log,
+              xlabel=Number of Threads, 
+	      ylabel= Time,
+	      grid,
+	      xmin=1,
+	      xmax=16,
+	      enlarge x limits=0.01,
+ 	      every axis y label/.style={at={(ticklabel cs:0.5)}, rotate=90,anchor=near ticklabel,font=\footnotesize},
+ 	      every axis x label/.style={at={(ticklabel cs:0.5)},anchor=near ticklabel,font=\footnotesize}]
+  \addplot[mark=+] table[x=threads,y=G30000]{./parse_numa.dat};  
+  \addplot[mark=+] table[x=threads,y=G80000]{./parse_numa.dat};
+  \addplot[mark=+] table[x=threads,y=G150000]{./parse_numa.dat};
+  \addplot[mark=+] table[x=threads,y=G1600000]{./parse_numa.dat};
+  \addplot[mark=+] table[x=threads,y=G10000000]{./parse_numa.dat};
+  \addplot[mark=+] table[x=threads,y=G75000000]{./parse_numa.dat};
+ \end{axis}
+\end{tikzpicture}
+\caption{JSON Parallel Parse - Server (16 cores)}
+\end{figure}
+
+\begin{figure}
+\begin{tikzpicture}
+ \begin{axis}[
+              ymode=log,
+              xlabel=Number of Threads, 
+	      ylabel= Time,
+	      grid,
+	      xmin=1,
+	      xmax=4,
+	      enlarge x limits=0.01,
+ 	      every axis y label/.style={at={(ticklabel cs:0.5)}, rotate=90,anchor=near ticklabel,font=\footnotesize},
+ 	      every axis x label/.style={at={(ticklabel cs:0.5)},anchor=near ticklabel,font=\footnotesize}]
+  \addplot[mark=+] table[x=threads,y=G30000]{./lex_results.dat};  
+  \addplot[mark=+] table[x=threads,y=G80000]{./lex_results.dat};
+  \addplot[mark=+] table[x=threads,y=G150000]{./lex_results.dat};
+  \addplot[mark=+] table[x=threads,y=G1600000]{./lex_results.dat};
+  \addplot[mark=+] table[x=threads,y=G10000000]{./lex_results.dat};
+  \addplot[mark=+] table[x=threads,y=G75000000]{./lex_results.dat};
+ \end{axis}
+\end{tikzpicture}
+\caption{JSON Parallel lex - Laptop (2 cores)}
+\end{figure}
+
+\begin{figure}
+\begin{tikzpicture}
+ \begin{axis}[ymode=log,
+              xlabel=Number of Threads, 
+	      ylabel= Time,
+	      grid,
+	      xmin=1,
+	      xmax=16,
+	      enlarge x limits=0.01,
+ 	      every axis y label/.style={at={(ticklabel cs:0.5)}, rotate=90,anchor=near ticklabel,font=\footnotesize},
+ 	      every axis x label/.style={at={(ticklabel cs:0.5)},anchor=near ticklabel,font=\footnotesize}]
+  \addplot[mark=+] table[x=threads,y=G30000]{./lex_numa.dat};  
+  \addplot[mark=+] table[x=threads,y=G80000]{./lex_numa.dat};
+  \addplot[mark=+] table[x=threads,y=G150000]{./lex_numa.dat};
+  \addplot[mark=+] table[x=threads,y=G1600000]{./lex_numa.dat};
+  \addplot[mark=+] table[x=threads,y=G10000000]{./lex_numa.dat};
+  \addplot[mark=+] table[x=threads,y=G75000000]{./lex_numa.dat};
+ \end{axis}
+\end{tikzpicture}
+\caption{JSON Parallel lex - Server (16 cores)}
+\end{figure}
+
+
+\end{document}
