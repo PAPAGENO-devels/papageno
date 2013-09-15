@@ -36,7 +36,7 @@ int main(int argc, char **argv)
     fprintf(stdout, "Json Parallel Parser\n Usage: %s [-j threads] filename\n", argv[0]);
     return 0;
   }
-  parse(threads,0, file_name);
+  parse(threads, threads, file_name);
 
   return 0;
 }

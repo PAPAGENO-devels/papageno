@@ -49,8 +49,8 @@ EXP			[eE]
 MINUS		[-]
 EXPSIGN		[-+]
 DIGIT		[0-9]
-SPACE		" "|\t
-NEWLINE		[\n]
+SPACE		" "|\a|\b|\f|\t|\v
+NEWLINE		\n
 DECIMALINTEGERLITERAL	(-?(0|([1-9][0-9]*)))
 JSONFRACTION	(\.[0-9]+)
 EXPONENTPART	([eE][+-]?[0-9]+)
