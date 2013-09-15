@@ -279,7 +279,7 @@ void compute_lex_token_list(parsing_ctx *ctx, lex_thread_arg *arg, int32_t lex_t
             t = t->next;
           if (t!= NULL && t->token == LPAREN)
             t->token = LPARENFUNC;
-          else{
+          else if (t== NULL || t->token != LPARENFUNC){
             fprintf(stdout, "ERROR> Found function with incomplete body: there are missing parentheses. Exit.\n");
             exit(1);
           }
