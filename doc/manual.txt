@@ -114,11 +114,11 @@ Arguments:
 
 
 The generator executes checks on the input grammar to assess whether it is in
-the required operator form or not. In particular,rules with consecutive 
-nonterminal symbols and precedence conflicts among terminal symbols. 
+the required operator form or not. In particular, rules with consecutive 
+nonterminal symbols and precedence conflicts among terminal symbols are not allowed. 
 Whenever such  problems occur, the generator outputs to stdout diagnostic 
 code that may help in transforming the grammar into the proper form.
-PAPAGENO also checks for repeated right hand sides and automatically 
+PAPAGENO also checks for repeated right hand sides and for renaming rules and automatically 
 eliminates them to ease the parsing process.
 
 
