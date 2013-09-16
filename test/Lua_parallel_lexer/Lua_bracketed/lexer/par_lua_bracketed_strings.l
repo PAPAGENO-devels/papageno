@@ -8,7 +8,7 @@
 #include <string.h>
 
 #include "./../include/flex_token.h"
-#include "./../include/grammar_tokens.h"
+#include "grammar_tokens.h"
 #include "./../include/flex_return_codes_bracketed_strings.h"
 #include "./../include/flex_token_formatting_bracketed_strings.h"
 #include "./../include/delimiter_bracketed_strings.h"
@@ -3061,7 +3061,7 @@ struct lex_token * flex_token = yyextra;
 			 		flex_token->string_buffer[0] = append_to_buffer(flex_token->string_buffer[0], '=', &(flex_token->current_buffer_length[0]),  &(flex_token->allocated_buffer_size[0]));
 			 		j--;
 			 	 }
-			 	 flex_token->string_buffer[0] = append_to_buffer(flex_token->string_buffer[0], '\]', &(flex_token->current_buffer_length[0]),  &(flex_token->allocated_buffer_size[0]));
+			 	 flex_token->string_buffer[0] = append_to_buffer(flex_token->string_buffer[0], ']', &(flex_token->current_buffer_length[0]),  &(flex_token->allocated_buffer_size[0]));
 				 flex_token->string_buffer[0] = append_to_buffer(flex_token->string_buffer[0], '\n', &(flex_token->current_buffer_length[0]),  &(flex_token->allocated_buffer_size[0]));
 				 flex_token->token = STRING;
 				 int32_t length = flex_token->current_buffer_length[0];
@@ -4311,7 +4311,7 @@ struct lex_token * flex_token = yyextra;
 				 		flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '=', &(flex_token->current_buffer_length[flex_token->first_state]),  &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 		i--;
 				 	}
-				 	flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\]', &(flex_token->current_buffer_length[flex_token->first_state]),  &(flex_token->allocated_buffer_size[flex_token->first_state]));
+				 	flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ']', &(flex_token->current_buffer_length[flex_token->first_state]),  &(flex_token->allocated_buffer_size[flex_token->first_state]));
 					flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\n', &(flex_token->current_buffer_length[flex_token->first_state]),  &(flex_token->allocated_buffer_size[flex_token->first_state])); 
 					int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
@@ -5790,7 +5790,7 @@ struct lex_token * flex_token = yyextra;
 				 		flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '=', &(flex_token->current_buffer_length[flex_token->first_state]),  &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 		i--;
 				 	 }
-				 	 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\]', &(flex_token->current_buffer_length[flex_token->first_state]),  &(flex_token->allocated_buffer_size[flex_token->first_state]));
+				 	 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ']', &(flex_token->current_buffer_length[flex_token->first_state]),  &(flex_token->allocated_buffer_size[flex_token->first_state]));
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\n', &(flex_token->current_buffer_length[flex_token->first_state]),  &(flex_token->allocated_buffer_size[flex_token->first_state])); 
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
@@ -6293,7 +6293,7 @@ struct lex_token * flex_token = yyextra;
 				 		flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '=', &(flex_token->current_buffer_length[flex_token->first_state]),  &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 		i--;
 				 	}
-				 	flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\]', &(flex_token->current_buffer_length[flex_token->first_state]),  &(flex_token->allocated_buffer_size[flex_token->first_state]));
+				 	flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ']', &(flex_token->current_buffer_length[flex_token->first_state]),  &(flex_token->allocated_buffer_size[flex_token->first_state]));
 					flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\n', &(flex_token->current_buffer_length[flex_token->first_state]),  &(flex_token->allocated_buffer_size[flex_token->first_state])); 
 					int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					flex_token->string_buffer[flex_token->first_state][length] = '\0';
@@ -6349,7 +6349,7 @@ struct lex_token * flex_token = yyextra;
 				 		flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '=', &(flex_token->current_buffer_length[flex_token->first_state]),  &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 		i--;
 				 	}
-				 	flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\]', &(flex_token->current_buffer_length[flex_token->first_state]),  &(flex_token->allocated_buffer_size[flex_token->first_state]));
+				 	flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ']', &(flex_token->current_buffer_length[flex_token->first_state]),  &(flex_token->allocated_buffer_size[flex_token->first_state]));
 					flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\n', &(flex_token->current_buffer_length[flex_token->first_state]),  &(flex_token->allocated_buffer_size[flex_token->first_state])); 
 					
 					int32_t length = flex_token->current_buffer_length[flex_token->first_state];
@@ -6734,7 +6734,7 @@ struct lex_token * flex_token = yyextra;
 			 		flex_token->string_buffer[flex_token->second_state] = append_to_buffer(flex_token->string_buffer[flex_token->second_state], '=', &(flex_token->current_buffer_length[flex_token->second_state]),  &(flex_token->allocated_buffer_size[flex_token->second_state]));
 			 		i--;
 			 	}
-			 	flex_token->string_buffer[flex_token->second_state] = append_to_buffer(flex_token->string_buffer[flex_token->second_state], '\]', &(flex_token->current_buffer_length[flex_token->second_state]),  &(flex_token->allocated_buffer_size[flex_token->second_state]));
+			 	flex_token->string_buffer[flex_token->second_state] = append_to_buffer(flex_token->string_buffer[flex_token->second_state], ']', &(flex_token->current_buffer_length[flex_token->second_state]),  &(flex_token->allocated_buffer_size[flex_token->second_state]));
 				flex_token->string_buffer[flex_token->second_state] = append_to_buffer(flex_token->string_buffer[flex_token->second_state], '\n', &(flex_token->current_buffer_length[flex_token->second_state]),  &(flex_token->allocated_buffer_size[flex_token->second_state])); 	
 				int32_t length = flex_token->current_buffer_length[flex_token->second_state];
 				flex_token->string_buffer[flex_token->second_state][length] = '\0';
@@ -6752,7 +6752,7 @@ struct lex_token * flex_token = yyextra;
 				 		flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '=', &(flex_token->current_buffer_length[flex_token->first_state]),  &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 		j--;
 				 	 }
-				 	 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\]', &(flex_token->current_buffer_length[flex_token->first_state]),  &(flex_token->allocated_buffer_size[flex_token->first_state]));
+				 	 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ']', &(flex_token->current_buffer_length[flex_token->first_state]),  &(flex_token->allocated_buffer_size[flex_token->first_state]));
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\n', &(flex_token->current_buffer_length[flex_token->first_state]),  &(flex_token->allocated_buffer_size[flex_token->first_state])); 		
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';

@@ -1,6 +1,6 @@
 CC := clang 
 LFLAGS = -lrt -lpthread 
-INCLUDES := -I./include -I./lexer -I../include
+INCLUDES := -I./include -I./lexer -I../../include
 CFLAGS := -UDEBUG -Wall $(INCLUDES)
 #CFLAGS := -O3 -pipe -lpthread -Wall $(INCLUDES)
 SRCDIR := lib
