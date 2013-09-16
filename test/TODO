@@ -1,0 +1,22 @@
+ *  add the string beginning and end terminator to the generator, remove cruft in opp.c/get_precedence
+ *  the list used to rebuild the RHS is at most as long as the RHS (known at generation time): 
+    remove the list structure, substitute with an array with generation-time-known size
+ *  "rewrite" integer array in rewrite_rules is actually the array of LHS, expressed with their corresponding int
+    change the name and remove the generative cruft
+ * Fix test/src/parallel_lex_test so that it handles missing input parameters: e.g. invoking
+ ./opp_parallel_lex namefile causes an abort trap without explanations on the error.
+ * correct the fact that parsing_ctx moves around variables which should be compile time definitions (node realloc multiplier, for instance)
+ * cleanup rewrite_to_axiom
+
+//---
+
+ * In file generator.py we must rename all the tokens and the nonterminals of the input grammar so that they do not create conflicts with reserved keywords as NULL, exp, TERM (which is used internally by Papageno)... 
+A possibility is to add __ at the beginning of the name.
+ * optimization for comments described in file par_in_lua.l
+ * parsing_ctx * ctx come parametro di tutte le funzioni in par_in_lua_bracketed_string.c pu˜ essere sostituito dai soli parametri
+struct token_node *token_list;
+uint32_t token_list_length; 
+oppure si pu˜ usare una variabile globale.
+Probabilmente la stessa modifica si pu˜ eseguire nei parametri delle funzioni di altri moduli
+ * It should be possible to reuse lex thread arguments used for the first phase of lexing also as thread arguments for the second phase of lexing. This should lead to a little gain in execution time (avoid time for malloc thread arguments).
+ * Allocate in advance strings for the semantic values of the tokens, so that malloc requests of the different lexing threads are not serialized, with negative serious consequences in the execution time of the lexing phase
