@@ -45,4 +45,3 @@ void *lex_thread_task(void *arg);
 int8_t handle_empty_file(parsing_ctx *ctx);
 
 #endif
-#endif

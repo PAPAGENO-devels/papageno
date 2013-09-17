@@ -145,5 +145,3 @@ void perform_lexing(int32_t lex_thread_max_num, char *file_name, parsing_ctx *ct
   fclose(f);
 
 }
-
-#endif

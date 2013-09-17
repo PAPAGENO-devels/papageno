@@ -1,4 +1,3 @@
-#if PARLEX
 #ifndef PAR_LEX_LUA_H_
 #define PAR_LEX_LUA_H_
 
@@ -52,5 +51,4 @@ void *lex_thread_task(void *arg);
 int8_t handle_empty_file(parsing_ctx *ctx);
 
 
-#endif
 #endif
