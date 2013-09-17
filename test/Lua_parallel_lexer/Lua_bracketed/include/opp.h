@@ -13,7 +13,7 @@
 #include "reduction_list.h"
 #include "grammar.h"
 
-#include "lex.h"
+#include "par_lex.h"
 
 #include "grammar_tokens.h"
 #include "parsing_context.h"

@@ -16,7 +16,6 @@
 
 #define YY_USER_ACTION flex_token->num_chars += yyleng;
 
-
 /*TODO: 
 -ottimizzazione da aggiungere: 
 Crea una tabella hash che memorizza le classi di simboli di commenti chiusi (identificati dal numero di '=') gia' incontrati dall'inizio del chunk.
@@ -156,7 +155,7 @@ struct lex_token * flex_token = yyextra;
 				 //// flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "do", 2);
-				 return LEX_CORRECT;
+				 return INSERT_DELIMITER;
                                 } 
 <onelist_INITIAL>{ELSE}		{flex_token->token = ELSE;
 				 /* Semantic value stub. */
@@ -217,7 +216,7 @@ struct lex_token * flex_token = yyextra;
 				 ////flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "if", 2);
-				 return LEX_CORRECT;
+				 return INSERT_DELIMITER;
                                 } 
 <onelist_INITIAL>{IN}		{flex_token->token = IN;
 				 /* Semantic value stub. */
@@ -391,7 +390,7 @@ struct lex_token * flex_token = yyextra;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "end", 3);
 				 BEGIN(onelist_endStat1);			
-				 return LEX_CORRECT;
+				 return INSERT_DELIMITER;
                                 }
 <onelist_INITIAL>{BREAK}		{flex_token->token = BREAK;
 				 /* Semantic value stub. */
@@ -1019,9 +1018,9 @@ struct lex_token * flex_token = yyextra;
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "do", 2);
 				 BEGIN(onelist_INITIAL);
 				 if(flex_token->read_new_line == 1)			
-					return ADD_SEMI;
+					return INSERT_DELIMITER_ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return INSERT_DELIMITER;
                                 }
 <onelist_endStat1>{WHILE}		{flex_token->token = WHILE;
 				 /* Semantic value stub. */
@@ -1061,9 +1060,9 @@ struct lex_token * flex_token = yyextra;
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "if", 2);
 				 BEGIN(onelist_INITIAL);
 				 if(flex_token->read_new_line == 1)			
-					return ADD_SEMI;
+					return INSERT_DELIMITER_ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return INSERT_DELIMITER;
                                 }
 <onelist_endStat1>{FOR}		{flex_token->token = FOR;
 				 /* Semantic value stub. */
@@ -1281,7 +1280,7 @@ struct lex_token * flex_token = yyextra;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "end", 3);
 				 flex_token->read_new_line = 0;	
-				 return LEX_CORRECT;
+				 return INSERT_DELIMITER;
                                 }
 <onelist_endStat1>{RBRACK}		{flex_token->token = RBRACK;
 				 /* Semantic value stub. */
@@ -1731,9 +1730,9 @@ struct lex_token * flex_token = yyextra;
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "do", 2);
 				 BEGIN(onelist_INITIAL);
 				 if(flex_token->read_new_line == 1)			
-					return ADD_SEMI;
+					return INSERT_DELIMITER_ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return INSERT_DELIMITER;
                                 }
 <onelist_endStat2>{WHILE}		{flex_token->token = WHILE;
 				 /* Semantic value stub. */
@@ -1773,9 +1772,9 @@ struct lex_token * flex_token = yyextra;
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "if", 2);
 				 BEGIN(onelist_INITIAL);
 				 if(flex_token->read_new_line == 1)			
-					return ADD_SEMI;
+					return INSERT_DELIMITER_ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return INSERT_DELIMITER;
                                 }
 <onelist_endStat2>{FOR}		{flex_token->token = FOR;
 				 /* Semantic value stub. */
@@ -2000,7 +1999,7 @@ struct lex_token * flex_token = yyextra;
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "end", 3);
 				 flex_token->read_new_line = 0;	
 				 BEGIN(onelist_endStat1);			
-				 return LEX_CORRECT;
+				 return INSERT_DELIMITER;
                                 }
 <onelist_endStat2>{RBRACK}		{flex_token->token = RBRACK;
 				 /* Semantic value stub. */
@@ -3685,7 +3684,7 @@ struct lex_token * flex_token = yyextra;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "do", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
-				 return LEX_CORRECT;
+				 return INSERT_DELIMITER;
                                 }
 <twolists_INITIAL>{WHILE}		{flex_token->token = WHILE;
 				 /* Semantic value stub. */
@@ -3718,7 +3717,7 @@ struct lex_token * flex_token = yyextra;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "if", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
-				 return LEX_CORRECT;
+				 return INSERT_DELIMITER;
                                 }
 <twolists_INITIAL>{FOR}		{flex_token->token = FOR;
 				 /* Semantic value stub. */
@@ -3942,7 +3941,7 @@ struct lex_token * flex_token = yyextra;
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "end", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_endStat1);
-				 return LEX_CORRECT;
+				 return INSERT_DELIMITER;
                                 }
 <twolists_INITIAL>{RBRACK}		{flex_token->token = RBRACK;
 				 /* Semantic value stub. */
@@ -4762,9 +4761,9 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
 				 if(flex_token->read_new_line == 1)			
-					return ADD_SEMI;
+					return INSERT_DELIMITER_ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return INSERT_DELIMITER;
                                 }
 <twolists_endStat1,twolists_endStat2>{WHILE}		{flex_token->token = WHILE;
 				 /* Semantic value stub. */
@@ -4807,9 +4806,9 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
 				 if(flex_token->read_new_line == 1)			
-					return ADD_SEMI;
+					return INSERT_DELIMITER_ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return INSERT_DELIMITER;
                                 }
 <twolists_endStat1,twolists_endStat2>{FOR}		{flex_token->token = FOR;
 				 /* Semantic value stub. */
@@ -5046,7 +5045,7 @@ struct lex_token * flex_token = yyextra;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "end", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
-				 return LEX_CORRECT;
+				 return INSERT_DELIMITER;
                                 }
 <twolists_endStat1>{RBRACK}		{flex_token->token = RBRACK;
 				 /* Semantic value stub. */
@@ -5561,7 +5560,7 @@ struct lex_token * flex_token = yyextra;
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "end", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_endStat1);
-				 return LEX_CORRECT;
+				 return INSERT_DELIMITER;
                                 }
 <twolists_endStat2>{RBRACK}		{flex_token->token = RBRACK;
 				 /* Semantic value stub. */

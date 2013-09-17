@@ -124,10 +124,13 @@ void compute_lex_token_list(parsing_ctx *ctx, lex_thread_arg *arg, int32_t lex_t
   int32_t i = 0;
   token_node * t;
   uint8_t check_end_chunk[lex_thread_num];
-  delimiter * d, * d1;
+  delimiter * d, * d1, *top = NULL;
   int32_t current_thread = 0, next_delimiter_thread = 0;
-  int32_t braces_difference = 0, added_tokens = 0;
+  int32_t added_tokens = 0;
   int8_t current_branch = 0;
+
+  //Stack used to distinguish the body of a function from the context of a table
+  context_delimiter *func_table_stack = NULL;
 
   last_linked_token1 = NULL;
   last_linked_token1_next = NULL;
@@ -176,7 +179,6 @@ void compute_lex_token_list(parsing_ctx *ctx, lex_thread_arg *arg, int32_t lex_t
     exit(1);
   }
   init_table(hash_prev_minus, hash_prev_minus_size, prev_minus, prev_minus_length);
-
 
   //Merge the token lists of the chunks.
   ctx->token_list_length = 0;
@@ -291,7 +293,7 @@ void compute_lex_token_list(parsing_ctx *ctx, lex_thread_arg *arg, int32_t lex_t
       switch (d->type.token)
       {
         case XEQ:
-          if (braces_difference > 0)
+          if (top_context(func_table_stack) == 1)
             d->last_token[current_branch]->token = EQ;
           if (current_branch == 0)
             d = next_delimiter(arg, lex_thread_num, &current_thread, d, current_thread);
@@ -299,32 +301,46 @@ void compute_lex_token_list(parsing_ctx *ctx, lex_thread_arg *arg, int32_t lex_t
             d = d->next[1];
           break;
         case LBRACE:
-          braces_difference++;
+        case DO:
+        case IF:
+          push_context(&func_table_stack, d);
           if (current_branch == 0)
             d = next_delimiter(arg, lex_thread_num, &current_thread, d, current_thread);
           else
             d = d->next[1];
           break;
         case RBRACE:
-          if (braces_difference == 0) {
+          top = pop_context(&func_table_stack);
+          if (!(top != NULL && top->type_class == 0 && top->type.token == LBRACE)) {
             fprintf(stdout, "Input file has non balanced braces. Exit.\n");
             exit(1);
           }
-          braces_difference--;
           if (current_branch == 0)
             d = next_delimiter(arg, lex_thread_num, &current_thread, d, current_thread);
           else
             d = d->next[1];
           break;  
         case SEMI:
-          if (braces_difference > 0)
+          if (top_context(func_table_stack) == 1)
             d->last_token[0]->token = SEMIFIELD;
           if (current_branch == 0)
             d = next_delimiter(arg, lex_thread_num, &current_thread, d, current_thread);
           else
             d = d->next[1];
-          break;  
+          break; 
+        case END:
+          top = pop_context(&func_table_stack);
+          if (top == NULL || (top->type_class == 0 && top->type.token == LBRACE)) {
+            fprintf(stdout, "Input file has non balanced open and closed contexts. Exit.\n");
+            exit(1);
+          }
+          if (current_branch == 0)
+            d = next_delimiter(arg, lex_thread_num, &current_thread, d, current_thread);
+          else
+            d = d->next[1];
+          break;    
         case FUNCTION:
+          push_context(&func_table_stack, d);
           next_delimiter_thread = current_thread;
           int8_t next_branch = current_branch;
           if (current_branch == 0)
@@ -398,10 +414,18 @@ void compute_lex_token_list(parsing_ctx *ctx, lex_thread_arg *arg, int32_t lex_t
       d = handle_comment(ctx, arg, lex_thread_num, d, &current_thread, &current_branch, d->last_token[current_branch], current_thread, check_end_chunk);
     }
     else {
-      //the delimiter is a bracket delimiter
-      d = handle_bracket_delimiter(ctx, arg, lex_thread_num, d, &current_thread, &current_branch, check_end_chunk);
+      if (d->type.bracket_delimiter == CHECKED_FUNCTION) 
+        {//the delimiter is CHECKED_FUNCTION
+        push_context(&func_table_stack, d);
+        if (current_branch == 0)
+          d = next_delimiter(arg, lex_thread_num, &current_thread, d, current_thread);
+        else
+          d = d->next[1];
+      }
+      else {//the delimiter is a bracket delimiter
+        d = handle_bracket_delimiter(ctx, arg, lex_thread_num, d, &current_thread, &current_branch, check_end_chunk);
+      }
     }
-
   }
 
   //Check whether a SEMI must be inserted between the end of the token list of a chunk and the beginning of the following one, and check the presence of token MINUS/UMINUS.
@@ -944,7 +968,10 @@ delimiter * handle_bracket_delimiter(parsing_ctx *ctx, lex_thread_arg *arg, int3
     case ERROR_STRING_CHAR_MAX:
       fprintf(stdout, "ERROR> Unexpected character in the input file. Exit.\n");
       exit(1);
-      break;  
+      break; 
+    default:
+      DEBUG_STDOUT_PRINT("ERROR> Found unexpected token in the delimiter list. Aborting.\n");
+      exit(1);
   }
 
   *current_thread = next_delimiter_thread;
@@ -1086,6 +1113,12 @@ void *lex_thread_task(void *arg)
           function_current_delim_pos = delimiter_builder[token_list_number];
           function_token_list_number = token_list_number;
         }
+        if (flex_token->token == RPARENFUNC) {
+          //insert delimiter CHECKED_FUNCTION into the delimiter list
+          delimiter_union.bracket_delimiter = CHECKED_FUNCTION;
+          par_append_delimiter(delimiter_union, 2, token_list_number, token_builder[token_list_number], &(delimiter_builder[token_list_number]), &(ar->delimiter_list[token_list_number]), &(delim_stack[token_list_number]), delimiter_realloc_size[token_list_number]);
+          DEBUG_STDOUT_PRINT("Lexing thread %d inserted delimiter CHECKED_FUNCTION\n", ar->id)       
+        }
         break;
       case LEX_CORRECT_INSERT_RBRACK_RBRACK:
         par_append_token_node(RBRACK, "]", &(token_builder[token_list_number]), &(ar->list_begin[token_list_number]), &(stack[token_list_number]), realloc_size[token_list_number]);
@@ -1108,6 +1141,19 @@ void *lex_thread_task(void *arg)
           function_token_list_number = token_list_number;
         }
         break;
+      case INSERT_DELIMITER_ADD_SEMI:
+        //append both SEMI and token to the token list
+        par_append_token_node(SEMI, ";", &(token_builder[token_list_number]), &(ar->list_begin[token_list_number]), &(stack[token_list_number]), realloc_size[token_list_number]);
+        DEBUG_STDOUT_PRINT("Lexing thread %d added token SEMI\n", ar->id)           
+        par_append_token_node(flex_token->token, flex_token->semantic_value[token_list_number], &(token_builder[token_list_number]), &(ar->list_begin[token_list_number]), &(stack[token_list_number]), realloc_size[token_list_number]);
+        DEBUG_STDOUT_PRINT("Lexing thread %d read token : %x = %s\n", ar->id, flex_token->token, (char *)flex_token->semantic_value[token_list_number])     
+        number_tokens_from_last_comment_string[token_list_number] += 2;
+        DEBUG_STDOUT_PRINT("Lexing thread %d:number_tokens_from_last_comment_string[%d] = %d\n", ar->id, token_list_number, number_tokens_from_last_comment_string[token_list_number])
+        //Insert delimiter into the delimiter list.
+        delimiter_union.token = flex_token->token;
+        par_append_delimiter(delimiter_union, 0, token_list_number, token_builder[token_list_number], &(delimiter_builder[token_list_number]), &(ar->delimiter_list[token_list_number]), &(delim_stack[token_list_number]), delimiter_realloc_size[token_list_number]);
+        DEBUG_STDOUT_PRINT("Lexing thread %d inserted delimiter %x = %s\n", ar->id, flex_token->token, (char *)flex_token->semantic_value[token_list_number])     
+        break;  
       case INSERT_DELIMITER:
         if (flex_token->token != FUNCTION){
           par_append_token_node(flex_token->token, flex_token->semantic_value[token_list_number], &(token_builder[token_list_number]), &(ar->list_begin[token_list_number]), &(stack[token_list_number]), realloc_size[token_list_number]);
@@ -1420,6 +1466,9 @@ void *lex_thread_task(void *arg)
             if (flex_token->state != SINGLE_COMMENT)
               ar->error_comment_or_bracketed_string = 1;    
             break;
+          default:
+            DEBUG_STDOUT_PRINT("ERROR> Found unexpected token in the delimiter list. Aborting.\n");
+            exit(1);
         }
         break;
       case INSERT_STRING_WITH_BRACKETS:

@@ -7,6 +7,7 @@
 #include "utilities.h"
 #include "debug_functions.h"
 #include "delimiter_stack_bracketed_strings.h"
+#include "context_stack_bracketed_strings.h"
 #include "token_list.h"
 #include "flex_return_codes_bracketed_strings.h"
 #include "flex_token_formatting_bracketed_strings.h"

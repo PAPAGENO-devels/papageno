@@ -25,16 +25,16 @@ void pretty_print_parse_status(uint32_t parse_status){
    fprintf(stdout, "Parse action finished:");
    switch (parse_status){
      case PARSE_SUCCESS:
-       fprintf(stderr,  "Successful parse\n");
+       fprintf(stdout,  "Successful parse\n");
        break;
      case PARSE_NOT_RECOGNIZED:
-      fprintf(stderr, "The string does not to the language\n");
+      fprintf(stdout, "The string does not belong to the language\n");
       break;
      case PARSE_IN_PROGRESS:
-      fprintf(stderr, "Chunk parse ended, more parsing to be done\n");
+      fprintf(stdout, "Chunk parse ended, more parsing to be done\n");
       break;
      default:
-      fprintf(stderr, "Invalid return code\n");
+      fprintf(stdout, "Invalid return code\n");
   }  
 }
 
@@ -65,7 +65,7 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
   portable_clock_gettime(&lex_timer_start);
 
   DEBUG_STDOUT_PRINT("OPP> Lexing...\n")
-  perform_lexing(file_name, &ctx);
+  perform_lexing(lex_thread_max_num,file_name, &ctx);
   portable_clock_gettime(&lex_timer_end);
   
   portable_clock_gettime(&parse_timer_start);
