@@ -7,9 +7,11 @@
 #include "utilities.h"
 #include "debug_functions.h"
 #include "delimiter_stack.h"
+#include "context_stack.h"
 #include "token_list.h"
 #include "flex_return_codes.h"
 #include "flex_token_formatting.h"
+#include "flex_token.h"
 
 #include "flex.yy.h"
 
@@ -25,22 +27,6 @@ typedef struct lex_thread_arg {
   uint32_t alloc_size, realloc_size;
   uint8_t need_end_comment; /**< If it is 1, there is an error if the chunk is not followed by an ending comment symbol; otherwise it is 0. */
 } lex_thread_arg;
-
-
-typedef struct lex_token {
-  gr_token token;       /**< The gr_token representation of the token. */
-  void *semantic_value; /**< The semantic value of the token. */
-  int32_t comment_type;
-  int8_t state_before_comment;
-  uint32_t chunk_length;
-  int32_t num_chars;
-  int8_t read_new_line;
-  int32_t allocated_buffer_size;
-  char* string_buffer; /**< Buffer for a string token. */
-  int32_t current_buffer_length;
-} lex_token;
-
-/*lex_token is used by flex to save the tokens inside lex_token_list.*/
 
 
 int32_t find_cut_points(FILE* f, int32_t file_length, int32_t **cut_points, int32_t lex_thread_max_num);

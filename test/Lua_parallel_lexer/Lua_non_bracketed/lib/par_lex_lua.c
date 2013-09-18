@@ -109,9 +109,13 @@ void compute_lex_token_list(parsing_ctx *ctx, lex_thread_arg *arg, int32_t lex_t
   int32_t i = 0;
   token_node * t;
   uint8_t check_end_chunk[lex_thread_num];
-  delimiter * d, * d1;
+  delimiter * d, * d1, *top = NULL;
   int32_t current_thread = 0, next_delimiter_thread = 0;
-  int32_t braces_difference = 0, added_tokens = 0;
+  int32_t added_tokens = 0;
+
+  //Stack used to distinguish the body of a function from the context of a table
+  context_delimiter *func_table_stack = NULL;
+
 
   // Initialize hash tables:
   // ENDSTAT      (NIL|FALSE|TRUE|NUMBER|DOT3|RBRACE|RPAREN|RBRACK|NAME|END|BREAK|STRING)
@@ -245,66 +249,81 @@ void compute_lex_token_list(parsing_ctx *ctx, lex_thread_arg *arg, int32_t lex_t
       switch (d->type.token)
       {
         case XEQ:
-          if (braces_difference > 0)
+          if (top_context(func_table_stack) == 1)
             d->last_token->token = EQ;
           d = next_delimiter(arg, lex_thread_num, &current_thread, d, current_thread);
           break;
         case LBRACE:
-          braces_difference++;
+        case DO:
+        case IF:
+          push_context(&func_table_stack, d);
           d = next_delimiter(arg, lex_thread_num, &current_thread, d, current_thread);
           break;
         case RBRACE:
-          if (braces_difference == 0) {
+          top = pop_context(&func_table_stack);
+          if (!(top != NULL && top->type_class == 0 && top->type.token == LBRACE)) {
             fprintf(stdout, "Input file has non balanced braces. Exit.\n");
             exit(1);
           }
-          braces_difference--;
           d = next_delimiter(arg, lex_thread_num, &current_thread, d, current_thread);
           break;  
         case SEMI:
-          if (braces_difference > 0)
+          if (top_context(func_table_stack) == 1)
             d->last_token->token = SEMIFIELD;
+          d = next_delimiter(arg, lex_thread_num, &current_thread, d, current_thread);
+          break; 
+        case END:
+          top = pop_context(&func_table_stack);
+          if (top == NULL || (top->type_class == 0 && top->type.token == LBRACE)) {
+            fprintf(stdout, "Input file has non balanced open and closed contexts. Exit.\n");
+            exit(1);
+          }
           d = next_delimiter(arg, lex_thread_num, &current_thread, d, current_thread);
           break;  
         case FUNCTION:
-          d1 = next_delimiter(arg, lex_thread_num, &next_delimiter_thread, d, current_thread);
-          //Handle all the possible comments which follow the delimiter FUNCTION.
-          while (d1 != NULL && d1->type_class == 1 && d1->type.comment != -1){
-            d1 = handle_comment(ctx, arg, lex_thread_num, d1, &next_delimiter_thread, check_end_chunk);
-          }
-          //Replace LPAREN and RPAREN with tokens LPARENFUNC and RPARENFUNC.
-          t = d->last_token; //token FUNCTION
-          t = t->next;
-          while (t!= NULL && (t->token == NAME || t->token == DOT || t->token == COLON))
-            t = t->next;
-          if (t!= NULL && t->token == LPAREN)
-            t->token = LPARENFUNC;
-          else if (t== NULL || t->token != LPARENFUNC){
-            fprintf(stdout, "ERROR> Found function with incomplete body: there are missing parentheses. Exit.\n");
-            exit(1);
-          }
-          t = t->next;
-          while (t!= NULL && (t->token == NAME || t->token == DOT3 || t->token == COMMA))
-            t = t->next;
-          if (t!= NULL && t->token == RPAREN)
-            t->token = RPARENFUNC;
-          else{
-            fprintf(stdout, "ERROR> Found function with incomplete body: there are missing parentheses. Exit.\n");
-            exit(1);
-          }
-          //Check if the token following RPAREN is a SEMI and check if it must be removed from the token list or not.
-          token_node * t1 = t->next;
-          if (t1!= NULL && t1->token == SEMI)
-          {//If the following delimiter is SEMI, then it has been already in the input file; otherwise it was added and must thus be removed.
-            if(!(d1 != NULL && d1->type_class == 0 && d1->type.token == SEMI && d1->last_token == t1))
-            {//Remove SEMI from the token list.
-              t->next = t1->next;
-              (ctx->token_list_length)--;
-              DEBUG_STDOUT_PRINT("ctx->token_list_length = %d\n", ctx->token_list_length)
+          push_context(&func_table_stack, d);
+          if (d->checked == 0) {
+            d1 = next_delimiter(arg, lex_thread_num, &next_delimiter_thread, d, current_thread);
+            //Handle all the possible comments which follow the delimiter FUNCTION.
+            while (d1 != NULL && d1->type_class == 1 && d1->type.comment != -1){
+              d1 = handle_comment(ctx, arg, lex_thread_num, d1, &next_delimiter_thread, check_end_chunk);
             }
+            //Replace LPAREN and RPAREN with tokens LPARENFUNC and RPARENFUNC.
+            t = d->last_token; //token FUNCTION
+            t = t->next;
+            while (t!= NULL && (t->token == NAME || t->token == DOT || t->token == COLON))
+              t = t->next;
+            if (t!= NULL && t->token == LPAREN)
+              t->token = LPARENFUNC;
+            else if (t== NULL || t->token != LPARENFUNC){
+              fprintf(stdout, "ERROR> Found function with incomplete body: there are missing parentheses. Exit.\n");
+              exit(1);
+            }
+            t = t->next;
+            while (t!= NULL && (t->token == NAME || t->token == DOT3 || t->token == COMMA))
+              t = t->next;
+            if (t!= NULL && t->token == RPAREN)
+              t->token = RPARENFUNC;
+            else{
+              fprintf(stdout, "ERROR> Found function with incomplete body: there are missing parentheses. Exit.\n");
+              exit(1);
+            }
+            //Check if the token following RPAREN is a SEMI and check if it must be removed from the token list or not.
+            token_node * t1 = t->next;
+            if (t1!= NULL && t1->token == SEMI)
+            {//If the following delimiter is SEMI, then it has been already in the input file; otherwise it was added and must thus be removed.
+              if(!(d1 != NULL && d1->type_class == 0 && d1->type.token == SEMI && d1->last_token == t1))
+              {//Remove SEMI from the token list.
+                t->next = t1->next;
+                (ctx->token_list_length)--;
+                DEBUG_STDOUT_PRINT("ctx->token_list_length = %d\n", ctx->token_list_length)
+              }
+            }
+            current_thread = next_delimiter_thread;          
+            d = d1;
           }
-          current_thread = next_delimiter_thread;          
-          d = d1;
+          else
+            d = next_delimiter(arg, lex_thread_num, &current_thread, d, current_thread);
           break;        
         default:
           DEBUG_STDOUT_PRINT("ERROR> Found unexpected token in the delimiter list. Aborting.\n");
@@ -637,6 +656,7 @@ void *lex_thread_task(void *arg)
   flex_token->chunk_length = chunk_length;
   flex_token->num_chars = 0;
   flex_token->read_new_line = 0;
+  flex_token->insert_function = 0;
   flex_token->allocated_buffer_size = MAX_BUFFER_SIZE;
   flex_token->string_buffer = (char*) malloc(sizeof(char)*MAX_BUFFER_SIZE); 
   if (flex_token->string_buffer == NULL) {
@@ -679,7 +699,7 @@ void *lex_thread_task(void *arg)
     //If the delimiters' list is empty when yylex returns a token FUNCTION, then the current position which is saved is NULL: if afterwards FUNCTION should be
     //inserted into the delimiters' list, then it would be put at the head of the list.
   
-    if (flex_return_code == LEX_CORRECT) 
+    if (flex_return_code == LEX_CORRECT)
     {
       par_append_token_node(flex_token->token, flex_token->semantic_value, &token_builder, &(ar->list_begin), &stack, realloc_size);
       DEBUG_STDOUT_PRINT("Lexing thread %d read token : %x = %s\n", ar->id, flex_token->token, (char *)flex_token->semantic_value)
@@ -689,6 +709,14 @@ void *lex_thread_task(void *arg)
       {
         function_token_pos = token_builder;
         function_current_delim_pos = delimiter_builder;
+      }
+      else if (flex_token->token == RPARENFUNC) {
+        //insert delimiter FUNCTION into the delimiter list with flag checked set to 1; this delimiter will be used to distinguish between the context of a function and a table.
+        //The value of the last token is thus not relevant.
+        delimiter_union.token = FUNCTION;
+        par_append_delimiter(delimiter_union, 0, 0, token_builder, &delimiter_builder, &(ar->delimiter_list), &delim_stack, delimiter_realloc_size);
+        DEBUG_STDOUT_PRINT("Lexing thread %d inserted delimiter FUNCTION (checked).\n", ar->id)
+        delimiter_builder->checked = 1;
       }
     }
     else if (flex_return_code == INSERT_DELIMITER)
@@ -716,7 +744,20 @@ void *lex_thread_task(void *arg)
         function_current_delim_pos = delimiter_builder;
       }
     }
-
+    else if (flex_return_code == INSERT_DELIMITER_ADD_SEMI)
+    {//append both SEMI and token to the token list
+      par_append_token_node((gr_token) SEMI, ";", &token_builder, &(ar->list_begin), &stack, realloc_size);
+      DEBUG_STDOUT_PRINT("Lexing thread %d added token SEMI\n", ar->id)           
+      par_append_token_node(flex_token->token, flex_token->semantic_value, &token_builder, &(ar->list_begin), &stack, realloc_size);
+      DEBUG_STDOUT_PRINT("Lexing thread %d read token : %x = %s\n", ar->id, flex_token->token, (char *)flex_token->semantic_value)     
+      number_tokens_from_last_comment += 2;
+      DEBUG_STDOUT_PRINT("Lexing thread %d:number_tokens_from_last_comment = %d\n", ar->id, number_tokens_from_last_comment)
+      //Note that flex_token->token can be only IF or DO, not FUNCTION).
+      //Insert delimiter into the delimiter list.
+      delimiter_union.token = flex_token->token;
+      par_append_delimiter(delimiter_union, 0, 0, token_builder, &delimiter_builder, &(ar->delimiter_list), &delim_stack, delimiter_realloc_size);
+      DEBUG_STDOUT_PRINT("Lexing thread %d inserted delimiter %x = %s\n", ar->id, flex_token->token, (char *)flex_token->semantic_value)
+    }
 
     //3)Insert comment symbol into the delimiter list.
     //Handle return codes INSERT_COMMENT, INSERT_SINGLEMULTICOMMENT, END_CHUNK_INSERT_COMMENT, END_CHUNK_INSERT_SINGLEMULTICOMMENT.
@@ -725,11 +766,11 @@ void *lex_thread_task(void *arg)
       //If the return code is INSERT_COMMENT, INSERT_SINGLEMULTICOMMENT, END_CHUNK_INSERT_COMMENT or END_CHUNK_INSERT_SINGLEMULTICOMMENT,
       //and the number of equal signs in the comment symbol is 0, the symbol of comment could be also RBRACK RBRACK and the two parentheses should
       //be put into the token list (the pointer of the delimiter of the comment symbol will keep the position of the second RBRACK in the token listen).
-      //However, if the semantic value is "function", the symbol must be a comment (otherwise it would be an error).
+      //However, if flex_token->insert_function equals 1, the symbol must be a comment (otherwise it would be an error).
       //Furthermore, if the return code is INSERT_SINGLEMULTICOMMENT or END_CHUNK_INSERT_SINGLEMULTICOMMENT, the two parentheses belong to the singleline comment
       //since they are immediately followed by a newline; thus it is not necessary to insert them into the token list.
       //Thus, only INSERT_COMMENT and END_CHUNK_INSERT_COMMENT should be considered.
-      if (flex_token->comment_type == -1 && (flex_token->semantic_value == NULL || strcmp(flex_token->semantic_value,"function") != 0)) {
+      if (flex_token->comment_type == -1 && flex_token->insert_function != 1) {
          par_append_token_node((gr_token) RBRACK, "]", &token_builder, &(ar->list_begin), &stack, realloc_size);      
          par_append_token_node((gr_token) RBRACK, "]", &token_builder, &(ar->list_begin), &stack, realloc_size);
          DEBUG_STDOUT_PRINT("Lexing thread %d added tokens RBRACK RBRACK to the token list.\n", ar->id)     
@@ -757,10 +798,12 @@ void *lex_thread_task(void *arg)
 
     //4)If the end of the chunk or a comment occurred while reading a function declaration, then insert token FUNCTION into the delimiter list at the position saved beforehand while
     //reading the token. The delimiter has a pointer to the position of FUNCTION in the token list.
-    if (flex_token->semantic_value != NULL && strcmp(flex_token->semantic_value, "function") == 0)
+    if (flex_token->insert_function == 1)
     {
+      flex_token->insert_function = 0;
       delimiter_union.token = FUNCTION;
       par_insert_delimiter(delimiter_union, 0, 0, function_token_pos, &delimiter_builder, function_current_delim_pos, &(ar->delimiter_list), &delim_stack, delimiter_realloc_size);
+      delimiter_builder->checked = 0;
       DEBUG_STDOUT_PRINT("Lexing thread %d inserted delimiter FUNCTION\n", ar->id)     
     }
     //5)Continue to scan the chunk
