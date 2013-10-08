@@ -1,9 +1,8 @@
 CC := clang 
-#LFLAGS = -lrt -lpthread 
-LFLAGS = -lpthread 
+LFLAGS = -lrt -lpthread 
+#for MacOSX: LFLAGS = -lpthread 
 INCLUDES := -I./include -I./lexer -I../include
-# CFLAGS := -UDEBUG -Wall $(INCLUDES)
-CFLAGS := -DDEBUG -Wall $(INCLUDES)
+CFLAGS := -UDEBUG -Wall $(INCLUDES)
 #CFLAGS := -O3 -pipe -lpthread -Wall $(INCLUDES)
 SRCDIR := lib
 SRC := $(wildcard $(SRCDIR)/*.c)
