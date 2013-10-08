@@ -15,6 +15,9 @@ NEWLINE [\n]
 %{
 
 #include <stdlib.h>
+#include <stdint.h>
+#include <string.h>
+#include <limits.h>
 
 #include "grammar_tokens.h"
 #include "flex_return_codes.h"
@@ -26,32 +29,38 @@ struct lex_token {
 
 extern struct lex_token* flex_token;
 char *ch;
+uint32_t *num;
 
 %}
 
 <INITIAL>{LPAR}  {flex_token->token = LPAR;
-        char ch = '(';
-        flex_token->semantic_value = (void*) &ch;
+        ch = (char*) malloc(sizeof(char));
+        *ch = '(';
+        flex_token->semantic_value = (void*) ch;
         return LEX_CORRECT;}
 <INITIAL>{RPAR}  {flex_token->token = RPAR;
-        char ch = ')';
-        flex_token->semantic_value = (void*) &ch;
+        ch = (char*) malloc(sizeof(char));
+        *ch = ')';
+        flex_token->semantic_value = (void*) ch;
         return LEX_CORRECT;}
 <INITIAL>{TIMES} {flex_token->token = TIMES;
-        char ch = '*';
-        flex_token->semantic_value = (void*) &ch;
+        ch = (char*) malloc(sizeof(char));
+        *ch = '*';
+        flex_token->semantic_value = (void*) ch;
         return LEX_CORRECT;}
 <INITIAL>{PLUS}  {flex_token->token = PLUS;
-        char ch = '+';
-        flex_token->semantic_value = (void*) &ch;
+        ch = (char*) malloc(sizeof(char));
+        *ch = '+';
+        flex_token->semantic_value = (void*) ch;
         return LEX_CORRECT;}
 <INITIAL>{DIGIT}+ {flex_token->token = NUMBER;
-        long32_t num = strtol(yytext, NULL, 10);
-        if ((num == LONG_MAX || num == LONG_MIN) && errno == ERANGE) {
+        num = (uint32_t*) malloc(sizeof(uint32_t));
+        *num = strtoul(yytext, NULL, 10);
+        if ((*num == ULONG_MAX && errno == ERANGE) || (*num == 0 && errno == EINVAL)) {
            /* Could not convert. */
            return ERROR;
         }
-        flex_token->semantic_value = (void*) &num;
+        flex_token->semantic_value = (void*) num;
         return LEX_CORRECT;}
 <INITIAL>{SPACE}			{}
 <INITIAL>{NEWLINE}			{}

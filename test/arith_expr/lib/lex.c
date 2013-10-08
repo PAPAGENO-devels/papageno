@@ -24,7 +24,7 @@ void append_token_node(lex_token *token, token_node **token_builder, parsing_ctx
 
 void perform_lexing(char *file_name, parsing_ctx *ctx)
 {
-  uint32_t token_list_length = 0, alloc_size = 0, realloc_size = 0;
+  uint32_t token_list_length = 0, alloc_size = 0, realloc_size = 0, i;
   int8_t flex_return_code;
   token_node *token_builder = NULL;
   token_node_stack stack;
@@ -56,4 +56,23 @@ void perform_lexing(char *file_name, parsing_ctx *ctx)
 
   ctx->token_list_length = token_list_length;
   fclose(yyin);
+
+  //Empty input file (only with spaces)
+  if(ctx->token_list_length == 0) {
+    fprintf(stdout, "Input file is empty. Exit.\n");
+    exit(1);
+  }
+
+  #ifdef DEBUG
+  DEBUG_STDOUT_PRINT("ctx->token_list_length is %d\n", ctx->token_list_length)
+  token_node * temp = ctx->token_list;
+  for(i = 0; i<ctx->token_list_length; i++)
+  {
+    if (temp->token == NUMBER)
+      DEBUG_STDOUT_PRINT("token number %d is %s = %x with semantic_value = %d\n", i, gr_token_to_string(temp->token), temp->token, *((uint32_t*)temp->value))
+    else
+      DEBUG_STDOUT_PRINT("token number %d is %s = %x with semantic_value = %c\n", i, gr_token_to_string(temp->token), temp->token, *((char*)temp->value))
+    temp = temp->next;
+  }
+  #endif
 }

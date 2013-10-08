@@ -102,14 +102,17 @@ void *lex_thread_task(void *arg)
   }
 
   lex_token *flex_token;
-  int32_t i;
   int8_t end_of_chunk = 0;
   yyscan_t scanner;   //reentrant flex instance data
   int32_t flex_return_code;
-  token_node *token_builder;
+  token_node *token_builder = NULL;
   token_node_stack stack;
+  sem_value_stack stack_char;
+  sem_value_stack stack_int;
 
   uint32_t alloc_size = 0, realloc_size = 0;
+
+  uint32_t chunk_length = ar->cut_point_dx - ar->cut_point_sx;
 
   par_compute_alloc_realloc_size((ar->cut_point_dx - ar->cut_point_sx), &alloc_size, &realloc_size);
   DEBUG_STDOUT_PRINT("LEXER %d > alloc_size %d, realloc_size %d\n", ar->id, alloc_size, realloc_size)
@@ -123,6 +126,13 @@ void *lex_thread_task(void *arg)
   flex_token->chunk_length = chunk_length;
   flex_token->num_chars = 0;
   flex_token->chunk_ended = 0;
+  //Initialize stack for semantic values.
+  //Since the possible semantic values are only char or int, we can allocate two different stacks, one for each type, avoiding to waste memory.
+  init_sem_value_stack(&stack_char, alloc_size, 0);
+  init_sem_value_stack(&stack_int, alloc_size, 1);
+  flex_token->stack_char = &stack_char;
+  flex_token->stack_int = &stack_int;
+  flex_token->realloc_size = realloc_size;
 
   fseek(f, ar->cut_point_sx, SEEK_SET);
 

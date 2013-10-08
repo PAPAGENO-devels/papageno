@@ -13,7 +13,7 @@ FOUT := lexer/flex.yy.c
 FOBJ := obj/flex.yy.o
 OBJ := $(patsubst $(SRCDIR)/%.c, $(ODIR)/%.o, $(SRC))
 
-FLEX := lexer/epr.l
+FLEX := lexer/expr.l
 GENERATED_FILES = include/rewrite_rules.h include/reduction_tree.h include/grammar_tokens.h include/grammar_semantics.h lib/grammar_semantics.c include/grammar.h lib/grammar.c include/matrix.h 
 
 all: $(FOBJ) $(OBJ)

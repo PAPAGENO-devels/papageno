@@ -2,9 +2,11 @@
 #define PAR_LEX_EXPR_H_
 
 #include "regex.h"
-#include "utilities.h"
 #include "assert.h"
 #include "debug_functions.h"
+#include "sem_value_stack.h"
+#include "flex_token.h"
+#include "flex_return_codes.h"
 
 #include "pthread.h"
 #include "token_list.h"

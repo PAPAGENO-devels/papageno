@@ -25,16 +25,16 @@ void pretty_print_parse_status(uint32_t parse_status){
    fprintf(stdout, "Parse action finished:");
    switch (parse_status){
      case PARSE_SUCCESS:
-       fprintf(stderr,  "Successful parse\n");
+       fprintf(stdout,  "Successful parse\n");
        break;
      case PARSE_NOT_RECOGNIZED:
-      fprintf(stderr, "The string does not to the language\n");
+      fprintf(stdout, "The string does not belong to the language\n");
       break;
      case PARSE_IN_PROGRESS:
-      fprintf(stderr, "Chunk parse ended, more parsing to be done\n");
+      fprintf(stdout, "Chunk parse ended, more parsing to be done\n");
       break;
      default:
-      fprintf(stderr, "Invalid return code\n");
+      fprintf(stdout, "Invalid return code\n");
   }  
 }
 

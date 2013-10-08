@@ -3,7 +3,7 @@
 %nonterminal T
 %nonterminal F
 
-%axiom S
+%axiom E
 
 %terminal PLUS
 %terminal TIMES
@@ -13,7 +13,7 @@
 
 %%
 
-S : E PLUS T { }
+E : E PLUS T { }
   | T { }
 ;
 

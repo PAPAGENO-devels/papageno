@@ -1,5 +1,6 @@
 CC := clang 
-LFLAGS = -lrt -lpthread 
+#LFLAGS = -lrt -lpthread 
+LFLAGS = -lpthread 
 INCLUDES := -I./include -I./lexer -I../include
 # CFLAGS := -UDEBUG -Wall $(INCLUDES)
 CFLAGS := -DDEBUG -Wall $(INCLUDES)

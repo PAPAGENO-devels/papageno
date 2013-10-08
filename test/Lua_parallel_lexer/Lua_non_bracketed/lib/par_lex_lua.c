@@ -621,7 +621,7 @@ void *lex_thread_task(void *arg)
   lex_token *flex_token;
   yyscan_t scanner;   //reentrant flex instance data
   int32_t flex_return_code;
-  token_node *token_builder;
+  token_node *token_builder = NULL;
   delimiter *delimiter_builder = NULL;
   token_node_stack stack;
   delimiter_stack delim_stack;

@@ -1,10 +1,9 @@
 #include "par_lex.h"
 
-//Notice that, if the length of each chunk is very small, it could be better to scan the whole file sequentially.
-//At the moment, however, the chunks are always scanned in parallel.
-
 void perform_lexing(int32_t lex_thread_max_num, char *file_name, parsing_ctx *ctx)
 {
+  //Notice that, if the length of each chunk is very small, it could be better to scan the whole file sequentially.
+  //At the moment, however, the chunks are always scanned in parallel.
   int32_t i, lex_thread_num;
   int8_t mission = 0;
 
@@ -51,13 +50,6 @@ void perform_lexing(int32_t lex_thread_max_num, char *file_name, parsing_ctx *ct
   lex_thread_num = find_cut_points(f, file_length, &cut_points, lex_thread_max_num);
 
   DEBUG_STDOUT_PRINT("lex_thread_num = %d\n", lex_thread_num)
-
-  //Empty input file (only with spaces)
-  if(lex_thread_num == 0) {
-    fprintf(stdout, "Input file is empty. Exit.\n");
-    fclose(f); 
-    exit(1);
-  }
   
   for (i=0; i<lex_thread_num; i++)
     DEBUG_STDOUT_PRINT("cut_points number %d is %d\n", i, cut_points[i]);
@@ -121,16 +113,27 @@ void perform_lexing(int32_t lex_thread_max_num, char *file_name, parsing_ctx *ct
   DEBUG_STDOUT_PRINT("OPP> Freeing threads.\n")
   free(lex_threads); 
 
+  fclose(f);
+
+  //Empty input file (only with spaces)
+  if(ctx->token_list_length == 0) {
+    fprintf(stdout, "Input file is empty. Exit.\n");
+    exit(1);
+  }
+
   #ifdef DEBUG
   DEBUG_STDOUT_PRINT("ctx->token_list_length is %d\n", ctx->token_list_length)
   token_node * temp = ctx->token_list;
   for(i = 0; i<ctx->token_list_length; i++)
   {
-    DEBUG_STDOUT_PRINT("token number %d is %s = %x with semantic_value = %s\n", i, gr_token_to_string(temp->token), temp->token, (char*) temp->value)
+    if (temp->token == NUMBER)
+      DEBUG_STDOUT_PRINT("token number %d is %s = %x with semantic_value = %d\n", i, gr_token_to_string(temp->token), temp->token, *((uint32_t*)temp->value))
+    else
+      DEBUG_STDOUT_PRINT("token number %d is %s = %x with semantic_value = %c\n", i, gr_token_to_string(temp->token), temp->token, *((char*)temp->value))
     temp = temp->next;
   }
   #endif
 
-  fclose(f);
+  
 
 }

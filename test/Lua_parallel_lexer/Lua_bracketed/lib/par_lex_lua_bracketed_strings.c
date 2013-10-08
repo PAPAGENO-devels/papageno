@@ -1027,6 +1027,8 @@ void *lex_thread_task(void *arg)
   yyscan_t scanner;   //reentrant flex instance data
   int32_t flex_return_code;
   token_node *token_builder[2];
+  token_builder[0] = NULL;
+  token_builder[1] = NULL;
   delimiter *delimiter_builder[2]; 
   delimiter_builder[0] = NULL;
   delimiter_builder[1] = NULL;
