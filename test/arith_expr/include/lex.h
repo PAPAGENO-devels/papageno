@@ -6,6 +6,7 @@
 #include "debug_functions.h"
 #include "grammar_tokens.h"
 #include "token_node_stack.h"
+#include "flex_return_codes.h"
 #include "flex.yy.h"
 
 

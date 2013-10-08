@@ -17,6 +17,7 @@ NEWLINE [\n]
 #include <stdlib.h>
 
 #include "grammar_tokens.h"
+#include "flex_return_codes.h"
 
 struct lex_token {
   gr_token token;
@@ -28,33 +29,33 @@ char *ch;
 
 %}
 
-{LPAR}  {flex_token->token = LPAR;
-        ch = (char *) malloc(sizeof(char)*2);
-        strcpy(ch, "(");
-        flex_token->semantic_value = ch;
-        return 1;}
-{RPAR}  {flex_token->token = RPAR;
-        ch = (char *) malloc(sizeof(char)*2);
-        strcpy(ch, ")");
-        flex_token->semantic_value = ch;
-        return 1;}
-{TIMES} {flex_token->token = TIMES;
-        ch = (char *) malloc(sizeof(char)*2);
-        strcpy(ch, "*");
-        flex_token->semantic_value = ch;
-        return 1;}
-{PLUS}  {flex_token->token = PLUS;
-        ch = (char *) malloc(sizeof(char)*2);
-        strcpy(ch, "+");
-        flex_token->semantic_value = ch;
-        return 1;}
-{DIGIT}+ {flex_token->token = NUMBER;
-        ch = (char *) malloc(sizeof(char)*(yyleng+1));
-        strcpy(ch, yytext);
-        flex_token->semantic_value = ch;
-        return 1;}
-{SPACE}				{}
-{NEWLINE}			{}
+<INITIAL>{LPAR}  {flex_token->token = LPAR;
+        char ch = '(';
+        flex_token->semantic_value = (void*) &ch;
+        return LEX_CORRECT;}
+<INITIAL>{RPAR}  {flex_token->token = RPAR;
+        char ch = ')';
+        flex_token->semantic_value = (void*) &ch;
+        return LEX_CORRECT;}
+<INITIAL>{TIMES} {flex_token->token = TIMES;
+        char ch = '*';
+        flex_token->semantic_value = (void*) &ch;
+        return LEX_CORRECT;}
+<INITIAL>{PLUS}  {flex_token->token = PLUS;
+        char ch = '+';
+        flex_token->semantic_value = (void*) &ch;
+        return LEX_CORRECT;}
+<INITIAL>{DIGIT}+ {flex_token->token = NUMBER;
+        long32_t num = strtol(yytext, NULL, 10);
+        if ((num == LONG_MAX || num == LONG_MIN) && errno == ERANGE) {
+           /* Could not convert. */
+           return ERROR;
+        }
+        flex_token->semantic_value = (void*) &num;
+        return LEX_CORRECT;}
+<INITIAL>{SPACE}			{}
+<INITIAL>{NEWLINE}			{}
+<INITIAL>.  {return ERROR;}
 
 %%
 

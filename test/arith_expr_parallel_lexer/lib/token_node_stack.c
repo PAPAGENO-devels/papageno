@@ -15,12 +15,12 @@ token_node *push_token_node_on_stack(token_node_stack *stack, gr_token token, vo
 		stack->ceil = realloc_size;
 		stack->tos = 0;
 	}
-        new_token_node = &stack->stack[stack->tos];
+    new_token_node = &stack->stack[stack->tos];
 	new_token_node->token = token;
 	new_token_node->value = value;
 	new_token_node->next = NULL;
 	new_token_node->parent = NULL;
-        new_token_node->child = NULL;
+    new_token_node->child = NULL;
 	++stack->tos;
 	return new_token_node;
 }

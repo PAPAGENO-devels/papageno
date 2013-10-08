@@ -31,30 +31,26 @@ struct lex_token * flex_token = yyextra;
 %}
 
 <INITIAL>{LPAR}  {flex_token->token = LPAR;
-        ch = (char *) malloc(sizeof(char)*2);
-        strcpy(ch, "(");
-        flex_token->semantic_value = ch;
+        char ch = '(';
+        flex_token->semantic_value = (void*) &ch;
         if(flex_token->num_chars >= flex_token->chunk_length)
 		 	flex_token->chunk_ended = 1;
         return LEX_CORRECT;}
 <INITIAL>{RPAR}  {flex_token->token = RPAR;
-        ch = (char *) malloc(sizeof(char)*2);
-        strcpy(ch, ")");
-        flex_token->semantic_value = ch;
+        char ch = ')';
+        flex_token->semantic_value = (void*) &ch;
         if(flex_token->num_chars >= flex_token->chunk_length)
 		 	flex_token->chunk_ended = 1;
         return LEX_CORRECT;}
 <INITIAL>{TIMES} {flex_token->token = TIMES;
-        ch = (char *) malloc(sizeof(char)*2);
-        strcpy(ch, "*");
-        flex_token->semantic_value = ch;
+        char ch = '*';
+        flex_token->semantic_value = (void*) &ch;
         if(flex_token->num_chars >= flex_token->chunk_length)
 		 	flex_token->chunk_ended = 1;
         return LEX_CORRECT;}
 <INITIAL>{PLUS}  {flex_token->token = PLUS;
-        ch = (char *) malloc(sizeof(char)*2);
-        strcpy(ch, "+");
-        flex_token->semantic_value = ch;
+        char ch = '+';
+        flex_token->semantic_value = (void*) &ch;
         if(flex_token->num_chars >= flex_token->chunk_length)
 		 	flex_token->chunk_ended = 1;
         return LEX_CORRECT;}
