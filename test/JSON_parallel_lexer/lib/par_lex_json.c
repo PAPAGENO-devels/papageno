@@ -26,11 +26,6 @@ int8_t heuristic_in_string(int32_t c);
 int8_t is_inside_tokens(int32_t c, FILE* f, int32_t file_length, regex_t regex);
 
 
-//very very simple hash table for the array bools
-//int32_t hash_escape_u_size;
-//int32_t * hash_escape_u;
-
-
 int32_t find_cut_points(FILE* f, int32_t file_length, int32_t **cut_points, int32_t lex_thread_max_num)
 {
   int32_t i = 1, lex_thread_num = 1;
@@ -52,7 +47,7 @@ int32_t find_cut_points(FILE* f, int32_t file_length, int32_t **cut_points, int3
   int32_t* char_tokens = (int[]) {'{', '}', '[', ']', ',', ':', ' ', '+', '-', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'E', '.'};  
   int32_t char_tokens_length = CHAR_TOKENS_LENGTH;
 
-  hash_char_tokens_size = char_tokens_length*char_tokens_length;  //!!big size
+  hash_char_tokens_size = char_tokens_length*char_tokens_length;  //big size
   hash_char_tokens = (int32_t *) malloc(sizeof(int32_t)*hash_char_tokens_size);
   if (hash_char_tokens == NULL) {
     DEBUG_STDOUT_PRINT("ERROR> could not complete malloc hash_char_tokens. Aborting.\n");
@@ -65,24 +60,13 @@ int32_t find_cut_points(FILE* f, int32_t file_length, int32_t **cut_points, int3
   int32_t* bools = (int[]) {'t', 'r', 'u', 'e', 'f', 'a', 'l', 's', 'n'};  
   int32_t bools_length = 9;
 
-  hash_bools_size = bools_length*bools_length;  //!!big size
+  hash_bools_size = bools_length*bools_length;  //big size
   hash_bools = (int32_t *) malloc(sizeof(int32_t)*hash_bools_size);
   if (hash_bools == NULL) {
     DEBUG_STDOUT_PRINT("ERROR> could not complete malloc hash_bools. Aborting.\n");
     exit(1);
   }
   init_table(hash_bools, hash_bools_size, bools, bools_length);
-
-  //int32_t* escape_u_chars = (int[]) {'"', 'u', '\\', '/', 'b', 'f', 'n', 'r', 't'};  
-  //int32_t escape_u_chars_length = 8;
-  //
-  //hash_escape_u_size = escape_u_chars_length*escape_u_chars_length;  //!!big size
-  //hash_escape_u = (int32_t *) malloc(sizeof(int32_t)*hash_escape_u_size);
-  //if (hash_escape_u == NULL) {
-  //  DEBUG_STDOUT_PRINT("ERROR> could not complete malloc hash_escape_u. Aborting.\n");
-  //  exit(1);
-  //}
-  //init_table(hash_escape_u, hash_escape_u_size, escape_u_chars, escape_u_chars_length);
 
   /*Characters inside a token NUMBER: + - .'E' apart from digits.*/
   int32_t* char_number = (int[]) {'+', '-', '.', 'E'};  
@@ -105,9 +89,9 @@ int32_t find_cut_points(FILE* f, int32_t file_length, int32_t **cut_points, int3
     exit(1); 
   }
 
-  /*Si potrebbe anche impostare la massima lunghezza della porzione da analizzare alla ricerca dell'apice " (chiamata max_scanned_chunk)
-   al valore minimo tra il valore seguente e un valore fisso, ad esempio 1000 caratteri.
-   Da notare che la scansione può proseguire comunque oltre max_scanned_chunk se si è al'interno di un token.*/
+  /* We can also set the maximum length of the part of the chunk, which is analyzed while looking for quotes ",
+   to the minimum value between the following max_scanned_chunk and a predefined value as, for instance, 1000 chars.
+   Note that the analysis can continue also beyond max_scanned_chunk if it should be blocked inside a token.*/
   max_scanned_chunk = (cut_points_ptr[lex_thread_max_num-1]-cut_points_ptr[lex_thread_max_num-2])/3;
   
   while (i<lex_thread_max_num && next)
@@ -116,7 +100,7 @@ int32_t find_cut_points(FILE* f, int32_t file_length, int32_t **cut_points, int3
     fseek(f, cut_points_ptr[i], SEEK_SET);
     c = fgetc(f);
 
-    while(c == '"')         //!If it cuts exactly before a ", then it goes on until the next ", in order to get more information from the heuristics
+    while(c == '"')   //If it cuts exactly before a ", then it goes on until the next ", in order to get more information from the heuristics
       c = fgetc(f);
 
     prev_c = c; /*In the first while iteration c != " and prev_c value is not relevant. So it may also assume a value different from the actual character preceding c*/
@@ -192,17 +176,11 @@ int8_t heuristic_in_string(int32_t c)
     return 1;
 
    if(c == '\\')
-  // {
   //   Note: if character \\ occurs outside a string, this is an error according to Json grammar.
   //   So, it does not matter to check whether it is followed by escape characters or not.
   //   Lexical errors will be possibly signaled by the scanner flex.
-  //
-  //   //succ_c = fgetc(f);
-  //   //if(lookup(c, hash_escape_u, hash_escape_u_size))
-       return 1;
-  // }
+        return 1;
    
-  //fseek(f, -1, SEEK_CUR); //Puts back succ_c
   return 0;
 }
 
@@ -274,9 +252,9 @@ int8_t is_inside_tokens(int32_t c, FILE* f, int32_t file_length, regex_t regex)
   if(lookup(c, hash_bools, hash_bools_size) || (FIRST_DIGIT <= c && c <= LAST_DIGIT) || lookup(c, hash_char_number, hash_char_number_size))
     return 1;
 
-  //non mettere '\\', altrimenti non riesce a spezzare una sequenza di \uXXXX\uXXXX\uXXXX...
-  //Fa questo controllo SOLO per il primo \uXXXX del chunk.
-
+  //Do not put '\\', otherwise it cannot break a sequence of \uXXXX\uXXXX\uXXXX...
+  //Do this check only for the first \uXXXX of the chunk.
+  
   return 0;
 
 }
@@ -284,11 +262,11 @@ int8_t is_inside_tokens(int32_t c, FILE* f, int32_t file_length, regex_t regex)
 /*Initialize thread arguments.*/
 void initialize_thread_argument(lex_thread_arg* arg, int32_t thread)
 {
-  arg[thread].lex_token_list_length[0] = 0;  //!!!solo nel lexer parallelo per Json
-  arg[thread].lex_token_list_length[1] = 0;  //!!!solo nel lexer parallelo per Json
+  arg[thread].lex_token_list_length[0] = 0;  
+  arg[thread].lex_token_list_length[1] = 0;  
   arg[thread].alloc_size = 0;
   arg[thread].realloc_size = 0;
-  arg[thread].begin_with_string = thread_begin_with_string[thread]; //!!!solo nel lexer parallelo per Json
+  arg[thread].begin_with_string = thread_begin_with_string[thread]; 
   arg[thread].quotes_number = 0;
   arg[thread].result = 0;
 
@@ -317,36 +295,44 @@ int8_t check_thread_mission(lex_thread_arg* arg, int32_t lex_thread_num)
 /*Merge token lists produced by the lexing threads.*/
 void compute_lex_token_list(parsing_ctx *ctx, lex_thread_arg *arg, int32_t lex_thread_num)
 {
-  int32_t i;
+  int32_t i = 0, j;
   int32_t quotes_num = arg[0].quotes_number;
   token_node * temp;
 
   ctx->token_list_length = 0;
   
-  ctx->token_list = arg[0].list_begin[0];
-  ctx->token_list_length += arg[0].lex_token_list_length[0];
+  while (i < lex_thread_num && arg[i].list_begin[0] == NULL)
+    i++;
+  if (i == lex_thread_num)
+    return;
 
-  temp = arg[0].list_end[0];
+  ctx->token_list = arg[i].list_begin[0];
+  ctx->token_list_length += arg[i].lex_token_list_length[0];
+  temp = arg[i].list_end[0];
 
-  for(i = 1; i < lex_thread_num; i++)
+  for(j = i + 1; j < lex_thread_num; j++)
   {
     if(quotes_num % 2 == 0)
     {//append list 0
-      temp->next = arg[i].list_begin[0];
-      temp = arg[i].list_end[0];
-      ctx->token_list_length += arg[i].lex_token_list_length[0];
+      if (arg[j].list_begin[0] != NULL) {
+        temp->next = arg[j].list_begin[0];
+        temp = arg[j].list_end[0];
+        ctx->token_list_length += arg[j].lex_token_list_length[0];
+        quotes_num += arg[j].quotes_number;
+      }
     }
     else
     {//append list 1
-      assert(arg[i].begin_with_string != 0);
-      temp->next = arg[i].list_begin[1];
-      temp = arg[i].list_end[1];
-      ctx->token_list_length += arg[i].lex_token_list_length[1];
+      if (arg[j].list_begin[1] != NULL) {
+        assert(arg[j].begin_with_string != 0);
+        temp->next = arg[j].list_begin[1];
+        temp = arg[j].list_end[1];
+        ctx->token_list_length += arg[j].lex_token_list_length[1];
+        quotes_num += arg[j].quotes_number;
+      }
     }
-    quotes_num += arg[i].quotes_number;
   }
 
-  //!!!This function might also free the stack_list which is not used, if present.
 }
 
 /*Thread task function for reentrant scanner, ONLY for Json.*/
@@ -364,8 +350,8 @@ void *lex_thread_task(void *arg)
   int32_t i;
   yyscan_t scanner;   //reentrant flex instance data
   int32_t flex_return_code;
-  token_node *token_builder0;
-  token_node *token_builder1;
+  token_node *token_builder0 = NULL;
+  token_node *token_builder1 = NULL;
   token_node_stack stack[2];
 
   uint32_t alloc_size = 0, realloc_size = 0;
@@ -413,23 +399,7 @@ void *lex_thread_task(void *arg)
 
   assert(ar->cut_point_dx - ar->cut_point_sx >= sizeof(char));
 
-  flex_return_code = yylex(scanner); 
-  //lex_token_length = yyget_leng(scanner);
-  //current_pos += lex_token_length;
-  
-
-  /*Return codes of yylex are: 
-        -2: lexing error in list 1, 
-        -1: lexing error in list 0, 
-        0 : EOF,
-        1 : correct lexing in both lists, 
-        2 : lexing in list 0, pause in list 1
-        3 : pause in list 0, lexing in list 1
-        4 : list of CHAR in list 0, lexing in list 1
-        5 : lexing in list 0, list of CHAR in list 1
-        6 : pause in both lists
-        -3: unexpected character: error in both lists
-  */  
+  flex_return_code = yylex(scanner);  
 
   /*The procedure to find cut points cannot cut a single token in two parts.*/
   while(flex_return_code != 0 && current_pos < ar->cut_point_dx)
@@ -439,8 +409,6 @@ void *lex_thread_task(void *arg)
     
     /*Cannot have excessive characters spanning after cut_point_dx if the cut_point does not fall inside a single token.*/
     assert(current_pos <= ar->cut_point_dx);
-
-    //excess = current_pos - ar->cut_point_dx; //<-It's not necessary: there cannot be an excess (btw there could be excess only reading lists, not singol characters).
 
     if(flex_return_code == -3)
       {
@@ -534,9 +502,4 @@ void *lex_thread_task(void *arg)
 
   pthread_exit(NULL);
 
-}
-
-int8_t handle_empty_file(parsing_ctx *ctx)
-{
-  return 0;
 }

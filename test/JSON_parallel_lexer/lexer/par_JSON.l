@@ -10,27 +10,8 @@
 
 #include "./../include/grammar_tokens.h"
 #include "flex_return_codes.h"
+#include "flex_token.h"
 
-/*fields for the two lists of tokens; the first field of the arrays is not valid if yylex returns -1, the second field is not valid if it returns -2*/
-struct lex_token {
-	gr_token token[2];
-	int32_t token_lex_list_length; /*length of the sequence of CHAR tokens read while scanning a string */
-	void* semantic_value;
-	int8_t begin_with_string;
-	int8_t state_before_rsolidus;
-	int32_t quotes_number;
-};
-/*Return codes: -2: lexing error in list 1, 
-				-1: lexing error in list 0, 
-				0 : EOF,
-				1 : correct lexing in both lists, 
-				2 : lexing in list 0, pause in list 1
-				3 : pause in list 0, lexing in list 1
-				4 : list of CHAR in list 0, lexing in list 1
-				5 : lexing in list 0, list of CHAR in list 1
-				6 : pause in both lists
-				-3: error in both lists
- */
 %}
 %option extra-type="struct lex_token *"
 LBRACE		[\{]

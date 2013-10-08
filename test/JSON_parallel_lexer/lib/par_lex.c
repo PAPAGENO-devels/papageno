@@ -2,7 +2,7 @@
 
 void perform_lexing(int32_t lex_thread_max_num, char *file_name, parsing_ctx *ctx)
 {
-  int32_t i, lex_thread_num, accept_empty_file = 0;
+  int32_t i, lex_thread_num;
   int8_t mission = 0;
 
   assert(lex_thread_max_num>1);
@@ -23,16 +23,9 @@ void perform_lexing(int32_t lex_thread_max_num, char *file_name, parsing_ctx *ct
 
   //Empty input file
   if(file_length == 0) {
-    accept_empty_file = handle_empty_file(ctx);
-    if (!accept_empty_file) {
-      fprintf(stdout, "Input file is empty. Exit.\n");
-      fclose(f); 
-      exit(1);
-    } 
-    else {
-      fclose(f);
-      return;
-    }
+    fprintf(stdout, "Input file is empty. Exit.\n");
+    fclose(f); 
+    exit(1);
   }
 
   //At least a character per chunk.
@@ -55,20 +48,6 @@ void perform_lexing(int32_t lex_thread_max_num, char *file_name, parsing_ctx *ct
   lex_thread_num = find_cut_points(f, file_length, &cut_points, lex_thread_max_num);
 
   DEBUG_STDOUT_PRINT("lex_thread_num = %d\n", lex_thread_num)
-
-  //Empty input file (only with spaces)
-  if(lex_thread_num == 0) {
-    accept_empty_file = handle_empty_file(ctx);
-    if (!accept_empty_file) {
-      fprintf(stdout, "Input file is empty. Exit.\n");
-      fclose(f); 
-      exit(1);
-    }
-    else {
-      fclose(f);
-      return;
-    } 
-  }
 
   for (i=0; i<lex_thread_num; i++)
      DEBUG_STDOUT_PRINT("cut_points number %d is %d\n", i, cut_points[i]);
@@ -132,6 +111,14 @@ void perform_lexing(int32_t lex_thread_max_num, char *file_name, parsing_ctx *ct
   DEBUG_STDOUT_PRINT("OPP> Freeing threads.\n")
   free(lex_threads); 
 
+  fclose(f);
+
+  //Empty input file (only with spaces)
+  if(ctx->token_list_length == 0) {
+    fprintf(stdout, "Input file is empty. Exit.\n");
+    exit(1);
+  }
+
   #ifdef DEBUG
   DEBUG_STDOUT_PRINT("ctx->token_list_length is %d\n", ctx->token_list_length)
   token_node * temp = ctx->token_list;
@@ -141,7 +128,5 @@ void perform_lexing(int32_t lex_thread_max_num, char *file_name, parsing_ctx *ct
     temp = temp->next;
   }
   #endif
-
-  fclose(f);
 
 }

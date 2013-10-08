@@ -71,22 +71,28 @@ int8_t check_thread_mission(lex_thread_arg* arg, int32_t lex_thread_num)
 /*Merge token lists produced by the lexing threads.*/
 void compute_lex_token_list(parsing_ctx *ctx, lex_thread_arg *arg, int32_t lex_thread_num)
 {
-  int32_t i;
+  int32_t i = 0, j;
   token_node * temp;
 
   ctx->token_list_length = 0;
-  
-  ctx->token_list = arg[0].list_begin;
-  ctx->token_list_length += arg[0].lex_token_list_length;
 
-  temp = arg[0].list_end;
+  while (i < lex_thread_num && arg[i].list_begin == NULL)
+    i++;
+  if (i == lex_thread_num)
+    return;
 
-  for(i = 1; i < lex_thread_num; i++)
+  ctx->token_list = arg[i].list_begin;
+  ctx->token_list_length += arg[i].lex_token_list_length;
+  temp = arg[i].list_end;
+
+  for(j = i + 1; j < lex_thread_num; j++)
   {
     //append list
-    temp->next = arg[i].list_begin;
-    temp = arg[i].list_end;
-    ctx->token_list_length += arg[i].lex_token_list_length;
+    if (arg[j].list_begin != NULL) {
+      temp->next = arg[j].list_begin;
+      temp = arg[j].list_end;
+      ctx->token_list_length += arg[j].lex_token_list_length;
+    }
   }
 }
 
