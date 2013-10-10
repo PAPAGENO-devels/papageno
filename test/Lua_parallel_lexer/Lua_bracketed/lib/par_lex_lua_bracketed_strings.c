@@ -1773,7 +1773,7 @@ void *lex_thread_task(void *arg)
   fclose(yyget_in(scanner));
   yylex_destroy(scanner);
 
-  fclose(f);
+  // fclose(f);
 
   pthread_exit(NULL);
 

@@ -30,7 +30,7 @@ int32_t find_cut_points(FILE* f, int32_t file_length, int32_t **cut_points, int3
       next = 0;
   }
   
- //realloc cut_points
+ //realloc cut_points (for short chunks)
   if (lex_thread_num < lex_thread_max_num) {
     *cut_points = realloc(*cut_points, lex_thread_num);
     if (*cut_points == NULL){
