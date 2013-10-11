@@ -33,7 +33,7 @@ int main(int argc, char **argv)
   if (optind == argc - 1) {
     file_name = argv[argc - 1];
   } else {
-    fprintf(stdout, "Lua Parallel Parser\n Usage: %s [-j threads] filename\n", argv[0]);
+    fprintf(stdout, "Lua Parser\n Usage: %s [-j threads] filename\n", argv[0]);
     return 0;
   }
   parse(threads,0, file_name);

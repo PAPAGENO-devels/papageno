@@ -631,7 +631,9 @@ NEWLINE		\n|\r|\r\n|\n\r
 						 	yyerror("LEXER> Error: unexpected character.")
 							exit(1);
 						}              						
-<singleComment>.*{NEWLINE}	{}
+<singleComment>.*{NEWLINE}	{
+					BEGIN(INITIAL);
+				}
 <multiComment>\]=*\]{SPACE}*{NEWLINE}	{i= 1;
 				 matching_comment_type = 0;
 				 while(yytext[i] == '=')

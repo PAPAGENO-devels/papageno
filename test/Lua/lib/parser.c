@@ -214,7 +214,7 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
   lexing_time= compute_time_interval(&lex_timer_start, &lex_timer_end);
   parsing_time=compute_time_interval(&parse_timer_start, &parse_timer_end);
 
-  fprintf(stdout, "Lexer: %lf s, Parser %lf s ",lexing_time,parsing_time);
+  fprintf(stdout, "Lexer: %lf s, Parser %lf s \n",lexing_time,parsing_time);
 
   return ctx.token_list;
 }
