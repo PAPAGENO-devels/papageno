@@ -1,0 +1,151 @@
+
+<!--
+
+world.xml  - Copyright (c) 2006, the WoWBench developer community. All rights reserved. See LICENSE.TXT.
+
+Define the "World": Players, Objects, Items ...
+
+This is nowhere as high level as UI XML is. 
+We're basically defining parts of the game engine here.
+See especially "BaseUnit" for some tooltip emulation grit.
+
+
+If you want to set up your own stuff, and don't want it to get overwritten
+on the next WoWBench upgrade use world-local.xml. It is also pulled in by
+world.toc.
+
+-->
+
+<World name="World">
+	
+	<Units>
+		
+		<Unit name="BaseUnit" virtual="true">
+			<Scripts>
+				<!-- Emulate internal game engine tooltip behavior -->
+				<OnEnter>
+					WOWB_GameTooltip_SetUnit(GameTooltip, nil, this);
+				</OnEnter>
+				<OnLeave>
+					WOWB_GameTooltip_FadeOut(GameTooltip);
+				</OnLeave>
+			</Scripts>
+		</Unit>
+		
+		<Player name="BasePlayer" virtual="true" inherits="BaseUnit" sex=2 money=1>
+			<Scripts>
+				<OnLoad>
+					print(this:GetName().." has entered the world.");
+				</OnLoad>
+			</Scripts>
+		</Player>
+		
+		<!-- Basic "level 60 player" stats -->
+		<Player name="L60" virtual="true" inherits="BasePlayer" 
+				level=60 xp=300000 xpmax=300000
+		  	money=1230000
+		/>
+		
+		<!-- Different level 60 player classes -->
+		<Player name="L60Priest" virtual="true" inherits="L60"
+				class="PRIEST"
+				healthmax=3000
+				manamax=7000
+		/>
+		<Player name="L60Warrior" virtual="true" inherits="L60"
+				class="WARRIOR"
+				healthmax=6000
+		/>
+		<Player name="L60Warlock" virtual="true" inherits="L60"
+				class="WARLOCK"
+				healthmax=5000
+				manamax=5000
+		/>
+		<Player name="L60Rogue" virtual="true" inherits="L60"
+				class="ROGUE"
+				healthmax=4000
+		/>
+
+
+		<!-- YOU!  -->
+		<Player name="MeTemplate" inherits="L60Warlock" virtual=true faction="Alliance" race="Gnome" sex=2>
+			<Scripts>
+				<OnLoad>
+					local myname = this[0].name;
+					if(myname=="Me") then myname=_CHARACTER; end
+					for k,v in ipairs(WOWB_SessCtl) do
+						if(v._CHARACTER == myname) then
+							this[0].sessionIndex = k;
+						end
+					end
+					assert(this[0].sessionIndex);
+				</OnLoad>
+			</Scripts>
+		</Player>
+
+		
+		<!-- Alliance players -->
+		<Player name="Alice" inherits="L60Priest" faction="Alliance" race="Human" sex=3 />
+		<Player name="Bob" inherits="L60Warrior" faction="Alliance" race="Dwarf"
+				connected="false"
+		/>
+
+		
+		<!-- Horde players -->
+		<Player name="Charles" inherits="L60Rogue" faction="Horde" race="Troll" />
+
+
+
+		<!-- NPCs -->
+		<NPC name="Murloc Warrior" class="WARRIOR" inherits="BaseUnit" noglobal="true" sex=1
+				level=60
+				healthmax=2000
+		/>
+		
+		<NPC name="Northshire Worker" class="WARRIOR" inherits="BaseUnit" faction="Alliance" noglobal="true"
+				level=1
+				healthmax=10 >
+			<Scripts>
+				<OnMouseUp>
+					if(arg1=="RightButton") then
+						WOWB_FireEvent("CHAT_MSG_MONSTER_SAY", "Stop poking me!", this:GetName(), "Common", "", "", "", "", "", "");
+					end
+				</OnMouseUp>
+			</Scripts>
+		</NPC>
+		
+	</Units>
+	
+	<Objects>
+		<Object name="Mailbox">
+			<Scripts>
+				<OnClick>
+					print("Opening mailbox... Except it's going to kaboom and I'm not going to implement the API's necessary at the moment...");
+					WOWB_FireEvent("MAIL_SHOW");
+				</OnClick>
+			</Scripts>
+		</Object>
+		
+		<Object name="Signpost">
+			<Scripts>
+				<OnEnter>
+					print(
+						"You read the signpost. It says:\n"..
+						"\n"..
+						"  Welcome to WoWBench v"..WOWB_VER.."\n"..
+						"\n"..
+						"It is dark and you are in a maze of hairy lua scripts, all alike but subtly different.\n"..
+						"You are likely to be eaten by a grue.\n"
+					);
+				</OnEnter>
+			</Scripts>
+		</Object>
+	</Objects>
+	
+	<Scripts>
+		<OnLoad>
+			WOWB_World_OnLoad();
+		</OnLoad>
+	</Scripts>
+	 
+</World>

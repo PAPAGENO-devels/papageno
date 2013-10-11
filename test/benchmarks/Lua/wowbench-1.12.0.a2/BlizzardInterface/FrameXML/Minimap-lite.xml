@@ -1,0 +1,261 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+<!----- FAKE MINIMAP ------->
+
+	<Frame name="MinimapCluster" frameStrata="BACKGROUND" enableMouse="true" parent="UIParent">
+		<Size>
+			<AbsDimension x="192" y="192"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPRIGHT"/>
+		</Anchors>
+		<HitRectInsets>
+			<AbsInset left="30" right="10" top="0" bottom="30"/>
+		</HitRectInsets>
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture name="MinimapBorderTop" file="Interface\Minimap\UI-Minimap-Border">
+					<Size>
+						<AbsDimension x="192" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT"/>
+					</Anchors>
+					<TexCoords left="0.25" right="1.0" top="0.0" bottom="0.125"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="MinimapZoneTextButton">
+				<Size>
+					<AbsDimension x="128" y="12"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="-3" y="83"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<FontString name="MinimapZoneText" inherits="GameFontNormal" nonspacewrap="true">
+							<Size>
+								<AbsDimension x="128" y="12"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP"/>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+			</Button>
+			<Button name="MinimapToggleButton">
+				<Size>
+					<AbsDimension x="32" y="32"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-15" y="-13"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Minimap name="Minimap" enableMouse="true" minimapPlayerModel="Interface\Minimap\MinimapArrow.mdx" minimapArrowModel="Interface\Minimap\Rotating-MinimapArrow.mdl">
+				<Size>
+					<AbsDimension x="140" y="140"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="9" y="-92"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Frames>
+					<Frame name="MiniMapTrackingFrame" enableMouse="true" hidden="true">
+						<Size>
+							<AbsDimension x="33" y="33"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset>
+									<AbsDimension x="-15" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Frame>
+					<Button name="MiniMapMeetingStoneFrame" enableMouse="true" hidden="true">
+						<Size>
+							<AbsDimension x="33" y="33"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPRIGHT">
+								<Offset>
+									<AbsDimension x="23" y="-65"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer level="ARTWORK">
+								<Texture name="MiniMapMeetingStoneIcon" file="Interface\Icons\INV_Misc_Rune_06">								
+									<Size>
+										<AbsDimension x="18" y="18"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOPLEFT">
+											<Offset>
+												<AbsDimension x="7" y="-6"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</Texture>
+							</Layer>
+							<Layer level="OVERLAY">
+								<Texture name="MiniMapMeetingStoneBorder" file="Interface\Minimap\MiniMap-TrackingBorder">
+									<Size>
+										<AbsDimension x="52" y="52"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOPLEFT"/>
+									</Anchors>
+								</Texture>
+							</Layer>
+						</Layers>
+					</Button>					
+					<Frame name="MiniMapMailFrame" enableMouse="true" hidden="true">
+						<Size>
+							<AbsDimension x="33" y="33"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPRIGHT">
+								<Offset>
+									<AbsDimension x="21" y="-38"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer level="ARTWORK">
+								<Texture name="MiniMapMailIcon" file="Interface\Icons\INV_Letter_15">
+									<Size>
+										<AbsDimension x="18" y="18"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOPLEFT">
+											<Offset>
+												<AbsDimension x="7" y="-6"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</Texture>
+							</Layer>
+							<Layer level="OVERLAY">
+								<Texture name="MiniMapMailBorder" file="Interface\Minimap\MiniMap-TrackingBorder">
+									<Size>
+										<AbsDimension x="52" y="52"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOPLEFT"/>
+									</Anchors>
+								</Texture>
+							</Layer>
+						</Layers>
+					</Frame>
+					<Button name="MiniMapBattlefieldFrame" hidden="true">
+						<Size>
+							<AbsDimension x="33" y="33"/>
+						</Size>
+						<Anchors>
+							<Anchor point="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="13" y="-13"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer level="BACKGROUND">
+								<Texture name="MiniMapBattlefieldIcon" file="Interface\BattlefieldFrame\UI-Battlefield-Icon">
+									<Size>
+										<AbsDimension x="32" y="32"/>
+									</Size>
+									<Anchors>
+										<Anchor point="CENTER">
+											<Offset>
+												<AbsDimension x="-1" y="0"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</Texture>
+							</Layer>
+							<Layer level="ARTWORK">
+								<Texture name="MiniMapBattlefieldBorder" file="Interface\Minimap\MiniMap-TrackingBorder">
+									<Size>
+										<AbsDimension x="52" y="52"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOPLEFT"/>
+									</Anchors>
+								</Texture>
+							</Layer>
+							<Layer level="BORDER">
+								<Texture name="BattlegroundShine" file="Interface\ComboFrame\ComboPoint" alphaMode="ADD">
+									<Size>
+										<AbsDimension x="32" y="32"/>
+									</Size>
+									<Anchors>
+										<Anchor point="CENTER">
+											<Offset>
+												<AbsDimension x="3" y="3"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<TexCoords left="0.5625" right="1" top="0" bottom="1"/>
+								</Texture>
+							</Layer>
+						</Layers>
+						<Frames>
+							<Frame name="MiniMapBattlefieldDropDown" inherits="UIDropDownMenuTemplate" id="1" hidden="true">
+							</Frame>
+						</Frames>
+					</Button>
+					<Frame name="MinimapBackdrop">
+						<Size>
+							<AbsDimension x="192" y="192"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER" relativeTo="MinimapCluster">
+								<Offset>
+									<AbsDimension x="0" y="-20"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer level="ARTWORK">
+								<Texture name="MinimapBorder" file="Interface\Minimap\UI-Minimap-Border">
+									<TexCoords left="0.25" right="1.0" top="0.125" bottom="0.875"/>
+								</Texture>
+							</Layer>
+						</Layers>
+						<Frames>
+							<Button name="MinimapZoomIn">
+								<Size>
+									<AbsDimension x="32" y="32"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="77" y="-13"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Button>
+						</Frames>
+					</Frame>
+				</Frames>
+			</Minimap>
+		</Frames>
+	</Frame>
+
+</Ui>

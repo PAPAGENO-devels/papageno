@@ -1,0 +1,3 @@
+# Pull in xml definitions to parse blizzard UI files and addons
+uixml.lua
+widgets.lua

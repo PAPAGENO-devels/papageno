@@ -1,0 +1,12 @@
+Frame: ChatFrame1
+FrameLevel: 15
+X: 32
+Y: -485
+W: 439
+H: 247
+Frame: ChatFrame2
+FrameLevel: 4
+X: 584
+Y: -636
+W: 430
+H: 120
