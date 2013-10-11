@@ -67,7 +67,7 @@ def deleteRepeatedRhs(nonterminalsList, terminalsList, axiom, newAxiom, rules):
 
 	#Delete rules with rhs with undefined nonterminals:
 	#this implementation of the algorithm can generate rhs of rules with nonterminals which are no more defined.
-	#TODO: una versione a bit slightly more efficient ca be done memorizzando prima la lista delle rhs di ogni nonterminale ed eliminado poi i nonterminali le cui rhs vengono tutte eliminate.
+	#TODO: a bit slightly more efficient version can store beforehand the list of rhs of every nonterminal and then delete the nonterminals whose rhs are all deleted.
 	deleted = True
 	while deleted:
 		deleted = False
