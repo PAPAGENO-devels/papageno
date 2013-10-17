@@ -1,5 +1,7 @@
 %option noyywrap
 %option noinput
+%option nounput
+
 %{
 
 #include <stdlib.h>

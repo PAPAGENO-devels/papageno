@@ -1,5 +1,6 @@
 %option noyywrap
 %option noinput
+%option nounput
 
 %{
 
@@ -165,6 +166,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "function");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
+				 flex_token->handle_context = 1;
 				 BEGIN(function1);
 				 return LEX_CORRECT;
                                 }
@@ -719,6 +721,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "function");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
+				 flex_token->handle_context = 1;
 				 BEGIN(function1);
 				 if(read_new_line == 1)			
 					return ADD_SEMI;
@@ -1242,6 +1245,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "function");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
+				 flex_token->handle_context = 1;
 				 BEGIN(function1);
 				 if(read_new_line == 1)			
 					return ADD_SEMI;
@@ -1764,7 +1768,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 BEGIN(endStat1);
 				 return LEX_CORRECT;
                         }
-<doubleString,singleString,bracketedString>{NEWLINE}	{
+<doubleString,singleString>{NEWLINE}	{
 						 flex_token->semantic_value = NULL;
 						 return ERROR;
 						} 
@@ -1805,14 +1809,14 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->string_buffer[current_buffer_length] = '\0';
 				 /* Semantic value stub. */
 				 //char * ch = (char*) malloc(sizeof(char)*(current_buffer_length + 1));
-        		 //strcpy(ch, flex_token->string_buffer);
-				 //flex_token->semantic_value = ch;	
+        		 // strcpy(ch, flex_token->string_buffer);
+				 // flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;				 
 				 BEGIN(endStat1);
 				 return LEX_CORRECT;
                         }	
-<bracketedString>[^\\\]\n\r]+			{
+<bracketedString>[^\\\]]+			{
 						 /*Append chars to string buffer*/
 						 flex_token->string_buffer = concat_to_buffer(flex_token->string_buffer, yytext, yyleng, &(current_buffer_length), &allocated_buffer_size);
 						}                        							                       

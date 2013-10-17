@@ -164,6 +164,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "function");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
+				 flex_token->handle_context = 1;
 				 BEGIN(function1);
 				 return LEX_CORRECT;
                                 }
@@ -714,6 +715,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "function");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
+				 flex_token->handle_context = 1;
 				 BEGIN(function1);
 				 if(read_new_line == 1)			
 					return ADD_SEMI;
@@ -1236,6 +1238,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "function");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
+				 flex_token->handle_context = 1;
 				 BEGIN(function1);
 				 if(read_new_line == 1)			
 					return ADD_SEMI;
