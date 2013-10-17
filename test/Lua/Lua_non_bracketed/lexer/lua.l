@@ -1785,7 +1785,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 BEGIN(endStat1);
 				 return LEX_CORRECT;
                         }	
-<singleString>[^\\\]\'\n\r]+			{
+<singleString>[^\\\'\n\r]+			{
 						 /*Append chars to string buffer*/
 						 flex_token->string_buffer = concat_to_buffer(flex_token->string_buffer, yytext, yyleng, &(current_buffer_length), &allocated_buffer_size);
 						}                        							                       

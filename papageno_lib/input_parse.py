@@ -4,7 +4,7 @@ import argparse,re,sys,scanner
 
 def parse_commandline_args():
   parser = argparse.ArgumentParser(description='PAPAGENO : the PArallel PArser GENeratOr')
-  parser.add_argument('--verbose','-v', metavar='verb' ,help='Verbosity level [0-2]',default=0)
+  parser.add_argument('--verbose','-v', metavar='verb' ,help='Verbosity level [0-2]',default=0, type=int)
   parser.add_argument('--inputfile','-i', metavar='inputfile' , help='Grammar description file', required=True)
   parser.add_argument('--out_header',metavar='header_outpath',help='Location where the output headerfiles should be generated. Defaults to ./include/ in the calling path',default='./include/')
   parser.add_argument('--out_core',metavar='source_outpath',help='Location where the output C files should be generated. Defaults to ./lib/ in the calling path',default='./lib/')

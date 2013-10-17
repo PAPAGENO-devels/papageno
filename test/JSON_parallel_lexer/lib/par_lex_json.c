@@ -165,7 +165,7 @@ int32_t find_cut_points(FILE* f, int32_t file_length, int32_t **cut_points, int3
 /*Returns 1 if c is a control character (i.e., its code is between U+0000 and U+001F), 0 otherwise.*/
 int8_t control_char(int32_t c)
 {
-  return !(c > LAST_CONTROL); //!!!oppure c is \n \r \t
+  return !(c > LAST_CONTROL);
 
 }
 
