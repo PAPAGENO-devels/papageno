@@ -1,29 +1,38 @@
 %option noyywrap
 %option noinput
-%option reentrant
+%option nounput
+
 %{
 
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
 
-#include "./../include/grammar_tokens.h"
-#include "./../include/flex_return_codes.h"
-#include "./../include/flex_token_formatting.h"
-#include "flex_token.h"
+#include "grammar_tokens.h"
+#include "flex_return_codes.h"
+#include "flex_token_formatting.h"
+#include "debug_functions.h"
 
-#define YY_USER_ACTION flex_token->num_chars += yyleng;
-  
+struct lex_token {
+	gr_token token;
+	void* semantic_value;
+	int8_t handle_context;
+	char * string_buffer;
+};
 
-/*TODO: 
--ottimizzazione da aggiungere: 
-Crea una tabella hash che memorizza le classi di simboli di commenti chiusi (identificati dal numero di '=') gia' incontrati dall'inizio del chunk.
-Tiene traccia di una stack dei simboli di commento multilinea aperti pendenti nel chunk gia' scandito e, se incontra un simbolo di commento chiuso con un numero di '=' 
-per cui non ci sono commenti aperti pendenti e il cui numero di = era gia' nella tabella hash dei simboli di commento chiusi incontrati dall'inizio del chunk,
-allora interrompe la scansione andando nello stato commentOrError. (hashtable per confrontare il numero di = del simbolo di commento pendente con quelli gia' letti).
-Il vantaggio di usare l'ottimizzazione e' che, alla lettura del commento chiuso che soddisfa queste condizioni, si puo' evitare di andare nello stato INITIAL e invece
-andare direttamente in commentOrError.
-*/
+extern struct lex_token* flex_token;
+
+int32_t comment_type;
+int8_t state_before_comment;
+int32_t i, result;
+int8_t read_new_line = 0;
+int32_t allocated_buffer_size = MAX_BUFFER_SIZE;
+int32_t current_buffer_length = 0;
+char* ch;  
+
+/*Sequential scanner for Lua grammar as OPG.
+This grammar has the same restrictions as the current grammar used for PAPAGENO: e.g. multiline comments are ended with newline (and the other ones are ignored or
+considered errors) and strings between brackets are not allowed.*/
 /*
 ENDSTATTOKEN			(NIL|FALSE|TRUE|NUMBER|DOT3|RBRACE|RPAREN|RBRACK|NAME|END|BREAK)
 BEGINSTATTOKEN 			(LPAREN|NAME|COLON2|BREAK|GOTO|DO|WHILE|REPEAT|IF|FOR|FUNCTION|LOCAL)
@@ -31,9 +40,8 @@ ENDSTATTOKEN1			(NIL|FALSE|TRUE|NUMBER|DOT3|RBRACE|END|BREAK)
 BEGINSTATTOKEN1 		(LPAREN|COLON2|BREAK|GOTO|DO|WHILE|REPEAT|IF|FOR|LOCAL)
 BEGINSTATTOKEN2 		(COLON2|BREAK|GOTO|DO|WHILE|REPEAT|IF|FOR|LOCAL)
  */
-
 %}
-%option extra-type="struct lex_token *"
+
 AND			"and"
 BREAK		"break"
 DO 			"do"
@@ -104,16 +112,12 @@ NEWLINE		\n|\r|\r\n|\n\r
 %x multiComment
 %x doubleString
 %x singleString
-%x commentOrError
+%x bracketedString
 %x function1
 %x function2
 
 %%
 
-
-%{
-struct lex_token * flex_token = yyextra;  
-%}
 
 <INITIAL>{AND}		{flex_token->token = AND;
 				 /* Semantic value stub. */
@@ -129,7 +133,8 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "do");
 				 ////flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return INSERT_DELIMITER;
+				 flex_token->handle_context = 1;
+				 return LEX_CORRECT;
                                 } 
 <INITIAL>{ELSE}		{flex_token->token = ELSE;
 				 /* Semantic value stub. */
@@ -161,6 +166,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "function");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
+				 flex_token->handle_context = 1;
 				 BEGIN(function1);
 				 return LEX_CORRECT;
                                 }
@@ -178,7 +184,8 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "if");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return INSERT_DELIMITER;
+				 flex_token->handle_context = 1;
+				 return LEX_CORRECT;
                                 } 
 <INITIAL>{IN}		{flex_token->token = IN;
 				 /* Semantic value stub. */
@@ -258,7 +265,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "nil");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;
+				 read_new_line = 0;
 				 BEGIN(endStat1);			
 				 return LEX_CORRECT;
                                 }
@@ -268,7 +275,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "false");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;
+				 read_new_line = 0;
 				 BEGIN(endStat1);						
 				 return LEX_CORRECT;
                                 }
@@ -278,7 +285,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "true");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;
+				 read_new_line = 0;
 				 BEGIN(endStat1);					
 				 return LEX_CORRECT;
                                 }
@@ -288,7 +295,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, yytext);
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;
+				 read_new_line = 0;
 				 BEGIN(endStat1);			
 				 return LEX_CORRECT;
                                 }
@@ -298,7 +305,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "...");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;	
+				 read_new_line = 0;	
 				 BEGIN(endStat1);			
 				 return LEX_CORRECT;
                                 }
@@ -308,9 +315,10 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "}");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;	
+				 read_new_line = 0;	
 				 BEGIN(endStat1);
-				 return INSERT_DELIMITER;
+				 flex_token->handle_context = 1;
+				 return LEX_CORRECT;
                                 }
 <INITIAL>{END}		{flex_token->token = END;
 				 /* Semantic value stub. */
@@ -318,9 +326,10 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "end");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;	
+				 read_new_line = 0;	
 				 BEGIN(endStat1);			
-				 return INSERT_DELIMITER;
+				 flex_token->handle_context = 1;
+				 return LEX_CORRECT;
                                 }
 <INITIAL>{BREAK}		{flex_token->token = BREAK;
 				 /* Semantic value stub. */
@@ -328,7 +337,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "break");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;	
+				 read_new_line = 0;	
 				 BEGIN(endStat1);		
 				 return LEX_CORRECT;
                                 }
@@ -338,7 +347,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, yytext);
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;	
+				 read_new_line = 0;	
 				 BEGIN(endStat2);		
 				 return LEX_CORRECT;
                                 }
@@ -348,7 +357,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "]");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;	
+				 read_new_line = 0;	
 				 BEGIN(endStat2);			
 				 return LEX_CORRECT;
                                 }
@@ -358,7 +367,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, ")");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;	
+				 read_new_line = 0;	
 				 BEGIN(endStat2);			
 				 return LEX_CORRECT;
                                 }    
@@ -368,7 +377,8 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, ";");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return INSERT_DELIMITER;
+				 flex_token->handle_context = 1;
+				 return LEX_CORRECT;
                                 }                                   
 <INITIAL>{COLON}		{flex_token->token = COLON;
 				 /* Semantic value stub. */
@@ -416,7 +426,8 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "{");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return INSERT_DELIMITER;
+				 flex_token->handle_context = 1;
+				 return LEX_CORRECT;
                                 }                                   
 <INITIAL>{LPAREN}		{flex_token->token = LPAREN;
 				 /* Semantic value stub. */
@@ -432,7 +443,8 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "=");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return INSERT_DELIMITER;
+				 flex_token->handle_context = 1;
+				 return LEX_CORRECT;
                                 }                                  
 <INITIAL>{PLUS}		{flex_token->token = PLUS;
 				 /* Semantic value stub. */
@@ -546,59 +558,37 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 return LEX_CORRECT;
                                 }
-<INITIAL>\]=*\]{SPACE}*{NEWLINE}	{int32_t i = 1;
-				 flex_token->comment_type = 0;
-				 while(yytext[i] == '=')
-				 {
-				 	(flex_token->comment_type)--;
-				 	i++;
-				 }
-				 /*Type of ending multiline comment is negative and starts from -1*/
-				 (flex_token->comment_type)--;
-				 flex_token->semantic_value = NULL;
-				 if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK_INSERT_COMMENT;
-				 return INSERT_COMMENT;
-                                }
-<INITIAL>\]=+\]			{flex_token->semantic_value = NULL;
-				 BEGIN(commentOrError);						 
-						}
-<INITIAL>--\[=*\[		{int32_t i= 3;
-				 flex_token->comment_type = 0;
-				 while(yytext[i] == '=')
-				 {
-				 	(flex_token->comment_type)++;
-				 	i++;
-				 }
-				 /*Type of beginning multiline comment is positive and starts from 1*/
-				 (flex_token->comment_type)++;
-				 flex_token->semantic_value = NULL;
-				 flex_token->state_before_comment = INITIAL;
-				 BEGIN(multiComment);							 
-				 return INSERT_COMMENT;
-                                }
-<INITIAL>--		{flex_token->semantic_value = NULL;
-				 flex_token->state_before_comment = INITIAL;
+<INITIAL>--		{
+				 state_before_comment = INITIAL;
 				 BEGIN(singleComment);
-                                }
-<INITIAL>\"		{flex_token->semantic_value = NULL;
-				 flex_token->current_buffer_length = 0;
+                                }						
+<INITIAL>--\[=*\[		{i= 3;
+				 comment_type = 0;
+				 while(yytext[i] == '=')
+				 {
+				 	(comment_type)++;
+				 	i++;
+				 }
+				 state_before_comment = INITIAL;
+				 BEGIN(multiComment);							 
+                                }                                
+<INITIAL,endStat1,endStat2>\"		{flex_token->semantic_value = NULL;
+				 current_buffer_length = 0;
 				 BEGIN(doubleString);
                                 }
-<INITIAL>\'		{flex_token->semantic_value = NULL;
-				 flex_token->current_buffer_length = 0;
+<INITIAL,endStat1,endStat2>\'		{flex_token->semantic_value = NULL;
+				 current_buffer_length = 0;
 				 BEGIN(singleString);
                                 }
+<INITIAL,endStat1,endStat2>\[\[		{flex_token->semantic_value = NULL;
+				 current_buffer_length = 0;
+				 BEGIN(bracketedString);
+                                }     
 <INITIAL>{SPACE}+		{}
-<INITIAL>{NEWLINE}+		{flex_token->semantic_value = NULL;
-				if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK;
-						}
-<INITIAL>.				{
+<INITIAL>{NEWLINE}+		{}           
+<INITIAL>.				{/*Error*/
 						 flex_token->semantic_value = NULL;
-						 BEGIN(commentOrError);						 
-						 if(flex_token->num_chars >= flex_token->chunk_length)
-							return END_CHUNK_ERROR;
+						 return ERROR;
 						}              						
 <endStat1>{LPAREN}		{flex_token->token = LPAREN;
 				 /* Semantic value stub. */
@@ -607,7 +597,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 if(flex_token->read_new_line == 1)			
+				 if(read_new_line == 1)			
 					return ADD_SEMI;
 				else
 					return LEX_CORRECT;
@@ -619,7 +609,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 if(flex_token->read_new_line == 1)			
+				 if(read_new_line == 1)			
 					return ADD_SEMI;
 				else
 					return LEX_CORRECT;
@@ -630,12 +620,12 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "break");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 if(flex_token->read_new_line == 1)	{	
-				 	flex_token->read_new_line = 0;	
+				 if(read_new_line == 1)	{	
+				 	read_new_line = 0;	
 					return ADD_SEMI;
 				 }
 				 else {
-				 	flex_token->read_new_line = 0;
+				 	read_new_line = 0;
 					return LEX_CORRECT;
 				 }
                                 }
@@ -646,7 +636,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 if(flex_token->read_new_line == 1)			
+				 if(read_new_line == 1)			
 					return ADD_SEMI;
 				else
 					return LEX_CORRECT;
@@ -658,10 +648,11 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 if(flex_token->read_new_line == 1)			
-					return INSERT_DELIMITER_ADD_SEMI;
+				 flex_token->handle_context = 1;
+				 if(read_new_line == 1)			
+					return ADD_SEMI;
 				else
-					return INSERT_DELIMITER;
+					return LEX_CORRECT;
                                 }
 <endStat1>{WHILE}		{flex_token->token = WHILE;
 				 /* Semantic value stub. */
@@ -670,7 +661,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 if(flex_token->read_new_line == 1)			
+				 if(read_new_line == 1)			
 					return ADD_SEMI;
 				else
 					return LEX_CORRECT;
@@ -682,7 +673,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 if(flex_token->read_new_line == 1)			
+				 if(read_new_line == 1)			
 					return ADD_SEMI;
 				else
 					return LEX_CORRECT;
@@ -694,10 +685,11 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 if(flex_token->read_new_line == 1)			
-					return INSERT_DELIMITER_ADD_SEMI;
+				 flex_token->handle_context = 1;
+				 if(read_new_line == 1)			
+					return ADD_SEMI;
 				else
-					return INSERT_DELIMITER;
+					return LEX_CORRECT;
                                 }
 <endStat1>{FOR}		{flex_token->token = FOR;
 				 /* Semantic value stub. */
@@ -706,7 +698,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 if(flex_token->read_new_line == 1)			
+				 if(read_new_line == 1)			
 					return ADD_SEMI;
 				else
 					return LEX_CORRECT;
@@ -718,7 +710,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 if(flex_token->read_new_line == 1)			
+				 if(read_new_line == 1)			
 					return ADD_SEMI;
 				else
 					return LEX_CORRECT;
@@ -729,8 +721,9 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "function");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
+				 flex_token->handle_context = 1;
 				 BEGIN(function1);
-				 if(flex_token->read_new_line == 1)			
+				 if(read_new_line == 1)			
 					return ADD_SEMI;
 				else
 					return LEX_CORRECT;
@@ -822,7 +815,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "nil");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;
+				 read_new_line = 0;
 				 return LEX_CORRECT;
                                 }
 <endStat1>{FALSE}		{flex_token->token = FALSE;
@@ -831,7 +824,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "false");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;
+				 read_new_line = 0;
 				 return LEX_CORRECT;
                                 }
 <endStat1>{TRUE}		{flex_token->token = TRUE;
@@ -840,7 +833,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "true");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;
+				 read_new_line = 0;
 				 return LEX_CORRECT;
                                 }
 <endStat1>{NUMBER}		{flex_token->token = NUMBER;
@@ -849,7 +842,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, yytext);
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;
+				 read_new_line = 0;
 				 return LEX_CORRECT;
                                 }
 <endStat1>{DOT3}		{flex_token->token = DOT3;
@@ -858,7 +851,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "...");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;	
+				 read_new_line = 0;	
 				 return LEX_CORRECT;
                                 }
 <endStat1>{RBRACE}		{flex_token->token = RBRACE;
@@ -867,8 +860,9 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "}");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;	
-				 return INSERT_DELIMITER;
+				 read_new_line = 0;	
+				 flex_token->handle_context = 1;
+				 return LEX_CORRECT;
                                 }
 <endStat1>{END}		{flex_token->token = END;
 				 /* Semantic value stub. */
@@ -876,8 +870,9 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "end");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;	
-				 return INSERT_DELIMITER;
+				 read_new_line = 0;	
+				 flex_token->handle_context = 1;
+				 return LEX_CORRECT;
                                 }
 <endStat1>{RBRACK}		{flex_token->token = RBRACK;
 				 /* Semantic value stub. */
@@ -885,7 +880,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "]");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;	
+				 read_new_line = 0;	
 				 BEGIN(endStat2);			
 				 return LEX_CORRECT;
                                 }
@@ -895,7 +890,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, ")");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;	
+				 read_new_line = 0;	
 				 BEGIN(endStat2);			
 				 return LEX_CORRECT;
                                 }    
@@ -906,7 +901,8 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return INSERT_DELIMITER;
+				 flex_token->handle_context = 1;
+				 return LEX_CORRECT;
                                 }                                   
 <endStat1>{COLON}		{flex_token->token = COLON;
 				 /* Semantic value stub. */
@@ -951,7 +947,8 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return INSERT_DELIMITER;
+				 flex_token->handle_context = 1;
+				 return LEX_CORRECT;
                                 }                                   
 <endStat1>{XEQ}		{flex_token->token = XEQ;
 				 /* Semantic value stub. */
@@ -960,7 +957,8 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return INSERT_DELIMITER;
+				 flex_token->handle_context = 1;
+				 return LEX_CORRECT;
                                 }                                  
 <endStat1>{PLUS}		{flex_token->token = PLUS;
 				 /* Semantic value stub. */
@@ -1085,13 +1083,13 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, yytext);
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 if(flex_token->read_new_line == 1)	{
-				 	flex_token->read_new_line = 0;
+				 if(read_new_line == 1)	{
+				 	read_new_line = 0;
 				 	BEGIN(endStat2);
 					return ADD_SEMI;				 	
 				 }		
 				else {
-				 	flex_token->read_new_line = 0;
+				 	read_new_line = 0;
 				 	BEGIN(endStat2);
 					return LEX_CORRECT;				 	
 				 }	
@@ -1105,49 +1103,27 @@ struct lex_token * flex_token = yyextra;
 				 BEGIN(INITIAL);
 				 return LEX_CORRECT;
                                 }
-<endStat1>\]=*\]{SPACE}*{NEWLINE}	{int32_t i= 1;
-				 flex_token->comment_type = 0;
-				 while(yytext[i] == '=')
-				 {
-				 	(flex_token->comment_type)--;
-				 	i++;
-				 }
-				 /*Type of ending multiline comment is negative and starts from -1*/
-				 (flex_token->comment_type)--;
-				 flex_token->semantic_value = NULL;
-				 BEGIN(INITIAL);
-				 if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK_INSERT_COMMENT;
-				 return INSERT_COMMENT;
-                                }                                
-<endStat1>--\[=*\[		{int32_t i= 3;
-				 flex_token->comment_type = 0;
-				 while(yytext[i] == '=')
-				 {
-				 	(flex_token->comment_type)++;
-				 	i++;
-				 }
-				 /*Type of beginning multiline comment is positive and starts from 1*/
-				 (flex_token->comment_type)++;
-				 flex_token->semantic_value = NULL;
-				 flex_token->state_before_comment = endStat1; 
-				 BEGIN(multiComment);
-				 return INSERT_COMMENT;
-                                }
-<endStat1>--		{flex_token->semantic_value = NULL;
-				 flex_token->state_before_comment = endStat1;
+<endStat1>--		{
+				 state_before_comment = endStat1;
 				 BEGIN(singleComment);
-                    }                                                                
+                                }						
+<endStat1>--\[=*\[		{i= 3;
+				 comment_type = 0;
+				 while(yytext[i] == '=')
+				 {
+				 	(comment_type)++;
+				 	i++;
+				 }
+				 state_before_comment = endStat1;
+				 BEGIN(multiComment);							 
+                                }                                                                                                                      
 <endStat1>{SPACE}+		{}
-<endStat1>{NEWLINE}+	{flex_token->read_new_line = 1;
-						 flex_token->semantic_value = NULL;
-						 if(flex_token->num_chars >= flex_token->chunk_length)
-							return END_CHUNK;
+<endStat1>{NEWLINE}+	{read_new_line = 1;
 						}
-<endStat1>.				{flex_token->semantic_value = NULL;
-						 unput(yytext[yyleng - 1]);
-						 (flex_token->num_chars)--;
-						 BEGIN(INITIAL);}
+<endStat1>.				{/*Error*/
+						 flex_token->semantic_value = NULL;
+						 return ERROR;
+						}
 <endStat2>{COLON2}		{flex_token->token = COLON2;
 				 /* Semantic value stub. */
 				 //char * ch = (char*) malloc(sizeof(char)*3);
@@ -1155,7 +1131,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 if(flex_token->read_new_line == 1)			
+				 if(read_new_line == 1)			
 					return ADD_SEMI;
 				else
 					return LEX_CORRECT;
@@ -1166,13 +1142,13 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "break");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 if(flex_token->read_new_line == 1){	
-				 	flex_token->read_new_line = 0;
+				 if(read_new_line == 1){	
+				 	read_new_line = 0;
 				 	BEGIN(endStat1);		
 					return ADD_SEMI;
 				 }
 				else {
-					flex_token->read_new_line = 0;
+					read_new_line = 0;
 					BEGIN(endStat1);
 					return LEX_CORRECT;
 				 }
@@ -1184,7 +1160,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 if(flex_token->read_new_line == 1)			
+				 if(read_new_line == 1)			
 					return ADD_SEMI;
 				else
 					return LEX_CORRECT;
@@ -1196,10 +1172,11 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 if(flex_token->read_new_line == 1)			
-					return INSERT_DELIMITER_ADD_SEMI;
+				 flex_token->handle_context = 1;
+				 if(read_new_line == 1)			
+					return ADD_SEMI;
 				else
-					return INSERT_DELIMITER;
+					return LEX_CORRECT;
                                 }
 <endStat2>{WHILE}		{flex_token->token = WHILE;
 				 /* Semantic value stub. */
@@ -1208,7 +1185,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 if(flex_token->read_new_line == 1)			
+				 if(read_new_line == 1)			
 					return ADD_SEMI;
 				else
 					return LEX_CORRECT;
@@ -1220,7 +1197,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 if(flex_token->read_new_line == 1)			
+				 if(read_new_line == 1)			
 					return ADD_SEMI;
 				else
 					return LEX_CORRECT;
@@ -1232,10 +1209,11 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 if(flex_token->read_new_line == 1)			
-					return INSERT_DELIMITER_ADD_SEMI;
+				 flex_token->handle_context = 1;
+				 if(read_new_line == 1)			
+					return ADD_SEMI;
 				else
-					return INSERT_DELIMITER;
+					return LEX_CORRECT;
                                 }
 <endStat2>{FOR}		{flex_token->token = FOR;
 				 /* Semantic value stub. */
@@ -1244,7 +1222,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 if(flex_token->read_new_line == 1)			
+				 if(read_new_line == 1)			
 					return ADD_SEMI;
 				else
 					return LEX_CORRECT;
@@ -1256,7 +1234,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 if(flex_token->read_new_line == 1)			
+				 if(read_new_line == 1)			
 					return ADD_SEMI;
 				else
 					return LEX_CORRECT;
@@ -1267,8 +1245,9 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "function");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
+				 flex_token->handle_context = 1;
 				 BEGIN(function1);
-				 if(flex_token->read_new_line == 1)			
+				 if(read_new_line == 1)			
 					return ADD_SEMI;
 				else
 					return LEX_CORRECT;
@@ -1360,7 +1339,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "nil");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;
+				 read_new_line = 0;
 				 BEGIN(endStat1);			
 				 return LEX_CORRECT;
                                 }
@@ -1370,7 +1349,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "false");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;
+				 read_new_line = 0;
 				 BEGIN(endStat1);						
 				 return LEX_CORRECT;
                                 }
@@ -1380,7 +1359,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "true");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;
+				 read_new_line = 0;
 				 BEGIN(endStat1);					
 				 return LEX_CORRECT;
                                 }
@@ -1390,7 +1369,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, yytext);
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;
+				 read_new_line = 0;
 				 BEGIN(endStat1);			
 				 return LEX_CORRECT;
                                 }
@@ -1400,7 +1379,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "...");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;	
+				 read_new_line = 0;	
 				 BEGIN(endStat1);			
 				 return LEX_CORRECT;
                                 }
@@ -1410,9 +1389,10 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "}");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;	
+				 read_new_line = 0;	
 				 BEGIN(endStat1);
-				 return INSERT_DELIMITER;
+				 flex_token->handle_context = 1;
+				 return LEX_CORRECT;
                                 }
 <endStat2>{END}		{flex_token->token = END;
 				 /* Semantic value stub. */
@@ -1420,9 +1400,10 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "end");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;	
+				 read_new_line = 0;	
 				 BEGIN(endStat1);			
-				 return INSERT_DELIMITER;
+				 flex_token->handle_context = 1;
+				 return LEX_CORRECT;
                                 }
 <endStat2>{RBRACK}		{flex_token->token = RBRACK;
 				 /* Semantic value stub. */
@@ -1430,7 +1411,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "]");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;	
+				 read_new_line = 0;	
 				 return LEX_CORRECT;
                                 }
 <endStat2>{RPAREN}		{flex_token->token = RPAREN;
@@ -1439,7 +1420,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, ")");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;	
+				 read_new_line = 0;	
 				 return LEX_CORRECT;
                                 }    
 <endStat2>{SEMI}		{flex_token->token = SEMI;
@@ -1449,7 +1430,8 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return INSERT_DELIMITER;
+				 flex_token->handle_context = 1;
+				 return LEX_CORRECT;
                                 }                                   
 <endStat2>{COLON}		{flex_token->token = COLON;
 				 /* Semantic value stub. */
@@ -1494,7 +1476,8 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return INSERT_DELIMITER;
+				 flex_token->handle_context = 1;
+				 return LEX_CORRECT;
                                 }                                   
 <endStat2>{LPAREN}		{flex_token->token = LPAREN;
 				 /* Semantic value stub. */
@@ -1512,7 +1495,8 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return INSERT_DELIMITER;
+				 flex_token->handle_context = 1;
+				 return LEX_CORRECT;
                                 }                                  
 <endStat2>{PLUS}		{flex_token->token = PLUS;
 				 /* Semantic value stub. */
@@ -1637,12 +1621,12 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, yytext);
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 if(flex_token->read_new_line == 1)	{
-				 	flex_token->read_new_line = 0;		
+				 if(read_new_line == 1)	{
+				 	read_new_line = 0;		
 					return ADD_SEMI;
 				 }
 				else{
-					flex_token->read_new_line = 0;
+					read_new_line = 0;
 					return LEX_CORRECT;
 				}
                                 }                                
@@ -1655,125 +1639,54 @@ struct lex_token * flex_token = yyextra;
 				 BEGIN(INITIAL);
 				 return LEX_CORRECT;
                                 }
-<endStat2>\]=*\]{SPACE}*{NEWLINE}	{int32_t i= 1;
-				 flex_token->comment_type = 0;
-				 while(yytext[i] == '=')
-				 {
-				 	(flex_token->comment_type)--;
-				 	i++;
-				 }
-				 /*Type of ending multiline comment is negative and starts from -1*/
-				 (flex_token->comment_type)--;
-				 flex_token->semantic_value = NULL;
-				 BEGIN(INITIAL);
-				 if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK_INSERT_COMMENT;
-				 return INSERT_COMMENT;
-                                }                                
-<endStat2>--\[=*\[		{int32_t i= 3;
-				 flex_token->comment_type = 0;
-				 while(yytext[i] == '=')
-				 {
-				 	(flex_token->comment_type)++;
-				 	i++;
-				 }
-				 /*Type of beginning multiline comment is positive and starts from 1*/
-				 (flex_token->comment_type)++;
-				 flex_token->semantic_value = NULL;
-				 flex_token->state_before_comment = endStat2;
-				 BEGIN(multiComment);
-				 return INSERT_COMMENT;
-                                }
-<endStat2>--		{flex_token->semantic_value = NULL;
-				 flex_token->state_before_comment = endStat2;
+<endStat2>--		{
+				 state_before_comment = endStat2;
 				 BEGIN(singleComment);
-                                }                                                                
+                                }						
+<endStat2>--\[=*\[		{i= 3;
+				 comment_type = 0;
+				 while(yytext[i] == '=')
+				 {
+				 	(comment_type)++;
+				 	i++;
+				 }
+				 state_before_comment = endStat2;
+				 BEGIN(multiComment);							 
+                                }                                                                                                                      
 <endStat2>{SPACE}+		{}
-<endStat2>{NEWLINE}+	{flex_token->read_new_line = 1;
-						 flex_token->semantic_value = NULL;
-						 if(flex_token->num_chars >= flex_token->chunk_length)
-							return END_CHUNK;
+<endStat2>{NEWLINE}+	{read_new_line = 1;
 						}
-<endStat2>.				{flex_token->semantic_value = NULL;
-						 unput(yytext[yyleng - 1]);
-						 (flex_token->num_chars)--;
-						 BEGIN(INITIAL);}
-<singleComment>\]=*\]{SPACE}*{NEWLINE}	{int32_t i= 1;
-				 flex_token->comment_type = 0;
-				 while(yytext[i] == '=')
-				 {
-				 	(flex_token->comment_type)--;
+<endStat2>.				{/*Error*/
+						 flex_token->semantic_value = NULL;
+						 return ERROR;
+						}
+<singleComment>.*{NEWLINE}	{
+					BEGIN(state_before_comment);
+					read_new_line = 1;
+				}						 
+<multiComment>\]=*\]{SPACE}*{NEWLINE}	{i= 1;
+				 while(yytext[i] == '=') {
 				 	i++;
 				 }
-				 /*Type of ending multiline comment is negative and starts from -1*/
-				 (flex_token->comment_type)--;
-				 /*Identify previous state*/
-				 if(flex_token->state_before_comment == function1 || flex_token->state_before_comment == function2)
-				 	flex_token->insert_function = 1;
-				 /*!!da usare con l'ottimizzazione
-				    if(flex_token->state_before_comment == endStat1 || flex_token->state_before_comment == endStat2)
-				    	flex_token->read_new_line = 1;
-				    BEGIN(flex_token->state_before_comment);*/
-			     flex_token->semantic_value = NULL;
-				 BEGIN(INITIAL);
-				 if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK_INSERT_SINGLEMULTICOMMENT;
-				 return INSERT_SINGLEMULTICOMMENT;
-                                }
-<singleComment>{NEWLINE}+	{flex_token->semantic_value = NULL;
-				// if(flex_token->state_before_comment == function1 || flex_token->state_before_comment == function2)
-				//  	flex_token->insert_function = 1;
-				 if(flex_token->state_before_comment == endStat1 || flex_token->state_before_comment == endStat2)
-				 	flex_token->read_new_line = 1;
-				 BEGIN(flex_token->state_before_comment);
-				 if(flex_token->num_chars >= flex_token->chunk_length){
-				 	if(flex_token->state_before_comment == function1 || flex_token->state_before_comment == function2)
-				 		flex_token->insert_function = 1;
-					return END_CHUNK;
+				 if (comment_type == i-1)
+				 	BEGIN(state_before_comment);
+				 read_new_line = 1;
                 }
-                                }
-<singleComment>.			{}   
-<multiComment>\]=*\]{SPACE}*{NEWLINE}	{int32_t i= 1;
-				 flex_token->comment_type = 0;
-				 while(yytext[i] == '=')
-				 {
-				 	(flex_token->comment_type)--;
-				 	i++;
-				 }
-				 /*Type of ending multiline comment is negative and starts from -1*/
-				 (flex_token->comment_type)--;
-				 /*Identify previous state.*/
-				 if(flex_token->state_before_comment == function1 || flex_token->state_before_comment == function2)
-				 	flex_token->insert_function = 1;
-				 flex_token->semantic_value = NULL;
-				 	/*!!da usare con l'ottimizzazione
-				    if(flex_token->state_before_comment == endStat1 || flex_token->state_before_comment == endStat2)
-				    	flex_token->read_new_line = 1;
-				    BEGIN(flex_token->state_before_comment);*/
-				 BEGIN(INITIAL);
-				 if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK_INSERT_COMMENT;
-				 return INSERT_COMMENT;
-                                }
-<multiComment>{NEWLINE}+	{
-				 if(flex_token->state_before_comment == function1 || flex_token->state_before_comment == function2)
-				 	flex_token->insert_function = 1;
-				 flex_token->semantic_value = NULL;
-				 if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK_ERROR;
-                                }
+<multiComment><<EOF>>		{
+						 return ERROR;
+							}		                
 <multiComment>.				{}                                
-<doubleString,singleString>\\x[0-9a-fA-F]{2}		{
+<doubleString,singleString,bracketedString>\\x[0-9a-fA-F]{2}		{
 					/*Compute the decimal value of the hexadecimal number*/
-					int32_t result = hex2dec(yytext[2]);
+					result = hex2dec(yytext[2]);
 					result = (result << 4) + hex2dec(yytext[3]);
 					/*Append (char)result to string buffer*/
-					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, (char) result, flex_token->current_buffer_length, &(flex_token->allocated_buffer_size));
-					(flex_token->current_buffer_length)++;
+					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, (char) result, current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 									}
-<doubleString,singleString>\\[0-9]{1,3}		{
+<doubleString,singleString,bracketedString>\\[0-9]{1,3}		{
 					/*Compute the decimal value of the number*/
-					int32_t result = 0, i = 1;
+					result = 0, i = 1;
 					while(i < yyleng)
 					{
 						result = 10*result + yytext[i] - '0';
@@ -1781,159 +1694,137 @@ struct lex_token * flex_token = yyextra;
 					}
 					/*Maximal system value of unsigned char (e.g. 255)*/
 					if(result > UCHAR_MAX)
-						 BEGIN(commentOrError);						 
+						 return ERROR;						 
 					/*Append (char)result to string buffer*/
-					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, (char) result, flex_token->current_buffer_length, &(flex_token->allocated_buffer_size));
-					(flex_token->current_buffer_length)++;
+					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, (char) result, current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 								}
-<doubleString,singleString>\\z({SPACE}|{NEWLINE})*	{
+<doubleString,singleString,bracketedString>\\z({SPACE}|{NEWLINE})*	{
 					/*Skips the following span of white-space characters, including line breaks.*/
 								}
-<doubleString,singleString>\\{NEWLINE}	{
+<doubleString,singleString,bracketedString>\\{NEWLINE}	{
 					/*Append character newline to string buffer*/
-					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, '\n', flex_token->current_buffer_length, &(flex_token->allocated_buffer_size));
-					(flex_token->current_buffer_length)++;
+					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, '\n', current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 								}
-<doubleString,singleString>\\\\		{
+<doubleString,singleString,bracketedString>\\\\		{
 					/*Append escaped character to string buffer*/
-					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, '\\', flex_token->current_buffer_length, &(flex_token->allocated_buffer_size));
-					(flex_token->current_buffer_length)++;
+					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, '\\', current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 								}
-<doubleString,singleString>\\\"		{
+<doubleString,singleString,bracketedString>\\\"		{
 					/*Append escaped character to string buffer*/
-					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, '\"', flex_token->current_buffer_length, &(flex_token->allocated_buffer_size));
-					(flex_token->current_buffer_length)++;
+					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, '\"', current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 								}
-<doubleString,singleString>\\\'		{
+<doubleString,singleString,bracketedString>\\\'		{
 					/*Append escaped character to string buffer*/
-					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, '\'', flex_token->current_buffer_length, &(flex_token->allocated_buffer_size));
-					(flex_token->current_buffer_length)++;
+					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, '\'', current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 								}
-<doubleString,singleString>\\a		{
+<doubleString,singleString,bracketedString>\\a		{
 					/*Append escaped character to string buffer*/
-					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, '\a', flex_token->current_buffer_length, &(flex_token->allocated_buffer_size));
-					(flex_token->current_buffer_length)++;
+					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, '\a', current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 								}
-<doubleString,singleString>\\b		{
+<doubleString,singleString,bracketedString>\\b		{
 					/*Append escaped character to string buffer*/
-					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, '\b',flex_token->current_buffer_length, &(flex_token->allocated_buffer_size));
-					(flex_token->current_buffer_length)++;
+					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, '\b',current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 								}
-<doubleString,singleString>\\f		{
+<doubleString,singleString,bracketedString>\\f		{
 					/*Append escaped character to string buffer*/
-					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, '\f',flex_token->current_buffer_length, &(flex_token->allocated_buffer_size));
-					(flex_token->current_buffer_length)++;
+					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, '\f',current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 								}
-<doubleString,singleString>\\n		{
+<doubleString,singleString,bracketedString>\\n		{
 					/*Append escaped character to string buffer*/
-					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, '\n',flex_token->current_buffer_length, &(flex_token->allocated_buffer_size));
-					(flex_token->current_buffer_length)++;
+					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, '\n',current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 								}
-<doubleString,singleString>\\r		{
+<doubleString,singleString,bracketedString>\\r		{
 					/*Append escaped character to string buffer*/
-					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, '\r',flex_token->current_buffer_length, &(flex_token->allocated_buffer_size));
-					(flex_token->current_buffer_length)++;
+					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, '\r',current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 								}
-<doubleString,singleString>\\t		{
+<doubleString,singleString,bracketedString>\\t		{
 					/*Append escaped character to string buffer*/
-					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, '\t',flex_token->current_buffer_length, &(flex_token->allocated_buffer_size));
-					(flex_token->current_buffer_length)++;
+					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, '\t',current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 								}
-<doubleString,singleString>\\v		{
+<doubleString,singleString,bracketedString>\\v		{
 					/*Append escaped character to string buffer*/
-					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, '\v',flex_token->current_buffer_length, &(flex_token->allocated_buffer_size));
-					(flex_token->current_buffer_length)++;
+					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, '\v',current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 								}
-<doubleString,singleString>\]=*\]{SPACE}*{NEWLINE}	{int32_t i= 1;
-				 flex_token->comment_type = 0;
-				 while(yytext[i] == '=')
-				 {
-				 	(flex_token->comment_type)--;
-				 	i++;
-				 }
-				 /*Type of ending multiline comment is negative and starts from -1*/
-				 (flex_token->comment_type)--;
-				 flex_token->semantic_value = NULL;
-				 BEGIN(INITIAL);
-				 if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK_INSERT_COMMENT;
-				 return INSERT_COMMENT;
-                                }
 <doubleString>\"		{flex_token->token = STRING;
-				 flex_token->string_buffer[flex_token->current_buffer_length] = '\0';
+				 flex_token->string_buffer[current_buffer_length] = '\0';
 				 /* Semantic value stub. */
-				 //char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length + 1));
+				 //char * ch = (char*) malloc(sizeof(char)*(current_buffer_length + 1));
         		 //strcpy(ch, flex_token->string_buffer);
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;				 
+				 read_new_line = 0;				 
 				 BEGIN(endStat1);
 				 return LEX_CORRECT;
                         }
 <doubleString,singleString>{NEWLINE}	{
 						 flex_token->semantic_value = NULL;
-						 BEGIN(commentOrError);						 
-						 if(flex_token->num_chars >= flex_token->chunk_length)
-							return END_CHUNK_ERROR;
+						 return ERROR;
 						} 
-<doubleString,singleString><<EOF>>		{
+<doubleString,singleString,bracketedString><<EOF>>		{
 						 flex_token->semantic_value = NULL;
-						 return END_CHUNK_ERROR;
+						 return ERROR;
 							}	
-<doubleString>[^\\\]\"\n\r]+			{
+<doubleString>[^\\\"\n\r]+			{
 						 /*Append chars to string buffer*/
-						 flex_token->string_buffer = concat_to_buffer(flex_token->string_buffer, yytext, yyleng, &(flex_token->current_buffer_length), &(flex_token->allocated_buffer_size));
+						 flex_token->string_buffer = concat_to_buffer(flex_token->string_buffer, yytext, yyleng, &(current_buffer_length), &allocated_buffer_size);
 						} 													                       
 <doubleString>.			{
 						 /*Append char to string buffer*/
-						flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, yytext[0],flex_token->current_buffer_length, &(flex_token->allocated_buffer_size));
-						(flex_token->current_buffer_length)++;
+						flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, yytext[0],current_buffer_length, &allocated_buffer_size);
+						current_buffer_length++;
 						}
 <singleString>\'		{flex_token->token = STRING;
-				 flex_token->string_buffer[flex_token->current_buffer_length] = '\0';
+				 flex_token->string_buffer[current_buffer_length] = '\0';
 				 /* Semantic value stub. */
-				 //char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length + 1));
+				 //char * ch = (char*) malloc(sizeof(char)*(current_buffer_length + 1));
         		 //strcpy(ch, flex_token->string_buffer);
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 flex_token->read_new_line = 0;				 
+				 read_new_line = 0;				 
 				 BEGIN(endStat1);
 				 return LEX_CORRECT;
                         }	
-<singleString>[^\\\]\'\n\r]+			{
+<singleString>[^\\\'\n\r]+			{
 						 /*Append chars to string buffer*/
-						 flex_token->string_buffer = concat_to_buffer(flex_token->string_buffer, yytext, yyleng, &(flex_token->current_buffer_length), &(flex_token->allocated_buffer_size));
+						 flex_token->string_buffer = concat_to_buffer(flex_token->string_buffer, yytext, yyleng, &(current_buffer_length), &allocated_buffer_size);
 						}                        							                       
 <singleString>.			{
 						 /*Append char to string buffer*/
-						flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, yytext[0],flex_token->current_buffer_length, &(flex_token->allocated_buffer_size));
-						(flex_token->current_buffer_length)++;
+						flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, yytext[0],current_buffer_length, &allocated_buffer_size);
+						current_buffer_length++;
 						}
-<commentOrError>\]=*\]{SPACE}*{NEWLINE}	{int32_t i= 1;
-				 flex_token->comment_type = 0;
-				 while(yytext[i] == '=')
-				 {
-				 	(flex_token->comment_type)--;
-				 	i++;
-				 }
-				 /*Type of ending multiline comment is negative and starts from -1*/
-				 (flex_token->comment_type)--;
+<bracketedString>\]\]		{flex_token->token = STRING;
+				 flex_token->string_buffer[current_buffer_length] = '\0';
+				 /* Semantic value stub. */
+				 //char * ch = (char*) malloc(sizeof(char)*(current_buffer_length + 1));
+        		 // strcpy(ch, flex_token->string_buffer);
+				 // flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 BEGIN(INITIAL);
-				 if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK_INSERT_COMMENT;
-				 return INSERT_COMMENT;
-                                }
-<commentOrError>{NEWLINE}	{
-						 flex_token->semantic_value = NULL;
-						 if(flex_token->num_chars >= flex_token->chunk_length)
-							return END_CHUNK_ERROR;
-							}                        
-<commentOrError><<EOF>>		{
-						 flex_token->semantic_value = NULL;
-						 return END_CHUNK_ERROR;
-							}							
-<commentOrError>.			{}
+				 read_new_line = 0;				 
+				 BEGIN(endStat1);
+				 return LEX_CORRECT;
+                        }	
+<bracketedString>[^\\\]]+			{
+						 /*Append chars to string buffer*/
+						 flex_token->string_buffer = concat_to_buffer(flex_token->string_buffer, yytext, yyleng, &(current_buffer_length), &allocated_buffer_size);
+						}                        							                       
+<bracketedString>.			{
+						 /*Append char to string buffer*/
+						flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, yytext[0],current_buffer_length, &allocated_buffer_size);
+						current_buffer_length++;
+						}						
 <function1>{NAME}		{flex_token->token = NAME;
 				 /* Semantic value stub. */
 				 //char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
@@ -1968,46 +1859,24 @@ struct lex_token * flex_token = yyextra;
 				 BEGIN(function2);
 				 return LEX_CORRECT;
                                 }                                                                     
-<function1>--\[=*\[		{int32_t i= 3;
-				 flex_token->comment_type = 0;
+<function1>--\[=*\[		{i= 3;
+				 comment_type = 0;
 				 while(yytext[i] == '=')
 				 {
-				 	(flex_token->comment_type)++;
+				 	comment_type++;
 				 	i++;
 				 }
-				 /*Type of beginning multiline comment is positive and starts from 1*/
-				 (flex_token->comment_type)++;
-				 flex_token->semantic_value = NULL;
-				 flex_token->state_before_comment = function1;
+				 state_before_comment = function1;
 				 BEGIN(multiComment);							 
-				 return INSERT_COMMENT;
                                 }
-<function1>--	{flex_token->semantic_value = NULL;
-				 flex_token->state_before_comment = function1;
+<function1>--	{
+				 state_before_comment = function1;
 				 BEGIN(singleComment);
-                                }
-<function1>\]=*\]{SPACE}*{NEWLINE}	{int32_t i= 1;
-				 flex_token->comment_type = 0;
-				 while(yytext[i] == '=')
-				 {
-				 	(flex_token->comment_type)--;
-				 	i++;
-				 }
-				 /*Type of ending multiline comment is negative and starts from -1*/
-				 (flex_token->comment_type)--;
-				 flex_token->semantic_value = NULL;
-				 BEGIN(INITIAL);
-				 if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK_INSERT_COMMENT;
-				 return INSERT_COMMENT;
                                 }                                     
 <function1>{SPACE}+		{}
-<function1>{NEWLINE}+	{flex_token->insert_function = 1;
-				if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK;
-						}
-<function1>.	{flex_token->semantic_value = NULL;
-				 BEGIN(commentOrError);
+<function1>{NEWLINE}+	{}
+<function1>.	{
+				 return ERROR;
 				}                                                                                                                
 <function2>{NAME}		{flex_token->token = NAME;
 				 /* Semantic value stub. */
@@ -2042,46 +1911,24 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 return LEX_CORRECT;
-                                }                                            
-<function2>--\[=*\[		{int32_t i= 3;
-				 flex_token->comment_type = 0;
+                                } 
+<function2>--\[=*\[		{i= 3;
+				 comment_type = 0;
 				 while(yytext[i] == '=')
 				 {
-				 	(flex_token->comment_type)++;
+				 	comment_type++;
 				 	i++;
 				 }
-				 /*Type of beginning multiline comment is positive and starts from 1*/
-				 (flex_token->comment_type)++;
-				 flex_token->semantic_value = NULL;
-				 flex_token->state_before_comment = function2;
+				 state_before_comment = function2;
 				 BEGIN(multiComment);							 
-				 return INSERT_COMMENT;
                                 }
-<function2>--	{flex_token->semantic_value = NULL;
-				 flex_token->state_before_comment = function2;
+<function2>--	{
+				 state_before_comment = function2;
 				 BEGIN(singleComment);
-                                }
-<function2>\]=*\]{SPACE}*{NEWLINE}	{int32_t i= 1;
-				 flex_token->comment_type = 0;
-				 while(yytext[i] == '=')
-				 {
-				 	(flex_token->comment_type)--;
-				 	i++;
-				 }
-				 /*Type of ending multiline comment is negative and starts from -1*/
-				 (flex_token->comment_type)--;
-				 flex_token->semantic_value = NULL;
-				 BEGIN(INITIAL);
-				 if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK_INSERT_COMMENT;
-				 return INSERT_COMMENT;
-                                }                                 
+                                }                                     
 <function2>{SPACE}+		{}
-<function2>{NEWLINE}+	{flex_token->insert_function = 1;
-				if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK;
-						}
-<function2>.	{flex_token->semantic_value = NULL;
-				 BEGIN(commentOrError);
+<function2>{NEWLINE}+	{}
+<function2>.	{
+				 return ERROR;
 				}
 %%

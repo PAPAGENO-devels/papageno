@@ -1,6 +1,7 @@
 CC := clang 
 LFLAGS = -lrt -lpthread 
-INCLUDES := -I./include -I./lexer -I../../include
+#for MacOSX: LFLAGS = -lpthread 
+INCLUDES := -I./include -I./lexer -I../include
 CFLAGS := -UDEBUG -Wall $(INCLUDES)
 #CFLAGS := -O3 -pipe -lpthread -Wall $(INCLUDES)
 SRCDIR := lib
@@ -11,7 +12,7 @@ FOUT := lexer/flex.yy.c
 FOBJ := obj/flex.yy.o
 OBJ := $(patsubst $(SRCDIR)/%.c, $(ODIR)/%.o, $(SRC))
 
-FLEX := lexer/lua_bracketed.l
+FLEX := lexer/lua.l
 GENERATED_FILES = include/rewrite_rules.h include/reduction_tree.h include/grammar_tokens.h include/grammar_semantics.h lib/grammar_semantics.c include/grammar.h lib/grammar.c include/matrix.h 
 
 all: $(FOBJ) $(OBJ)

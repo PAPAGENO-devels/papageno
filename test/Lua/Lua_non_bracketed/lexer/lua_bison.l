@@ -7,7 +7,7 @@
 #include <string.h>
 
 #include "grammar.h"
-#include "flex_token_formatting_bracketed_strings.h"
+#include "flex_token_formatting.h"
 #include "parser_tab.h" /*for yyerror routine*/
 
 token_node * node;
@@ -26,7 +26,7 @@ if (string_buffer == NULL) {
 /*Scanner for the original grammar of Lua, NOT in operator precedence form, to guarantee a fair comparison of performance between the sequential lexer+parser 
 and the parallel ones (the constraints of the operator precedence form would slow down the sequential lexer+parser).
 This grammar has the same restrictions as the current grammar used for PAPAGENO: e.g. multiline comments are ended with newline (and the other ones are ignored or
-considered errors) and strings between brackets are allowed only with no '=' between the brackets, i.e. [[ ]].*/
+considered errors) and strings between brackets are not allowed.*/
 
 %}
 AND			"and"
@@ -88,11 +88,11 @@ NUMBER 		({DECNUMBER}|{HEXNUMBER})
 SPACE		" "|\a|\b|\f|\t|\v
 NEWLINE		\n|\r|\r\n|\n\r
 
+
 %x singleComment
 %x multiComment
 %x doubleString
 %x singleString
-%x bracketedString
 
 %%
 
@@ -626,16 +626,14 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 current_buffer_length = 0;
 				 BEGIN(singleString);
                                 }
-<INITIAL>\[\[	{
-				 current_buffer_length = 0;
-				 BEGIN(bracketedString);
-                                }
 <INITIAL>({SPACE}|{NEWLINE})+		{}
 <INITIAL>.				{/*Error*/
 						 	yyerror("LEXER> Error: unexpected character.")
 							exit(1);
 						}              						
-<singleComment>.*{NEWLINE}	{}
+<singleComment>.*{NEWLINE}	{
+					BEGIN(INITIAL);
+				}
 <multiComment>\]=*\]{SPACE}*{NEWLINE}	{i= 1;
 				 matching_comment_type = 0;
 				 while(yytext[i] == '=')
@@ -648,14 +646,15 @@ NEWLINE		\n|\r|\r\n|\n\r
                    		}
 <multiComment>{NEWLINE}+	{}
 <multiComment>.				{}                                
-<doubleString,singleString,bracketedString>\\x[0-9a-fA-F]{2}		{
+<doubleString,singleString>\\x[0-9a-fA-F]{2}		{
 					/*Compute the decimal value of the hexadecimal number*/
 					result = hex2dec(yytext[2]);
 					result = (result << 4) + hex2dec(yytext[3]);
 					/*Append (char)result to string buffer*/
-					string_buffer = append_to_buffer(string_buffer, (char) result, &current_buffer_length, &allocated_buffer_size);
+					string_buffer = append_to_buffer(string_buffer, (char) result, current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 									}
-<doubleString,singleString,bracketedString>\\[0-9]{1,3}		{
+<doubleString,singleString>\\[0-9]{1,3}		{
 					/*Compute the decimal value of the number*/
 					result = 0, i = 1;
 					while(i < yyleng)
@@ -670,65 +669,66 @@ NEWLINE		\n|\r|\r\n|\n\r
 							exit(1);
 						 }					 
 					/*Append (char)result to string buffer*/
-					string_buffer = append_to_buffer(string_buffer, (char) result, &current_buffer_length, &allocated_buffer_size);
+					string_buffer = append_to_buffer(string_buffer, (char) result, current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 								}
-<doubleString,singleString,bracketedString>\\z({SPACE}|{NEWLINE})*	{
+<doubleString,singleString>\\z({SPACE}|{NEWLINE})*	{
 					/*Skips the following span of white-space characters, including line breaks.*/
 								}
-<doubleString,singleString,bracketedString>\\{NEWLINE}	{
+<doubleString,singleString>\\{NEWLINE}		{
 					/*Append character newline to string buffer*/
-					string_buffer = append_to_buffer(string_buffer, '\n', &current_buffer_length, &allocated_buffer_size);
-					
+					string_buffer = append_to_buffer(string_buffer, '\n', current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 								}
-<doubleString,singleString,bracketedString>\\\\		{
+<doubleString,singleString>\\\\		{
 					/*Append escaped character to string buffer*/
-					string_buffer = append_to_buffer(string_buffer, '\\', &current_buffer_length, &allocated_buffer_size);
-					
+					string_buffer = append_to_buffer(string_buffer, '\\', current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 								}
-<doubleString,singleString,bracketedString>\\\"		{
+<doubleString,singleString>\\\"		{
 					/*Append escaped character to string buffer*/
-					string_buffer = append_to_buffer(string_buffer, '\"', &current_buffer_length, &allocated_buffer_size);
-					
+					string_buffer = append_to_buffer(string_buffer, '\"', current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 								}
-<doubleString,singleString,bracketedString>\\\'		{
+<doubleString,singleString>\\\'		{
 					/*Append escaped character to string buffer*/
-					string_buffer = append_to_buffer(string_buffer, '\'', &current_buffer_length, &allocated_buffer_size);
-					
+					string_buffer = append_to_buffer(string_buffer, '\'', current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 								}
-<doubleString,singleString,bracketedString>\\a		{
+<doubleString,singleString>\\a		{
 					/*Append escaped character to string buffer*/
-					string_buffer = append_to_buffer(string_buffer, '\a', &current_buffer_length, &allocated_buffer_size);
-					
+					string_buffer = append_to_buffer(string_buffer, '\a', current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 								}
-<doubleString,singleString,bracketedString>\\b		{
+<doubleString,singleString>\\b		{
 					/*Append escaped character to string buffer*/
-					string_buffer = append_to_buffer(string_buffer, '\b', &current_buffer_length, &allocated_buffer_size);
-					
+					string_buffer = append_to_buffer(string_buffer, '\b', current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 								}
-<doubleString,singleString,bracketedString>\\f		{
+<doubleString,singleString>\\f		{
 					/*Append escaped character to string buffer*/
-					string_buffer = append_to_buffer(string_buffer, '\f', &current_buffer_length, &allocated_buffer_size);
-					
+					string_buffer = append_to_buffer(string_buffer, '\f', current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 								}
-<doubleString,singleString,bracketedString>\\n		{
+<doubleString,singleString>\\n		{
 					/*Append escaped character to string buffer*/
-					string_buffer = append_to_buffer(string_buffer, '\n', &current_buffer_length, &allocated_buffer_size);
-					
+					string_buffer = append_to_buffer(string_buffer, '\n', current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 								}
-<doubleString,singleString,bracketedString>\\r		{
+<doubleString,singleString>\\r		{
 					/*Append escaped character to string buffer*/
-					string_buffer = append_to_buffer(string_buffer, '\r', &current_buffer_length, &allocated_buffer_size);
-					
+					string_buffer = append_to_buffer(string_buffer, '\r', current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 								}
-<doubleString,singleString,bracketedString>\\t		{
+<doubleString,singleString>\\t		{
 					/*Append escaped character to string buffer*/
-					string_buffer = append_to_buffer(string_buffer, '\t', &current_buffer_length, &allocated_buffer_size);
-					
+					string_buffer = append_to_buffer(string_buffer, '\t', current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 								}
-<doubleString,singleString,bracketedString>\\v		{
+<doubleString,singleString>\\v		{
 					/*Append escaped character to string buffer*/
-					string_buffer = append_to_buffer(string_buffer, '\v', &current_buffer_length, &allocated_buffer_size);
-					
+					string_buffer = append_to_buffer(string_buffer, '\v', current_buffer_length, &allocated_buffer_size);
+					current_buffer_length++;
 								}
 <doubleString>\"		{
 				 string_buffer[current_buffer_length] = '\0';
@@ -745,18 +745,18 @@ NEWLINE		\n|\r|\r\n|\n\r
 <doubleString,singleString>{NEWLINE}	{
 						 yyerror("LEXER> Error: unexpected character.")
 						 exit(1);
-						} 
+						}  
+<doubleString,singleString><<EOF>>		{
+					 	 yyerror("LEXER> Error: End of file while reading a string.")
+						 exit(1);
+			}	
 <doubleString>[^\\\"\n\r]+			{
 						 /*Append chars to string buffer*/
 						 string_buffer = concat_to_buffer(string_buffer, yytext, yyleng, &current_buffer_length, &allocated_buffer_size);				
-						} 						
-<doubleString,singleString,bracketedString><<EOF>>		{
-					 	 yyerror("LEXER> Error: End of file while reading a string.")
-						 exit(1);
-			}
+						} 								                      
 <doubleString>.			{ /*Append char to string buffer*/
-						string_buffer = append_to_buffer(string_buffer, yytext[0], &current_buffer_length, &allocated_buffer_size);
-						
+						string_buffer = append_to_buffer(string_buffer, yytext[0], current_buffer_length, &allocated_buffer_size);
+						current_buffer_length++;
 						}
 <singleString>\'		{
 				 string_buffer[current_buffer_length] = '\0';
@@ -769,33 +769,13 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 yylval.node = node;
 				 BEGIN(INITIAL);
 				 return STRING_NODE;
-                        }
+                        } 
 <singleString>[^\\\'\n\r]+			{
 						 /*Append chars to string buffer*/
 						 string_buffer = concat_to_buffer(string_buffer, yytext, yyleng, &current_buffer_length, &allocated_buffer_size);				
-						}                                            
+						}                                    
 <singleString>.			{ /*Append char to string buffer*/
-						string_buffer = append_to_buffer(string_buffer, yytext[0], &current_buffer_length, &allocated_buffer_size);
-						
-						}                   
-<bracketedString>\]\]		{
-				 string_buffer[current_buffer_length] = '\0';
-				 /* Semantic value stub. */
-				 ch = (char*) malloc(sizeof(char)*(current_buffer_length + 1));
-        		 strcpy(ch, string_buffer);
-				 node = (token_node*) malloc(sizeof(token_node));
-				 node->token = STRING;
-				 node->value = ch;
-				 yylval.node = node;
-				 BEGIN(INITIAL);
-				 return STRING_NODE;
-                        } 
-<bracketedString>[^\\\]\n\r]+			{
-						 /*Append chars to string buffer*/
-						 string_buffer = concat_to_buffer(string_buffer, yytext, yyleng, &current_buffer_length, &allocated_buffer_size);				
-						}                                           
-<bracketedString>.			{ /*Append char to string buffer*/
-						string_buffer = append_to_buffer(string_buffer, yytext[0], &current_buffer_length, &allocated_buffer_size);
-						
-						}
+						string_buffer = append_to_buffer(string_buffer, yytext[0], current_buffer_length, &allocated_buffer_size);
+						current_buffer_length++;
+						}						
 %%
