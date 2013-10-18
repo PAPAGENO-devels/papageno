@@ -1,0 +1,101 @@
+ 
+\documentclass[a4paper,10pt]{article}
+
+\usepackage{times}
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+\usetikzlibrary{arrows}
+\usepackage{pgfplots}
+\usepackage{subfigure}
+\title{}
+\author{}
+
+\begin{document}
+
+\begin{figure}
+\begin{tikzpicture}[scale=1.4]
+ \begin{axis}[
+              ymode=log,
+              xlabel=Number of Threads, 
+	      ylabel= Time,
+	      grid,
+	      xmin=1,
+	      xmax=4,
+	      enlarge x limits=0.01,
+ 	      every axis y label/.style={at={(ticklabel cs:0.5)}, rotate=90,anchor=near ticklabel,font=\footnotesize},
+ 	      every axis x label/.style={at={(ticklabel cs:0.5)},anchor=near ticklabel,font=\footnotesize}]
+  \addplot[mark=+] table[x=threads,y=7k.lua]{./lex_results.dat};  
+  \addplot[mark=+] table[x=threads,y=70k.lua]{./lex_results.dat};
+  \addplot[mark=+] table[x=threads,y=700k.lua]{./lex_results.dat};
+  \addplot[mark=+] table[x=threads,y=7M.lua]{./lex_results.dat};
+  \addplot[mark=+] table[x=threads,y=35M.lua]{./lex_results.dat};
+ \end{axis}
+\end{tikzpicture}
+\caption{LUA Parallel lex - Laptop (2 cores) - 7k-70k-700k-7M-35M}
+\end{figure}
+
+\begin{figure}
+\begin{tikzpicture}[scale=1.4]
+ \begin{axis}[ymode=log,
+              xlabel=Number of Threads, 
+	      ylabel= Time,
+	      grid,
+	      xmin=1,
+	      xmax=4,
+	      enlarge x limits=0.01,
+ 	      every axis y label/.style={at={(ticklabel cs:0.5)}, rotate=90,anchor=near ticklabel,font=\footnotesize},
+ 	      every axis x label/.style={at={(ticklabel cs:0.5)},anchor=near ticklabel,font=\footnotesize}]
+  \addplot[mark=+] table[x=threads,y=7k.lua]{./parse_results.dat};  
+  \addplot[mark=+] table[x=threads,y=70k.lua]{./parse_results.dat};
+  \addplot[mark=+] table[x=threads,y=700k.lua]{./parse_results.dat};
+  \addplot[mark=+] table[x=threads,y=7M.lua]{./parse_results.dat};
+  \addplot[mark=+] table[x=threads,y=35M.lua]{./parse_results.dat};
+ \end{axis}
+\end{tikzpicture}
+\caption{LUA Parallel Parse - Laptop (2 cores) - 7k-70k-700k-7M-35M}
+\end{figure}
+
+\begin{figure}
+\begin{tikzpicture}[scale=1.4]
+ \begin{axis}[ymode=log,
+              xlabel=Number of Threads, 
+	      ylabel= Time,
+	      grid,
+	      xmin=1,
+	      xmax=16,
+	      enlarge x limits=0.01,
+ 	      every axis y label/.style={at={(ticklabel cs:0.5)}, rotate=90,anchor=near ticklabel,font=\footnotesize},
+ 	      every axis x label/.style={at={(ticklabel cs:0.5)},anchor=near ticklabel,font=\footnotesize}]
+  \addplot[mark=+] table[x=threads,y=7k.lua]{./parse_numa.dat};  
+  \addplot[mark=+] table[x=threads,y=70k.lua]{./parse_numa.dat};
+  \addplot[mark=+] table[x=threads,y=700k.lua]{./parse_numa.dat};
+  \addplot[mark=+] table[x=threads,y=7M.lua]{./parse_numa.dat};
+  \addplot[mark=+] table[x=threads,y=35M.lua]{./parse_numa.dat};
+ \end{axis}
+\end{tikzpicture}
+\caption{LUA Parallel Parse - Server (16 cores)- 7k-70k-700k-7M-35M}
+\end{figure}
+
+
+\begin{figure}
+\begin{tikzpicture}[scale=1.4]
+ \begin{axis}[ymode=log,
+              xlabel=Number of Threads, 
+	      ylabel= Time,
+	      grid,
+	      xmin=1,
+	      xmax=16,
+	      enlarge x limits=0.01,
+ 	      every axis y label/.style={at={(ticklabel cs:0.5)}, rotate=90,anchor=near ticklabel,font=\footnotesize},
+ 	      every axis x label/.style={at={(ticklabel cs:0.5)},anchor=near ticklabel,font=\footnotesize}]
+  \addplot[mark=+] table[x=threads,y=7k.lua]{./lex_numa.dat};  
+  \addplot[mark=+] table[x=threads,y=70k.lua]{./lex_numa.dat};
+  \addplot[mark=+] table[x=threads,y=700k.lua]{./lex_numa.dat};
+  \addplot[mark=+] table[x=threads,y=7M.lua]{./lex_numa.dat};
+  \addplot[mark=+] table[x=threads,y=35M.lua]{./lex_numa.dat};
+ \end{axis}
+\end{tikzpicture}
+\caption{LUA Parallel lex - Server (16 cores)- 7k-70k-700k-7M-35M}
+\end{figure}
+
+\end{document}

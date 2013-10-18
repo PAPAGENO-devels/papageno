@@ -1,0 +1,139 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8x]{inputenc}
+
+%opening
+\title{PAPAGENO\\ Parallel Parser Generator for Operator grammars}
+\author{Ermes Viviani, Alessandro Barenghi}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+PAPAGENO is a parallel parser generator for use with Floyd operator precedence
+grammars. It accepts a Bison-style description of the grammar and produces in 
+output the C implementation of a parallel parser using \texttt{pthreads}.
+
+\subsection{System requirements}
+
+PAPAGENO currently runs on any Linux system equipped with Python 2.x.
+The generated parser implementation can be compiled with any ANSI C compiler.
+In order to build and execute the parser the following tools are needed:
+\begin{itemize}
+ \item GCC 
+ \item Make
+ \item GNU Flex
+\end{itemize}
+
+The generated source code employs only standard C library functions and an implementation of POSIX threads.
+The code has been benchmarked on the Linux NPTL POSIX thread implementation.
+
+The \texttt{test} directory in the codebase provides an automated regression test employing a Bison generated parser on the JSON language grammar.
+to run the regression test, simply invoke make from both the main directory and the \texttt{test} directory, then subsequently run the \texttt{reg_test.py} script.
+
+
+\section{Programming Interface}
+
+\subsection{Input grammar syntax}
+
+The input grammar specification follows a syntax similar to the one used in
+other parser generators such as Yacc/Bison and is expressed as:
+
+\begin{verbatim}
+  - grammar    = C_preamble, "%%", axiom, "%%", rules;
+  - C_preamble = C_code;
+  - axiom      = "%axiom", token;
+  - rules      = rule, {rule};
+  - rule       = token, ":", rhs, {"|", rhs}, ";";
+  - rhs        = token, {token}, ["{", C_mapped_code, "}"];
+  - token      = alphanum, {alphanum};
+  - alphanum   = ? Every alphanumeric character ?;
+\end{verbatim}
+
+
+where C\_code indicates a  generic C code which will be prefixed added to the implementation 
+and C\_mapped\_code express generic C code performing the semantic action associated to the rule.
+In this code it is possible to refer to the semantic value of the tokens in the rule through the syntax \texttt{\$x}, 
+where x takes a numeric value (counting from zero), to indicate the elements of the right hand side of the rule, 
+while \texttt{\$\$} indicates the left hand side.
+It is possible to include C style comments in the description of the grammar.
+
+A sample grammar specification for arithmetic expressions is bundled with the generator.
+
+\subsection{Lexicon Specification}
+
+PAPAGENO employs Flex to generate the lexical analyzer to scan over the text.
+It is necessary to write a in.l file describing the scanner in which each token is associated with
+a correctly formed lex\_token. 
+In order to do so the following code needs to be included in the specification file
+
+\begin{verbatim}
+%{
+ #include "../src/grammar_tokens.h"
+ struct lex_token {
+     gr_token token;
+       void* semantic_value;
+ };
+ extern struct lex_token* flex_token;
+ %} 
+\end{verbatim}
+
+The scanner should assign the token identifier to the token field of the structure and make the semantic\_value field point to the correct semantic value of the token as follows:
+
+\begin{verbatim}
+lex_token->token = LBRACE;
+flex_token->semantic_value = <pointer_to_semantic_value>; 
+\end{verbatim}
+and must return a value of 1
+
+\subsection{How to call the parser}
+
+The generated parser is invoked with the function in the source code through the function:
+
+\begin{verbatim}
+token_node *parse(int32_t threads, char *file_name);
+\end{verbatim}
+
+where \texttt{threads} is the number of threads to be used to parse the input and \texttt{file\_name} is the full pathname of the file to be parsed;
+The function returns a pointer to the root of the abstract syntax tree resulting from the parsing of the input string. \textbf{}
+
+\section{Using the generator}
+
+The generator is invoked with the following syntax:\\
+\begin{verbatim}
+generator.py <grammar_specification> <output_dir> [-d|-dhigh|-dlow]
+ \end{verbatim}
+
+where the parameters represent:
+\begin{itemize}
+ \item  \texttt{grammar\_specification} indicates the grammar specification file
+ \item  \texttt{output\_dir} indicates the directory where the generated parser files are output
+ \item  \texttt{-dlow}: shows low level debug information, such as C preamble, bitpacked matrix vectorized reduction tree and token mapping;
+ \item  \texttt{-dhigh}: shows high level debug information, such as identified rules, precedence matrix and rewrite rules;
+ \item  \texttt{-d}: is equivalent to -dlow -dhigh;
+\end{itemize}
+The generator executes checks on the input grammar to assess whether it is in
+the required operator form or not. In particular, it detects repeated rhs,
+rules with consecutive nonterminal symbols and precedence conflicts among
+terminal symbols. Whenever such a problem occurs, the generator outputs to
+stdout diagnostic code that may help in transforming the grammar into the proper
+form.
+
+\section{Output files}
+
+PAPAGENO generates in output a C implementation of the parallel operator precedence parser constituted by the following files:
+\begin{itemize}
+ \item \texttt{grammar\_tokens.h} contains the definitions of terminals and nonterminals of the grammar
+ \item \texttt{grammar\_semantics.$\{$h,c$\}$} contain information regarding the rules of the grammar and the associated semantic actions
+ \item \texttt{grammar.$\{$h,c$\}$} contain the actual structure of the grammar
+ \item \texttt{matrix.h} contains the terminals/nonterminals precedence matrix employed by the parser
+ \item \texttt{reduction\_tree.c} contains the reductions to be performed during the parsing process, stored as a prefix tree
+ \item \texttt{rewrite\_rules.c} contains the generated rewrite sets
+\end{itemize}
+
+\section{Notes}
+For the sake of portability, it is possible to define which bit represents the nonterminal flag on the integer-represented symbols.
+The information is contained in code_emission.py and bitpack.py.\\
+
+The trie employed to store the reduction rules is vectorized in preorder as ruleId-nextSymbol-offsetOfNextSymbol
+\end{document}
