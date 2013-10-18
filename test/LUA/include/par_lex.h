@@ -1,8 +1,0 @@
-#ifndef PAR_LEX_H_
-#define PAR_LEX_H_
-
-#include "par_lex_lua.h"
-
-void perform_lexing(int32_t lex_thread_max_num, char *file_name, parsing_ctx *ctx);
-
-#endif
