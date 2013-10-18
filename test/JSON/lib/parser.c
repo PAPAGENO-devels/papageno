@@ -40,7 +40,7 @@ void pretty_print_parse_status(uint32_t parse_status){
 
 token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
 {
-  uint32_t i, parse_status;
+  uint32_t i,j, parse_status;
   uint32_t step_size, step_index;
   int32_t num_threads;
   uint8_t *results;
@@ -167,7 +167,7 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
         if (step_index == step_size - 1) {
           arg[i].num_parents = i - step_index*3 - step_first_index;
           arg[i].parents = (int16_t *) malloc(sizeof(int16_t)*arg[i].num_parents);
-          for (unsigned int j = 0; j < arg[i].num_parents; ++j) {
+          for (j = 0; j < arg[i].num_parents; ++j) {
             arg[i].parents[j] = step_first_index + step_index*2 + j;
           }
         } else {
@@ -255,7 +255,7 @@ token_node **compute_bounds(uint32_t length, uint8_t n, token_node *token_list)
 void *thread_task(void *worker_thread_ctx)
 {
   thread_context_t *thread_context, *thread_arguments;
-  uint32_t parse_result;
+  uint32_t parse_result,i;
   uint32_t parent_index;
   token_node *list_ptr;
   uint32_t parse_status = PARSE_IN_PROGRESS;
@@ -264,7 +264,7 @@ void *thread_task(void *worker_thread_ctx)
   thread_arguments = thread_context->args;
   if (thread_context->num_parents > 0) {
     /* Wait for parent threads to finish. */
-    for (unsigned int i = 0; i < thread_context->num_parents; ++i) {
+    for (i = 0; i < thread_context->num_parents; ++i) {
       pthread_join(thread_context->threads[thread_context->parents[i]], NULL);
       parse_status = thread_context->results[thread_context->parents[i]];
       if (parse_status != PARSE_IN_PROGRESS) {
@@ -272,7 +272,7 @@ void *thread_task(void *worker_thread_ctx)
       }
     }
     /* Join subtrees. */
-    for (unsigned int i = 0; i < thread_context->num_parents; ++i) {
+    for (i = 0; i < thread_context->num_parents; ++i) {
       parent_index = thread_context->parents[i];
       list_ptr = thread_arguments[parent_index].c_prev;
       while (list_ptr->parent != NULL) {
