@@ -1,7 +1,7 @@
-CC := clang 
+CC := gcc 
 LFLAGS = -lrt -lpthread 
 INCLUDES := -I./include -I./lexer -I../include
-CFLAGS := -UDEBUG -Wall $(INCLUDES)
+CFLAGS := -O3 -march=native -UDEBUG -Wall $(INCLUDES)
 #CFLAGS := -O3 -pipe -lpthread -Wall $(INCLUDES)
 SRCDIR := lib
 SRC := $(wildcard $(SRCDIR)/*.c)
@@ -16,7 +16,7 @@ GENERATED_FILES = include/rewrite_rules.h include/reduction_tree.h include/gramm
 
 all: $(FOBJ) $(OBJ)
 	@gcc $(LFLAGS) $(OBJ) $(FOBJ) -o bin/json_parser
-
+	strip bin/json_parser
 $(FOBJ): $(FOUT)
 	$(CC) -c $< -o $@ $(CFLAGS)
 

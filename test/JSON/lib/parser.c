@@ -40,7 +40,7 @@ void pretty_print_parse_status(uint32_t parse_status){
 
 token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
 {
-  uint32_t i,j, parse_status;
+  uint32_t i, parse_status;
   uint32_t step_size, step_index;
   int32_t num_threads;
   uint8_t *results;
@@ -52,7 +52,9 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
   thread_context_t *arg;
   struct timespec parse_timer_start, parse_timer_end, lex_timer_start, lex_timer_end;
   double lexing_time, parsing_time;
-
+#if defined LOG_RECOMBINATION
+uint32_t j;
+#endif
   /* Redirect stderr. */
 #ifdef DEBUG
   if (freopen("DEBUG", "w", stderr) == NULL) {
