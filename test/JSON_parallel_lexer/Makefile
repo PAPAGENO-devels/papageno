@@ -17,6 +17,7 @@ GENERATED_FILES = include/rewrite_rules.h include/reduction_tree.h include/gramm
 all: $(FOBJ) $(OBJ)
 	@gcc $(LFLAGS) $(OBJ) $(FOBJ) -o bin/json_parser
 	strip bin/json_parser
+
 $(FOBJ): $(FOUT)
 	$(CC) -c $< -o $@ $(CFLAGS)
 

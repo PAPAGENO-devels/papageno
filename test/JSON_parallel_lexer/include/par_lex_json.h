@@ -9,6 +9,7 @@
 #include "pthread.h"
 #include "token_list.h"
 #include "flex_token.h"
+#include "flex_return_codes.h"
 
 #include "flex.yy.h"
 

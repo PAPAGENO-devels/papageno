@@ -4,8 +4,8 @@
 #include "grammar_tokens.h"
 
 typedef struct lex_token {
-  gr_token token[2];  /**< The gr_token representation of the token. There are two possible tokens: the first one is not valid if yylex returns -1, 
-                      the second one is not valid if it returns -2*/
+  gr_token token[2];  /**< The gr_token representation of the token. There are two possible tokens: the first one is not valid if yylex returns FIRST_LIST_LEXING_ERROR, 
+                      the second one is not valid if it returns SECOND_LIST_LEXING_ERROR*/
   int32_t token_lex_list_length; /*length of the sequence of CHAR tokens read while scanning a string */
   void *semantic_value; /**< The semantic value of the token. */
   int8_t begin_with_string;

@@ -47,7 +47,7 @@ int32_t find_cut_points(FILE* f, int32_t file_length, int32_t **cut_points, int3
   int32_t* char_tokens = (int[]) {'{', '}', '[', ']', ',', ':', ' ', '+', '-', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'E', '.'};  
   int32_t char_tokens_length = CHAR_TOKENS_LENGTH;
 
-  hash_char_tokens_size = char_tokens_length*char_tokens_length;  //big size
+  hash_char_tokens_size = char_tokens_length*char_tokens_length;  //large size
   hash_char_tokens = (int32_t *) malloc(sizeof(int32_t)*hash_char_tokens_size);
   if (hash_char_tokens == NULL) {
     DEBUG_STDOUT_PRINT("ERROR> could not complete malloc hash_char_tokens. Aborting.\n");
@@ -60,7 +60,7 @@ int32_t find_cut_points(FILE* f, int32_t file_length, int32_t **cut_points, int3
   int32_t* bools = (int[]) {'t', 'r', 'u', 'e', 'f', 'a', 'l', 's', 'n'};  
   int32_t bools_length = 9;
 
-  hash_bools_size = bools_length*bools_length;  //big size
+  hash_bools_size = bools_length*bools_length;
   hash_bools = (int32_t *) malloc(sizeof(int32_t)*hash_bools_size);
   if (hash_bools == NULL) {
     DEBUG_STDOUT_PRINT("ERROR> could not complete malloc hash_bools. Aborting.\n");
@@ -176,7 +176,7 @@ int8_t heuristic_in_string(int32_t c)
     return 1;
 
    if(c == '\\')
-  //   Note: if character \\ occurs outside a string, this is an error according to Json grammar.
+  //   Note: if character \\ occurs outside a string, this is an error according to JSON grammar.
   //   So, it does not matter to check whether it is followed by escape characters or not.
   //   Lexical errors will be possibly signaled by the scanner flex.
         return 1;
@@ -186,7 +186,7 @@ int8_t heuristic_in_string(int32_t c)
 
 
 /*Returns 0 if character c is not inside a token (bool or number or character \uXXXX); returns 1 it it can be inside a token (bool or number or character \uXXXX).
-The tokens the function refers to are not Json strings.*/
+The tokens the function refers to are not JSON strings.*/
 int8_t is_inside_tokens(int32_t c, FILE* f, int32_t file_length, regex_t regex)
 {
   int32_t unicode_begin, unicode_end;
@@ -335,7 +335,7 @@ void compute_lex_token_list(parsing_ctx *ctx, lex_thread_arg *arg, int32_t lex_t
 
 }
 
-/*Thread task function for reentrant scanner, ONLY for Json.*/
+/*Thread task function for reentrant scanner*/
 void *lex_thread_task(void *arg)
 {  
   lex_thread_arg *ar = (lex_thread_arg*) arg;
@@ -402,7 +402,7 @@ void *lex_thread_task(void *arg)
   flex_return_code = yylex(scanner);  
 
   /*The procedure to find cut points cannot cut a single token in two parts.*/
-  while(flex_return_code != 0 && current_pos < ar->cut_point_dx)
+  while(flex_return_code != END_OF_FILE && current_pos < ar->cut_point_dx)
   {
     lex_token_length = yyget_leng(scanner); 
     current_pos += lex_token_length;
@@ -410,7 +410,7 @@ void *lex_thread_task(void *arg)
     /*Cannot have excessive characters spanning after cut_point_dx if the cut_point does not fall inside a single token.*/
     assert(current_pos <= ar->cut_point_dx);
 
-    if(flex_return_code == -3)
+    if(flex_return_code == ERROR_BOTH)
       {
         process_list[0] = 0;
         process_list[1] = 0;
@@ -420,7 +420,7 @@ void *lex_thread_task(void *arg)
         yylex_destroy(scanner);
         pthread_exit(NULL);
       }
-    else if(flex_return_code == -2)
+    else if(flex_return_code == SECOND_LIST_LEXING_ERROR)
       {
         process_list[1] = 0;
 
@@ -433,7 +433,7 @@ void *lex_thread_task(void *arg)
           pthread_exit(NULL);
         }
       }
-    else if(flex_return_code == -1)
+    else if(flex_return_code == FIRST_LIST_LEXING_ERROR)
       {
         process_list[0] = 0;
 
@@ -450,13 +450,13 @@ void *lex_thread_task(void *arg)
     if (process_list[0] == 1)
     {
       //process list 0
-      if(flex_return_code == 1 || flex_return_code == 2 || flex_return_code == 5 || flex_return_code == -2)
+      if(flex_return_code == LEX_CORRECT_BOTH || flex_return_code == LEX_FIRST_PAUSE_SEC || flex_return_code == LEX_FIRST_CHAR_SEC || flex_return_code == SECOND_LIST_LEXING_ERROR)
       {
         //append a single token
         par_append_token_node(flex_token->token[0], flex_token->semantic_value, &token_builder0, &(ar->list_begin[0]), &(stack[0]), realloc_size);
         (ar->lex_token_list_length[0])++;
       }
-      else if(flex_return_code == 4)
+      else if(flex_return_code == CHAR_FIRST_LEX_SEC)
       {
         //append a list of token CHAR, corresponding to (a portion of) a string scanned as a bool or a number
         for(i = 0; i < flex_token->token_lex_list_length; i++)
@@ -468,14 +468,14 @@ void *lex_thread_task(void *arg)
     if (ar->begin_with_string !=0 && process_list[1] == 1)
     {
       //process list 1
-      if(flex_return_code == 1 || flex_return_code == 3 || flex_return_code == 4 || flex_return_code == -1)
+      if(flex_return_code == LEX_CORRECT_BOTH || flex_return_code == PAUSE_FIRST_LEX_SEC || flex_return_code == CHAR_FIRST_LEX_SEC || flex_return_code == FIRST_LIST_LEXING_ERROR)
       {
         //append a single token
         par_append_token_node(flex_token->token[1], flex_token->semantic_value, &token_builder1, &(ar->list_begin[1]), &(stack[1]), realloc_size);
         (ar->lex_token_list_length[1])++;
 
       }
-      else if(flex_return_code == 5)
+      else if(flex_return_code == LEX_FIRST_CHAR_SEC)
       {
         //append a list of token CHAR, corresponding to (a portion of) a string scanned as a bool or a number
         for(i = 0; i < flex_token->token_lex_list_length; i++)
