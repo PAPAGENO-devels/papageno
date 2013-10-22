@@ -139,60 +139,60 @@ struct lex_token * flex_token = yyextra;
 }
 <onelist_INITIAL>{AND}		{flex_token->token = AND;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
-        		 strcpy(ch, "and");
-				 flex_token->semantic_value[0] = ch;	
-				 //flex_token->semantic_value[0] = NULL;
+				 // char * ch = (char*) malloc(sizeof(char)*4);
+     //    		 strcpy(ch, "and");
+				 // flex_token->semantic_value[0] = ch;	
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "and", 3);
 				 return LEX_CORRECT;
                                 } 
 <onelist_INITIAL>{DO}		{flex_token->token = DO;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
-        		 strcpy(ch, "do");
-				 flex_token->semantic_value[0] = ch;	
-				 //// flex_token->semantic_value[0] = NULL;
+				 // char * ch = (char*) malloc(sizeof(char)*3);
+     //    		 strcpy(ch, "do");
+				 // flex_token->semantic_value[0] = ch;	
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "do", 2);
 				 return INSERT_DELIMITER;
                                 } 
 <onelist_INITIAL>{ELSE}		{flex_token->token = ELSE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*5);
-        		 strcpy(ch, "else");
-				 flex_token->semantic_value[0] = ch;	
-				 //// flex_token->semantic_value[0] = NULL;
+				 // char * ch = (char*) malloc(sizeof(char)*5);
+     //    		 strcpy(ch, "else");
+				 // flex_token->semantic_value[0] = ch;	
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "else", 4);
 				 return LEX_CORRECT;
                                 } 
 <onelist_INITIAL>{ELSEIF}		{flex_token->token = ELSEIF;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*7);
-        		 strcpy(ch, "elseif");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;	
+				 // char * ch = (char*) malloc(sizeof(char)*7);
+     //    		 strcpy(ch, "elseif");
+				 // flex_token->semantic_value[0] = ch;	
+				 flex_token->semantic_value[0] = NULL;	
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "elseif", 6);	
 				 return LEX_CORRECT;
                                 } 
 <onelist_INITIAL>{FOR}		{flex_token->token = FOR;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
-        		 strcpy(ch, "for");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 // char * ch = (char*) malloc(sizeof(char)*4);
+     //    		 strcpy(ch, "for");
+				 // flex_token->semantic_value[0] = ch;	
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "for", 3);
 				 return LEX_CORRECT;
                                 } 
 <onelist_INITIAL>{FUNCTION}		{flex_token->token = FUNCTION;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*9);
-        		 strcpy(ch, "function");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 // char * ch = (char*) malloc(sizeof(char)*9);
+     //    		 strcpy(ch, "function");
+				 // flex_token->semantic_value[0] = ch;	
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "function", 8);
 				 BEGIN(onelist_function1);
@@ -200,120 +200,120 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_INITIAL>{GOTO}		{flex_token->token = GOTO;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*5);
-        		 strcpy(ch, "goto");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 // char * ch = (char*) malloc(sizeof(char)*5);
+     //    		 strcpy(ch, "goto");
+				 // flex_token->semantic_value[0] = ch;	
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "goto", 4);
 				 return LEX_CORRECT;
                                 } 
 <onelist_INITIAL>{IF}		{flex_token->token = IF;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
-        		 strcpy(ch, "if");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 // char * ch = (char*) malloc(sizeof(char)*3);
+     //    		 strcpy(ch, "if");
+				 // flex_token->semantic_value[0] = ch;	
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "if", 2);
 				 return INSERT_DELIMITER;
                                 } 
 <onelist_INITIAL>{IN}		{flex_token->token = IN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
-        		 strcpy(ch, "in");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 // char * ch = (char*) malloc(sizeof(char)*3);
+     //    		 strcpy(ch, "in");
+				 // flex_token->semantic_value[0] = ch;	
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "in", 2);
 				 return LEX_CORRECT;
                                 } 
 <onelist_INITIAL>{LOCAL}		{flex_token->token = LOCAL;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*6);
-        		 strcpy(ch, "local");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 // char * ch = (char*) malloc(sizeof(char)*6);
+     //    		 strcpy(ch, "local");
+				 // flex_token->semantic_value[0] = ch;	
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "local", 5);
 				 return LEX_CORRECT;
                                 } 
 <onelist_INITIAL>{NOT}		{flex_token->token = NOT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
-        		 strcpy(ch, "not");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 // char * ch = (char*) malloc(sizeof(char)*4);
+     //    		 strcpy(ch, "not");
+				 // flex_token->semantic_value[0] = ch;	
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "not", 3);
 				 return LEX_CORRECT;
                                 } 
 <onelist_INITIAL>{OR}		{flex_token->token = OR;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
-        		 strcpy(ch, "or");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 // char * ch = (char*) malloc(sizeof(char)*3);
+     //    		 strcpy(ch, "or");
+				 // flex_token->semantic_value[0] = ch;	
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "or", 2);
 				 return LEX_CORRECT;
                                 } 
 <onelist_INITIAL>{REPEAT}		{flex_token->token = REPEAT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*7);
-        		 strcpy(ch, "repeat");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 // char * ch = (char*) malloc(sizeof(char)*7);
+     //    		 strcpy(ch, "repeat");
+				 // flex_token->semantic_value[0] = ch;	
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "repeat", 6);
 				 return LEX_CORRECT;
                                 } 
 <onelist_INITIAL>{RETURN}		{flex_token->token = RETURN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*7);
-        		 strcpy(ch, "return");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 // char * ch = (char*) malloc(sizeof(char)*7);
+     //    		 strcpy(ch, "return");
+				 // flex_token->semantic_value[0] = ch;	
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "return", 6);
 				 return LEX_CORRECT;
                                 } 
 <onelist_INITIAL>{THEN}		{flex_token->token = THEN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*5);
-        		 strcpy(ch, "then");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 // char * ch = (char*) malloc(sizeof(char)*5);
+     //    		 strcpy(ch, "then");
+				 // flex_token->semantic_value[0] = ch;	
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "then", 4);
 				 return LEX_CORRECT;
                                 } 
 <onelist_INITIAL>{UNTIL}		{flex_token->token = UNTIL;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*6);
-        		 strcpy(ch, "until");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 // char * ch = (char*) malloc(sizeof(char)*6);
+     //    		 strcpy(ch, "until");
+				 // flex_token->semantic_value[0] = ch;	
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "until", 5);
 				 return LEX_CORRECT;
                                 }                                                                                                                                                                                                                                                                                                 
 <onelist_INITIAL>{WHILE}		{flex_token->token = WHILE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*6);
+				 /*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "while");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "while", 5);
 				 return LEX_CORRECT;
                                 }
 <onelist_INITIAL>{NIL}		{flex_token->token = NIL;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "nil");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 flex_token->read_new_line = 0;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "nil", 3);
@@ -322,10 +322,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_INITIAL>{FALSE}		{flex_token->token = FALSE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*6);
+				 /*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "false");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 flex_token->read_new_line = 0;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "false", 5);
@@ -334,10 +334,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_INITIAL>{TRUE}		{flex_token->token = TRUE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*5);
+				 /*char * ch = (char*) malloc(sizeof(char)*5);
         		 strcpy(ch, "true");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 flex_token->read_new_line = 0;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "true", 4);
@@ -346,10 +346,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_INITIAL>{NUMBER}		{flex_token->token = NUMBER;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
+				 /*char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
         		 strcpy(ch, yytext);
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 flex_token->read_new_line = 0;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, yytext, yyleng);
@@ -358,10 +358,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_INITIAL>{DOT3}		{flex_token->token = DOT3;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "...");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 flex_token->read_new_line = 0;	
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "...", 3);
@@ -370,10 +370,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_INITIAL>{RBRACE}		{flex_token->token = RBRACE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "}");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 flex_token->read_new_line = 0;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '}');	
@@ -382,10 +382,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_INITIAL>{END}		{flex_token->token = END;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "end");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 flex_token->read_new_line = 0;	
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "end", 3);
@@ -394,10 +394,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_INITIAL>{BREAK}		{flex_token->token = BREAK;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*6);
+				 /*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "break");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 flex_token->read_new_line = 0;	
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "break", 5);
@@ -406,10 +406,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_INITIAL>{NAME}		{flex_token->token = NAME;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
+				 /*char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
         		 strcpy(ch, yytext);
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 flex_token->read_new_line = 0;	
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, yytext, yyleng);
@@ -418,10 +418,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_INITIAL>{RBRACK}		{flex_token->token = RBRACK;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "]");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 flex_token->read_new_line = 0;	
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, ']');
@@ -430,10 +430,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_INITIAL>{RPAREN}		{flex_token->token = RPAREN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ")");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, ')');
 				 flex_token->read_new_line = 0;	
@@ -442,230 +442,230 @@ struct lex_token * flex_token = yyextra;
                                 }    
 <onelist_INITIAL>{SEMI}		{flex_token->token = SEMI;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ";");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, ';');
 				 return INSERT_DELIMITER;
                                 }                                   
 <onelist_INITIAL>{COLON}		{flex_token->token = COLON;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ":");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, ':');
 				 return LEX_CORRECT;
                                 }                                   
 <onelist_INITIAL>{COLON2}		{flex_token->token = COLON2;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "::");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "::", 2);
 				 return LEX_CORRECT;
                                 }                                   
 <onelist_INITIAL>{DOT}		{flex_token->token = DOT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, ".");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '.');
 				 return LEX_CORRECT;
                                 }                                   
 <onelist_INITIAL>{COMMA}		{flex_token->token = COMMA;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ",");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, ',');
 				 return LEX_CORRECT;
                                 }                                   
 <onelist_INITIAL>{LBRACK}		{flex_token->token = LBRACK;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "[");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '[');
 				 return LEX_CORRECT;
                                 }                                   
 <onelist_INITIAL>{LBRACE}		{flex_token->token = LBRACE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "{");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '{');
 				 return INSERT_DELIMITER;
                                 }                                   
 <onelist_INITIAL>{LPAREN}		{flex_token->token = LPAREN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "(");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '(');
 				 return LEX_CORRECT;
                                 } 
 <onelist_INITIAL>{XEQ}		{flex_token->token = XEQ;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "=");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '=');
 				 return INSERT_DELIMITER;
                                 }                                  
 <onelist_INITIAL>{PLUS}		{flex_token->token = PLUS;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "+");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '+');
 				 return LEX_CORRECT;
                                 }                                   
 <onelist_INITIAL>{UMINUS}		{flex_token->token = UMINUS;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "-");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '-');
 				 return LEX_CORRECT;
                                 }                                   
 <onelist_INITIAL>{ASTERISK}		{flex_token->token = ASTERISK;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "*");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '*');
 				 return LEX_CORRECT;
                                 }                                   
 <onelist_INITIAL>{DIVIDE}		{flex_token->token = DIVIDE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "/");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '/');
 				 return LEX_CORRECT;
                                 }                                   
 <onelist_INITIAL>{CARET}		{flex_token->token = CARET;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "^");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '^');
 				 return LEX_CORRECT;
                                 }                                   
 <onelist_INITIAL>{PERCENT}		{flex_token->token = PERCENT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "%");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '%');
 				 return LEX_CORRECT;
                                 }  
 <onelist_INITIAL>{DOT2}		{flex_token->token = DOT2;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "..");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "..", 2);
 				 return LEX_CORRECT;
                                 }                                   
 <onelist_INITIAL>{LT}		{flex_token->token = LT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "<");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '<');
 				 return LEX_CORRECT;
                                 }                                   
 <onelist_INITIAL>{GT}		{flex_token->token = GT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ">");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '>');
 				 return LEX_CORRECT;
                                 }                                   
 <onelist_INITIAL>{LTEQ}		{flex_token->token = LTEQ;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "<=");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "<=", 2);
 				 return LEX_CORRECT;
                                 }                                   
 <onelist_INITIAL>{GTEQ}		{flex_token->token = GTEQ;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, ">=");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, ">=", 2);
 				 return LEX_CORRECT;
                                 }                                   
 <onelist_INITIAL>{EQ2}		{flex_token->token = EQ2;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "==");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "==", 2);
 				 return LEX_CORRECT;
                                 }                                   
 <onelist_INITIAL>{NEQ}		{flex_token->token = NEQ;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "~=");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "~=", 2);
 				 return LEX_CORRECT;
                                 }                                   
 <onelist_INITIAL>{SHARP}		{flex_token->token = SHARP;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "#");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '#');
 				 return LEX_CORRECT;
@@ -951,10 +951,10 @@ struct lex_token * flex_token = yyextra;
 						}              						
 <onelist_endStat1>{LPAREN}		{flex_token->token = LPAREN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "(");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, ')');
 				 BEGIN(onelist_INITIAL);
@@ -965,10 +965,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat1>{COLON2}		{flex_token->token = COLON2;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "::");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "::", 2);
 				 BEGIN(onelist_INITIAL);
@@ -979,10 +979,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat1>{BREAK}		{flex_token->token = BREAK;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*6);
+				 /*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "break");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "break", 5);
 				 if(flex_token->read_new_line == 1)	{	
@@ -996,10 +996,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat1>{GOTO}		{flex_token->token = GOTO;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*5);
+				 /*char * ch = (char*) malloc(sizeof(char)*5);
         		 strcpy(ch, "goto");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "goto", 4);
 				 BEGIN(onelist_INITIAL);
@@ -1010,10 +1010,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat1>{DO}		{flex_token->token = DO;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "do");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "do", 2);
 				 BEGIN(onelist_INITIAL);
@@ -1024,10 +1024,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat1>{WHILE}		{flex_token->token = WHILE;
 				 /* Semantic value stub. */
-				char * ch = (char*) malloc(sizeof(char)*6);
+				/*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "while");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "while", 5);
 				 BEGIN(onelist_INITIAL);
@@ -1038,10 +1038,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat1>{REPEAT}		{flex_token->token = REPEAT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*7);
+				 /*char * ch = (char*) malloc(sizeof(char)*7);
         		 strcpy(ch, "repeat");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "repeat", 6);
 				 BEGIN(onelist_INITIAL);
@@ -1052,10 +1052,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat1>{IF}		{flex_token->token = IF;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "if");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "if", 2);
 				 BEGIN(onelist_INITIAL);
@@ -1066,10 +1066,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat1>{FOR}		{flex_token->token = FOR;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "for");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "for", 3);
 				 BEGIN(onelist_INITIAL);
@@ -1080,10 +1080,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat1>{LOCAL}		{flex_token->token = LOCAL;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*6);
+				 /*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "local");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "local", 5);
 				 BEGIN(onelist_INITIAL);
@@ -1094,10 +1094,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat1>{FUNCTION}	{flex_token->token = FUNCTION;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*9);
+				 /*char * ch = (char*) malloc(sizeof(char)*9);
         		 strcpy(ch, "function");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "function", 8);
 				 BEGIN(onelist_function1);
@@ -1108,10 +1108,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat1>{AND}		{flex_token->token = AND;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "and");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "and", 3);
 				 BEGIN(onelist_INITIAL);
@@ -1119,10 +1119,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <onelist_endStat1>{ELSE}		{flex_token->token = ELSE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*5);
+				 /*char * ch = (char*) malloc(sizeof(char)*5);
         		 strcpy(ch, "else");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "else", 4);
 				 BEGIN(onelist_INITIAL);
@@ -1130,10 +1130,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <onelist_endStat1>{ELSEIF}		{flex_token->token = ELSEIF;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*7);
+				 /*char * ch = (char*) malloc(sizeof(char)*7);
         		 strcpy(ch, "elseif");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "elseif", 6);	
 				 BEGIN(onelist_INITIAL);	
@@ -1141,10 +1141,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <onelist_endStat1>{IN}		{flex_token->token = IN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "in");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "in", 2);
 				 BEGIN(onelist_INITIAL);
@@ -1152,10 +1152,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <onelist_endStat1>{NOT}		{flex_token->token = NOT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "not");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "not", 3);
 				 BEGIN(onelist_INITIAL);
@@ -1163,10 +1163,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <onelist_endStat1>{OR}		{flex_token->token = OR;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "or");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "or", 2);
 				 BEGIN(onelist_INITIAL);
@@ -1174,10 +1174,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <onelist_endStat1>{RETURN}		{flex_token->token = RETURN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*7);
+				 /*char * ch = (char*) malloc(sizeof(char)*7);
         		 strcpy(ch, "return");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "return", 6);
 				 BEGIN(onelist_INITIAL);
@@ -1185,10 +1185,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <onelist_endStat1>{THEN}		{flex_token->token = THEN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*5);
+				 /*char * ch = (char*) malloc(sizeof(char)*5);
         		 strcpy(ch, "then");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "then", 4);
 				 BEGIN(onelist_INITIAL);
@@ -1196,10 +1196,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <onelist_endStat1>{UNTIL}		{flex_token->token = UNTIL;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*6);
+				 /*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "until");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "until", 5);
 				 BEGIN(onelist_INITIAL);
@@ -1207,10 +1207,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat1>{NIL}		{flex_token->token = NIL;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "nil");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "nil", 3);
 				 flex_token->read_new_line = 0;
@@ -1218,10 +1218,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat1>{FALSE}		{flex_token->token = FALSE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*6);
+				 /*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "false");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "false", 5);
 				 flex_token->read_new_line = 0;
@@ -1229,10 +1229,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat1>{TRUE}		{flex_token->token = TRUE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*5);
+				 /*char * ch = (char*) malloc(sizeof(char)*5);
         		 strcpy(ch, "true");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "true", 4);
 				 flex_token->read_new_line = 0;
@@ -1240,10 +1240,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat1>{NUMBER}		{flex_token->token = NUMBER;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
+				 /*char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
         		 strcpy(ch, yytext);
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, yytext, yyleng);
 				 flex_token->read_new_line = 0;
@@ -1251,10 +1251,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat1>{DOT3}		{flex_token->token = DOT3;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "...");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "...", 3);
 				 flex_token->read_new_line = 0;	
@@ -1262,10 +1262,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat1>{RBRACE}		{flex_token->token = RBRACE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "}");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '}');
 				 flex_token->read_new_line = 0;	
@@ -1273,10 +1273,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat1>{END}		{flex_token->token = END;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "end");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "end", 3);
 				 flex_token->read_new_line = 0;	
@@ -1284,10 +1284,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat1>{RBRACK}		{flex_token->token = RBRACK;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "]");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, ']');
 				 flex_token->read_new_line = 0;	
@@ -1296,10 +1296,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat1>{RPAREN}		{flex_token->token = RPAREN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ")");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, ')');
 				 flex_token->read_new_line = 0;	
@@ -1308,10 +1308,10 @@ struct lex_token * flex_token = yyextra;
                                 }    
 <onelist_endStat1>{SEMI}		{flex_token->token = SEMI;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ";");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, ';');
 				 BEGIN(onelist_INITIAL);
@@ -1319,10 +1319,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat1>{COLON}		{flex_token->token = COLON;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ":");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, ':');
 				 BEGIN(onelist_INITIAL);
@@ -1330,10 +1330,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                                                   
 <onelist_endStat1>{DOT}		{flex_token->token = DOT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, ".");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '.');
 				 BEGIN(onelist_INITIAL);
@@ -1341,10 +1341,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat1>{COMMA}		{flex_token->token = COMMA;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ",");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, ',');
 				 BEGIN(onelist_INITIAL);
@@ -1352,10 +1352,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat1>{LBRACK}		{flex_token->token = LBRACK;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "[");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '[');
 				 BEGIN(onelist_INITIAL);
@@ -1363,10 +1363,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat1>{LBRACE}		{flex_token->token = LBRACE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "{");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '{');
 				 BEGIN(onelist_INITIAL);
@@ -1374,10 +1374,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat1>{XEQ}		{flex_token->token = XEQ;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "=");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '=');
 				 BEGIN(onelist_INITIAL);
@@ -1385,10 +1385,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                  
 <onelist_endStat1>{PLUS}		{flex_token->token = PLUS;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "+");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '+');
 				 BEGIN(onelist_INITIAL);
@@ -1396,10 +1396,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                                                   
 <onelist_endStat1>{ASTERISK}		{flex_token->token = ASTERISK;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "*");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '*');
 				 BEGIN(onelist_INITIAL);
@@ -1407,10 +1407,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat1>{DIVIDE}		{flex_token->token = DIVIDE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "/");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '/');
 				 BEGIN(onelist_INITIAL);
@@ -1418,10 +1418,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat1>{CARET}		{flex_token->token = CARET;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "^");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '^');
 				 BEGIN(onelist_INITIAL);
@@ -1429,10 +1429,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat1>{PERCENT}		{flex_token->token = PERCENT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "%");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '%');
 				 BEGIN(onelist_INITIAL);
@@ -1440,10 +1440,10 @@ struct lex_token * flex_token = yyextra;
                                 }  
 <onelist_endStat1>{DOT2}		{flex_token->token = DOT2;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "..");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "..", 2);
 				 BEGIN(onelist_INITIAL);
@@ -1451,10 +1451,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat1>{LT}		{flex_token->token = LT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "<");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '<');
 				 BEGIN(onelist_INITIAL);
@@ -1462,10 +1462,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat1>{GT}		{flex_token->token = GT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ">");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '>');
 				 BEGIN(onelist_INITIAL);
@@ -1473,10 +1473,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat1>{LTEQ}		{flex_token->token = LTEQ;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "<=");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "<=", 2);
 				 BEGIN(onelist_INITIAL);
@@ -1484,10 +1484,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat1>{GTEQ}		{flex_token->token = GTEQ;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, ">=");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, ">=", 2);
 				 BEGIN(onelist_INITIAL);
@@ -1495,10 +1495,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat1>{EQ2}		{flex_token->token = EQ2;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "==");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "==", 2);
 				 BEGIN(onelist_INITIAL);
@@ -1506,10 +1506,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat1>{NEQ}		{flex_token->token = NEQ;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "~=");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "~=", 2);
 				 BEGIN(onelist_INITIAL);
@@ -1517,10 +1517,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat1>{SHARP}		{flex_token->token = SHARP;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "#");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '#');
 				 BEGIN(onelist_INITIAL);
@@ -1528,10 +1528,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                
 <onelist_endStat1>{NAME}		{flex_token->token = NAME;
 				/* Semantic value stub. */
-				char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
+				/*char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
         		strcpy(ch, yytext);
-				flex_token->semantic_value[0] = ch;	
-				////flex_token->semantic_value[0] = NULL;
+				flex_token->semantic_value[0] = ch;	*/
+				flex_token->semantic_value[0] = NULL;
 				if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, yytext, yyleng);
 				if(flex_token->read_new_line == 1)	{
@@ -1546,10 +1546,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                
 <onelist_endStat1>{MINUS}		{flex_token->token = MINUS;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "-");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '-');
 				 BEGIN(onelist_INITIAL);
@@ -1675,10 +1675,10 @@ struct lex_token * flex_token = yyextra;
 						 }
 <onelist_endStat2>{COLON2}		{flex_token->token = COLON2;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "::");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "::", 2);
 				 BEGIN(onelist_INITIAL);
@@ -1689,10 +1689,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat2>{BREAK}		{flex_token->token = BREAK;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*6);
+				 /*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "break");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "break", 5);
 				 if(flex_token->read_new_line == 1){	
@@ -1708,10 +1708,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat2>{GOTO}		{flex_token->token = GOTO;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*5);
+				 /*char * ch = (char*) malloc(sizeof(char)*5);
         		 strcpy(ch, "goto");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "goto", 4);
 				 BEGIN(onelist_INITIAL);
@@ -1722,10 +1722,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat2>{DO}		{flex_token->token = DO;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "do");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "do", 2);
 				 BEGIN(onelist_INITIAL);
@@ -1736,10 +1736,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat2>{WHILE}		{flex_token->token = WHILE;
 				 /* Semantic value stub. */
-				char * ch = (char*) malloc(sizeof(char)*6);
+				/*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "while");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "while", 5);
 				 BEGIN(onelist_INITIAL);
@@ -1750,10 +1750,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat2>{REPEAT}		{flex_token->token = REPEAT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*7);
+				 /*char * ch = (char*) malloc(sizeof(char)*7);
         		 strcpy(ch, "repeat");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "repeat", 6);
 				 BEGIN(onelist_INITIAL);
@@ -1764,10 +1764,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat2>{IF}		{flex_token->token = IF;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "if");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "if", 2);
 				 BEGIN(onelist_INITIAL);
@@ -1778,10 +1778,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat2>{FOR}		{flex_token->token = FOR;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "for");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "for", 3);
 				 BEGIN(onelist_INITIAL);
@@ -1792,10 +1792,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat2>{LOCAL}		{flex_token->token = LOCAL;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*6);
+				 /*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "local");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "local", 5);
 				 BEGIN(onelist_INITIAL);
@@ -1806,10 +1806,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat2>{FUNCTION}		{flex_token->token = FUNCTION;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*9);
+				 /*char * ch = (char*) malloc(sizeof(char)*9);
         		 strcpy(ch, "function");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "function", 8);
 				 BEGIN(onelist_function1);
@@ -1820,10 +1820,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat2>{AND}		{flex_token->token = AND;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "and");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "and", 3);
 				 BEGIN(onelist_INITIAL);
@@ -1831,10 +1831,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <onelist_endStat2>{ELSE}		{flex_token->token = ELSE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*5);
+				 /*char * ch = (char*) malloc(sizeof(char)*5);
         		 strcpy(ch, "else");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "else", 4);
 				 BEGIN(onelist_INITIAL);
@@ -1842,10 +1842,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <onelist_endStat2>{ELSEIF}		{flex_token->token = ELSEIF;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*7);
+				 /*char * ch = (char*) malloc(sizeof(char)*7);
         		 strcpy(ch, "elseif");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "elseif", 6);
 				 BEGIN(onelist_INITIAL);
@@ -1853,10 +1853,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <onelist_endStat2>{IN}		{flex_token->token = IN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "in");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "in", 2);
 				 BEGIN(onelist_INITIAL);
@@ -1864,10 +1864,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <onelist_endStat2>{NOT}		{flex_token->token = NOT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "not");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "not", 3);
 				 BEGIN(onelist_INITIAL);
@@ -1875,10 +1875,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <onelist_endStat2>{OR}		{flex_token->token = OR;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "or");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "or", 2);
 				 BEGIN(onelist_INITIAL);
@@ -1886,10 +1886,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <onelist_endStat2>{RETURN}		{flex_token->token = RETURN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*7);
+				 /*char * ch = (char*) malloc(sizeof(char)*7);
         		 strcpy(ch, "return");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "return", 6);
 				 BEGIN(onelist_INITIAL);
@@ -1897,10 +1897,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <onelist_endStat2>{THEN}		{flex_token->token = THEN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*5);
+				 /*char * ch = (char*) malloc(sizeof(char)*5);
         		 strcpy(ch, "then");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "then", 4);
 				 BEGIN(onelist_INITIAL);
@@ -1908,10 +1908,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <onelist_endStat2>{UNTIL}		{flex_token->token = UNTIL;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*6);
+				 /*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "until");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "until", 5);
 				 BEGIN(onelist_INITIAL);
@@ -1919,10 +1919,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat2>{NIL}		{flex_token->token = NIL;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "nil");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "nil", 3);
 				 flex_token->read_new_line = 0;
@@ -1931,10 +1931,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat2>{FALSE}		{flex_token->token = FALSE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*6);
+				 /*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "false");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "false", 5);
 				 flex_token->read_new_line = 0;
@@ -1943,10 +1943,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat2>{TRUE}		{flex_token->token = TRUE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*5);
+				 /*char * ch = (char*) malloc(sizeof(char)*5);
         		 strcpy(ch, "true");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "true", 4);
 				 flex_token->read_new_line = 0;
@@ -1955,10 +1955,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat2>{NUMBER}		{flex_token->token = NUMBER;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
+				 /*char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
         		 strcpy(ch, yytext);
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, yytext, yyleng);
 				 flex_token->read_new_line = 0;
@@ -1967,10 +1967,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat2>{DOT3}		{flex_token->token = DOT3;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "...");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "...", 3);
 				 flex_token->read_new_line = 0;	
@@ -1979,10 +1979,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat2>{RBRACE}		{flex_token->token = RBRACE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "}");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '}');
 				 flex_token->read_new_line = 0;	
@@ -1991,10 +1991,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat2>{END}		{flex_token->token = END;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "end");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "end", 3);
 				 flex_token->read_new_line = 0;	
@@ -2003,10 +2003,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat2>{RBRACK}		{flex_token->token = RBRACK;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "]");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, ']');
 				 flex_token->read_new_line = 0;	
@@ -2014,10 +2014,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <onelist_endStat2>{RPAREN}		{flex_token->token = RPAREN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ")");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, ')');
 				 flex_token->read_new_line = 0;	
@@ -2025,10 +2025,10 @@ struct lex_token * flex_token = yyextra;
                                 }    
 <onelist_endStat2>{SEMI}		{flex_token->token = SEMI;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ";");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, ';');
 				 BEGIN(onelist_INITIAL);
@@ -2036,10 +2036,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat2>{COLON}		{flex_token->token = COLON;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ":");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, ':');
 				 BEGIN(onelist_INITIAL);
@@ -2047,10 +2047,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                                                    
 <onelist_endStat2>{DOT}		{flex_token->token = DOT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, ".");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '.');
 				 BEGIN(onelist_INITIAL);
@@ -2058,10 +2058,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat2>{COMMA}		{flex_token->token = COMMA;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ",");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, ',');
 				 BEGIN(onelist_INITIAL);
@@ -2069,10 +2069,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat2>{LBRACK}		{flex_token->token = LBRACK;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "[");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '[');
 				 BEGIN(onelist_INITIAL);
@@ -2080,10 +2080,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat2>{LBRACE}		{flex_token->token = LBRACE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "{");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '{');
 				 BEGIN(onelist_INITIAL);
@@ -2091,10 +2091,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat2>{LPAREN}		{flex_token->token = LPAREN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "(");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '(');
 				 BEGIN(onelist_INITIAL);
@@ -2102,10 +2102,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <onelist_endStat2>{XEQ}		{flex_token->token = XEQ;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "=");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '=');
 				 BEGIN(onelist_INITIAL);
@@ -2113,10 +2113,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                  
 <onelist_endStat2>{PLUS}		{flex_token->token = PLUS;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "+");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '+');
 				 BEGIN(onelist_INITIAL);
@@ -2124,10 +2124,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                                                     
 <onelist_endStat2>{ASTERISK}		{flex_token->token = ASTERISK;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "*");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '*');
 				 BEGIN(onelist_INITIAL);
@@ -2135,10 +2135,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat2>{DIVIDE}		{flex_token->token = DIVIDE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "/");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '/');
 				 BEGIN(onelist_INITIAL);
@@ -2146,10 +2146,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat2>{CARET}		{flex_token->token = CARET;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "^");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '^');
 				 BEGIN(onelist_INITIAL);
@@ -2157,10 +2157,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat2>{PERCENT}		{flex_token->token = PERCENT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "%");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '%');
 				 BEGIN(onelist_INITIAL);
@@ -2168,10 +2168,10 @@ struct lex_token * flex_token = yyextra;
                                 }  
 <onelist_endStat2>{DOT2}		{flex_token->token = DOT2;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "..");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "..", 2);
 				 BEGIN(onelist_INITIAL);
@@ -2179,10 +2179,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat2>{LT}		{flex_token->token = LT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "<");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '<');
 				 BEGIN(onelist_INITIAL);
@@ -2190,10 +2190,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat2>{GT}		{flex_token->token = GT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ">");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '>');
 				 BEGIN(onelist_INITIAL);
@@ -2201,10 +2201,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat2>{LTEQ}		{flex_token->token = LTEQ;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "<=");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "<=", 2);
 				 BEGIN(onelist_INITIAL);
@@ -2212,10 +2212,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat2>{GTEQ}		{flex_token->token = GTEQ;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, ">=");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, ">=", 2);
 				 BEGIN(onelist_INITIAL);
@@ -2223,10 +2223,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat2>{EQ2}		{flex_token->token = EQ2;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "==");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "==", 2);
 				 BEGIN(onelist_INITIAL);
@@ -2234,10 +2234,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat2>{NEQ}		{flex_token->token = NEQ;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "~=");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "~=", 2);
 				 BEGIN(onelist_INITIAL);
@@ -2245,10 +2245,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <onelist_endStat2>{SHARP}		{flex_token->token = SHARP;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "#");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '#');
 				 BEGIN(onelist_INITIAL);
@@ -2256,10 +2256,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                
 <onelist_endStat2>{NAME}		{flex_token->token = NAME;
 				/* Semantic value stub. */
-				char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
+				/*char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
         		strcpy(ch, yytext);
-				flex_token->semantic_value[0] = ch;	
-				////flex_token->semantic_value[0] = NULL;
+				flex_token->semantic_value[0] = ch;	*/
+				flex_token->semantic_value[0] = NULL;
 				if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, yytext, yyleng);
 				if(flex_token->read_new_line == 1)	{
@@ -2272,10 +2272,10 @@ struct lex_token * flex_token = yyextra;
         }                                
 <onelist_endStat2>{MINUS}		{flex_token->token = MINUS;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "-");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '-');
 				 BEGIN(onelist_INITIAL);
@@ -2887,10 +2887,10 @@ struct lex_token * flex_token = yyextra;
 				 int32_t length = flex_token->current_buffer_length[0];
 				 flex_token->string_buffer[0][length] = '\0';
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[0] + 1));
+				 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[0] + 1));
         		 strcpy(ch, flex_token->string_buffer[0]);
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '\"');
 				 flex_token->read_new_line = 0;				 
@@ -2948,10 +2948,10 @@ struct lex_token * flex_token = yyextra;
 				 int32_t length = flex_token->current_buffer_length[0];
 				 flex_token->string_buffer[0][length] = '\0';
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[0] + 1));
+				 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[0] + 1));
         		 strcpy(ch, flex_token->string_buffer[0]);
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 					 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '\'');
 				 flex_token->read_new_line = 0;				 
@@ -2998,10 +2998,10 @@ struct lex_token * flex_token = yyextra;
 				int32_t length = flex_token->current_buffer_length[0];
 				flex_token->string_buffer[0][length] = '\0';
 				/* Semantic value stub. */
-				char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[0] + 1));
+				/*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[0] + 1));
         		strcpy(ch, flex_token->string_buffer[0]);
-				flex_token->semantic_value[0] = ch;	
-				////flex_token->semantic_value[0] = NULL;
+				flex_token->semantic_value[0] = ch;	*/
+				flex_token->semantic_value[0] = NULL;
 				flex_token->read_new_line = 0;
 				BEGIN(onelist_endStat1);
 				if (flex_token->first_closing_bracket == 1 || flex_token->pending_bracketed_string_list != NULL) {
@@ -3022,9 +3022,9 @@ struct lex_token * flex_token = yyextra;
 				 int32_t length = flex_token->current_buffer_length[0];
 				 flex_token->string_buffer[0][length] = '\0';
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[0] + 1));
+				 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[0] + 1));
         		 strcpy(ch, flex_token->string_buffer[0]);
-				 flex_token->semantic_value[0] = ch;	
+				 flex_token->semantic_value[0] = ch;	*/
 				 // flex_token->semantic_value[0] = NULL;
 				 flex_token->comment_type = -1;
 				 flex_token->error[0] = 1;
@@ -3066,9 +3066,9 @@ struct lex_token * flex_token = yyextra;
 				 int32_t length = flex_token->current_buffer_length[0];
 				 flex_token->string_buffer[0][length] = '\0';
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[0] + 1));
+				 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[0] + 1));
         		 strcpy(ch, flex_token->string_buffer[0]);
-				 flex_token->semantic_value[0] = ch;	
+				 flex_token->semantic_value[0] = ch;	*/
 				 // flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL) {
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, ']');
@@ -3097,9 +3097,9 @@ struct lex_token * flex_token = yyextra;
 					int32_t length = flex_token->current_buffer_length[0];
 					flex_token->string_buffer[0][length] = '\0';
 					/* Semantic value stub. */
-					char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[0] + 1));
+					/*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[0] + 1));
 	        		strcpy(ch, flex_token->string_buffer[0]);
-					flex_token->semantic_value[0] = ch;	
+					flex_token->semantic_value[0] = ch;	*/
 					// flex_token->semantic_value[0] = NULL;	
 					flex_token->chunk_ended = 1;						
 					return END_CHUNK_INTERRUPTED_BRACKETED_STRING;
@@ -3344,30 +3344,30 @@ struct lex_token * flex_token = yyextra;
 <onelist_commentOrError>.			{}
 <onelist_function1>{NAME}		{flex_token->token = NAME;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
+				 /*char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
         		 strcpy(ch, yytext);
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, yytext, yyleng);
 				 return LEX_CORRECT;
                         }
 <onelist_function1>{DOT}		{flex_token->token = DOT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ".");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '.');
 				 return LEX_CORRECT;
                                 } 
 <onelist_function1>{COLON}		{flex_token->token = COLON;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ":");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, ':');
 				 return LEX_CORRECT;
@@ -3375,10 +3375,10 @@ struct lex_token * flex_token = yyextra;
 <onelist_function1>{LPAREN}		{flex_token->token = LPARENFUNC;
 				 /*Return LPARENFUNC instead of LPAREN*/
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "(");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, '(');
 				 BEGIN(onelist_function2);
@@ -3488,30 +3488,30 @@ struct lex_token * flex_token = yyextra;
 				}                                                                                                                
 <onelist_function2>{NAME}		{flex_token->token = NAME;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
+				 /*char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
         		 strcpy(ch, yytext);
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, yytext, yyleng);
 				 return LEX_CORRECT;
                         }
 <onelist_function2>{DOT3}		{flex_token->token = DOT3;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "...");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	concat_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, "...", 3);
 				 return LEX_CORRECT;
                                 }
 <onelist_function2>{COMMA}		{flex_token->token = COMMA;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ",");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, ',');
 				 return LEX_CORRECT;
@@ -3519,10 +3519,10 @@ struct lex_token * flex_token = yyextra;
 <onelist_function2>{RPAREN}		{flex_token->token = RPARENFUNC;
 				 /*Return RPARENFUNC instead of RPAREN*/
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ")");
-				 flex_token->semantic_value[0] = ch;	
-				 ////flex_token->semantic_value[0] = NULL;
+				 flex_token->semantic_value[0] = ch;	*/
+				 flex_token->semantic_value[0] = NULL;
 				 if (flex_token->pending_bracketed_string_list != NULL)
 				 	append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, ')');
 				 BEGIN(onelist_INITIAL);
@@ -3632,10 +3632,10 @@ struct lex_token * flex_token = yyextra;
 				}		
 <twolists_INITIAL>{LPAREN}	{flex_token->token = LPAREN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "(");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '(', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -3643,10 +3643,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_INITIAL>{COLON2}		{flex_token->token = COLON2;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "::");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 				 	flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "::", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -3654,10 +3654,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_INITIAL>{BREAK}		{flex_token->token = BREAK;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*6);
+				 /*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "break");
-				 flex_token->semantic_value[flex_token->second_state] = ch;
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;	
+				 flex_token->semantic_value[flex_token->second_state] = ch;*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;	
 				 if (flex_token->state != SINGLE_COMMENT)
 				 	flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "break", 5, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;	
@@ -3666,10 +3666,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_INITIAL>{GOTO}		{flex_token->token = GOTO;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*5);
+				 /*char * ch = (char*) malloc(sizeof(char)*5);
         		 strcpy(ch, "goto");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "goto", 4, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -3677,10 +3677,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_INITIAL>{DO}		{flex_token->token = DO;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "do");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "do", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -3688,10 +3688,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_INITIAL>{WHILE}		{flex_token->token = WHILE;
 				 /* Semantic value stub. */
-				char * ch = (char*) malloc(sizeof(char)*6);
+				/*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "while");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "while", 5, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -3699,10 +3699,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_INITIAL>{REPEAT}		{flex_token->token = REPEAT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*7);
+				 /*char * ch = (char*) malloc(sizeof(char)*7);
         		 strcpy(ch, "repeat");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "repeat", 6, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -3710,10 +3710,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_INITIAL>{IF}		{flex_token->token = IF;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "if");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "if", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -3721,10 +3721,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_INITIAL>{FOR}		{flex_token->token = FOR;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "for");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "for", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -3732,10 +3732,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_INITIAL>{LOCAL}		{flex_token->token = LOCAL;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*6);
+				 /*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "local");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "local", 5, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -3743,10 +3743,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_INITIAL>{FUNCTION}	{flex_token->token = FUNCTION;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*9);
+				 /*char * ch = (char*) malloc(sizeof(char)*9);
         		 strcpy(ch, "function");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "function", 8, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -3755,10 +3755,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_INITIAL>{AND}		{flex_token->token = AND;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "and");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "and", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -3766,10 +3766,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <twolists_INITIAL>{ELSE}		{flex_token->token = ELSE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*5);
+				 /*char * ch = (char*) malloc(sizeof(char)*5);
         		 strcpy(ch, "else");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "else", 4, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -3777,10 +3777,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <twolists_INITIAL>{ELSEIF}		{flex_token->token = ELSEIF;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*7);
+				 /*char * ch = (char*) malloc(sizeof(char)*7);
         		 strcpy(ch, "elseif");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;	
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;	
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "elseif", 6, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -3788,10 +3788,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <twolists_INITIAL>{IN}		{flex_token->token = IN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "in");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "in", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -3799,10 +3799,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <twolists_INITIAL>{NOT}		{flex_token->token = NOT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "not");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "not", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -3810,10 +3810,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <twolists_INITIAL>{OR}		{flex_token->token = OR;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "or");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "or", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -3821,10 +3821,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <twolists_INITIAL>{RETURN}		{flex_token->token = RETURN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*7);
+				 /*char * ch = (char*) malloc(sizeof(char)*7);
         		 strcpy(ch, "return");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "return", 6, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -3832,10 +3832,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <twolists_INITIAL>{THEN}		{flex_token->token = THEN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*5);
+				 /*char * ch = (char*) malloc(sizeof(char)*5);
         		 strcpy(ch, "then");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "then", 4, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -3843,10 +3843,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <twolists_INITIAL>{UNTIL}		{flex_token->token = UNTIL;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*6);
+				 /*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "until");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "until", 5, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -3854,10 +3854,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_INITIAL>{NIL}		{flex_token->token = NIL;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "nil");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "nil", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -3867,10 +3867,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_INITIAL>{FALSE}		{flex_token->token = FALSE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*6);
+				 /*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "false");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "false", 5, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -3880,10 +3880,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_INITIAL>{TRUE}		{flex_token->token = TRUE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*5);
+				 /*char * ch = (char*) malloc(sizeof(char)*5);
         		 strcpy(ch, "true");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "true", 4, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -3893,10 +3893,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_INITIAL>{NUMBER}		{flex_token->token = NUMBER;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
+				 /*char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
         		 strcpy(ch, yytext);
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext, yyleng, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -3906,10 +3906,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_INITIAL>{DOT3}		{flex_token->token = DOT3;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "...");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "...", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -3919,10 +3919,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_INITIAL>{RBRACE}		{flex_token->token = RBRACE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "}");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '}', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -3932,10 +3932,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_INITIAL>{END}		{flex_token->token = END;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "end");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "end", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -3945,10 +3945,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_INITIAL>{RBRACK}		{flex_token->token = RBRACK;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "]");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ']', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -3958,10 +3958,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_INITIAL>{RPAREN}		{flex_token->token = RPAREN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ")");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ')', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -3971,10 +3971,10 @@ struct lex_token * flex_token = yyextra;
                                 }    
 <twolists_INITIAL>{SEMI}		{flex_token->token = SEMI;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ";");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ';', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -3982,10 +3982,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_INITIAL>{COLON}		{flex_token->token = COLON;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ":");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ':', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -3993,10 +3993,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                                                   
 <twolists_INITIAL>{DOT}		{flex_token->token = DOT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ".");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '.', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4004,10 +4004,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_INITIAL>{COMMA}		{flex_token->token = COMMA;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ",");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ',', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4015,10 +4015,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_INITIAL>{LBRACK}		{flex_token->token = LBRACK;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "[");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '[', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4026,10 +4026,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_INITIAL>{LBRACE}		{flex_token->token = LBRACE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "{");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '{', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4037,10 +4037,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_INITIAL>{XEQ}		{flex_token->token = XEQ;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "=");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '=', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4048,10 +4048,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                  
 <twolists_INITIAL>{PLUS}		{flex_token->token = PLUS;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "+");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '+', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4059,10 +4059,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_INITIAL>{UMINUS}		{flex_token->token = UMINUS;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "-");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '-', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4070,10 +4070,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                                                                                   
 <twolists_INITIAL>{ASTERISK}		{flex_token->token = ASTERISK;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "*");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '*', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4081,10 +4081,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_INITIAL>{DIVIDE}		{flex_token->token = DIVIDE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "/");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '/', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4092,10 +4092,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_INITIAL>{CARET}		{flex_token->token = CARET;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "^");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '^', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4103,10 +4103,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_INITIAL>{PERCENT}		{flex_token->token = PERCENT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "%");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '%', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4114,10 +4114,10 @@ struct lex_token * flex_token = yyextra;
                                 }  
 <twolists_INITIAL>{DOT2}		{flex_token->token = DOT2;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "..");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "..", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4125,10 +4125,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_INITIAL>{LT}		{flex_token->token = LT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "<");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '<', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4136,10 +4136,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_INITIAL>{GT}		{flex_token->token = GT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ">");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '>', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4147,10 +4147,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_INITIAL>{LTEQ}		{flex_token->token = LTEQ;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "<=");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "<=", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4158,10 +4158,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_INITIAL>{GTEQ}		{flex_token->token = GTEQ;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, ">=");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], ">=", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4169,10 +4169,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_INITIAL>{EQ2}		{flex_token->token = EQ2;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "==");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "==", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4180,10 +4180,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_INITIAL>{NEQ}		{flex_token->token = NEQ;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "~=");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "~=", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4191,10 +4191,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_INITIAL>{SHARP}		{flex_token->token = SHARP;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "#");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '#', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4202,10 +4202,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                
 <twolists_INITIAL>{NAME}		{flex_token->token = NAME;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
+				 /*char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
         		 strcpy(ch, yytext);
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext, yyleng, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -4235,10 +4235,10 @@ struct lex_token * flex_token = yyextra;
 				 	int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					flex_token->string_buffer[flex_token->first_state][length] = '\0';
 				    /* Semantic value stub. */
-				 	char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+				 	/*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
         		 	strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-				 	flex_token->semantic_value[flex_token->first_state] = ch;	
-				 	////flex_token->semantic_value[flex_token->first_state] = NULL;
+				 	flex_token->semantic_value[flex_token->first_state] = ch;	*/
+				 	flex_token->semantic_value[flex_token->first_state] = NULL;
 				 	flex_token->error[flex_token->first_state] = 0;
 				 	flex_token->error[flex_token->second_state] = 0;
 				 	flex_token->insert_token_in_list = flex_token->first_state;	
@@ -4264,10 +4264,10 @@ struct lex_token * flex_token = yyextra;
 				 	 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					 /* Semantic value stub. */
-					 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		 strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-					 flex_token->semantic_value[flex_token->first_state] = ch;	
-					 ////flex_token->semantic_value[flex_token->first_state] = NULL;
+					 flex_token->semantic_value[flex_token->first_state] = ch;	*/
+					 flex_token->semantic_value[flex_token->first_state] = NULL;
  					 flex_token->insert_token_in_list = flex_token->first_state;
 					 flex_token->insert_single_comment_in_list = 2;
 					 flex_token->error[flex_token->first_state] = 1;
@@ -4315,9 +4315,9 @@ struct lex_token * flex_token = yyextra;
 					int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					/* Semantic value stub. */
-					char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					/*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-					flex_token->semantic_value[flex_token->first_state] = ch;	
+					flex_token->semantic_value[flex_token->first_state] = ch;	*/
 					// flex_token->semantic_value[flex_token->first_state] = NULL;							
 					flex_token->insert_token_in_list = flex_token->first_state;
 					if(flex_token->num_chars >= flex_token->chunk_length) {
@@ -4393,10 +4393,10 @@ struct lex_token * flex_token = yyextra;
 						int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 						/* Semantic value stub. */
-						char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+						/*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 		        		strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-						flex_token->semantic_value[flex_token->first_state] = ch;	
-						////flex_token->semantic_value[flex_token->first_state] = NULL;							
+						flex_token->semantic_value[flex_token->first_state] = ch;	*/
+						flex_token->semantic_value[flex_token->first_state] = NULL;							
 						flex_token->insert_token_in_list = flex_token->first_state;
 						flex_token->double_list_ended = 1;
 						flex_token->chunk_ended = 1;
@@ -4597,10 +4597,10 @@ struct lex_token * flex_token = yyextra;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					 /* Semantic value stub. */
-					 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		 strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-					 flex_token->semantic_value[flex_token->first_state] = ch;	
-					 ////flex_token->semantic_value[flex_token->first_state] = NULL;
+					 flex_token->semantic_value[flex_token->first_state] = ch;	*/
+					 flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->read_new_line = 0;	
 					 flex_token->insert_token_in_list = flex_token->first_state;
 					 int8_t swap = flex_token->first_state;
@@ -4633,10 +4633,10 @@ struct lex_token * flex_token = yyextra;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					 /* Semantic value stub. */
-					 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		 strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-					 flex_token->semantic_value[flex_token->first_state] = ch;	
-					 ////flex_token->semantic_value[flex_token->first_state] = NULL;
+					 flex_token->semantic_value[flex_token->first_state] = ch;	*/
+					 flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->read_new_line = 0;	
 					 flex_token->insert_token_in_list = flex_token->first_state;
 					 int8_t swap = flex_token->first_state;
@@ -4689,10 +4689,10 @@ struct lex_token * flex_token = yyextra;
 				}
 <twolists_endStat1>{LPAREN}	{flex_token->token = LPAREN;//only endStat1
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "(");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '(', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4704,10 +4704,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat1,twolists_endStat2>{COLON2}		{flex_token->token = COLON2;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "::");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "::", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4719,10 +4719,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat1>{BREAK}		{flex_token->token = BREAK;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*6);
+				 /*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "break");
-				 flex_token->semantic_value[flex_token->second_state] = ch;
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;	
+				 flex_token->semantic_value[flex_token->second_state] = ch;*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;	
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "break", 5, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4737,10 +4737,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat1,twolists_endStat2>{GOTO}		{flex_token->token = GOTO;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*5);
+				 /*char * ch = (char*) malloc(sizeof(char)*5);
         		 strcpy(ch, "goto");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "goto", 4, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4752,10 +4752,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat1,twolists_endStat2>{DO}		{flex_token->token = DO;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "do");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "do", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4767,10 +4767,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat1,twolists_endStat2>{WHILE}		{flex_token->token = WHILE;
 				 /* Semantic value stub. */
-				char * ch = (char*) malloc(sizeof(char)*6);
+				/*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "while");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "while", 5, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4782,10 +4782,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat1,twolists_endStat2>{REPEAT}		{flex_token->token = REPEAT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*7);
+				 /*char * ch = (char*) malloc(sizeof(char)*7);
         		 strcpy(ch, "repeat");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "repeat", 6, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4797,10 +4797,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat1,twolists_endStat2>{IF}		{flex_token->token = IF;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "if");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "if", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4812,10 +4812,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat1,twolists_endStat2>{FOR}		{flex_token->token = FOR;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "for");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "for", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4827,10 +4827,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat1,twolists_endStat2>{LOCAL}		{flex_token->token = LOCAL;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*6);
+				 /*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "local");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "local", 5, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4842,10 +4842,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat1,twolists_endStat2>{FUNCTION}	{flex_token->token = FUNCTION;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*9);
+				 /*char * ch = (char*) malloc(sizeof(char)*9);
         		 strcpy(ch, "function");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "function", 8, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4857,10 +4857,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat1,twolists_endStat2>{AND}		{flex_token->token = AND;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "and");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "and", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4869,10 +4869,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <twolists_endStat1,twolists_endStat2>{ELSE}		{flex_token->token = ELSE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*5);
+				 /*char * ch = (char*) malloc(sizeof(char)*5);
         		 strcpy(ch, "else");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "else", 4, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4881,10 +4881,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <twolists_endStat1,twolists_endStat2>{ELSEIF}		{flex_token->token = ELSEIF;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*7);
+				 /*char * ch = (char*) malloc(sizeof(char)*7);
         		 strcpy(ch, "elseif");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;	
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;	
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "elseif", 6, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4893,10 +4893,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <twolists_endStat1,twolists_endStat2>{IN}		{flex_token->token = IN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "in");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "in", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4905,10 +4905,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <twolists_endStat1,twolists_endStat2>{NOT}		{flex_token->token = NOT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "not");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "not", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4917,10 +4917,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <twolists_endStat1,twolists_endStat2>{OR}		{flex_token->token = OR;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "or");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "or", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4929,10 +4929,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <twolists_endStat1,twolists_endStat2>{RETURN}		{flex_token->token = RETURN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*7);
+				 /*char * ch = (char*) malloc(sizeof(char)*7);
         		 strcpy(ch, "return");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "return", 6, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4941,10 +4941,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <twolists_endStat1,twolists_endStat2>{THEN}		{flex_token->token = THEN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*5);
+				 /*char * ch = (char*) malloc(sizeof(char)*5);
         		 strcpy(ch, "then");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "then", 4, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4953,10 +4953,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <twolists_endStat1,twolists_endStat2>{UNTIL}		{flex_token->token = UNTIL;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*6);
+				 /*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "until");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "until", 5, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -4965,10 +4965,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat1>{NIL}		{flex_token->token = NIL;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "nil");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "nil", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -4977,10 +4977,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat1>{FALSE}		{flex_token->token = FALSE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*6);
+				 /*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "false");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "false", 5, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -4989,10 +4989,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat1>{TRUE}		{flex_token->token = TRUE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*5);
+				 /*char * ch = (char*) malloc(sizeof(char)*5);
         		 strcpy(ch, "true");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "true", 4, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -5001,10 +5001,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat1>{NUMBER}		{flex_token->token = NUMBER;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
+				 /*char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
         		 strcpy(ch, yytext);
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext, yyleng, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -5013,10 +5013,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat1>{DOT3}		{flex_token->token = DOT3;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "...");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "...", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -5025,10 +5025,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat1>{RBRACE}		{flex_token->token = RBRACE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "}");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '}', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -5037,10 +5037,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat1>{END}		{flex_token->token = END;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "end");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "end", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -5049,10 +5049,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat1>{RBRACK}		{flex_token->token = RBRACK;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "]");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ']', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -5062,10 +5062,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat1>{RPAREN}		{flex_token->token = RPAREN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ")");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ')', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -5075,10 +5075,10 @@ struct lex_token * flex_token = yyextra;
                                 }    
 <twolists_endStat1,twolists_endStat2>{SEMI}		{flex_token->token = SEMI;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ";");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ';', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -5087,10 +5087,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_endStat1,twolists_endStat2>{COLON}		{flex_token->token = COLON;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ":");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ':', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -5099,10 +5099,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                                                   
 <twolists_endStat1,twolists_endStat2>{DOT}		{flex_token->token = DOT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ".");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '.', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -5111,10 +5111,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_endStat1,twolists_endStat2>{COMMA}		{flex_token->token = COMMA;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ",");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ',', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -5123,10 +5123,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_endStat1,twolists_endStat2>{LBRACK}		{flex_token->token = LBRACK;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "[");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '[', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -5135,10 +5135,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_endStat1,twolists_endStat2>{LBRACE}		{flex_token->token = LBRACE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "{");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '{', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -5147,10 +5147,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_endStat1,twolists_endStat2>{XEQ}		{flex_token->token = XEQ;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "=");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '=', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -5159,10 +5159,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                  
 <twolists_endStat1,twolists_endStat2>{PLUS}		{flex_token->token = PLUS;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "+");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '+', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -5171,10 +5171,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                                                   
 <twolists_endStat1,twolists_endStat2>{ASTERISK}		{flex_token->token = ASTERISK;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "*");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '*', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -5183,10 +5183,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_endStat1,twolists_endStat2>{DIVIDE}		{flex_token->token = DIVIDE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "/");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '/', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -5195,10 +5195,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_endStat1,twolists_endStat2>{CARET}		{flex_token->token = CARET;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "^");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '^', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -5207,10 +5207,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_endStat1,twolists_endStat2>{PERCENT}		{flex_token->token = PERCENT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "%");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '%', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -5219,10 +5219,10 @@ struct lex_token * flex_token = yyextra;
                                 }  
 <twolists_endStat1,twolists_endStat2>{DOT2}		{flex_token->token = DOT2;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "..");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "..", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -5231,10 +5231,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_endStat1,twolists_endStat2>{LT}		{flex_token->token = LT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "<");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '<', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -5243,10 +5243,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_endStat1,twolists_endStat2>{GT}		{flex_token->token = GT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ">");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '>', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -5255,10 +5255,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_endStat1,twolists_endStat2>{LTEQ}		{flex_token->token = LTEQ;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "<=");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "<=", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -5267,10 +5267,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_endStat1,twolists_endStat2>{GTEQ}		{flex_token->token = GTEQ;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, ">=");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], ">=", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -5279,10 +5279,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_endStat1,twolists_endStat2>{EQ2}		{flex_token->token = EQ2;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "==");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "==", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -5291,10 +5291,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_endStat1,twolists_endStat2>{NEQ}		{flex_token->token = NEQ;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*3);
+				 /*char * ch = (char*) malloc(sizeof(char)*3);
         		 strcpy(ch, "~=");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "~=", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -5303,10 +5303,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                   
 <twolists_endStat1,twolists_endStat2>{SHARP}		{flex_token->token = SHARP;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "#");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '#', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -5315,10 +5315,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                
 <twolists_endStat1>{NAME}		{flex_token->token = NAME;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
+				 /*char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
         		 strcpy(ch, yytext);
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext, yyleng, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -5332,10 +5332,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                
 <twolists_endStat1,twolists_endStat2>{MINUS}		{flex_token->token = MINUS;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "-");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '-', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -5352,10 +5352,10 @@ struct lex_token * flex_token = yyextra;
 								int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 								flex_token->string_buffer[flex_token->first_state][length] = '\0';
 								/* Semantic value stub. */
-								char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+								/*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 				        		strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-								flex_token->semantic_value[flex_token->first_state] = ch;	
-								////flex_token->semantic_value[flex_token->first_state] = NULL;							
+								flex_token->semantic_value[flex_token->first_state] = ch;	*/
+								flex_token->semantic_value[flex_token->first_state] = NULL;							
 								flex_token->insert_token_in_list = flex_token->first_state;
 								flex_token->double_list_ended = 1;
 								flex_token->chunk_ended = 1;
@@ -5415,10 +5415,10 @@ struct lex_token * flex_token = yyextra;
 								int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 								flex_token->string_buffer[flex_token->first_state][length] = '\0';
 								/* Semantic value stub. */
-								char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+								/*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 				        		strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-								flex_token->semantic_value[flex_token->first_state] = ch;	
-								////flex_token->semantic_value[flex_token->first_state] = NULL;							
+								flex_token->semantic_value[flex_token->first_state] = ch;	*/
+								flex_token->semantic_value[flex_token->first_state] = NULL;							
 								flex_token->insert_token_in_list = flex_token->first_state;
 								flex_token->double_list_ended = 1;
 								flex_token->chunk_ended = 1;
@@ -5453,10 +5453,10 @@ struct lex_token * flex_token = yyextra;
 						}						                                							
 <twolists_endStat2>{BREAK}		{flex_token->token = BREAK;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*6);
+				 /*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "break");
-				 flex_token->semantic_value[flex_token->second_state] = ch;
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;	
+				 flex_token->semantic_value[flex_token->second_state] = ch;*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;	
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "break", 5, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -5473,10 +5473,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat2>{NIL}		{flex_token->token = NIL;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "nil");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "nil", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -5486,10 +5486,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat2>{FALSE}		{flex_token->token = FALSE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*6);
+				 /*char * ch = (char*) malloc(sizeof(char)*6);
         		 strcpy(ch, "false");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "false", 5, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -5499,10 +5499,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat2>{TRUE}		{flex_token->token = TRUE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*5);
+				 /*char * ch = (char*) malloc(sizeof(char)*5);
         		 strcpy(ch, "true");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "true", 4, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -5512,10 +5512,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat2>{NUMBER}		{flex_token->token = NUMBER;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
+				 /*char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
         		 strcpy(ch, yytext);
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext, yyleng, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -5525,10 +5525,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat2>{DOT3}		{flex_token->token = DOT3;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "...");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "...", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -5538,10 +5538,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat2>{RBRACE}		{flex_token->token = RBRACE;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "}");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '}', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -5551,10 +5551,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat2>{END}		{flex_token->token = END;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "end");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "end", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -5564,10 +5564,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat2>{RBRACK}		{flex_token->token = RBRACK;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "]");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ']', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -5576,10 +5576,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_endStat2>{RPAREN}		{flex_token->token = RPAREN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ")");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ')', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -5588,10 +5588,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <twolists_endStat2>{LPAREN}	{flex_token->token = LPAREN;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "(");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '(', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -5600,10 +5600,10 @@ struct lex_token * flex_token = yyextra;
                                 } 
 <twolists_endStat2>{NAME}		{flex_token->token = NAME;
 				/* Semantic value stub. */
-				char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
+				/*char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
         		strcpy(ch, yytext);
-				flex_token->semantic_value[flex_token->second_state] = ch;	
-				////flex_token->semantic_value[flex_token->second_state] = NULL;
+				flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				flex_token->semantic_value[flex_token->second_state] = NULL;
 				flex_token->insert_token_in_list = flex_token->second_state;
 				if (flex_token->state != SINGLE_COMMENT)
 					 	flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext, yyleng, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -5664,10 +5664,10 @@ struct lex_token * flex_token = yyextra;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					 /* Semantic value stub. */
-					 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		 strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-					 flex_token->semantic_value[flex_token->first_state] = ch;	
-					 ////flex_token->semantic_value[flex_token->first_state] = NULL;
+					 flex_token->semantic_value[flex_token->first_state] = ch;	*/
+					 flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->read_new_line = 0;	
 					 flex_token->insert_token_in_list = flex_token->first_state;
 					 int8_t swap = flex_token->first_state;
@@ -5687,10 +5687,10 @@ struct lex_token * flex_token = yyextra;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					 /* Semantic value stub. */
-					 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		 strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-					 flex_token->semantic_value[flex_token->first_state] = ch;	
-					 ////flex_token->semantic_value[flex_token->first_state] = NULL;
+					 flex_token->semantic_value[flex_token->first_state] = ch;	*/
+					 flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->read_new_line = 0;	
 					 flex_token->insert_token_in_list = flex_token->first_state;
 					 int8_t swap = flex_token->first_state;
@@ -5710,10 +5710,10 @@ struct lex_token * flex_token = yyextra;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					 /* Semantic value stub. */
-					 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		 strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-					 flex_token->semantic_value[flex_token->first_state] = ch;	
-					 ////flex_token->semantic_value[flex_token->first_state] = NULL;
+					 flex_token->semantic_value[flex_token->first_state] = ch;	*/
+					 flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->read_new_line = 0;	
 					 flex_token->insert_token_in_list = flex_token->first_state;
 					 int8_t swap = flex_token->first_state;
@@ -5736,10 +5736,10 @@ struct lex_token * flex_token = yyextra;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					 /* Semantic value stub. */
-					 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		 strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-					 flex_token->semantic_value[flex_token->first_state] = ch;	
-					 ////flex_token->semantic_value[flex_token->first_state] = NULL;
+					 flex_token->semantic_value[flex_token->first_state] = ch;	*/
+					 flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->insert_token_in_list = flex_token->first_state;
 					 flex_token->insert_single_comment_in_list = flex_token->second_state;
 					 flex_token->error[flex_token->first_state] = 1;
@@ -5794,9 +5794,9 @@ struct lex_token * flex_token = yyextra;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					 /* Semantic value stub. */
-					 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		 strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-					 flex_token->semantic_value[flex_token->first_state] = ch;	
+					 flex_token->semantic_value[flex_token->first_state] = ch;	*/
 					 // flex_token->semantic_value[flex_token->first_state] = NULL;							
 					 flex_token->insert_token_in_list = flex_token->first_state;
 					 flex_token->insert_single_comment_in_list = flex_token->second_state;
@@ -5858,10 +5858,10 @@ struct lex_token * flex_token = yyextra;
 								int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 								flex_token->string_buffer[flex_token->first_state][length] = '\0';
 								/* Semantic value stub. */
-								char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+								/*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 				        		strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-								flex_token->semantic_value[flex_token->first_state] = ch;	
-								////flex_token->semantic_value[flex_token->first_state] = NULL;							
+								flex_token->semantic_value[flex_token->first_state] = ch;	*/
+								flex_token->semantic_value[flex_token->first_state] = NULL;							
 								flex_token->insert_token_in_list = flex_token->first_state;
 								flex_token->double_list_ended = 1;
 								flex_token->chunk_ended = 1;
@@ -6083,10 +6083,10 @@ struct lex_token * flex_token = yyextra;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					 /* Semantic value stub. */
-					 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		 strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-					 flex_token->semantic_value[flex_token->first_state] = ch;	
-					 ////flex_token->semantic_value[flex_token->first_state] = NULL;
+					 flex_token->semantic_value[flex_token->first_state] = ch;	*/
+					 flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->read_new_line = 0;	
 					 flex_token->insert_token_in_list = flex_token->first_state;
 					 flex_token->error[flex_token->first_state] = 0;
@@ -6106,10 +6106,10 @@ struct lex_token * flex_token = yyextra;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					 /* Semantic value stub. */
-					 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		 strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-					 flex_token->semantic_value[flex_token->first_state] = ch;	
-					 ////flex_token->semantic_value[flex_token->first_state] = NULL;
+					 flex_token->semantic_value[flex_token->first_state] = ch;	*/
+					 flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->read_new_line = 0;	
 					 flex_token->insert_token_in_list = flex_token->first_state;
 					 flex_token->error[flex_token->first_state] = 0;
@@ -6129,10 +6129,10 @@ struct lex_token * flex_token = yyextra;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					 /* Semantic value stub. */
-					 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		 strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-					 flex_token->semantic_value[flex_token->first_state] = ch;	
-					 ////flex_token->semantic_value[flex_token->first_state] = NULL;
+					 flex_token->semantic_value[flex_token->first_state] = ch;	*/
+					 flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->read_new_line = 0;	
 					 flex_token->insert_token_in_list = flex_token->first_state;
 					 flex_token->error[flex_token->first_state] = 0;
@@ -6157,10 +6157,10 @@ struct lex_token * flex_token = yyextra;
 								int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 								flex_token->string_buffer[flex_token->first_state][length] = '\0';
 								/* Semantic value stub. */
-								char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+								/*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 				        		strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-								flex_token->semantic_value[flex_token->first_state] = ch;	
-								////flex_token->semantic_value[flex_token->first_state] = NULL;							
+								flex_token->semantic_value[flex_token->first_state] = ch;	*/
+								flex_token->semantic_value[flex_token->first_state] = NULL;							
 								flex_token->insert_token_in_list = flex_token->first_state;
 								flex_token->double_list_ended = 1;
 								flex_token->chunk_ended = 1;
@@ -6201,10 +6201,10 @@ struct lex_token * flex_token = yyextra;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					 /* Semantic value stub. */
-					 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		 strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-					 flex_token->semantic_value[flex_token->first_state] = ch;	
-					 ////flex_token->semantic_value[flex_token->first_state] = NULL;
+					 flex_token->semantic_value[flex_token->first_state] = ch;	*/
+					 flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->error[flex_token->first_state] = 1;
 					 flex_token->insert_token_in_list = flex_token->first_state;
 					 flex_token->insert_single_comment_in_list = 2;
@@ -6242,10 +6242,10 @@ struct lex_token * flex_token = yyextra;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					 /* Semantic value stub. */
-					 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		 strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-					 flex_token->semantic_value[flex_token->first_state] = ch;	
-					 ////flex_token->semantic_value[flex_token->first_state] = NULL;
+					 flex_token->semantic_value[flex_token->first_state] = ch;	*/
+					 flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->error[flex_token->first_state] = 1;
 					 flex_token->insert_token_in_list = flex_token->first_state;
 					 flex_token->insert_single_comment_in_list = 2;					 
@@ -6297,9 +6297,9 @@ struct lex_token * flex_token = yyextra;
 					int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					/* Semantic value stub. */
-					char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					/*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-					flex_token->semantic_value[flex_token->first_state] = ch;	
+					flex_token->semantic_value[flex_token->first_state] = ch;	*/
 					// flex_token->semantic_value[flex_token->first_state] = NULL;							
 					flex_token->insert_token_in_list = flex_token->first_state;
 					flex_token->insert_single_comment_in_list = 2;
@@ -6354,9 +6354,9 @@ struct lex_token * flex_token = yyextra;
 					int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					/* Semantic value stub. */
-					char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					/*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-					flex_token->semantic_value[flex_token->first_state] = ch;	
+					flex_token->semantic_value[flex_token->first_state] = ch;	*/
 					// flex_token->semantic_value[flex_token->first_state] = NULL;							
 					flex_token->insert_token_in_list = flex_token->first_state;
 					flex_token->insert_single_comment_in_list = 2;
@@ -6516,10 +6516,10 @@ struct lex_token * flex_token = yyextra;
 				 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 				 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+				 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
         		 strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-				 flex_token->semantic_value[flex_token->first_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->first_state] = NULL;
+				 flex_token->semantic_value[flex_token->first_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->first_state] = NULL;
 				 flex_token->string_buffer[flex_token->second_state] = append_to_buffer(flex_token->string_buffer[flex_token->second_state], '\"', &(flex_token->current_buffer_length[flex_token->second_state]), &(flex_token->allocated_buffer_size[flex_token->second_state]));
 				 flex_token->read_new_line = 0;	
 				 flex_token->insert_token_in_list = flex_token->first_state;
@@ -6536,10 +6536,10 @@ struct lex_token * flex_token = yyextra;
 				 int32_t length = flex_token->current_buffer_length[flex_token->second_state];
 				 flex_token->string_buffer[flex_token->second_state][length] = '\0';
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->second_state] + 1));
+				 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->second_state] + 1));
         		 strcpy(ch, flex_token->string_buffer[flex_token->second_state]);
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\'', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->read_new_line = 0;	
 				 flex_token->insert_token_in_list = flex_token->second_state;	
@@ -6603,10 +6603,10 @@ struct lex_token * flex_token = yyextra;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					 /* Semantic value stub. */
-					 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		 strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-					 flex_token->semantic_value[flex_token->first_state] = ch;	
-					 ////flex_token->semantic_value[flex_token->first_state] = NULL;
+					 flex_token->semantic_value[flex_token->first_state] = ch;	*/
+					 flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->string_buffer[flex_token->second_state] = append_to_buffer(flex_token->string_buffer[flex_token->second_state], '\"', &(flex_token->current_buffer_length[flex_token->second_state]), &(flex_token->allocated_buffer_size[flex_token->second_state]));
 					 flex_token->read_new_line = 0;	
 					 flex_token->insert_token_in_list = flex_token->first_state;
@@ -6629,10 +6629,10 @@ struct lex_token * flex_token = yyextra;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 		   			 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					 /* Semantic value stub. */
-					 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		 strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-					 flex_token->semantic_value[flex_token->first_state] = ch;	
-					 ////flex_token->semantic_value[flex_token->first_state] = NULL;
+					 flex_token->semantic_value[flex_token->first_state] = ch;	*/
+					 flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->string_buffer[flex_token->second_state] = append_to_buffer(flex_token->string_buffer[flex_token->second_state], '\'', &(flex_token->current_buffer_length[flex_token->second_state]), &(flex_token->allocated_buffer_size[flex_token->second_state]));
 					 flex_token->read_new_line = 0;	
 					 flex_token->insert_token_in_list = flex_token->first_state;
@@ -6654,10 +6654,10 @@ struct lex_token * flex_token = yyextra;
 				 int32_t length = flex_token->current_buffer_length[flex_token->second_state];
 				 flex_token->string_buffer[flex_token->second_state][length] = '\0';
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->second_state] + 1));
+				 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->second_state] + 1));
         		 strcpy(ch, flex_token->string_buffer[flex_token->second_state]);
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
 				 if (flex_token->state != BRACKETED_STRING){/*state is necessarily DOUBLE_STRING or SINGLE_STRING*/
 				 	 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext, yyleng, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -6669,10 +6669,10 @@ struct lex_token * flex_token = yyextra;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					 /* Semantic value stub. */
-					 char * ch1 = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					 /*char * ch1 = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		 strcpy(ch1, flex_token->string_buffer[flex_token->first_state]);
-					 flex_token->semantic_value[flex_token->first_state] = ch1;	
-					 ////flex_token->semantic_value[flex_token->first_state] = NULL;
+					 flex_token->semantic_value[flex_token->first_state] = ch1;	*/
+					 flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->error[flex_token->first_state] = 0;
 					 flex_token->error[flex_token->second_state] = 0;
 					 flex_token->insert_token_in_list = 3;
@@ -6687,9 +6687,9 @@ struct lex_token * flex_token = yyextra;
 				 int32_t length = flex_token->current_buffer_length[flex_token->second_state];
 				 flex_token->string_buffer[flex_token->second_state][length] = '\0';
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->second_state] + 1));
+				 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->second_state] + 1));
         		 strcpy(ch, flex_token->string_buffer[flex_token->second_state]);
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;	
 				 flex_token->error[flex_token->second_state] = 1;
 				 if (flex_token->state != BRACKETED_STRING){
@@ -6700,10 +6700,10 @@ struct lex_token * flex_token = yyextra;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					 /* Semantic value stub. */
-					 char * ch1 = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					 /*char * ch1 = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		 strcpy(ch1, flex_token->string_buffer[flex_token->first_state]);
-					 flex_token->semantic_value[flex_token->first_state] = ch1;	
-					 ////flex_token->semantic_value[flex_token->first_state] = NULL;
+					 flex_token->semantic_value[flex_token->first_state] = ch1;	*/
+					 flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->error[flex_token->first_state] = 1;
 					 flex_token->insert_token_in_list = 3;
 				 }
@@ -6738,9 +6738,9 @@ struct lex_token * flex_token = yyextra;
 				int32_t length = flex_token->current_buffer_length[flex_token->second_state];
 				flex_token->string_buffer[flex_token->second_state][length] = '\0';
 				/* Semantic value stub. */
-				char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->second_state] + 1));
+				/*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->second_state] + 1));
         		strcpy(ch, flex_token->string_buffer[flex_token->second_state]);
-				flex_token->semantic_value[flex_token->second_state] = ch;	
+				flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				// flex_token->semantic_value[flex_token->second_state] = NULL;							
 				if (flex_token->state != BRACKETED_STRING){
 				 	 flex_token->insert_token_in_list = flex_token->second_state;
@@ -6756,9 +6756,9 @@ struct lex_token * flex_token = yyextra;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					 /* Semantic value stub. */
-					 char * ch1 = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					 /*char * ch1 = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		 strcpy(ch1, flex_token->string_buffer[flex_token->first_state]);
-					 flex_token->semantic_value[flex_token->first_state] = ch1;	
+					 flex_token->semantic_value[flex_token->first_state] = ch1;	*/
 					 // flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->insert_token_in_list = 3;
 				}
@@ -6781,10 +6781,10 @@ struct lex_token * flex_token = yyextra;
 							int32_t length = flex_token->current_buffer_length[flex_token->second_state];
 							flex_token->string_buffer[flex_token->second_state][length] = '\0';
 							/* Semantic value stub. */
-							char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->second_state] + 1));
+							/*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->second_state] + 1));
 			        		strcpy(ch, flex_token->string_buffer[flex_token->second_state]);
-							flex_token->semantic_value[flex_token->second_state] = ch;	
-							////flex_token->semantic_value[flex_token->second_state] = NULL;							
+							flex_token->semantic_value[flex_token->second_state] = ch;	*/
+							flex_token->semantic_value[flex_token->second_state] = NULL;							
 							if (flex_token->state != BRACKETED_STRING){
 								 flex_token->error[flex_token->first_state] = 1;
 							 	 flex_token->insert_token_in_list = flex_token->second_state;
@@ -6794,10 +6794,10 @@ struct lex_token * flex_token = yyextra;
 								 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 								 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 								 /* Semantic value stub. */
-								 char * ch1 = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+								 /*char * ch1 = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 				         		 strcpy(ch1, flex_token->string_buffer[flex_token->first_state]);
-								 flex_token->semantic_value[flex_token->first_state] = ch1;	
-								 ////flex_token->semantic_value[flex_token->first_state] = NULL;
+								 flex_token->semantic_value[flex_token->first_state] = ch1;	*/
+								 flex_token->semantic_value[flex_token->first_state] = NULL;
 								 flex_token->error[flex_token->first_state] = 0;
 								 flex_token->insert_token_in_list = 3;
 							}
@@ -6838,10 +6838,10 @@ struct lex_token * flex_token = yyextra;
 				}
 <twolists_function1,twolists_function2>{NAME}		{flex_token->token = NAME;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
+				 /*char * ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
         		 strcpy(ch, yytext);
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext, yyleng, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -6849,10 +6849,10 @@ struct lex_token * flex_token = yyextra;
                                 }                                                                 
 <twolists_function1>{DOT}		{flex_token->token = DOT;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ".");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '.', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -6860,10 +6860,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_function1>{COLON}		{flex_token->token = COLON;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ":");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ':', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -6871,10 +6871,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_function1>{LPAREN}		{flex_token->token = LPARENFUNC;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, "(");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '(', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -6927,10 +6927,10 @@ struct lex_token * flex_token = yyextra;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					 /* Semantic value stub. */
-					 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		 strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-					 flex_token->semantic_value[flex_token->first_state] = ch;	
-					 ////flex_token->semantic_value[flex_token->first_state] = NULL;
+					 flex_token->semantic_value[flex_token->first_state] = ch;	*/
+					 flex_token->semantic_value[flex_token->first_state] = NULL;
  					 flex_token->insert_token_in_list = flex_token->first_state;
 					 flex_token->insert_single_comment_in_list = 2;
 					 flex_token->error[flex_token->first_state] = 1;
@@ -6963,10 +6963,10 @@ struct lex_token * flex_token = yyextra;
 								int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 								flex_token->string_buffer[flex_token->first_state][length] = '\0';
 								/* Semantic value stub. */
-								char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+								/*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 				        		strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-								flex_token->semantic_value[flex_token->first_state] = ch;	
-								////flex_token->semantic_value[flex_token->first_state] = NULL;							
+								flex_token->semantic_value[flex_token->first_state] = ch;	*/
+								flex_token->semantic_value[flex_token->first_state] = NULL;							
 								flex_token->insert_token_in_list = flex_token->first_state;
 								flex_token->insert_function = 1; //insert delimiter FUNCTION in the flex_token->second_state delimiter list
 								flex_token->double_list_ended = 1;
@@ -7008,10 +7008,10 @@ struct lex_token * flex_token = yyextra;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					 /* Semantic value stub. */
-					 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		 strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-					 flex_token->semantic_value[flex_token->first_state] = ch;	
-					 ////flex_token->semantic_value[flex_token->first_state] = NULL;
+					 flex_token->semantic_value[flex_token->first_state] = ch;	*/
+					 flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->read_new_line = 0;	
 				  	 flex_token->insert_token_in_list = flex_token->first_state;
 				     flex_token->error[flex_token->first_state] = 0;
@@ -7034,10 +7034,10 @@ struct lex_token * flex_token = yyextra;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					 /* Semantic value stub. */
-					 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		 strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-					 flex_token->semantic_value[flex_token->first_state] = ch;	
-					 ////flex_token->semantic_value[flex_token->first_state] = NULL;
+					 flex_token->semantic_value[flex_token->first_state] = ch;	*/
+					 flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->read_new_line = 0;	
 				  	 flex_token->insert_token_in_list = flex_token->first_state;
 				     flex_token->error[flex_token->first_state] = 0;
@@ -7060,10 +7060,10 @@ struct lex_token * flex_token = yyextra;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					 /* Semantic value stub. */
-					 char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
+					 /*char * ch = (char*) malloc(sizeof(char)*(flex_token->current_buffer_length[flex_token->first_state] + 1));
 	        		 strcpy(ch, flex_token->string_buffer[flex_token->first_state]);
-					 flex_token->semantic_value[flex_token->first_state] = ch;	
-					 ////flex_token->semantic_value[flex_token->first_state] = NULL;
+					 flex_token->semantic_value[flex_token->first_state] = ch;	*/
+					 flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->read_new_line = 0;	
 				  	 flex_token->insert_token_in_list = flex_token->first_state;
 				     flex_token->error[flex_token->first_state] = 0;
@@ -7082,10 +7082,10 @@ struct lex_token * flex_token = yyextra;
                         }                                                                                            															                                                                                                                                                      
 <twolists_function2>{DOT3}		{flex_token->token = DOT3;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*4);
+				 /*char * ch = (char*) malloc(sizeof(char)*4);
         		 strcpy(ch, "...");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "...", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -7093,10 +7093,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_function2>{COMMA}		{flex_token->token = COMMA;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ",");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ',', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
@@ -7104,10 +7104,10 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_function2>{RPAREN}		{flex_token->token = RPARENFUNC;
 				 /* Semantic value stub. */
-				 char * ch = (char*) malloc(sizeof(char)*2);
+				 /*char * ch = (char*) malloc(sizeof(char)*2);
         		 strcpy(ch, ")");
-				 flex_token->semantic_value[flex_token->second_state] = ch;	
-				 ////flex_token->semantic_value[flex_token->second_state] = NULL;
+				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
+				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 if (flex_token->state != SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ')', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
