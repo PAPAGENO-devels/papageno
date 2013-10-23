@@ -16,7 +16,7 @@ FLEX := lexer/lua_bracketed_strings.l
 GENERATED_FILES = include/rewrite_rules.h include/reduction_tree.h include/grammar_tokens.h include/grammar_semantics.h lib/grammar_semantics.c include/grammar.h lib/grammar.c include/matrix.h 
 
 all: $(FOBJ) $(OBJ)
-	@gcc $(LFLAGS) $(OBJ) $(FOBJ) -o bin/lua_parser
+	@gcc $(OBJ) $(FOBJ) $(LFLAGS) -o bin/lua_parser
 	strip bin/lua_parser
 
 $(FOBJ): $(FOUT)

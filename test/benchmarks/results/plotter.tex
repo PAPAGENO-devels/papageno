@@ -1,0 +1,451 @@
+ \documentclass[a4paper,10pt]{article}
+
+\usepackage{times}
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+\usetikzlibrary{arrows}
+\usepackage{pgfplots}
+\usepackage{subfigure}
+\title{}
+\author{}
+
+\begin{document}
+\section{Lua}
+
+\begin{figure}
+\begin{tikzpicture}[scale=1.4]
+ \begin{axis}[
+              ymode=log,
+              xlabel=Number of Threads, 
+	      ylabel= Time,
+	      grid,
+	      xmin=1,
+	      xmax=8,
+	      enlarge x limits=0.01,
+ 	      every axis y label/.style={at={(ticklabel cs:0.5)}, rotate=90,anchor=near ticklabel,font=\footnotesize},
+ 	      every axis x label/.style={at={(ticklabel cs:0.5)},anchor=near ticklabel,font=\footnotesize}]
+  \addplot[mark=+,color=green] table[x=threads,y=7k.lua]  {./lua_parallel_lexer_brack_lex.dat};  
+  \addplot[mark=+,color=green] table[x=threads,y=70k.lua] {./lua_parallel_lexer_brack_lex.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=700k.lua]{./lua_parallel_lexer_brack_lex.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=3.5M.lua]  {./lua_parallel_lexer_brack_lex.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=7M.lua]  {./lua_parallel_lexer_brack_lex.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=35M.lua] {./lua_parallel_lexer_brack_lex.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=7k.lua]  {./lua_parallel_lexer_non_brack_lex.dat};  
+  \addplot[mark=+,color=blue] table[x=threads,y=70k.lua] {./lua_parallel_lexer_non_brack_lex.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=700k.lua]{./lua_parallel_lexer_non_brack_lex.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=3.5M.lua]  {./lua_parallel_lexer_non_brack_lex.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=7M.lua]  {./lua_parallel_lexer_non_brack_lex.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=35M.lua] {./lua_parallel_lexer_non_brack_lex.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=7k.lua]  {./lua_serial_lexer_brack_lex.dat};  
+  \addplot[mark=+,color=red] table[x=threads,y=70k.lua] {./lua_serial_lexer_brack_lex.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=700k.lua]{./lua_serial_lexer_brack_lex.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=3.5M.lua]  {./lua_serial_lexer_brack_lex.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=7M.lua]  {./lua_serial_lexer_brack_lex.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=35M.lua] {./lua_serial_lexer_brack_lex.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=7k.lua]  {./lua_serial_lexer_non_brack_lex.dat};  
+  \addplot[mark=+,color=yellow] table[x=threads,y=70k.lua] {./lua_serial_lexer_non_brack_lex.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=700k.lua]{./lua_serial_lexer_non_brack_lex.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=3.5M.lua]  {./lua_serial_lexer_non_brack_lex.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=7M.lua]  {./lua_serial_lexer_non_brack_lex.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=35M.lua] {./lua_serial_lexer_non_brack_lex.dat};
+  \end{axis}
+\end{tikzpicture}
+\caption{Lua Lexing summary - file sizes are 7k,70k,700k,3.5M,7M,35M - green/blue= parallel lexer, red/yellow= serial lexer}
+\end{figure}
+
+\begin{figure}
+\begin{tikzpicture}[scale=1.4]
+ \begin{axis}[
+              ymode=log,
+              xlabel=Number of Threads, 
+	      ylabel= Time,
+	      grid,
+	      xmin=1,
+	      xmax=8,
+	      enlarge x limits=0.01,
+ 	      every axis y label/.style={at={(ticklabel cs:0.5)}, rotate=90,anchor=near ticklabel,font=\footnotesize},
+ 	      every axis x label/.style={at={(ticklabel cs:0.5)},anchor=near ticklabel,font=\footnotesize}]
+  \addplot[mark=+,color=green] table[x=threads,y=7k.lua]   {./lua_parallel_lexer_brack_parse.dat};  
+  \addplot[mark=+,color=green] table[x=threads,y=70k.lua]  {./lua_parallel_lexer_brack_parse.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=700k.lua] {./lua_parallel_lexer_brack_parse.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=3.5M.lua] {./lua_parallel_lexer_brack_parse.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=7M.lua]   {./lua_parallel_lexer_brack_parse.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=35M.lua]  {./lua_parallel_lexer_brack_parse.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=7k.lua]    {./lua_parallel_lexer_non_brack_parse.dat};  
+  \addplot[mark=+,color=blue] table[x=threads,y=70k.lua]   {./lua_parallel_lexer_non_brack_parse.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=700k.lua]  {./lua_parallel_lexer_non_brack_parse.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=3.5M.lua]  {./lua_parallel_lexer_non_brack_parse.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=7M.lua]    {./lua_parallel_lexer_non_brack_parse.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=35M.lua]   {./lua_parallel_lexer_non_brack_parse.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=7k.lua]     {./lua_serial_lexer_brack_parse.dat};  
+  \addplot[mark=+,color=red] table[x=threads,y=70k.lua]    {./lua_serial_lexer_brack_parse.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=700k.lua]   {./lua_serial_lexer_brack_parse.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=3.5M.lua]   {./lua_serial_lexer_brack_parse.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=7M.lua]     {./lua_serial_lexer_brack_parse.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=35M.lua]    {./lua_serial_lexer_brack_parse.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=7k.lua]  {./lua_serial_lexer_non_brack_parse.dat};  
+  \addplot[mark=+,color=yellow] table[x=threads,y=70k.lua] {./lua_serial_lexer_non_brack_parse.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=700k.lua]{./lua_serial_lexer_non_brack_parse.dat};  
+  \addplot[mark=+,color=yellow] table[x=threads,y=3.5M.lua]{./lua_serial_lexer_non_brack_parse.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=7M.lua]  {./lua_serial_lexer_non_brack_parse.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=35M.lua] {./lua_serial_lexer_non_brack_parse.dat};
+  \end{axis}
+\end{tikzpicture}
+\caption{Lua Parsing summary - file sizes are 7k,70k,700k,3.5M,7M,35M - green/blue= parallel lexer, red/yellow= serial lexer}
+\end{figure}
+
+\begin{figure}
+\begin{tikzpicture}[scale=1.4]
+ \begin{axis}[
+              ymode=log,
+              xlabel=Number of Threads, 
+	      ylabel= Time,
+	      grid,
+	      xmin=1,
+	      xmax=8,
+	      enlarge x limits=0.01,
+ 	      every axis y label/.style={at={(ticklabel cs:0.5)}, rotate=90,anchor=near ticklabel,font=\footnotesize},
+ 	      every axis x label/.style={at={(ticklabel cs:0.5)},anchor=near ticklabel,font=\footnotesize}]
+  \addplot[mark=+,color=green] table[x=threads,y=7k.lua]   {./lua_parallel_lexer_brack_total.dat};  
+  \addplot[mark=+,color=green] table[x=threads,y=70k.lua]  {./lua_parallel_lexer_brack_total.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=700k.lua] {./lua_parallel_lexer_brack_total.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=3.5M.lua] {./lua_parallel_lexer_brack_total.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=7M.lua]   {./lua_parallel_lexer_brack_total.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=35M.lua]  {./lua_parallel_lexer_brack_total.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=7k.lua]    {./lua_parallel_lexer_non_brack_total.dat};  
+  \addplot[mark=+,color=blue] table[x=threads,y=70k.lua]   {./lua_parallel_lexer_non_brack_total.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=700k.lua]  {./lua_parallel_lexer_non_brack_total.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=3.5M.lua]  {./lua_parallel_lexer_non_brack_total.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=7M.lua]    {./lua_parallel_lexer_non_brack_total.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=35M.lua]   {./lua_parallel_lexer_non_brack_total.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=7k.lua]     {./lua_serial_lexer_brack_total.dat};  
+  \addplot[mark=+,color=red] table[x=threads,y=70k.lua]    {./lua_serial_lexer_brack_total.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=700k.lua]   {./lua_serial_lexer_brack_total.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=3.5M.lua]   {./lua_serial_lexer_brack_total.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=7M.lua]     {./lua_serial_lexer_brack_total.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=35M.lua]    {./lua_serial_lexer_brack_total.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=7k.lua]  {./lua_serial_lexer_non_brack_total.dat};  
+  \addplot[mark=+,color=yellow] table[x=threads,y=70k.lua] {./lua_serial_lexer_non_brack_total.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=700k.lua]{./lua_serial_lexer_non_brack_total.dat};  
+  \addplot[mark=+,color=yellow] table[x=threads,y=3.5M.lua]{./lua_serial_lexer_non_brack_total.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=7M.lua]  {./lua_serial_lexer_non_brack_total.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=35M.lua] {./lua_serial_lexer_non_brack_total.dat};
+  \end{axis}
+\end{tikzpicture}
+\caption{Lua Total Time summary - file sizes are 7k,70k,700k,3.5M,7M,35M - green/blue= parallel lexer, red/yellow= serial lexer}
+\end{figure}
+
+
+
+\begin{figure}
+\begin{tikzpicture}[scale=1.4]
+ \begin{axis}[
+              xlabel=Number of Threads, 
+	      ylabel= speedup,
+	      grid,
+	      xmin=1,
+	      xmax=8,
+	      enlarge x limits=0.01,
+ 	      every axis y label/.style={at={(ticklabel cs:0.5)}, rotate=90,anchor=near ticklabel,font=\footnotesize},
+ 	      every axis x label/.style={at={(ticklabel cs:0.5)},anchor=near ticklabel,font=\footnotesize}]
+  \addplot[mark=+,color=green] table[x=threads,y=7k.lua]  {./lua_parallel_lexer_brack_lex_speedups.dat};  
+  \addplot[mark=+,color=green] table[x=threads,y=70k.lua] {./lua_parallel_lexer_brack_lex_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=700k.lua]{./lua_parallel_lexer_brack_lex_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=3.5M.lua]  {./lua_parallel_lexer_brack_lex_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=7M.lua]  {./lua_parallel_lexer_brack_lex_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=35M.lua] {./lua_parallel_lexer_brack_lex_speedups.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=7k.lua]  {./lua_parallel_lexer_non_brack_lex_speedups.dat};  
+  \addplot[mark=+,color=blue] table[x=threads,y=70k.lua] {./lua_parallel_lexer_non_brack_lex_speedups.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=700k.lua]{./lua_parallel_lexer_non_brack_lex_speedups.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=3.5M.lua]  {./lua_parallel_lexer_non_brack_lex_speedups.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=7M.lua]  {./lua_parallel_lexer_non_brack_lex_speedups.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=35M.lua] {./lua_parallel_lexer_non_brack_lex_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=7k.lua]  {./lua_serial_lexer_brack_lex_speedups.dat};  
+  \addplot[mark=+,color=red] table[x=threads,y=70k.lua] {./lua_serial_lexer_brack_lex_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=700k.lua]{./lua_serial_lexer_brack_lex_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=3.5M.lua]  {./lua_serial_lexer_brack_lex_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=7M.lua]  {./lua_serial_lexer_brack_lex_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=35M.lua] {./lua_serial_lexer_brack_lex_speedups.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=7k.lua]  {./lua_serial_lexer_non_brack_lex_speedups.dat};  
+  \addplot[mark=+,color=yellow] table[x=threads,y=70k.lua] {./lua_serial_lexer_non_brack_lex_speedups.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=700k.lua]{./lua_serial_lexer_non_brack_lex_speedups.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=3.5M.lua]  {./lua_serial_lexer_non_brack_lex_speedups.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=7M.lua]  {./lua_serial_lexer_non_brack_lex_speedups.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=35M.lua] {./lua_serial_lexer_non_brack_lex_speedups.dat};
+  \end{axis}
+\end{tikzpicture}
+\caption{Lua Lexing speedups - file sizes are 7k,70k,700k,3.5M,7M,35M - green/blue= parallel lexer, red/yellow= serial lexer}
+\end{figure}
+
+\begin{figure}
+\begin{tikzpicture}[scale=1.4]
+ \begin{axis}[
+              xlabel=Number of Threads, 
+	      ylabel= speedup,
+	      grid,
+	      xmin=1,
+	      xmax=8,
+	      enlarge x limits=0.01,
+ 	      every axis y label/.style={at={(ticklabel cs:0.5)}, rotate=90,anchor=near ticklabel,font=\footnotesize},
+ 	      every axis x label/.style={at={(ticklabel cs:0.5)},anchor=near ticklabel,font=\footnotesize}]
+  \addplot[mark=+,color=green] table[x=threads,y=7k.lua]   {./lua_parallel_lexer_brack_parse_speedups.dat};  
+  \addplot[mark=+,color=green] table[x=threads,y=70k.lua]  {./lua_parallel_lexer_brack_parse_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=700k.lua] {./lua_parallel_lexer_brack_parse_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=3.5M.lua] {./lua_parallel_lexer_brack_parse_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=7M.lua]   {./lua_parallel_lexer_brack_parse_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=35M.lua]  {./lua_parallel_lexer_brack_parse_speedups.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=7k.lua]    {./lua_parallel_lexer_non_brack_parse_speedups.dat};  
+  \addplot[mark=+,color=blue] table[x=threads,y=70k.lua]   {./lua_parallel_lexer_non_brack_parse_speedups.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=700k.lua]  {./lua_parallel_lexer_non_brack_parse_speedups.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=3.5M.lua]  {./lua_parallel_lexer_non_brack_parse_speedups.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=7M.lua]    {./lua_parallel_lexer_non_brack_parse_speedups.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=35M.lua]   {./lua_parallel_lexer_non_brack_parse_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=7k.lua]     {./lua_serial_lexer_brack_parse_speedups.dat};  
+  \addplot[mark=+,color=red] table[x=threads,y=70k.lua]    {./lua_serial_lexer_brack_parse_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=700k.lua]   {./lua_serial_lexer_brack_parse_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=3.5M.lua]   {./lua_serial_lexer_brack_parse_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=7M.lua]     {./lua_serial_lexer_brack_parse_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=35M.lua]    {./lua_serial_lexer_brack_parse_speedups.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=7k.lua]  {./lua_serial_lexer_non_brack_parse_speedups.dat};  
+  \addplot[mark=+,color=yellow] table[x=threads,y=70k.lua] {./lua_serial_lexer_non_brack_parse_speedups.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=700k.lua]{./lua_serial_lexer_non_brack_parse_speedups.dat};  
+  \addplot[mark=+,color=yellow] table[x=threads,y=3.5M.lua]{./lua_serial_lexer_non_brack_parse_speedups.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=7M.lua]  {./lua_serial_lexer_non_brack_parse_speedups.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=35M.lua] {./lua_serial_lexer_non_brack_parse_speedups.dat};
+  \end{axis}
+\end{tikzpicture}
+\caption{Lua Parsing speedups - file sizes are 7k,70k,700k,3.5M,7M,35M - green/blue= parallel lexer, red/yellow= serial lexer}
+\end{figure}
+
+
+\begin{figure}
+\begin{tikzpicture}[scale=1.4]
+ \begin{axis}[
+              xlabel=Number of Threads, 
+	      ylabel= speedup,
+	      grid,
+	      xmin=1,
+	      xmax=8,
+	      enlarge x limits=0.01,
+ 	      every axis y label/.style={at={(ticklabel cs:0.5)}, rotate=90,anchor=near ticklabel,font=\footnotesize},
+ 	      every axis x label/.style={at={(ticklabel cs:0.5)},anchor=near ticklabel,font=\footnotesize}]
+  \addplot[mark=+,color=green] table[x=threads,y=7k.lua]   {./lua_parallel_lexer_brack_total_speedups.dat};  
+  \addplot[mark=+,color=green] table[x=threads,y=70k.lua]  {./lua_parallel_lexer_brack_total_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=700k.lua] {./lua_parallel_lexer_brack_total_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=3.5M.lua] {./lua_parallel_lexer_brack_total_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=7M.lua]   {./lua_parallel_lexer_brack_total_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=35M.lua]  {./lua_parallel_lexer_brack_total_speedups.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=7k.lua]    {./lua_parallel_lexer_non_brack_total_speedups.dat};  
+  \addplot[mark=+,color=blue] table[x=threads,y=70k.lua]   {./lua_parallel_lexer_non_brack_total_speedups.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=700k.lua]  {./lua_parallel_lexer_non_brack_total_speedups.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=3.5M.lua]  {./lua_parallel_lexer_non_brack_total_speedups.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=7M.lua]    {./lua_parallel_lexer_non_brack_total_speedups.dat};
+  \addplot[mark=+,color=blue] table[x=threads,y=35M.lua]   {./lua_parallel_lexer_non_brack_total_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=7k.lua]     {./lua_serial_lexer_brack_total_speedups.dat};  
+  \addplot[mark=+,color=red] table[x=threads,y=70k.lua]    {./lua_serial_lexer_brack_total_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=700k.lua]   {./lua_serial_lexer_brack_total_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=3.5M.lua]   {./lua_serial_lexer_brack_total_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=7M.lua]     {./lua_serial_lexer_brack_total_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,y=35M.lua]    {./lua_serial_lexer_brack_total_speedups.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=7k.lua]  {./lua_serial_lexer_non_brack_total_speedups.dat};  
+  \addplot[mark=+,color=yellow] table[x=threads,y=70k.lua] {./lua_serial_lexer_non_brack_total_speedups.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=700k.lua]{./lua_serial_lexer_non_brack_total_speedups.dat};  
+  \addplot[mark=+,color=yellow] table[x=threads,y=3.5M.lua]{./lua_serial_lexer_non_brack_total_speedups.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=7M.lua]  {./lua_serial_lexer_non_brack_total_speedups.dat};
+  \addplot[mark=+,color=yellow] table[x=threads,y=35M.lua] {./lua_serial_lexer_non_brack_total_speedups.dat};
+  \end{axis}
+\end{tikzpicture}
+\caption{Lua Total Time speedups - file sizes are 7k,70k,700k,3.5M,7M,35M - green/blue= parallel lexer, red/yellow= serial lexer}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% JSON section
+
+\section{JSON}
+\begin{figure}
+\begin{tikzpicture}[scale=1.4]
+ \begin{axis}[
+              ymode=log,
+              xlabel=Number of Threads, 
+	      ylabel= Time,
+	      grid,
+	      xmin=1,
+	      xmax=8,
+	      enlarge x limits=0.01,
+ 	      every axis y label/.style={at={(ticklabel cs:0.5)}, rotate=90,anchor=near ticklabel,font=\footnotesize},
+ 	      every axis x label/.style={at={(ticklabel cs:0.5)},anchor=near ticklabel,font=\footnotesize}]
+  \addplot[mark=+,color=green] table[x=threads,y=G2700]    {./json_parallel_lexer_lex.dat};  
+  \addplot[mark=+,color=green] table[x=threads,y=G30000]   {./json_parallel_lexer_lex.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G80000]   {./json_parallel_lexer_lex.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G150000]  {./json_parallel_lexer_lex.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G1600000] {./json_parallel_lexer_lex.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G10000000]{./json_parallel_lexer_lex.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G75000000]{./json_parallel_lexer_lex.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G2700]    {./json_serial_lexer_lex.dat};  
+  \addplot[mark=+,color=red] table[x=threads,  y=G30000]   {./json_serial_lexer_lex.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G80000]   {./json_serial_lexer_lex.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G150000]  {./json_serial_lexer_lex.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G1600000] {./json_serial_lexer_lex.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G10000000]{./json_serial_lexer_lex.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G75000000]{./json_serial_lexer_lex.dat};
+  \end{axis}
+\end{tikzpicture}
+\caption{Json Lexing summary - red for serial lexer, green for parallel - file sizes, bottom to top: 2.7kB, 30 kB, 80 kB, 150kB, 1.6MB, 10MB, 75MB}
+\end{figure}
+
+
+\begin{figure}
+\begin{tikzpicture}[scale=1.4]
+ \begin{axis}[
+              ymode=log,
+              xlabel=Number of Threads, 
+	      ylabel= Time,
+	      grid,
+	      xmin=1,
+	      xmax=8,
+	      enlarge x limits=0.01,
+ 	      every axis y label/.style={at={(ticklabel cs:0.5)}, rotate=90,anchor=near ticklabel,font=\footnotesize},
+ 	      every axis x label/.style={at={(ticklabel cs:0.5)},anchor=near ticklabel,font=\footnotesize}]
+  \addplot[mark=+,color=green] table[x=threads,y=G2700]    {./json_parallel_lexer_parse.dat};  
+  \addplot[mark=+,color=green] table[x=threads,y=G30000]   {./json_parallel_lexer_parse.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G80000]   {./json_parallel_lexer_parse.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G150000]  {./json_parallel_lexer_parse.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G1600000] {./json_parallel_lexer_parse.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G10000000]{./json_parallel_lexer_parse.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G75000000]{./json_parallel_lexer_parse.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G2700]    {./json_serial_lexer_parse.dat};  
+  \addplot[mark=+,color=red] table[x=threads,  y=G30000]   {./json_serial_lexer_parse.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G80000]   {./json_serial_lexer_parse.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G150000]  {./json_serial_lexer_parse.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G1600000] {./json_serial_lexer_parse.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G10000000]{./json_serial_lexer_parse.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G75000000]{./json_serial_lexer_parse.dat};
+  \end{axis}
+\end{tikzpicture}
+\caption{JSON Parsing summary - red for serial lexer, green for parallel - file sizes, bottom to top: 2.7kB, 30 kB, 80 kB, 150kB, 1.6MB, 10MB, 75MB}
+\end{figure}
+
+\begin{figure}
+\begin{tikzpicture}[scale=1.4]
+ \begin{axis}[
+              ymode=log,
+              xlabel=Number of Threads, 
+	      ylabel= Time,
+	      grid,
+	      xmin=1,
+	      xmax=8,
+	      enlarge x limits=0.01,
+ 	      every axis y label/.style={at={(ticklabel cs:0.5)}, rotate=90,anchor=near ticklabel,font=\footnotesize},
+ 	      every axis x label/.style={at={(ticklabel cs:0.5)},anchor=near ticklabel,font=\footnotesize}]
+  \addplot[mark=+,color=green] table[x=threads,y=G2700]    {./json_parallel_lexer_total.dat};  
+  \addplot[mark=+,color=green] table[x=threads,y=G30000]   {./json_parallel_lexer_total.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G80000]   {./json_parallel_lexer_total.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G150000]  {./json_parallel_lexer_total.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G1600000] {./json_parallel_lexer_total.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G10000000]{./json_parallel_lexer_total.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G75000000]{./json_parallel_lexer_total.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G2700]    {./json_serial_lexer_total.dat};  
+  \addplot[mark=+,color=red] table[x=threads,  y=G30000]   {./json_serial_lexer_total.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G80000]   {./json_serial_lexer_total.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G150000]  {./json_serial_lexer_total.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G1600000] {./json_serial_lexer_total.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G10000000]{./json_serial_lexer_total.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G75000000]{./json_serial_lexer_total.dat};
+  \end{axis}
+\end{tikzpicture}
+\caption{Json total time summary - red for serial lexer, green for parallel - file sizes, bottom to top: 2.7kB, 30 kB, 80 kB, 150kB, 1.6MB, 10MB, 75MB}
+\end{figure}
+
+\begin{figure}
+\begin{tikzpicture}[scale=1.4]
+ \begin{axis}[
+              xlabel=Number of Threads, 
+	      ylabel= speedup,
+	      grid,
+	      xmin=1,
+	      xmax=8,
+	      enlarge x limits=0.01,
+ 	      every axis y label/.style={at={(ticklabel cs:0.5)}, rotate=90,anchor=near ticklabel,font=\footnotesize},
+ 	      every axis x label/.style={at={(ticklabel cs:0.5)},anchor=near ticklabel,font=\footnotesize}]
+  \addplot[mark=+,color=green] table[x=threads,y=G2700]    {./json_parallel_lexer_lex_speedups.dat};  
+  \addplot[mark=+,color=green] table[x=threads,y=G30000]   {./json_parallel_lexer_lex_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G80000]   {./json_parallel_lexer_lex_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G150000]  {./json_parallel_lexer_lex_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G1600000] {./json_parallel_lexer_lex_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G10000000]{./json_parallel_lexer_lex_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G75000000]{./json_parallel_lexer_lex_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G2700]    {./json_serial_lexer_lex_speedups.dat};  
+  \addplot[mark=+,color=red] table[x=threads,  y=G30000]   {./json_serial_lexer_lex_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G80000]   {./json_serial_lexer_lex_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G150000]  {./json_serial_lexer_lex_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G1600000] {./json_serial_lexer_lex_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G10000000]{./json_serial_lexer_lex_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G75000000]{./json_serial_lexer_lex_speedups.dat};
+  \end{axis}
+\end{tikzpicture}
+
+\caption{Json Lexing speedups - red for serial lexer, green for parallel - file sizes, bottom to top: 2.7kB, 30 kB, 80 kB, 150kB, 1.6MB, 10MB, 75MB}
+\end{figure}
+
+\begin{figure}
+\begin{tikzpicture}[scale=1.4]
+ \begin{axis}[
+              xlabel=Number of Threads, 
+	      ylabel= speedup,
+	      grid,
+	      xmin=1,
+	      xmax=8,
+	      enlarge x limits=0.01,
+ 	      every axis y label/.style={at={(ticklabel cs:0.5)}, rotate=90,anchor=near ticklabel,font=\footnotesize},
+ 	      every axis x label/.style={at={(ticklabel cs:0.5)},anchor=near ticklabel,font=\footnotesize}]
+  \addplot[mark=+,color=green] table[x=threads,y=G2700]    {./json_parallel_lexer_parse_speedups.dat};  
+  \addplot[mark=+,color=green] table[x=threads,y=G30000]   {./json_parallel_lexer_parse_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G80000]   {./json_parallel_lexer_parse_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G150000]  {./json_parallel_lexer_parse_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G1600000] {./json_parallel_lexer_parse_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G10000000]{./json_parallel_lexer_parse_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G75000000]{./json_parallel_lexer_parse_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G2700]    {./json_serial_lexer_parse_speedups.dat};  
+  \addplot[mark=+,color=red] table[x=threads,  y=G30000]   {./json_serial_lexer_parse_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G80000]   {./json_serial_lexer_parse_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G150000]  {./json_serial_lexer_parse_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G1600000] {./json_serial_lexer_parse_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G10000000]{./json_serial_lexer_parse_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G75000000]{./json_serial_lexer_parse_speedups.dat};
+  \end{axis}
+\end{tikzpicture}
+
+\caption{Json Parsing speedups - red for serial lexer, green for parallel - file sizes, bottom to top: 2.7kB, 30 kB, 80 kB, 150kB, 1.6MB, 10MB, 75MB}
+\end{figure}
+
+
+\begin{figure}
+\begin{tikzpicture}[scale=1.4]
+ \begin{axis}[
+              xlabel=Number of Threads, 
+	      ylabel= speedup,
+	      grid,
+	      xmin=1,
+	      xmax=8,
+	      enlarge x limits=0.01,
+ 	      every axis y label/.style={at={(ticklabel cs:0.5)}, rotate=90,anchor=near ticklabel,font=\footnotesize},
+ 	      every axis x label/.style={at={(ticklabel cs:0.5)},anchor=near ticklabel,font=\footnotesize}]
+  \addplot[mark=+,color=green] table[x=threads,y=G2700]    {./json_parallel_lexer_total_speedups.dat};  
+  \addplot[mark=+,color=green] table[x=threads,y=G30000]   {./json_parallel_lexer_total_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G80000]   {./json_parallel_lexer_total_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G150000]  {./json_parallel_lexer_total_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G1600000] {./json_parallel_lexer_total_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G10000000]{./json_parallel_lexer_total_speedups.dat};
+  \addplot[mark=+,color=green] table[x=threads,y=G75000000]{./json_parallel_lexer_total_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G2700]    {./json_serial_lexer_total_speedups.dat};  
+  \addplot[mark=+,color=red] table[x=threads,  y=G30000]   {./json_serial_lexer_total_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G80000]   {./json_serial_lexer_total_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G150000]  {./json_serial_lexer_total_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G1600000] {./json_serial_lexer_total_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G10000000]{./json_serial_lexer_total_speedups.dat};
+  \addplot[mark=+,color=red] table[x=threads,  y=G75000000]{./json_serial_lexer_total_speedups.dat};
+  \end{axis}
+\end{tikzpicture}
+\caption{Json Total speedup- red for serial lexer, green for parallel - file sizes, bottom to top: 2.7kB, 30 kB, 80 kB, 150kB, 1.6MB, 10MB, 75MB}
+\end{figure}
+
+\end{document}

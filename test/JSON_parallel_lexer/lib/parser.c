@@ -217,7 +217,7 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
   lexing_time= compute_time_interval(&lex_timer_start, &lex_timer_end);
   parsing_time=compute_time_interval(&parse_timer_start, &parse_timer_end);
 
-  fprintf(stdout, "Lexer: %lf s, Parser %lf s \n",lexing_time,parsing_time);
+  fprintf(stdout, "\nLexer: %lf s\n Parser %lf s ",lexing_time,parsing_time);
 
   return ctx.token_list;
 }
@@ -258,11 +258,7 @@ token_node **compute_bounds(uint32_t length, uint8_t n, token_node *token_list)
 void *thread_task(void *worker_thread_ctx)
 {
   thread_context_t *thread_context, *thread_arguments;
-<<<<<<< HEAD
   uint32_t parse_result,i;
-=======
-  uint32_t parse_result;
->>>>>>> 100142c349fbd9907d904a0ba3c2d82179157d0e
   uint32_t parent_index;
   token_node *list_ptr;
   uint32_t parse_status = PARSE_IN_PROGRESS;
