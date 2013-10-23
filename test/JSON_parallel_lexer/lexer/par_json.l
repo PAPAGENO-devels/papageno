@@ -8,7 +8,7 @@
 #include <stdint.h>
 #include <string.h>
 
-#include "./../include/grammar_tokens.h"
+#include "grammar_tokens.h"
 #include "flex_return_codes.h"
 #include "flex_token.h"
 
@@ -102,9 +102,10 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->token[1] = CHAR;
 				 flex_token->token_lex_list_length = strlen(yytext);
 				 /* Semantic value stub. */
-				 char* ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
-				 strcpy(ch, yytext);
-				 flex_token->semantic_value = ch;
+				 // char* ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
+				 // strcpy(ch, yytext);
+				 // flex_token->semantic_value = ch;
+				 flex_token->semantic_value = NULL;
 				return LEX_FIRST_CHAR_SEC;
                                 }
 <INITIAL>{QUOTES}		{flex_token->token[0] = QUOTES;
@@ -124,9 +125,10 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->token[1] = CHAR;
 				 flex_token->token_lex_list_length = strlen(yytext);
 				 /* Semantic value stub. */
-				 char* ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
-				 strcpy(ch, yytext);
-				 flex_token->semantic_value = ch;
+				 // char* ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
+				 // strcpy(ch, yytext);
+				 // flex_token->semantic_value = ch;
+				 flex_token->semantic_value = NULL;
 				 return LEX_FIRST_CHAR_SEC;
                                 }	
 <INITIAL>{SPACE}			{flex_token->token[1] = CHAR;
@@ -178,12 +180,12 @@ struct lex_token * flex_token = yyextra;
 					i = -3;
 				}
 				/* Semantic value stub. */
-				char* ch = (char*) malloc(sizeof(char)*(2+strlen(yytext)));
-				ch[0] = '\\';
-				ch[1] = '\0';
-				strcat(ch, yytext);
-				flex_token->semantic_value = ch;
-				//?BEGIN(save);
+				// char* ch = (char*) malloc(sizeof(char)*(2+strlen(yytext)));
+				// ch[0] = '\\';
+				// ch[1] = '\0';
+				// strcat(ch, yytext);
+				// flex_token->semantic_value = ch;
+				flex_token->semantic_value = NULL;
 				return i;}
 <escape>.			{return ERROR_BOTH;}				
 <string>{RSOLIDUS}		{flex_token->state_before_rsolidus = string;
@@ -252,18 +254,20 @@ struct lex_token * flex_token = yyextra;
 				flex_token->token[1] = BOOL;
 				flex_token->token_lex_list_length = strlen(yytext);
 				/* Semantic value stub. */
-				char* ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
-				strcpy(ch, yytext);
-				flex_token->semantic_value = ch;
+				// char* ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
+				// strcpy(ch, yytext);
+				// flex_token->semantic_value = ch;
+				flex_token->semantic_value = NULL;
 				return CHAR_FIRST_LEX_SEC;
                                 }
 <string>{NUMBER}		{flex_token->token[0] = CHAR;
 				 flex_token->token[1] = NUMBER;
 				 flex_token->token_lex_list_length = strlen(yytext);
 				 /* Semantic value stub. */
-				 char* ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
-				 strcpy(ch, yytext);
-				 flex_token->semantic_value = ch;
+				 // char* ch = (char*) malloc(sizeof(char)*(strlen(yytext)+1));
+				 // strcpy(ch, yytext);
+				 // flex_token->semantic_value = ch;
+				 flex_token->semantic_value = NULL;
 				 return CHAR_FIRST_LEX_SEC;
                                 }	
 <string>{SPACE}				{flex_token->token[0] = CHAR;
@@ -288,7 +292,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 return SECOND_LIST_LEXING_ERROR;
                                 }	
-<string>.				{return -3;}				
+<string>.				{return ERROR_BOTH;}				
 <string1>{CHAR}			{flex_token->token[0] = CHAR;
 				 /* Semantic value stub. */
 				 // char* ch = (char*) malloc(sizeof(char)*2);
