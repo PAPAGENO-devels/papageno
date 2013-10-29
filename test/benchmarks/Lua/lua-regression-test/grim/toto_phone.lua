@@ -1,0 +1,11 @@
+toto_phone_grab_phone = 0
+toto_phone_gestures = 1
+toto_phone_turn_point = 2
+toto_phone_point_hold = 3
+toto_phone_back_to_phone = 4
+toto_phone_turn_head = 5
+toto_phone_hold_head = 6
+toto_phone_bye = 7
+toto_phone_hang_up = 8
+toto_phone_wave = 9
+toto_phone_scratch = 10

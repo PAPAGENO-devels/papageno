@@ -1,0 +1,10 @@
+br_talk_idles_idle2talk = 0
+br_talk_idles_talkpos = 1
+br_talk_idles_talk1 = 2
+br_talk_idles_talk2 = 3
+br_talk_idles_talkpos2 = 4
+br_talk_idles_talk3 = 5
+br_talk_idles_talk4 = 6
+br_talk_idles_talkpos3 = 7
+br_talk_idles_walkout = 8
+br_talk_idles_talk_idle = 9

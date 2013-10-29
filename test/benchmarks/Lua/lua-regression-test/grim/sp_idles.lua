@@ -1,0 +1,12 @@
+sp_idles_anticipation = 0
+sp_idles_accelerate = 1
+sp_idles_walk_cycle = 2
+sp_idles_decelerate = 3
+sp_idles_follow_thru = 4
+sp_idles_leg_enter = 5
+sp_idles_leg_cycle = 6
+sp_idles_leg_exit = 7
+sp_idles_wing_enter = 8
+sp_idles_wing_cycle = 9
+sp_idles_wing_exit = 10
+sp_idles_idle = 11

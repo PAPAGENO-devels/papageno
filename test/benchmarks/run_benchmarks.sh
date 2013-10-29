@@ -1,7 +1,7 @@
 #!/bin/bash
 MAX_THREADS=2
 OUT_DIR="../results"
-RUNS=2
+RUNS=3
 
 cd JSON
 ./collector.pl ./json_serial_lexer   $RUNS $MAX_THREADS $OUT_DIR

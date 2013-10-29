@@ -1,0 +1,10 @@
+mn_open_safe_hand_on_wheel = 0
+mn_open_safe_turn_left = 1
+mn_open_safe_turn_right = 2
+mn_open_safe_done_turn = 3
+mn_open_safe_drill_prep = 4
+mn_open_safe_drill = 5
+mn_open_safe_drill_done = 6
+mn_open_safe_hold_wheel = 7
+mn_open_safe_inch_left = 8
+mn_open_safe_inch_right = 9

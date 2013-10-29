@@ -1,0 +1,17 @@
+carla_srch_chrm_says_turn = 0
+carla_srch_chrm_srch_mc = 1
+carla_srch_chrm_srch_shrg = 2
+carla_srch_chrm_sit = 3
+carla_srch_chrm_stand = 4
+carla_srch_chrm_walk = 5
+carla_srch_chrm_sit_hold = 6
+carla_srch_chrm_tilt_head = 7
+carla_srch_chrm_prop_to_sit = 8
+carla_srch_chrm_to_prop_head = 9
+carla_srch_chrm_prop_hold = 10
+carla_srch_chrm_hold_up = 11
+carla_srch_chrm_head_up = 12
+carla_srch_chrm_show_detector = 13
+carla_srch_chrm_hide_detector = 14
+carla_srch_chrm_detector_only = 15
+carla_srch_chrm_stand_hold = 16

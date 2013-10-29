@@ -1,0 +1,10 @@
+mc_GETCARD_walk_out = 0
+mc_GETCARD_hands_up = 1
+mc_GETCARD_bargain_line = 2
+mc_GETCARD_chuck = 3
+mc_GETCARD_goons = 4
+mc_GETCARD_hands_up2 = 5
+mc_GETCARD_boss = 6
+mc_GETCARD_card = 7
+mc_GETCARD_get_card = 8
+mc_GETCARD_dues = 9

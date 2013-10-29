@@ -1,0 +1,9 @@
+tp_interface_press_down = 0
+tp_interface_press_up = 1
+tp_interface_lft_to_mid = 2
+tp_interface_mid_to_lft = 3
+tp_interface_mid_to_rt = 4
+tp_interface_rt_to_mid = 5
+tp_interface_rt_to_tkt = 6
+tp_interface_tkt_to_lft = 7
+tp_interface_lft_hold = 8

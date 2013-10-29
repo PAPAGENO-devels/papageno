@@ -2,7 +2,9 @@
 
 void init_token_node_stack(token_node_stack *stack, uint32_t alloc_size)
 {
-	stack->stack = (token_node *) malloc(sizeof(token_node)*alloc_size);
+        void* baseptr;
+	posix_memalign(&baseptr,CACHE_LINE_SIZE,sizeof(token_node)*alloc_size);
+	stack->stack = (token_node*) baseptr;
 	stack->ceil = alloc_size;
 	stack->tos = 0;
 }

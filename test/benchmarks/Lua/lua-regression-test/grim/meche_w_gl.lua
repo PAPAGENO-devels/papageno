@@ -1,0 +1,15 @@
+meche_w_gl_soothe_1hand = 0
+meche_w_gl_soothe_both_hands = 1
+meche_w_gl_base = 2
+meche_w_gl_gl_talks = 3
+meche_w_gl_mumble = 4
+meche_w_gl_stop_talk = 5
+meche_w_gl_c = 6
+meche_w_gl_m = 7
+meche_w_gl_f = 8
+meche_w_gl_e = 9
+meche_w_gl_u = 10
+meche_w_gl_l = 11
+meche_w_gl_a = 12
+meche_w_gl_o = 13
+meche_w_gl_t = 14

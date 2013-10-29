@@ -1,0 +1,14 @@
+cc_toga_walk = 0
+cc_toga_take_meche = 1
+cc_toga_hold_meche = 2
+cc_toga_mumble = 3
+cc_toga_stop_talk = 4
+cc_toga_c = 5
+cc_toga_m = 6
+cc_toga_f = 7
+cc_toga_e = 8
+cc_toga_u = 9
+cc_toga_l = 10
+cc_toga_a = 11
+cc_toga_o = 12
+cc_toga_t = 13

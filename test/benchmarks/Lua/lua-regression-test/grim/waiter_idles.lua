@@ -1,0 +1,15 @@
+waiter_idles_idle = 0
+waiter_idles_start_walk = 1
+waiter_idles_walk_cycle = 2
+waiter_idles_end_walk = 3
+waiter_idles_pickup_hooka = 4
+waiter_idles_putdown_hooka = 5
+waiter_idles_swivel_left = 6
+waiter_idles_swivel_right = 7
+waiter_idles_idle_hooka = 8
+waiter_idles_activate_shooters = 9
+waiter_idles_activate_tray = 10
+waiter_idles_activate_hooka = 11
+waiter_idles_pre_pickup_hooka = 12
+waiter_idles_activate_hook_on_tray = 13
+waiter_idles_idle_shooters = 14

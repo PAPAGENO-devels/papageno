@@ -1,0 +1,12 @@
+mn_inv_empty_in = 0
+mn_inv_empty_out = 1
+mn_inv_hammer_in = 2
+mn_inv_hammer_out = 3
+mn_inv_chisel_in = 4
+mn_inv_chisel_out = 5
+mn_inv_gun_in = 6
+mn_inv_gun_out = 7
+mn_inv_stockings_in = 8
+mn_inv_stockings_out = 9
+mn_inv_scythe_in = 10
+mn_inv_scythe_out = 11

@@ -1,12 +1,12 @@
 #include <stdlib.h>
 #include <stdint.h>
-#include "config.h"
-
 #include "reduction_list.h"
 
 void init_reduction_list(reduction_list *list)
 {
-    list->list = (uint32_t*) malloc(sizeof(uint32_t)*LIST_ALLOC_SIZE);
+    void* baseptr;
+    posix_memalign(&baseptr,CACHE_LINE_SIZE,sizeof(uint32_t)*LIST_ALLOC_SIZE);
+    list->list = (uint32_t*) baseptr;
     list->ceil = LIST_ALLOC_SIZE;
     list->idx_last = 0;
 }

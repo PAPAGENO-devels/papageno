@@ -1,0 +1,17 @@
+mn_levers_hands_on_levers = 0
+mn_levers_both_up = 1
+mn_levers_neutral1 = 2
+mn_levers_both_down = 3
+mn_levers_neutral2 = 4
+mn_levers_left_up = 5
+mn_levers_neutral3 = 6
+mn_levers_right_up = 7
+mn_levers_neutral4 = 8
+mn_levers_back_to_idle = 9
+mn_levers_levers_only = 10
+mn_levers_both_up_hold = 11
+mn_levers_both_down_hold = 12
+mn_levers_neutral_hold = 13
+mn_levers_lf_up_hold = 14
+mn_levers_rt_up_hold = 15
+mn_levers_hat_on = 16

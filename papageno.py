@@ -270,6 +270,12 @@ if commandline_args.verbose==1:
   for rule in rules:
     print rule.tokenMap
 
+# Compute average rule length
+average_rule_len=0.0
+for rule in rules:
+  average_rule_len=average_rule_len+len(rule.rhs)
+average_rule_len=average_rule_len/len(rules)
+
 # Generate output files.
 
 # Generate grammar_tokens.h
@@ -294,3 +300,4 @@ code_emission.emit_reduction_tree(vectorTree,commandline_args.out_header)
 
 # Generate rewrite_rules.h
 code_emission.emit_rewrite_rules(realRewrite,commandline_args.out_header)
+code_emission.emit_config_header(commandline_args.cache_line_size,average_rule_len,commandline_args.token_avg_size,commandline_args.prealloc_stack,commandline_args.recombination,commandline_args.out_header)

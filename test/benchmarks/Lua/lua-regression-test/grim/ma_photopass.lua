@@ -1,0 +1,10 @@
+ma_photopass_to_counter = 0
+ma_photopass_counter_hold = 1
+ma_photopass_take_envelope = 2
+ma_photopass_look_photo = 3
+ma_photopass_look_photo_hold = 4
+ma_photopass_return_photo = 5
+ma_photopass_give_stub = 6
+ma_photopass_photo_switch = 7
+ma_photopass_from_cntr = 8
+ma_photopass_return_env = 9

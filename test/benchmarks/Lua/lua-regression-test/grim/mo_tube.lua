@@ -1,0 +1,11 @@
+mo_tube_open_w_can = 0
+mo_tube_open_wo_can = 1
+mo_tube_close_wo_can = 2
+mo_tube_close_w_can = 3
+mo_tube_close_can_exit = 4
+mo_tube_closed = 5
+mo_tube_open = 6
+mo_tube_set_open_w_can = 7
+mo_tube_set_open_wo_can = 8
+mo_tube_set_closed_w_can = 9
+mo_tube_set_closed_wo_can = 10

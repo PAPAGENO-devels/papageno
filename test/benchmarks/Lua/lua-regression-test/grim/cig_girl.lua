@@ -1,0 +1,10 @@
+cig_girl_rest = 0
+cig_girl_gesture1 = 1
+cig_girl_gesture2 = 2
+cig_girl_gesture3 = 3
+cig_girl_gesture4 = 4
+cig_girl_smoke = 5
+cig_girl_gesture5 = 6
+cig_girl_look_at_olivia = 7
+cig_girl_look_hold = 8
+cig_girl_gesture6 = 9

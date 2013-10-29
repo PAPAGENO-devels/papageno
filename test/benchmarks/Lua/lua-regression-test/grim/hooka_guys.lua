@@ -1,0 +1,16 @@
+hooka_guys_rest = 0
+hooka_guys_gesture1 = 1
+hooka_guys_hold_gesture1 = 2
+hooka_guys_gesture2 = 3
+hooka_guys_gesture3 = 4
+hooka_guys_hold_gesture3 = 5
+hooka_guys_gesture4 = 6
+hooka_guys_look_at_olivia = 7
+hooka_guys_look_hold = 8
+hooka_guys_begin_snap = 9
+hooka_guys_snap_cycle = 10
+hooka_guys_end_snap = 11
+hooka_guys_hooka_in_mouth = 12
+hooka_guys_smoke = 13
+hooka_guys_blow = 14
+hooka_guys_back_to_rest = 15

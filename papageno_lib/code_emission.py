@@ -31,12 +31,9 @@ def emit_grammar_symbols(nonterminals,terminals,axiom,out_header_path):
 
   print "Generating include/grammar_tokens.h"
   grammar_tokens_h = open(out_header_path + "grammar_tokens.h", "w")
-  grammar_tokens_h.write("""
-			 #ifndef FLEX_GRAMMAR_H_
-			 
-			 #define FLEX_GRAMMAR_H_
-			 
-			 """)
+  grammar_tokens_h.write("""#ifndef FLEX_GRAMMAR_H_
+#define FLEX_GRAMMAR_H_
+""")
   grammar_tokens_h.write("#define TOKEN_NUM %d\n" % (len(nonterminals) + len(terminals)))
   grammar_tokens_h.write("#define NTERM_LEN %d\n" % len(nonterminals))
   grammar_tokens_h.write("#define TERM_LEN  %d\n" % len(terminals))
@@ -78,7 +75,6 @@ def emit_semantic_actions_header(rules,out_header_path):
     grammar_semantics_h.write("void %s(token_node *p, token_node_stack *stack, parsing_ctx *ctx);\n" % rule.headerName)
   grammar_semantics_h.write("\n#endif\n")
   grammar_semantics_h.close()
-
 
 def emit_grammar_header(rules,out_header_path):
   print "Generating include/grammar.h"
@@ -191,7 +187,6 @@ def emit_semantic_actions(rules,cPreamble, out_core):
     grammar_semantics_c.write("/* Semantic action follows. */\n%s\n/* End of semantic action. */\n}\n\n" % rule.text)
   grammar_semantics_c.close()
   
-  
 def emit_reduction_tree(vectorTree,out_header_path):
   print "Generating include/reduction_tree.h"
   vectorized_tree_c = open(out_header_path + "reduction_tree.h", "w")
@@ -214,3 +209,28 @@ def emit_rewrite_rules(realRewrite, out_header):
     rewrite_rules_c.write(", %d" % realRewrite[i])
   rewrite_rules_c.write("};\n#endif\n")
   rewrite_rules_c.close()
+
+def emit_config_header(cache_line_size,average_rule_len,token_avg_size,prealloc_stack,recomb,out_header_path):
+  print "Generating include/config.h"
+  config_h = open(out_header_path + "config.h", "w")
+  config_h.write("""#ifndef CONFIG_H_
+#define CONFIG_H_
+/* chunk recombination strategy */
+#define """)
+  if (recomb == "SINGLE"):
+    config_h.write("SINGLE_RECOMBINATION\n")
+  else:
+    config_h.write("LOG_RECOMBINATION\n")
+  config_h.write("""/* Number of preallocated parsing stack symbols */
+#define LIST_ALLOC_SIZE """)
+  config_h.write('%d\n' % prealloc_stack)
+  config_h.write("""/* Average rhs length. */
+#define RHS_LENGTH """) 
+  config_h.write('%1.1ff\n' % average_rule_len)
+  config_h.write("""/* Average token size. */
+#define TOKEN_SIZE """)
+  config_h.write(token_avg_size+'f\n')
+  config_h.write("""/* Length of a line of cache. */
+#define CACHE_LINE_SIZE """)
+  config_h.write('%d\n' % cache_line_size)  
+  config_h.write("""#endif\n""")

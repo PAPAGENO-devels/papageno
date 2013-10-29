@@ -1,0 +1,11 @@
+gl_shooter_get_bottle = 0
+gl_shooter_hold_bottle = 1
+gl_shooter_lookat_manny = 2
+gl_shooter_drink = 3
+gl_shooter_give_back = 4
+gl_shooter_wait = 5
+gl_shooter_grab = 6
+gl_shooter_shake = 7
+gl_shooter_lookup = 8
+gl_shooter_prep_run = 9
+gl_shooter_run_out = 10

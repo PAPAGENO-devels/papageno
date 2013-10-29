@@ -1,0 +1,15 @@
+glottis_cry_sit_hold = 0
+glottis_cry_tantrum_in = 1
+glottis_cry_tantrum_cyc = 2
+glottis_cry_tantrum_out = 3
+glottis_cry_shrug = 4
+glottis_cry_cry_out = 5
+glottis_cry_cry_cyc = 6
+glottis_cry_cry_in = 7
+glottis_cry_head_swing_out = 8
+glottis_cry_head_swing_in = 9
+glottis_cry_head_swing_cyc = 10
+glottis_cry_fist_shake_in = 11
+glottis_cry_fist_shake_cyc = 12
+glottis_cry_fist_shake_out = 13
+glottis_cry_arm_lift = 14

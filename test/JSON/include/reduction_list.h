@@ -1,5 +1,6 @@
 #ifndef REDUCTION_LIST_H_
 #define REDUCTION_LIST_H_
+#include "config.h"
 typedef struct reduction_list {
 	uint32_t *list;
 	uint32_t idx_last;

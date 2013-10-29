@@ -1,0 +1,9 @@
+gl_tree_climb = 0
+gl_tree_jumpdown = 1
+gl_tree_grabwt = 2
+gl_tree_fasten_wt_in = 3
+gl_tree_falls = 4
+gl_tree_falls_fr_spin = 5
+gl_tree_fastens_cycle = 6
+gl_tree_fastens_out = 7
+gl_tree_wheels = 8

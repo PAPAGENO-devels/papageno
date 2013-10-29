@@ -4,10 +4,14 @@ import argparse,re,sys,scanner
 
 def parse_commandline_args():
   parser = argparse.ArgumentParser(description='PAPAGENO : the PArallel PArser GENeratOr')
-  parser.add_argument('--verbose','-v', metavar='verb' ,help='Verbosity level [0-2]',default=0, type=int)
-  parser.add_argument('--inputfile','-i', metavar='inputfile' , help='Grammar description file', required=True)
-  parser.add_argument('--out_header',metavar='header_outpath',help='Location where the output headerfiles should be generated. Defaults to ./include/ in the calling path',default='./include/')
-  parser.add_argument('--out_core',metavar='source_outpath',help='Location where the output C files should be generated. Defaults to ./lib/ in the calling path',default='./lib/')
+  parser.add_argument('--verbose'   ,'-v', metavar='verb'          ,help='Verbosity level [0-2]',default=0, type=int)
+  parser.add_argument('--inputfile' ,'-i', metavar='inputfile'     ,help='Grammar description file', required=True)
+  parser.add_argument('--out_header'     , metavar='header_outpath',help='Location where the output headerfiles should be generated. Defaults to ./include/ in the calling path',default='./include/')
+  parser.add_argument('--out_core'       , metavar='source_outpath',help='Location where the output C files should be generated. Defaults to ./lib/ in the calling path',default='./lib/')
+  parser.add_argument('--recombination'  , metavar='recombination' ,help='String chunk recombination strategy: choose between single and log. Defaults to single', default='SINGLE')
+  parser.add_argument('--prealloc_stack' , metavar='prealloc_stack',help='Preallocated number of symbols for buffered parsing stack. Defaults to 1024',default=1024,type=int)  
+  parser.add_argument('--token_avg_size' , metavar='token_avg_size',help='Size, in bytes of the average token. Default is 10 bytes',default='10.0')  
+  parser.add_argument('--cache_line_size', metavar='cache_line_size',help='Size, in bytes of cache line. Default is 64 bytes',default=64,type=int)  
   return parser.parse_args()
 
 def parse_grammar_description(args):

@@ -1,0 +1,548 @@
+CheckFirstTime("year_4.lua")
+dofile("bruno_coffin.lua")
+dofile("msb_coffin.lua")
+dofile("msb_bone_trail.lua")
+cut_scene.helltrain = function() -- line 12
+    cutscene_menu:enable_cutscene("heltrain")
+    START_CUT_SCENE()
+    set_override(cut_scene.skip_helltrain, cut_scene)
+    tg:switch_to_set()
+    seen_hell_train = TRUE
+    manny:put_in_set(tg)
+    manny:setpos(-1.71745, 32.6743, 17.13)
+    manny:setrot(0, 233.769, 0)
+    RunFullscreenMovie("heltrain.snm")
+    sleep_for(1000)
+    manny:setrot(0, 329.78, 0, TRUE)
+    manny:head_look_at(gate_keeper)
+    gate_keeper:shake_cycle()
+    sleep_for(1000)
+    gate_keeper:stop_shake()
+    manny:head_look_at(nil)
+    END_CUT_SCENE()
+end
+cut_scene.skip_helltrain = function(arg1) -- line 34
+    kill_override()
+    seen_hell_train = TRUE
+    tg:switch_to_set()
+    manny:put_in_set(tg)
+    manny:setpos(-1.71745, 32.6743, 17.13)
+    manny:setrot(0, 329.78, 0)
+    manny:head_look_at(nil)
+end
+cut_scene.brunoup = function() -- line 45
+    in_year_four = TRUE
+    if not bruno then
+        bruno = Actor:create(nil, nil, nil, "/lrtx001/")
+    end
+    bruno.resurrected = TRUE
+    td.mug:get()
+    td:switch_to_set()
+    START_CUT_SCENE()
+    set_override(cut_scene.skip_brunoup, cut_scene)
+    bruno:set_costume(nil)
+    bruno:set_costume("bruno_coffin.cos")
+    bruno:set_talk_color(Blue)
+    bruno:set_mumble_chore(bruno_coffin_mumble)
+    bruno:set_talk_chore(1, bruno_coffin_stop_talk)
+    bruno:set_talk_chore(2, bruno_coffin_a)
+    bruno:set_talk_chore(3, bruno_coffin_c)
+    bruno:set_talk_chore(4, bruno_coffin_e)
+    bruno:set_talk_chore(5, bruno_coffin_f)
+    bruno:set_talk_chore(6, bruno_coffin_l)
+    bruno:set_talk_chore(7, bruno_coffin_m)
+    bruno:set_talk_chore(8, bruno_coffin_o)
+    bruno:set_talk_chore(9, bruno_coffin_t)
+    bruno:set_talk_chore(10, bruno_coffin_u)
+    bruno:put_in_set(td)
+    bruno:setpos(0.0778102, -1.3232, 0.0496999)
+    bruno:setrot(90, 208, 0)
+    bruno.saylineTable.x = 450
+    bruno.saylineTable.y = 30
+    manny:put_in_set(td)
+    manny:put_at_object(td.coffin)
+    manny:push_costume("msb_coffin.cos")
+    manny:play_chore(msb_coffin_open, "msb_coffin.cos")
+    start_sfx("tdCofOp2.wav")
+    music_state:set_sequence(seqPopBrunoCasket)
+    bruno:play_chore(bruno_coffin_open, "bruno_coffin.cos")
+    sleep_for(1200)
+    td.coffin:play_chore(td_coffin_open)
+    manny:wait_for_chore(msb_coffin_open, "msb_coffin.cos")
+    manny:play_chore(msb_coffin_bruno, "msb_coffin.cos")
+    bruno:play_chore(bruno_coffin_bruno, "bruno_coffin.cos")
+    manny:say_line("/bruma01a/")
+    manny:wait_for_message()
+    manny:say_line("/bruma01b/")
+    manny:wait_for_message()
+    manny:wait_for_chore(msb_coffin_bruno, "msb_coffin.cos")
+    manny:play_chore(msb_coffin_you, "msb_coffin.cos")
+    bruno:play_chore(bruno_coffin_you, "bruno_coffin.cos")
+    bruno:say_line("/brubo02a/")
+    bruno:wait_for_message()
+    manny:wait_for_chore(msb_coffin_you, "msb_coffin.cos")
+    manny:play_chore(msb_coffin_magazine, "msb_coffin.cos")
+    bruno:play_chore(bruno_coffin_magazine, "bruno_coffin.cos")
+    bruno:say_line("/brubo02b/")
+    bruno:wait_for_message()
+    manny:wait_for_chore(msb_coffin_magazine, "msb_coffin.cos")
+    manny:play_chore(msb_coffin_mug, "msb_coffin.cos")
+    bruno:play_chore(bruno_coffin_mug, "bruno_coffin.cos")
+    bruno:say_line("/brubo02c/")
+    bruno:wait_for_message()
+    sleep_for(500)
+    bruno:say_line("/brubo03a/")
+    bruno:wait_for_message()
+    manny:wait_for_chore(msb_coffin_mug, "msb_coffin.cos")
+    bruno:say_line("/brubo03b/")
+    sleep_for(1700)
+    manny:play_chore(msb_coffin_phooey, "msb_coffin.cos")
+    bruno:play_chore(bruno_coffin_phooey, "bruno_coffin.cos")
+    bruno:wait_for_message()
+    bruno:say_line("/brubo04/")
+    bruno:wait_for_chore(bruno_coffin_phooey, "bruno_coffin.cos")
+    manny:wait_for_chore(msb_coffin_phooey, "msb_coffin.cos")
+    td:current_setup(td_mnycu)
+    manny:pop_costume()
+    manny:setpos(0.440972, -0.942085, -0.02)
+    manny:setrot(0, 119.663, 0)
+    manny:generic_pickup(td.mug)
+    bruno:wait_for_message()
+    bruno:free()
+    look_at_item_in_hand(TRUE)
+    sleep_for(1500)
+    manny:head_look_at_point(1.71346, -3.65615, 1.069)
+    sleep_for(3000)
+    manny:head_look_at(nil)
+    sleep_for(1000)
+    td:current_setup(td_tdiha)
+    END_CUT_SCENE()
+end
+cut_scene.skip_brunoup = function(arg1) -- line 136
+    kill_override()
+    bruno:free()
+    if manny:get_costume() == "msb_coffin.cos" then
+        manny:pop_costume()
+    end
+    manny:stop_chore()
+    manny:generic_pickup(td.mug)
+    manny:setpos(0.440972, -0.942085, -0.02)
+    manny:setrot(0, 119.663, 0)
+    if td.mug.owner ~= manny then
+        td.mug:get()
+    end
+end
+cut_scene.coffrock = function(arg1) -- line 151
+    in_year_four = TRUE
+    if tg.note.owner ~= manny then
+        tg.note:get()
+    end
+    gate_keeper:free()
+    mechanic1:free()
+    mechanic2:free()
+    mk.fire_actor:free()
+    mk.mug_rack_actor:free()
+    mk.mug_actor:free()
+    cutscene_menu:enable_cutscene("coffrock")
+    START_CUT_SCENE()
+    td.mug:free()
+    mk.rag:free()
+    my.oily_rag:free()
+    set_override(cut_scene.skip_coffrock, cut_scene)
+    RunFullscreenMovie("coffrock.snm")
+    xb:switch_to_set()
+    xb:current_setup(xb_trkws)
+    StartMovie("sd_g.snm", nil, 320, 176)
+    wait_for_movie()
+    StartMovie("sd_li.snm", TRUE, 320, 169)
+    manny:put_in_set(xb)
+    manny:setpos(41.4727, -12.7593, 0.617559)
+    manny:setrot(0, 90, 0)
+    manny:play_chore(msb_hat_off, "msb.cos")
+    manny:stop_chore(msb_hat_on, "msb.cos")
+    meche:setpos(41.1594, -12.9213, 0.729545)
+    meche:setrot(0, 90, 0)
+    meche:follow_boxes()
+    manny:follow_boxes()
+    start_script(meche.walkto, meche, 39.334, -12.8581, 1, 0, -37, 0)
+    start_script(manny.walkto, manny, 39.9684, -12.7403, 1, 0, -317, 0)
+    glottis:put_in_set(xb)
+    glottis:setpos(39.398, -12.2811, 1)
+    glottis:setrot(0, 146, 0)
+    glottis:set_costume("gl_climb_dock.cos")
+    glottis:play_chore(0)
+    glottis:wait_for_chore()
+    glottis:setpos(39.3957, -12.2492, 1)
+    glottis:setrot(0, 135.863, 0)
+    glottis:set_costume("glottis.cos")
+    glottis:set_head(3, 4, 4, 165, 28, 80)
+    glottis:set_mumble_chore(glottis_mumble)
+    glottis:set_talk_chore(1, glottis_stop_talk)
+    glottis:set_talk_chore(2, glottis_a)
+    glottis:set_talk_chore(3, glottis_c)
+    glottis:set_talk_chore(4, glottis_e)
+    glottis:set_talk_chore(5, glottis_f)
+    glottis:set_talk_chore(6, glottis_l)
+    glottis:set_talk_chore(7, glottis_m)
+    glottis:set_talk_chore(8, glottis_o)
+    glottis:set_talk_chore(9, glottis_t)
+    glottis:set_talk_chore(10, glottis_u)
+    meche:wait_for_actor()
+    manny:wait_for_actor()
+    glottis:head_look_at_point(39.9684, -12.7403, 1)
+    glottis:fade_in_chore(glottis_home_pose, "glottis.cos", 800)
+    glottis:say_line("/cfrgl12/")
+    glottis:wait_for_message()
+    manny:head_look_at_point(39.3957, -12.2492, 2)
+    manny:say_line("/cfrma13/")
+    manny:push_costume("msb_gestures.cos")
+    manny:push_chore(2)
+    manny:wait_for_message()
+    glottis:say_line("/cfrgl14/")
+    glottis:push_chore(glottis_look_down, "glottis.cos")
+    glottis:wait_for_message()
+    manny:pop_costume()
+    manny:head_look_at(xbridge)
+    glottis:head_look_at(xbridge)
+    sleep_for(2000)
+    StopMovie()
+    xb:current_setup(xb_docws)
+    meche:setpos({ x = 28.2727, y = -13.8664, z = 1 })
+    meche:setrot(0, 0, 0)
+    glottis:default()
+    glottis:put_in_set(xb)
+    glottis:setpos(28.7635, -13.2831, 1)
+    glottis:setrot(0, 90, 0)
+    glottis:play_chore_looping(glottis_flip_ears)
+    glottis:set_head(3, 4, 4, 165, 28, 80)
+    glottis:set_mumble_chore(glottis_mumble)
+    glottis:set_talk_chore(1, glottis_stop_talk)
+    glottis:set_talk_chore(2, glottis_a)
+    glottis:set_talk_chore(3, glottis_c)
+    glottis:set_talk_chore(4, glottis_e)
+    glottis:set_talk_chore(5, glottis_f)
+    glottis:set_talk_chore(6, glottis_l)
+    glottis:set_talk_chore(7, glottis_m)
+    glottis:set_talk_chore(8, glottis_o)
+    glottis:set_talk_chore(9, glottis_t)
+    glottis:set_talk_chore(10, glottis_u)
+    glottis:push_costume("gl_fastwalk.cos")
+    glottis:head_look_at(nil)
+    glottis:set_walk_chore(0, "gl_sailor_fastwalk.cos")
+    glottis:set_walk_rate(0.5)
+    glottis:set_turn_rate(0.2)
+    glottis:set_collision_mode(COLLISION_SPHERE)
+    SetActorCollisionScale(glottis.hActor, 0.5)
+    SetActorCollisionScale(manny.hActor, 0.35)
+    manny:setpos(27.8672, -13.136, 1)
+    manny:setrot(0, 77, 0)
+    manny:say_line("/syma189/")
+    wait_for_message()
+    glottis:say_line("/sygl190/")
+    wait_for_message()
+    jb:switch_to_set()
+    manny:put_in_set(jb)
+    manny:setpos(0.577154, -1.64949, 0.1)
+    manny:setrot(0, -1806.61, 0)
+    break_here()
+    END_CUT_SCENE()
+    start_script(jb.see_trap)
+end
+cut_scene.skip_coffrock = function(arg1) -- line 283
+    kill_override()
+    jb:switch_to_set()
+    manny:put_in_set(jb)
+    manny:setpos(0.577154, -1.64949, 0.1)
+    manny:setrot(0, -1806.61, 0)
+    manny:stop_chore(msb_hat_on, "msb.cos")
+    manny:play_chore(msb_hat_off, "msb.cos")
+end
+cut_scene.vivamaro = function() -- line 293
+    cutscene_menu:enable_cutscene("vivamaro")
+    if tg.note.owner ~= manny then
+        tg.note:get()
+    end
+    START_CUT_SCENE()
+    set_override(cut_scene.skip_vivamaro, cut_scene)
+    RunFullscreenMovie("vivamaro.snm")
+    manny:default("siberian")
+    lw:vivamaro_fix()
+    nq:switch_to_set()
+    manny:put_in_set(nq)
+    manny:setpos(0.56648, 0.607994, 0)
+    manny:setrot(0, 162.288, 0)
+    END_CUT_SCENE()
+end
+cut_scene.skip_vivamaro = function(arg1) -- line 312
+    kill_override()
+    stop_script(lw.vivamaro_fix)
+    salvador:free()
+    olivia:free()
+    nq:switch_to_set()
+    manny:put_in_set(nq)
+    manny:default("siberian")
+    manny:setpos(0.56648, 0.607994, 0)
+    manny:setrot(0, 162.288, 0)
+end
+cut_scene.eatbird = function() -- line 325
+    cutscene_menu:enable_cutscene("eatbird")
+    cur_puzzle_state[51] = TRUE
+    bowlsley_in_hiding = TRUE
+    nq:switch_to_set()
+    START_CUT_SCENE()
+    set_override(cut_scene.skip_eatbird, cut_scene)
+    RunFullscreenMovie("eatbird.snm")
+    END_CUT_SCENE()
+end
+cut_scene.skip_eatbird = function(arg1) -- line 338
+    kill_override()
+end
+cut_scene.albinizod = function() -- line 343
+    local local1 = { }
+    local local2 = FALSE
+    uncovered_trail = TRUE
+    START_CUT_SCENE()
+    manny:clear_hands()
+    set_override(cut_scene.skip_albinizod, cut_scene)
+    manny:say_line("/syma201/")
+    wait_for_message()
+    system:lock_display()
+    at:switch_to_set("noenter")
+    glottis:set_costume("bonewagon_gl.cos")
+    glottis:put_in_set(at)
+    glottis:set_visibility(TRUE)
+    glottis:set_mumble_chore(bonewagon_gl_gl_mumble)
+    glottis:set_talk_chore(1, bonewagon_gl_stop_talk)
+    glottis:set_talk_chore(2, bonewagon_gl_a)
+    glottis:set_talk_chore(3, bonewagon_gl_c)
+    glottis:set_talk_chore(4, bonewagon_gl_e)
+    glottis:set_talk_chore(5, bonewagon_gl_f)
+    glottis:set_talk_chore(6, bonewagon_gl_l)
+    glottis:set_talk_chore(7, bonewagon_gl_m)
+    glottis:set_talk_chore(8, bonewagon_gl_o)
+    glottis:set_talk_chore(9, bonewagon_gl_t)
+    glottis:set_talk_chore(10, bonewagon_gl_u)
+    glottis:play_chore(bonewagon_gl_gl_drive)
+    glottis:ignore_boxes()
+    glottis:setpos({ x = -0.2, y = 11.875, z = 0 })
+    glottis:setrot(0, 180, 0)
+    MakeSectorActive("zw_door", FALSE)
+    manny:ignore_boxes()
+    manny:put_in_set(at)
+    manny:setpos(-0.2, 8.77244, 0)
+    manny:setrot(0, -196.21201, 0)
+    if manny.fancy then
+        manny:push_costume("mcc_bone_trail.cos")
+    else
+        manny:push_costume("msb_bone_trail.cos")
+    end
+    manny:play_chore_looping(msb_bone_trail_walk_grind)
+    break_here()
+    start_sfx("bwIdle.IMU", IM_HIGH_PRIORITY, 80)
+    system:unlock_display()
+    at:current_setup(0)
+    manny:head_look_at(nil)
+    repeat
+        local1 = manny:getpos()
+        local1.y = local1.y - PerSecond(0.30000001)
+        if local1.y < 8 and not local2 then
+            local2 = TRUE
+            glottis:say_line("/sygl202/")
+        end
+        if local1.y < 7 then
+            local1.y = 7
+        end
+        manny:setpos(local1)
+        break_here()
+    until local1.y == 7
+    at:current_setup(at_albcu)
+    glottis:set_visibility(FALSE)
+    manny:set_visibility(FALSE)
+    manny:pop_costume()
+    if manny.fancy then
+        manny:play_chore_looping(mcc_thunder_takeout_grinder_full, "mcc_thunder.cos")
+    else
+        manny:play_chore_looping(msb_activate_grinder_full, "msb.cos")
+    end
+    manny:play_chore_looping(msb_hold, manny.base_costume)
+    wait_for_message()
+    manny:say_line("/syma203/")
+    wait_for_message()
+    at:current_setup(0)
+    glottis:set_visibility(TRUE)
+    manny:set_visibility(TRUE)
+    glottis:say_line("/sygl204/")
+    wait_for_message()
+    RunFullscreenMovie("albinizod.snm")
+    at.manny_state = IN_BW
+    glottis.bonewagon_up = FALSE
+    if manny.fancy then
+        manny:stop_chore(mcc_thunder_takeout_grinder_full, "mcc_thunder.cos")
+    else
+        manny:stop_chore(msb_activate_grinder_full, "msb.cos")
+    end
+    manny:stop_chore(msb_hold, manny.base_costume)
+    stop_sound("bwIdle.imu")
+    manny:put_in_set(at)
+    at:current_setup(at_intbw)
+    at:enter()
+    END_CUT_SCENE()
+    sh.remote.raised = FALSE
+    glottis.in_at = TRUE
+    manny:set_visibility(TRUE)
+    MakeSectorActive("zw_door", TRUE)
+end
+cut_scene.skip_albinizod = function() -- line 449
+    kill_override()
+    local local1 = FALSE
+    uncovered_trail = TRUE
+    sh.remote.raised = FALSE
+    glottis.in_at = TRUE
+    manny:set_visibility(TRUE)
+    MakeSectorActive("zw_door", TRUE)
+    manny:default()
+    at.manny_state = IN_BW
+    glottis.bonewagon_up = FALSE
+    if manny.fancy then
+        manny:stop_chore(mcc_thunder_takeout_grinder_full, "mcc_thunder.cos")
+    else
+        manny:stop_chore(msb_activate_grinder_full, "msb.cos")
+    end
+    manny:stop_chore(msb_hold, manny.base_costume)
+    stop_sound("bwIdle.imu")
+    manny:put_in_set(at)
+    at:current_setup(at_intbw)
+    at:enter()
+    at:switch_to_set()
+end
+cut_scene.oldjob = function() -- line 473
+    cutscene_menu:enable_cutscene("oldjob")
+    cutscene_menu:enable_cutscene("falling")
+    fi.gun:get()
+    fi.sproutella:get()
+    si.nitrogen:get()
+    th.grinder:get()
+    th.grinder.has_bone = TRUE
+    bowlsley_in_hiding = FALSE
+    sh.remote:free()
+    START_CUT_SCENE()
+    nl:switch_to_set()
+    nl:current_setup(nl_legla)
+    set_override(cut_scene.skip_oldjob, cut_scene)
+    RunFullscreenMovie("oldjob.snm")
+    RunFullscreenMovie("falling.snm")
+    manny:put_in_set(nl)
+    manny:setpos(-3.51269, -0.128288, -0.02)
+    manny:setrot(0, 253.729, 0)
+    manny:runto(0.162631, -0.0302194, -0.02, 0, 288.649, 0)
+    manny:wait_for_actor()
+    manny:set_run(FALSE)
+    END_CUT_SCENE()
+end
+cut_scene.skip_oldjob = function(arg1) -- line 503
+    kill_override()
+    manny:put_in_set(nl)
+    manny:setpos(0.162631, -0.0302194, -0.02)
+    manny:setrot(0, 288.649, 0)
+    manny:set_run(FALSE)
+end
+cut_scene.eldepot = function() -- line 512
+    cutscene_menu:enable_cutscene("eldepot")
+    fi.gun:put_in_limbo()
+    fi.sproutella:put_in_limbo()
+    START_CUT_SCENE()
+    set_override(cut_scene.skip_eldepot, cut_scene)
+    RunFullscreenMovie("eldepot.snm")
+    END_CUT_SCENE()
+    start_script(me.meadow_setup)
+end
+cut_scene.skip_eldepot = function(arg1) -- line 526
+    kill_override()
+    single_start_script(me.meadow_setup)
+end
+cut_scene.greenhse = function() -- line 532
+    cutscene_menu:enable_cutscene("greenhse")
+    set_override(cut_scene.greenhse_override)
+    START_CUT_SCENE()
+    RunFullscreenMovie("greenhse.snm")
+    END_CUT_SCENE()
+    start_script(mf.setup_suffering)
+end
+cut_scene.greenhse_override = function() -- line 542
+    kill_override()
+    start_script(mf.setup_suffering)
+end
+cut_scene.cut_flowers = function() -- line 547
+    cutscene_menu:enable_cutscene("mnyctufl")
+    START_CUT_SCENE()
+    set_override(kill_override)
+    RunFullscreenMovie("mnycutfl.snm")
+    END_CUT_SCENE()
+end
+cut_scene.hecgetit = function() -- line 555
+    cutscene_menu:enable_cutscene("hecgetit")
+    START_CUT_SCENE()
+    set_override(cut_scene.skip_hecgetit, cut_scene)
+    RunFullscreenMovie("hecgetit.snm")
+    END_CUT_SCENE()
+end
+cut_scene.skip_hecgetit = function(arg1) -- line 564
+    kill_override()
+end
+cut_scene.hecdie = function() -- line 568
+    cutscene_menu:enable_cutscene("hecdie")
+    START_CUT_SCENE()
+    set_override(cut_scene.skip_hecdie, cut_scene)
+    me:current_setup(me_rerws)
+    RunFullscreenMovie("hecdie.snm")
+    END_CUT_SCENE()
+end
+cut_scene.skip_hecdie = function(arg1) -- line 578
+    kill_override()
+end
+cut_scene.byebye = function() -- line 582
+    cutscene_menu:enable_cutscene("byebye")
+    START_CUT_SCENE()
+    set_override(cut_scene.skip_byebye, cut_scene)
+    me:current_setup(me_rerws)
+    break_here()
+    ForceRefresh()
+    RunFullscreenMovie("byebye.snm")
+    END_CUT_SCENE()
+    music_state:set_state(STATE_NULL)
+    sleep_for(1750)
+    start_script(cut_scene.end_credits, cut_scene)
+end
+cut_scene.skip_byebye = function(arg1) -- line 600
+    kill_override()
+    start_script(cut_scene.end_credits, cut_scene)
+end
+cut_scene.end_credits = function() -- line 605
+    set_override(cut_scene.skip_credits, cut_scene)
+    START_CUT_SCENE()
+    me:current_setup(me_rerws)
+    credits_menu.hicolor = MakeColor(222, 180, 81)
+    credits_menu.locolor = MakeColor(125, 127, 200)
+    start_script(credits_menu.run, credits_menu, "endgame.txt", TRUE)
+    wait_for_script(credits_menu.run)
+    credits_menu:cancel()
+    main_menu:free_logo()
+    END_CUT_SCENE()
+    exit_the_game()
+end
+cut_scene.skip_credits = function() -- line 626
+    kill_override()
+    stop_script(credits_menu.run)
+    stop_script(credits_menu.end_credits_hook)
+    stop_script(credits_menu.fade_in_logo)
+    main_menu:free_logo()
+    exit_the_game()
+end
+BundleResource("sv_in_hq.cos")
+BundleResource("chepito.cos")
+BundleResource("olivia_idles.cos")
+BundleResource("brennis_fix_idle.cos")
+BundleResource("siberian_inv.set")
+BundleResource("death_inv.set")
+BundleResource("syma156.wav")
+BundleResource("syma157.wav")

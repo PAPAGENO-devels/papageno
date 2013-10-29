@@ -46,3 +46,9 @@ cp bin/lua_parser ../../benchmarks/Lua/lua_parallel_lexer_non_brack
 make clean
 make clean-gen
 cd ../../benchmarks
+
+cd bison_baselines/json
+make
+cp json_bison ../../JSON/
+make clean
+cd ../../

@@ -1,0 +1,15 @@
+brennis_on_fire_mumble = 0
+brennis_on_fire_stop_talk = 1
+brennis_on_fire_m = 2
+brennis_on_fire_c = 3
+brennis_on_fire_f = 4
+brennis_on_fire_e = 5
+brennis_on_fire_u = 6
+brennis_on_fire_a = 7
+brennis_on_fire_o = 8
+brennis_on_fire_l = 9
+brennis_on_fire_on_fire = 10
+brennis_on_fire_pat_flames = 11
+brennis_on_fire_stop_manny = 12
+brennis_on_fire_turn_around = 13
+brennis_on_fire_t = 14

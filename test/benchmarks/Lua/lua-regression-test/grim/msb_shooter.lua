@@ -1,0 +1,9 @@
+msb_shooter_get_bottle = 0
+msb_shooter_give_bottle = 1
+msb_shooter_wait = 2
+msb_shooter_grabbed = 3
+msb_shooter_shaken = 4
+msb_shooter_putdown = 5
+msb_shooter_stand = 6
+msb_shooter_watch_gl = 7
+msb_shooter_air_out = 8

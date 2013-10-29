@@ -1,0 +1,9 @@
+ma_IDPHOTO_terry_free = 0
+ma_IDPHOTO_nick_fold = 1
+ma_IDPHOTO_almost = 2
+ma_IDPHOTO_manny_punch = 3
+ma_IDPHOTO_punch2 = 4
+ma_IDPHOTO_manny_talk2 = 5
+ma_IDPHOTO_manny_talk1 = 6
+ma_IDPHOTO_nick_leave = 7
+ma_IDPHOTO_p39_end = 8
