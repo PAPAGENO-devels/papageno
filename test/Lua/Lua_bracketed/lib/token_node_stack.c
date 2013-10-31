@@ -13,7 +13,11 @@ token_node *push_token_node_on_stack(token_node_stack *stack, gr_token token, vo
 {
     token_node *new_token_node = NULL;
 	if (stack->tos >= stack->ceil) {
-		stack->stack = (token_node*) malloc(sizeof(token_node)*realloc_size);
+  /* TODO: fix memory corruptions happening in the lexer when the allocation
+     of further slabs is aligned */
+  //     void* new_slab; 
+  //     posix_memalign(&new_slab,CACHE_LINE_SIZE,sizeof(token_node)*realloc_size);
+    stack->stack = (token_node*) malloc(sizeof(token_node)*realloc_size);// (token_node*) new_slab;
 		stack->ceil = realloc_size;
 		stack->tos = 0;
 	}

@@ -207,7 +207,6 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
   }
   free(thread);
 
-  // clock_gettime(CLOCK_REALTIME, &timer_r);
   portable_clock_gettime(&parse_timer_end);
   pretty_print_parse_status(parse_status);
 

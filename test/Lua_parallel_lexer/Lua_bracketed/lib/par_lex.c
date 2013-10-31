@@ -1,5 +1,5 @@
 #include "par_lex.h"
-
+#include <stdio.h>
 void perform_lexing(int32_t lex_thread_max_num, char *file_name, parsing_ctx *ctx)
 {
   int32_t i, lex_thread_num, accept_empty_file = 0;
@@ -111,11 +111,11 @@ void perform_lexing(int32_t lex_thread_max_num, char *file_name, parsing_ctx *ct
   /* Wait for all threads to finish. */
   for(i = 0; i<lex_thread_num; i++){
     pthread_join(lex_threads[i], NULL);
+//       fprintf(stderr, "finished lexing, caught thread %d\n", i);
   }
 
   /*Merge token lists produced by the lexing threads.*/
   compute_lex_token_list(ctx, arg, lex_thread_num);
-
   /* Free threads*/
   DEBUG_STDOUT_PRINT("OPP> Freeing threads.\n")
   free(lex_threads); 

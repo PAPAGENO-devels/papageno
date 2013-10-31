@@ -1,7 +1,7 @@
 #include "opp.h"
 #include "vect_stack.h"
 #include <assert.h>
-
+#include "reduction_list.h"
 #include "matrix.h"
 #include "reduction_tree.h"
 #include "rewrite_rules.h"

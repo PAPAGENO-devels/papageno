@@ -13,7 +13,7 @@ FOBJ := obj/flex.yy.o
 OBJ := $(patsubst $(SRCDIR)/%.c, $(ODIR)/%.o, $(SRC))
 
 FLEX := lexer/lua.l
-GENERATED_FILES = include/rewrite_rules.h include/reduction_tree.h include/grammar_tokens.h include/grammar_semantics.h lib/grammar_semantics.c include/grammar.h lib/grammar.c include/matrix.h 
+GENERATED_FILES = include/config.h include/rewrite_rules.h include/reduction_tree.h include/grammar_tokens.h include/grammar_semantics.h lib/grammar_semantics.c include/grammar.h lib/grammar.c include/matrix.h 
 
 all: $(FOBJ) $(OBJ)
 	@gcc $(OBJ) $(FOBJ) $(LFLAGS) -o bin/lua_parser

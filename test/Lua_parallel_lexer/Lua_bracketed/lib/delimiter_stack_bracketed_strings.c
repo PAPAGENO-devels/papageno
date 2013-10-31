@@ -4,33 +4,30 @@
 				//in each chunk while computing the cut points.
 
 void init_delimiter_stack(delimiter_stack *stack, uint32_t alloc_size)
-{
-	stack->stack = (delimiter *) malloc(sizeof(delimiter)*alloc_size);
+{  
+        void *new_delimiter = NULL;
+        posix_memalign( &new_delimiter,CACHE_LINE_SIZE,sizeof(delimiter)*alloc_size);
+	stack->stack = (delimiter *)new_delimiter;
 	if (stack->stack == NULL) {
 	    DEBUG_STDOUT_PRINT("ERROR> could not complete malloc stack->stack. Aborting.\n");
 	    exit(1);
 	}
 	stack->ceil = alloc_size;
 	stack->tos = 0;
-#if TEST
-	stack->reallocations = 0;
-#endif
 }
 
 delimiter *push_delimiter_on_stack(delimiter_stack *stack, delimiter_type type, int8_t type_class, uint8_t token_list_number, token_node* last_token, uint32_t realloc_size)
 {
     delimiter *new_delimiter = NULL;
 	if (stack->tos >= stack->ceil) {
-		stack->stack = (delimiter*) malloc(sizeof(delimiter)*realloc_size);
+	        posix_memalign( (void **)&new_delimiter,CACHE_LINE_SIZE,sizeof(delimiter)*realloc_size);
+		stack->stack =  (delimiter*) new_delimiter;
 		if (stack->stack == NULL) {
 		    DEBUG_STDOUT_PRINT("ERROR> could not complete malloc stack->stack. Aborting.\n");
 		    exit(1);
 		}
 		stack->ceil = realloc_size;
 		stack->tos = 0;
-#if TEST
-		++stack->reallocations;
-#endif
 	}   
     new_delimiter = &stack->stack[stack->tos];
 	if(type_class == 0)
@@ -53,7 +50,8 @@ void par_delimiter_compute_alloc_realloc_size(uint32_t chunk_length, uint32_t *a
 {
   uint32_t l_length = RHS_LENGTH * pow(RHS_LENGTH/2, DEPTH-1) * TOKEN_SIZE; //try very very roughly to estimate the length of a line
   *alloc_size = ((float) chunk_length) / l_length; //very very rough estimate of the number of lines
-  *realloc_size = *alloc_size/10;
+  *realloc_size = *alloc_size/10+1;
+  
 }
 
 /*Append a delimiter to the tail of the list*/

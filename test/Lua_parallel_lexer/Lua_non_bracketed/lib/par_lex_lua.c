@@ -815,11 +815,9 @@ void *lex_thread_task(void *arg)
   ar->list_end = token_builder;
   ar->number_tokens_from_last_comment = number_tokens_from_last_comment;
 
-  fclose(yyget_in(scanner));
   yylex_destroy(scanner);
-
-  pthread_exit(NULL);
-
+  fclose(f);
+  return NULL;
 }
 
 int8_t handle_empty_file(parsing_ctx *ctx)
