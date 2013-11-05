@@ -150,7 +150,7 @@ for ($threadno=$thread_start;$threadno<=$thread_max;$threadno++){
   print LEX_SPEEDUPS $threadno."\t";
   print PARSE_SPEEDUPS $threadno."\t";
   print TOT_SPEEDUPS $threadno."\t";
-  print BISON_SPEEDUP $threadno."\t";
+  print BISON_SPEEDUPS $threadno."\t";
 
   foreach $file_idx(sort(keys(%input_files))){
     print LEX_RESULTS $timing_lex[$file_idx][$threadno]."\t";

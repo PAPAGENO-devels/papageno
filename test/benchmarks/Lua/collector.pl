@@ -25,7 +25,7 @@ else{
 ### DATA COLLECTION
 
 while( my($file_idx,$filename) =each(%input_files)){
-   $command="./json_bison ".$filename;
+   $command="./lua_bison ".$filename;
      $bison_time=0.0;
      for($run=0;$run<$number_of_executions;$run++){
       @output=qx($command);
@@ -144,7 +144,7 @@ for ($threadno=$thread_start;$threadno<=$thread_max;$threadno++){
   print LEX_SPEEDUPS $threadno."\t";
   print PARSE_SPEEDUPS $threadno."\t";
   print TOT_SPEEDUPS $threadno."\t";
-  print BISON_SPEEDUP $threadno."\t";
+  print BISON_SPEEDUPS $threadno."\t";
 
   foreach $file_idx(sort(keys(%input_files))){
     print LEX_RESULTS $timing_lex[$file_idx][$threadno]."\t";

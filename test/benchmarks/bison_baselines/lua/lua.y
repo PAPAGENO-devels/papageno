@@ -1005,6 +1005,7 @@ prefixExp : var {
 		}
 	;
 	
+
 functionCall : prefixExp args {
 		$$ = (token_node*) malloc(sizeof(token_node));
 		$$->token = OBJECT;

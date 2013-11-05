@@ -52,3 +52,9 @@ make
 cp json_bison ../../JSON/
 make clean
 cd ../../
+
+cd bison_baselines/lua
+make
+cp lua_lr ../../Lua/lua_bison
+make clean
+cd ../../

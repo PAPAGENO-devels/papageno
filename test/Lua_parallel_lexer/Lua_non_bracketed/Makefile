@@ -1,8 +1,8 @@
-CC := clang 
+CC := gcc 
 LFLAGS = -lrt -lpthread -lm
 INCLUDES := -I./include -I./lexer -I../../include
-#CFLAGS := -O3 -pipe -march=native -UDEBUG -Wall $(INCLUDES)
-CFLAGS := -g3 -UDEBUG -Wall $(INCLUDES)
+CFLAGS := -O3 -pipe -march=native -UDEBUG -Wall $(INCLUDES)
+#CFLAGS := -g3 -UDEBUG -Wall $(INCLUDES)
 SRCDIR := lib
 SRC := $(wildcard $(SRCDIR)/*.c)
 ODIR := obj

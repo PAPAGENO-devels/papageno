@@ -34,7 +34,7 @@ void dump_tree(token_node *tree, uint32_t level)
 	}
 #endif
 }
-
+void yyerror(char* msg) {}
 %}
 
 %union {
@@ -70,8 +70,6 @@ s: obj {
 	;
 
 obj: LBR RBR {
-		// ch = (char*) malloc(sizeof(char)*5);
-		// strcpy(ch, "O:{}");
 		$$ = (token_node*) malloc(sizeof(token_node));
 		$$->token = OBJECT;
 		$$->value = NULL;
@@ -79,11 +77,9 @@ obj: LBR RBR {
 		$2->parent = $$;
 		$$->next = NULL;
 		$$->child = $1;
-        $1->next = $2;
+                $1->next = $2;
 		}
    | LBR mem RBR {
-		// ch = (char*) malloc(sizeof(char)*6);
-		// strcpy(ch, "O:{M}");
 		$$ = (token_node*) malloc(sizeof(token_node));
 		$$->token = OBJECT;
 		$$->value = NULL;
@@ -98,8 +94,6 @@ obj: LBR RBR {
    ;
 
 mem: pair {
-		// ch = (char*) malloc(sizeof(char)*4);
-		// strcpy(ch, "M:P");
 		$$ = (token_node*) malloc(sizeof(token_node));
 		$$->token = MEMBERS;
 		$$->value = NULL;
@@ -108,8 +102,6 @@ mem: pair {
 		$$->child = $1;
 		}
    | mem COM pair {
-		// ch = (char*) malloc(sizeof(char)*6);
-		// strcpy(ch, "M:M,P");
 		$$ = (token_node*) malloc(sizeof(token_node));
 		$$->token = MEMBERS;
 		$$->value = NULL;
@@ -124,8 +116,6 @@ mem: pair {
    ;
 
 pair: str COL val {
-		// ch = (char*) malloc(sizeof(char)*6);
-		// strcpy(ch, "P:S:V");
 		$$ = (token_node*) malloc(sizeof(token_node));
 		$$->token = PAIR;
 		$$->value = NULL;
@@ -140,8 +130,6 @@ pair: str COL val {
     ;
 
 val: str {
-		// ch = (char*) malloc(sizeof(char)*4);
-		// strcpy(ch, "V:S");
 		$$ = (token_node*) malloc(sizeof(token_node));
 		$$->token = VALUE;
 		$$->value = NULL;
@@ -150,8 +138,6 @@ val: str {
 		$$->child = $1;
 		}
    | NUM {
-		// ch = (char*) malloc(sizeof(char)*4);
-		// strcpy(ch, "V:N");
 		$$ = (token_node*) malloc(sizeof(token_node));
 		$$->token = VALUE;
 		$$->value = NULL;
@@ -160,8 +146,6 @@ val: str {
 		$$->child = $1;
 		}
    | array {
-		// ch = (char*) malloc(sizeof(char)*4);
-		// strcpy(ch, "V:A");
 		$$ = (token_node*) malloc(sizeof(token_node));
 		$$->token = VALUE;
 		$$->value = NULL;
@@ -170,8 +154,6 @@ val: str {
 		$$->child = $1;
 		}
    | obj {
-		// ch = (char*) malloc(sizeof(char)*4);
-		// strcpy(ch, "V:O");
 		$$ = (token_node*) malloc(sizeof(token_node));
 		$$->token = VALUE;
 		$$->value = NULL;
@@ -180,8 +162,6 @@ val: str {
 		$$->child = $1;
 		}
    | BOO {
-		// ch = (char*) malloc(sizeof(char)*4);
-		// strcpy(ch, "V:B");
 		$$ = (token_node*) malloc(sizeof(token_node));
 		$$->token = VALUE;
 		$$->value = NULL;
@@ -192,8 +172,6 @@ val: str {
    ;
 
 str: QUO QUO {
-		// ch = (char*) malloc(sizeof(char)*5);
-		// strcpy(ch, "S:\"\"");
 		$$ = (token_node*) malloc(sizeof(token_node));
 		$$->token = STRING;
 		$$->value = NULL;
@@ -204,8 +182,6 @@ str: QUO QUO {
         $1->next = $2;
 		}
    | QUO chars QUO {
-		// ch = (char*) malloc(sizeof(char)*6);
-		// strcpy(ch, "S:\"C\"");
 		$$ = (token_node*) malloc(sizeof(token_node));
 		$$->token = STRING;
 		$$->value = NULL;
@@ -220,8 +196,6 @@ str: QUO QUO {
    ;
 
 chars: CHA {
-		// ch = (char*) malloc(sizeof(char)*4);
-		// strcpy(ch, "C:c");
 		$$ = (token_node*) malloc(sizeof(token_node));
 		$$->token = CHARS;
 		$$->value = NULL;
@@ -230,8 +204,6 @@ chars: CHA {
 		$$->child = $1;
 		}
      | chars CHA {
-		// ch = (char*) malloc(sizeof(char)*5);
-		// strcpy(ch, "C:Cc");
 		$$ = (token_node*) malloc(sizeof(token_node));
 		$$->token = CHARS;
 		$$->value = NULL;
@@ -244,8 +216,6 @@ chars: CHA {
 	 ;
 
 array: LSQ RSQ {
-		// ch = (char*) malloc(sizeof(char)*5);
-		// strcpy(ch, "A:[]");
 		$$ = (token_node*) malloc(sizeof(token_node));
 		$$->token = ARRAY;
 		$$->value = NULL;
@@ -256,8 +226,6 @@ array: LSQ RSQ {
         $1->next = $2;
 		}
      | LSQ elem RSQ {
-		// ch = (char*) malloc(sizeof(char)*6);
-		// strcpy(ch, "A:[E]");
 		$$ = (token_node*) malloc(sizeof(token_node));
 		$$->token = ARRAY;
 		$$->value = NULL;
@@ -272,8 +240,6 @@ array: LSQ RSQ {
 	 ;
 
 elem: val {
-		// ch = (char*) malloc(sizeof(char)*4);
-		// strcpy(ch, "E:V");
 		$$ = (token_node*) malloc(sizeof(token_node));
 		$$->token = ELEMENTS;
 		$$->value = NULL;
@@ -282,8 +248,6 @@ elem: val {
 		$$->child = $1;
 		}
     | elem COM val {
-		// ch = (char*) malloc(sizeof(char)*6);
-		// strcpy(ch, "E:E,V");
 		$$ = (token_node*) malloc(sizeof(token_node));
 		$$->token = ELEMENTS;
 		$$->value = NULL;
@@ -292,19 +256,12 @@ elem: val {
 		$3->parent = $$;
 		$$->next = NULL;
 		$$->child = $1;
-        $1->next = $2;
-        $2->next = $3;
+                $1->next = $2;
+                $2->next = $3;
 		}
 	;
 
 %%
-
-int yyerror(char *msg)
-{
-	printf("Error: %s\n", msg);
-	return 0;
-}
-
 int main(int argc, char **argv)
 {
 	char *file_name, ch;
@@ -315,7 +272,7 @@ int main(int argc, char **argv)
 	file_name = NULL;
 	file_name = argv[1];
 
-	clock_gettime(CLOCK_REALTIME, &timer_s);
+	portable_clock_gettime(&timer_s);
 
 	yyin = fopen(file_name, "r");
 	if (yyin == NULL) {
@@ -324,7 +281,7 @@ int main(int argc, char **argv)
 	}
 	yyparse();
 	fclose(yyin);
-	clock_gettime(CLOCK_REALTIME, &timer_e);
+	portable_clock_gettime(&timer_e);
 	time_nanoseconds=compute_time_interval(&timer_s, &timer_e);
 	fprintf(stdout, "time: %lf\n",time_nanoseconds);
 
