@@ -1,0 +1,9 @@
+bibi_tag_tag_cw = 0
+bibi_tag_tag_ccw = 1
+bibi_tag_cw_hover_to_loop = 2
+bibi_tag_cw_loop_to_hover = 3
+bibi_tag_cw_loop = 4
+bibi_tag_ccw_loop = 5
+bibi_tag_ccw_hover_to_loop = 6
+bibi_tag_ccw_hover = 7
+bibi_tag_ccw_loop_to_hover = 8

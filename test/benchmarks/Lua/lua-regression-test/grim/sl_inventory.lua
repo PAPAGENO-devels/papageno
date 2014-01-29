@@ -1,0 +1,17 @@
+sl_inventory_show_detector = 0
+sl_inventory_show_baster = 1
+sl_inventory_show_dogtags = 2
+sl_inventory_show_salnotes = 3
+sl_inventory_show_key = 4
+sl_inventory_show_cigcase = 5
+sl_inventory_show_gold_bottle = 6
+sl_inventory_show_tix_machine = 7
+sl_inventory_show_opener = 8
+sl_inventory_show_comm_book = 9
+sl_inventory_show_hr_pass = 10
+sl_inventory_show_n_l_photo = 11
+sl_inventory_show_betting_stub = 12
+sl_inventory_show_finish_photo = 13
+sl_inventory_show_lengua = 14
+sl_inventory_show_union_card = 15
+sl_inventory_show_scythe = 16

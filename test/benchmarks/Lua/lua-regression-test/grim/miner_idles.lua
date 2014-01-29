@@ -1,0 +1,10 @@
+miner_idles_cm1_pick_cycle = 0
+miner_idles_cm1_rest2talk = 1
+miner_idles_cm1_talk2rest = 2
+miner_idles_cm2_axe_cycle = 3
+miner_idles_cm2_rest2talk = 4
+miner_idles_cm2_talk2rest = 5
+miner_idles_cm3_hammer_cycle = 6
+miner_idles_cm4_chisel_cycle = 7
+miner_idles_cm4_rest2talk = 8
+miner_idles_cm4_talk2rest = 9

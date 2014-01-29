@@ -1,0 +1,9 @@
+ve_talk_to_membrillo_phone = 0
+ve_talk_to_membrillo_hangup = 1
+ve_talk_to_membrillo_fix_model = 2
+ve_talk_to_membrillo_what = 3
+ve_talk_to_membrillo_how = 4
+ve_talk_to_membrillo_sprouted = 5
+ve_talk_to_membrillo_hell = 6
+ve_talk_to_membrillo_sailor = 7
+ve_talk_to_membrillo_sigh = 8

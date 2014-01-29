@@ -1,0 +1,12 @@
+alb_idles_idle = 0
+alb_idles_walk = 1
+alb_idles_start_snap = 2
+alb_idles_snap_loop = 3
+alb_idles_end_snap = 4
+alb_idles_sit_up_hold = 5
+alb_idles_start_trap = 6
+alb_idles_trap_loop = 7
+alb_idles_end_trap = 8
+alb_idles_sit_up = 9
+alb_idles_turn = 10
+alb_idles_idle2 = 11

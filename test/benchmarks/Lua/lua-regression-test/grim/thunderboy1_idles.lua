@@ -1,0 +1,17 @@
+thunderboy1_idles_whole = 0
+thunderboy1_idles_whole_back = 1
+thunderboy1_idles_talk1 = 2
+thunderboy1_idles_talk1_back = 3
+thunderboy1_idles_talk2 = 4
+thunderboy1_idles_talk2_back = 5
+thunderboy1_idles_mumble = 6
+thunderboy1_idles_c = 7
+thunderboy1_idles_m = 8
+thunderboy1_idles_f = 9
+thunderboy1_idles_e = 10
+thunderboy1_idles_l = 11
+thunderboy1_idles_u = 12
+thunderboy1_idles_a = 13
+thunderboy1_idles_o = 14
+thunderboy1_idles_stop_talk = 15
+thunderboy1_idles_t = 16

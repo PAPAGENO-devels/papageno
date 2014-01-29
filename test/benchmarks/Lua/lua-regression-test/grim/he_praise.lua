@@ -1,0 +1,15 @@
+he_praise_enter = 0
+he_praise_hold = 1
+he_praise_nod_talk = 2
+he_praise_exit = 3
+he_praise_mumble = 4
+he_praise_c = 5
+he_praise_f = 6
+he_praise_m = 7
+he_praise_e = 8
+he_praise_u = 9
+he_praise_l = 10
+he_praise_a = 11
+he_praise_o = 12
+he_praise_stop_talk = 13
+he_praise_t = 14

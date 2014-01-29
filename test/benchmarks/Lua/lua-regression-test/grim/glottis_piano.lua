@@ -1,0 +1,15 @@
+glottis_piano_piano_loop = 0
+glottis_piano_turn_head = 1
+glottis_piano_talk = 2
+glottis_piano_turn_head_back = 3
+glottis_piano_turnhead = 4
+glottis_piano_piano_loop = 5
+glottis_piano_112 = 6
+glottis_piano_099b = 7
+glottis_piano_099a = 8
+glottis_piano_098 = 9
+glottis_piano_091 = 10
+glottis_piano_stop_playing = 11
+glottis_piano_start_playing = 12
+glottis_piano_pause_playing = 13
+glottis_piano_resume_playing = 14

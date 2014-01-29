@@ -13,8 +13,9 @@
 
 #include "debug_functions.h"
 #include "grammar.h"
-#include "opp.h"
 #include "lex.h"
+#include "opp.h"
+
 typedef struct thread_context_t{
   uint8_t id;
   int16_t *parents;

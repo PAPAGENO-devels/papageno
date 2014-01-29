@@ -1,0 +1,12 @@
+gl_boarding_bw_hold_in_bw = 0
+gl_boarding_bw_hop_in_bw = 1
+gl_boarding_bw_mumble = 2
+gl_boarding_bw_c = 3
+gl_boarding_bw_f = 4
+gl_boarding_bw_e = 5
+gl_boarding_bw_u = 6
+gl_boarding_bw_t = 7
+gl_boarding_bw_m = 8
+gl_boarding_bw_a = 9
+gl_boarding_bw_o = 10
+gl_boarding_bw_stop_talk = 11

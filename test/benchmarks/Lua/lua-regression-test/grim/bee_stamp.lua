@@ -1,0 +1,12 @@
+bee_stamp_show_all = 0
+bee_stamp_show_body = 1
+bee_stamp_hide_body = 2
+bee_stamp_show_wings = 3
+bee_stamp_hide_wings = 4
+bee_stamp_show_arms = 5
+bee_stamp_hide_arms = 6
+bee_stamp_show_head = 7
+bee_stamp_hide_head = 8
+bee_stamp_wings_and_arms = 9
+bee_stamp_body_and_head = 10
+bee_stamp_head_only = 11

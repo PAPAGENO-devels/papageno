@@ -1,0 +1,12 @@
+msb_bone_trail_start_walk = 0
+msb_bone_trail_walk_grind = 1
+msb_bone_trail_end_walk = 2
+msb_bone_trail_grind_hold = 3
+msb_bone_trail_sqz_grinder_flks = 4
+msb_bone_trail_sqz_grinder_no_flks = 5
+msb_bone_trail_grinder_taken_no_hand = 6
+msb_bone_trail_grinder_taken_hand = 7
+msb_bone_trail_grinder_returned = 8
+msb_bone_trail_grinder_mount_hand = 9
+msb_bone_trail_grinder_mount_no_hand = 10
+msb_bone_trail_grinder_mount_hand = 11

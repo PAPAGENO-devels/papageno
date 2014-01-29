@@ -1,0 +1,16 @@
+sv_helps_peek = 0
+sv_helps_peek_talk = 1
+sv_helps_hide = 2
+sv_helps_hidden = 3
+sv_helps_open_door = 4
+sv_helps_mumble = 5
+sv_helps_stop_talk = 6
+sv_helps_a = 7
+sv_helps_c = 8
+sv_helps_e = 9
+sv_helps_f = 10
+sv_helps_l = 11
+sv_helps_m = 12
+sv_helps_o = 13
+sv_helps_u = 14
+sv_helps_t = 15

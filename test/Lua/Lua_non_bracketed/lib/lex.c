@@ -63,11 +63,10 @@ void append_token_node(gr_token token, void* semantic_value, token_node **token_
   token_node *tok = push_token_node_on_stack(stack, token, semantic_value, realloc_size);
   if (ctx->token_list == NULL) {
     ctx->token_list = tok;
-    *token_builder = tok;
   } else {
     (*token_builder)->next = tok;
-    *token_builder = tok;
   }
+    *token_builder = tok;
 }
 
 void perform_lexing(char *file_name, parsing_ctx *c)

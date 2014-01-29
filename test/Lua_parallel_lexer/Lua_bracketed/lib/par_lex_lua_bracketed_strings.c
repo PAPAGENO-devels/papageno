@@ -1770,13 +1770,9 @@ void *lex_thread_task(void *arg)
     ar->first_closing_bracket_pos = flex_token->first_closing_bracket_pos;
   }
 
-  fclose(yyget_in(scanner));
   yylex_destroy(scanner);
-
-  // fclose(f);
-
-  pthread_exit(NULL);
-
+  fclose(f);
+  return NULL;
 }
 
 void initialize_flex_token(lex_token * flex_token)

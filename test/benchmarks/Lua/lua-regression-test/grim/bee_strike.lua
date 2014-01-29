@@ -1,0 +1,12 @@
+bee_strike_sign_lo = 0
+bee_strike_hover = 1
+bee_strike_sign_hi = 2
+bee_strike_shake_fist = 3
+bee_strike_hold_lo = 4
+bee_strike_hi_to_lo = 5
+bee_strike_fist_to_akimbo = 6
+bee_strike_akimbo_hold = 7
+bee_strike_to_sign_hi = 8
+bee_strike_to_fist = 9
+bee_strike_to_akimbo = 10
+bee_strike_akimbo_to_lo = 11

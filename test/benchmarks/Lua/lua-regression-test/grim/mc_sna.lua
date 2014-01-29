@@ -1,0 +1,9 @@
+mc_sna_nk_ol_enter = 0
+mc_sna_snama01a = 1
+mc_sna_snama01b = 2
+mc_sna_snama01c = 3
+mc_sna_snama03a = 4
+mc_sna_snama03b = 5
+mc_sna_snama03c = 6
+mc_sna_snama03d = 7
+mc_sna_snama05 = 8

@@ -6,7 +6,7 @@
 #include "debug_functions.h"
 #include "grammar_tokens.h"
 #include "token_node_stack.h"
-#include "../flex/flex.yy.h"
+#include "../lexer/flex.yy.h"
 
 typedef struct lex_token {
   gr_token token;	/**< The gr_token representation of the token. */

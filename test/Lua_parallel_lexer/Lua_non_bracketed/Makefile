@@ -1,8 +1,8 @@
-CC := clang 
-LFLAGS = -lrt -lpthread 
+CC := gcc 
+LFLAGS = -lrt -lpthread -lm
 INCLUDES := -I./include -I./lexer -I../../include
-CFLAGS := -UDEBUG -Wall $(INCLUDES)
-#CFLAGS := -O3 -pipe -lpthread -Wall $(INCLUDES)
+CFLAGS := -O3 -pipe -march=native -UDEBUG -Wall $(INCLUDES)
+#CFLAGS := -g3 -UDEBUG -Wall $(INCLUDES)
 SRCDIR := lib
 SRC := $(wildcard $(SRCDIR)/*.c)
 ODIR := obj
@@ -12,10 +12,10 @@ FOBJ := obj/flex.yy.o
 OBJ := $(patsubst $(SRCDIR)/%.c, $(ODIR)/%.o, $(SRC))
 
 FLEX := lexer/par_lua.l
-GENERATED_FILES = include/rewrite_rules.h include/reduction_tree.h include/grammar_tokens.h include/grammar_semantics.h lib/grammar_semantics.c include/grammar.h lib/grammar.c include/matrix.h 
+GENERATED_FILES = include/config.h include/rewrite_rules.h include/reduction_tree.h include/grammar_tokens.h include/grammar_semantics.h lib/grammar_semantics.c include/grammar.h lib/grammar.c include/matrix.h 
 
 all: $(FOBJ) $(OBJ)
-	@gcc $(LFLAGS) $(OBJ) $(FOBJ) -o bin/lua_parser
+	@gcc $(OBJ) $(FOBJ) $(LFLAGS) -o bin/lua_parser
 
 $(FOBJ): $(FOUT)
 	$(CC) -c $< -o $@ $(CFLAGS)

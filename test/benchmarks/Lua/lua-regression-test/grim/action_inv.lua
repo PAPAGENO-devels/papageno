@@ -1,0 +1,14 @@
+action_inv_empty_hand_in = 0
+action_inv_empty_hand_out = 1
+action_inv_bone_in = 2
+action_inv_bone_out = 3
+action_inv_extinguisher_in = 4
+action_inv_extinguisher_out = 5
+action_inv_logbook_in = 6
+action_inv_logbook_out = 7
+action_inv_scythe_in = 8
+action_inv_scythe_out = 9
+action_inv_photo_in = 10
+action_inv_photo_out = 11
+action_inv_key_in = 12
+action_inv_key_out = 13

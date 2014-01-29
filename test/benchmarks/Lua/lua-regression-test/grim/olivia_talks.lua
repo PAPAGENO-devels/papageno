@@ -1,0 +1,11 @@
+olivia_talks_mumble = 0
+olivia_talks_stop_talk = 1
+olivia_talks_c = 2
+olivia_talks_m = 3
+olivia_talks_f = 4
+olivia_talks_e = 5
+olivia_talks_u = 6
+olivia_talks_l = 7
+olivia_talks_a = 8
+olivia_talks_o = 9
+olivia_talks_t = 10

@@ -1,0 +1,10 @@
+mn_chisel_prepare_chisel = 0
+mn_chisel_use_chisel = 1
+mn_chisel_back_to_hold = 2
+mn_chisel_hold_chisel = 3
+mn_chisel_start_cut = 4
+mn_chisel_cut = 5
+mn_chisel_turn_to_look = 6
+mn_chisel_turn_around = 7
+mn_chisel_turn_around_hold = 8
+mn_chisel_look_at_hold = 9

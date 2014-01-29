@@ -1,0 +1,1 @@
+mn_scythe_sprinkler_swipe_sprinkler = 0

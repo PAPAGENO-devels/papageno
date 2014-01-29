@@ -1,0 +1,12 @@
+raoul_yelling_yelling = 0
+raoul_yelling_mumble = 1
+raoul_yelling_no_talk = 2
+raoul_yelling_c = 3
+raoul_yelling_m = 4
+raoul_yelling_f = 5
+raoul_yelling_e = 6
+raoul_yelling_u = 7
+raoul_yelling_l = 8
+raoul_yelling_a = 9
+raoul_yelling_o = 10
+raoul_yelling_t = 11

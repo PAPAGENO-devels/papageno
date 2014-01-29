@@ -1,0 +1,16 @@
+lupe_coat_give_note = 0
+lupe_coat_give_coat = 1
+lupe_coat_get_lengua = 2
+lupe_coat_get_coat = 3
+lupe_coat_hold_coat = 4
+lupe_coat_mumble = 5
+lupe_coat_c = 6
+lupe_coat_m = 7
+lupe_coat_f = 8
+lupe_coat_e = 9
+lupe_coat_l = 10
+lupe_coat_u = 11
+lupe_coat_a = 12
+lupe_coat_o = 13
+lupe_coat_stop_talk = 14
+lupe_coat_t = 15

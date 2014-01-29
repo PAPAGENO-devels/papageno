@@ -1,0 +1,16 @@
+gl_work_idles_start_work = 0
+gl_work_idles_work_cycle = 1
+gl_work_idles_gesture = 2
+gl_work_idles_look_back_work = 3
+gl_work_idles_look_at_manny = 4
+gl_work_idles_back_to_work = 5
+gl_work_idles_look_at_manny_hold = 6
+gl_work_idles_see_spin = 7
+gl_work_idles_see_hold = 8
+gl_work_idles_work_to_manny = 9
+gl_work_idles_work_to_work2 = 10
+gl_work_idles_work2_loop = 11
+gl_work_idles_work2_to_work = 12
+gl_work_idles_working_up = 13
+gl_work_idles_working_down = 14
+gl_work_idles_pause = 15

@@ -1,0 +1,9 @@
+passoutgirl_get_shooter = 0
+passoutgirl_hold_shooter = 1
+passoutgirl_drink_shooter = 2
+passoutgirl_drink_shooter_hd = 3
+passoutgirl_idle = 4
+passoutgirl_faint = 5
+passoutgirl_faint_hold = 6
+passoutgirl_shooter_start = 7
+passoutgirl_shooter_end = 8

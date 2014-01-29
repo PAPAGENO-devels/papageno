@@ -1,0 +1,13 @@
+copal_yell_talk_hold = 0
+copal_yell_close_door = 1
+copal_yell_mumble = 2
+copal_yell_no_talk = 3
+copal_yell_m = 4
+copal_yell_c = 5
+copal_yell_e = 6
+copal_yell_l = 7
+copal_yell_f = 8
+copal_yell_u = 9
+copal_yell_a = 10
+copal_yell_o = 11
+copal_yell_t = 12

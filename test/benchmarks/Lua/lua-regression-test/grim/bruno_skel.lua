@@ -1,0 +1,12 @@
+bruno_skel_reaped = 0
+bruno_skel_mumble = 1
+bruno_skel_stop_talk = 2
+bruno_skel_m = 3
+bruno_skel_c = 4
+bruno_skel_f = 5
+bruno_skel_e = 6
+bruno_skel_u = 7
+bruno_skel_l = 8
+bruno_skel_a = 9
+bruno_skel_o = 10
+bruno_skel_t = 11

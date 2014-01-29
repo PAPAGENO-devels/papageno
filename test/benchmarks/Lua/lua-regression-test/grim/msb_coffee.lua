@@ -1,0 +1,10 @@
+msb_coffee_get_coffee = 0
+msb_coffee_coffee_on_burner = 1
+msb_coffee_coffee_pause = 2
+msb_coffee_2coffee_pour = 3
+msb_coffee_pour_on_boyz = 4
+msb_coffee_stop_pour = 5
+msb_coffee_pour_coffee = 6
+msb_coffee_start_pour_on_boyz = 7
+msb_coffee_stop_pour_on_boyz = 8
+msb_coffee_pot_to_burner = 9

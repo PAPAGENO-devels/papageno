@@ -25,22 +25,23 @@ void pretty_print_parse_status(uint32_t parse_status){
    fprintf(stdout, "Parse action finished:");
    switch (parse_status){
      case PARSE_SUCCESS:
-       fprintf(stdout,  "Successful parse\n");
+       fprintf(stderr,  "Successful parse\n");
        break;
      case PARSE_NOT_RECOGNIZED:
-      fprintf(stdout, "The string does not belong to the language\n");
+      fprintf(stderr, "The string does not to the language\n");
       break;
      case PARSE_IN_PROGRESS:
-      fprintf(stdout, "Chunk parse ended, more parsing to be done\n");
+      fprintf(stderr, "Chunk parse ended, more parsing to be done\n");
       break;
      default:
-      fprintf(stdout, "Invalid return code\n");
+      fprintf(stderr, "Invalid return code\n");
   }  
 }
 
 token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
 {
-  uint32_t i, parse_status;
+  uint32_t i,j, parse_status;
+  uint32_t step_size, step_index;
   int32_t num_threads;
   uint8_t *results;
   parsing_ctx ctx;
@@ -51,10 +52,6 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
   thread_context_t *arg;
   struct timespec parse_timer_start, parse_timer_end, lex_timer_start, lex_timer_end;
   double lexing_time, parsing_time;
-  uint32_t step_size, step_index;
-#if defined LOG_RECOMBINATION
-  uint32_t j;
-#endif
 
   /* Redirect stderr. */
 #ifdef DEBUG
@@ -210,14 +207,13 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
   }
   free(thread);
 
-  // clock_gettime(CLOCK_REALTIME, &timer_r);
   portable_clock_gettime(&parse_timer_end);
   pretty_print_parse_status(parse_status);
 
   lexing_time= compute_time_interval(&lex_timer_start, &lex_timer_end);
   parsing_time=compute_time_interval(&parse_timer_start, &parse_timer_end);
 
-  fprintf(stdout, "Lexer: %lf s, Parser %lf s \n",lexing_time,parsing_time);
+  fprintf(stdout, "\nLexer: %lf s\nParser %lf s\n",lexing_time,parsing_time);
 
   return ctx.token_list;
 }
@@ -258,11 +254,7 @@ token_node **compute_bounds(uint32_t length, uint8_t n, token_node *token_list)
 void *thread_task(void *worker_thread_ctx)
 {
   thread_context_t *thread_context, *thread_arguments;
-<<<<<<< HEAD
   uint32_t parse_result,i;
-=======
-  uint32_t parse_result;
->>>>>>> 100142c349fbd9907d904a0ba3c2d82179157d0e
   uint32_t parent_index;
   token_node *list_ptr;
   uint32_t parse_status = PARSE_IN_PROGRESS;

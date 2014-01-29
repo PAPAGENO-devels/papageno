@@ -1,0 +1,11 @@
+pu_argue_yell2look_bibi = 0
+pu_argue_yell = 1
+pu_argue_talk = 2
+pu_argue_look_bibi2talk = 3
+pu_argue_look_bibi = 4
+pu_argue_argue2look_bibi = 5
+pu_argue_argue = 6
+pu_argue_2yell = 7
+pu_argue_2talk = 8
+pu_argue_2look_bibi = 9
+pu_argue_2argue = 10
