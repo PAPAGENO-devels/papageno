@@ -49,7 +49,7 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
   token_node *list_ptr;
   token_node *l_token = NULL;
   pthread_t *thread;
-  thread_context_t *arg;
+  thread_context_t *contexts;
   struct timespec parse_timer_start, parse_timer_end, lex_timer_start, lex_timer_end;
   double lexing_time, parsing_time;
 
@@ -87,10 +87,10 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
   DEBUG_STDOUT_PRINT("OPP> Num_threads %d\n", num_threads)
 
   /* Allocate threads. */
-  arg = (thread_context_t *) malloc(sizeof(thread_context_t) * num_threads);
+  contexts = (thread_context_t *) malloc(sizeof(thread_context_t) * num_threads);
   thread = (pthread_t *) malloc(sizeof(pthread_t)*num_threads);
   results = (uint8_t *) malloc(sizeof(uint8_t)*num_threads);
-  if (thread == NULL || arg == NULL || results == NULL) {
+  if (thread == NULL || contexts == NULL || results == NULL) {
     DEBUG_STDOUT_PRINT("ERROR> Thread allocation failed\n")
       return NULL;
   }
@@ -101,13 +101,13 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
   /* Create initial common threads. */
   for (i = 0; i < threads; ++i) {
     DEBUG_STDOUT_PRINT("OPP> creating thread %d.\n", i)
-    arg[i].id = i;
+    contexts[i].id = i;
     /* Set list_begin. */
     if (i == 0) {
-      arg[i].list_begin = bounds[i];
+      contexts[i].list_begin = bounds[i];
     } else {
       list_ptr = bounds[i]->next;
-      arg[i].list_begin = list_ptr;
+      contexts[i].list_begin = list_ptr;
     }
     /* Get prev context. */
     if (i == 0) {
@@ -116,8 +116,8 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
       list_ptr = bounds[i];
       l_token = new_token_node(list_ptr->token, NULL);
     }
-    l_token->next = arg[i].list_begin;
-    arg[i].c_prev = l_token;
+    l_token->next = contexts[i].list_begin;
+    contexts[i].c_prev = l_token;
     /* Get next context. */
     if (i == threads - 1) {
       l_token = new_token_node(__TERM, NULL);
@@ -125,15 +125,15 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
       list_ptr = bounds[i + 1]->next;
       l_token = new_token_node(list_ptr->token, NULL);
     }
-    arg[i].c_next = l_token;
+    contexts[i].c_next = l_token;
     /* Set list end. */
-    arg[i].list_end = (i + 1 < threads ? bounds[i + 1]->next : NULL);
-    arg[i].num_parents = 0;
-    arg[i].threads = thread;
-    arg[i].args = arg;
-    arg[i].results = results;
-    arg[i].ctx = &ctx;
-    pthread_create(&thread[i], NULL, thread_task, (void *)&arg[i]);
+    contexts[i].list_end = (i + 1 < threads ? bounds[i + 1]->next : NULL);
+    contexts[i].num_parents = 0;
+    contexts[i].threads = thread;
+    contexts[i].args = contexts;
+    contexts[i].results = results;
+    contexts[i].ctx = &ctx;
+    pthread_create(&thread[i], NULL, thread_task, (void *)&contexts[i]);
   }
 
   if (threads < num_threads) {
@@ -142,19 +142,19 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
 #if defined __SINGLE_RECOMBINATION      
       /* Only one iteration. */
       DEBUG_STDOUT_PRINT("OPP> creating mode ONE thread, i = %d.\n", threads)
-      arg[threads].id = threads;
-      arg[threads].parents = (int16_t *) malloc(sizeof(int16_t)*threads);
-      arg[threads].c_prev = arg[0].c_prev;
+      contexts[threads].id = threads;
+      contexts[threads].parents = (int16_t *) malloc(sizeof(int16_t)*threads);
+      contexts[threads].c_prev = contexts[0].c_prev;
       for (i = 0; i < threads; ++i) {
-        arg[threads].parents[i] = i;
+        contexts[threads].parents[i] = i;
       }
-      arg[threads].c_next = arg[i - 1].c_next;
-      arg[threads].num_parents = threads;
-      arg[threads].threads = thread;
-      arg[threads].args = arg;
-      arg[threads].results = results;
-      arg[threads].ctx = &ctx;
-      pthread_create(&thread[threads], NULL, thread_task, (void *)&arg[threads]);
+      contexts[threads].c_next = contexts[i - 1].c_next;
+      contexts[threads].num_parents = threads;
+      contexts[threads].threads = thread;
+      contexts[threads].args = contexts;
+      contexts[threads].results = results;
+      contexts[threads].ctx = &ctx;
+      pthread_create(&thread[threads], NULL, thread_task, (void *)&contexts[threads]);
 #elif defined __LOG_RECOMBINATION
       unsigned int step_first_index = 0;
       step_size /= 2;
@@ -162,26 +162,26 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
       /* Create different iterations. */
       for (; i < num_threads; ++i) {
         DEBUG_STDOUT_PRINT("OPP> creating thread %d, with step index %d and step size %d.\n", i, step_index, step_size)
-        arg[i].id = i;
-        arg[i].c_prev = arg[step_first_index + step_index*2].c_prev;
+        contexts[i].id = i;
+        contexts[i].c_prev = contexts[step_first_index + step_index*2].c_prev;
         if (step_index == step_size - 1) {
-          arg[i].num_parents = i - step_index*3 - step_first_index;
-          arg[i].parents = (int16_t *) malloc(sizeof(int16_t)*arg[i].num_parents);
-          for (j = 0; j < arg[i].num_parents; ++j) {
-            arg[i].parents[j] = step_first_index + step_index*2 + j;
+          contexts[i].num_parents = i - step_index*3 - step_first_index;
+          contexts[i].parents = (int16_t *) malloc(sizeof(int16_t)*contexts[i].num_parents);
+          for (j = 0; j < contexts[i].num_parents; ++j) {
+            contexts[i].parents[j] = step_first_index + step_index*2 + j;
           }
         } else {
-          arg[i].num_parents = 2;
-          arg[i].parents = (int16_t *) malloc(sizeof(int16_t)*2);
-          arg[i].parents[0] = step_first_index + step_index*2;
-          arg[i].parents[1] = step_first_index + step_index*2 + 1;
+          contexts[i].num_parents = 2;
+          contexts[i].parents = (int16_t *) malloc(sizeof(int16_t)*2);
+          contexts[i].parents[0] = step_first_index + step_index*2;
+          contexts[i].parents[1] = step_first_index + step_index*2 + 1;
         }
-        arg[i].c_next = arg[arg[i].parents[arg[i].num_parents - 1]].c_next;
-        arg[i].threads = thread;
-        arg[i].args = arg;
-        arg[i].results = results;
-        arg[i].ctx = &ctx;
-        pthread_create(&thread[i], NULL, thread_task, (void *)&arg[i]);
+        contexts[i].c_next = contexts[contexts[i].parents[contexts[i].num_parents - 1]].c_next;
+        contexts[i].threads = thread;
+        contexts[i].args = contexts;
+        contexts[i].results = results;
+        contexts[i].ctx = &ctx;
+        pthread_create(&thread[i], NULL, thread_task, (void *)&contexts[i]);
         ++step_index;
         if (step_index >= step_size) {
           step_first_index = i - step_size + 1;
@@ -202,8 +202,8 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
   /* Free threads and arguments. */
   DEBUG_STDOUT_PRINT("OPP> Freeing threads.\n")
   for (i = 0; i < threads; ++i) {
-    free(arg[i].c_prev);
-    free(arg[i].c_next);
+    free(contexts[i].c_prev);
+    free(contexts[i].c_next);
   }
   free(thread);
 
