@@ -42,7 +42,7 @@ def parse_grammar_description(args):
   rules = scanner.getRules(inp)
   if args.verbose==2:
     print "Rules:"
-    for index in range(0, len(rules)):
+    for index in xrange(0, len(rules)):
       rule = rules[index]
       sys.stdout.write("%2d:%s\n" % (index, rule.toString()))
   return rules,axiom,cPreamble 

@@ -29,7 +29,7 @@ The generated source code employs only standard C library functions and an imple
 The code has been benchmarked on the Linux NPTL POSIX thread implementation.
 
 The \texttt{test} directory in the codebase provides an automated regression test employing a Bison generated parser on the JSON language grammar.
-to run the regression test, simply invoke make from both the main directory and the \texttt{test} directory, then subsequently run the \texttt{reg_test.py} script.
+to run the regression test, simply invoke make from both the main directory and the \texttt{test} directory, then subsequently run the \texttt{reg\_test.py} script.
 
 
 \section{Programming Interface}
@@ -57,6 +57,8 @@ In this code it is possible to refer to the semantic value of the tokens in the 
 where x takes a numeric value (counting from zero), to indicate the elements of the right hand side of the rule, 
 while \texttt{\$\$} indicates the left hand side.
 It is possible to include C style comments in the description of the grammar.
+
+We follow the convention that the names of the terminals and nonterminals of the grammar cannot have '$\_$' as initial character. 
 
 A sample grammar specification for arithmetic expressions is bundled with the generator.
 
@@ -133,7 +135,7 @@ PAPAGENO generates in output a C implementation of the parallel operator precede
 
 \section{Notes}
 For the sake of portability, it is possible to define which bit represents the nonterminal flag on the integer-represented symbols.
-The information is contained in code_emission.py and bitpack.py.\\
+The information is contained in code\_emission.py and bitpack.py.\\
 
 The trie employed to store the reduction rules is vectorized in preorder as ruleId-nextSymbol-offsetOfNextSymbol
 \end{document}

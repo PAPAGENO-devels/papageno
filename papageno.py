@@ -21,7 +21,7 @@ repeatedError = check.detectRepeatedRhs(rules)
 
 # Delete repeated rhs.
 if repeatedError:
-  newAxiom = 'NewAxiom' 
+  newAxiom = '_NewAxiom' 
   
   if commandline_args.verbose==2:
     print "The previous grammar had %s rules, %s nonterminals, %s terminals" % (len(rules), len(nonterminals), len(terminals))
@@ -34,17 +34,27 @@ if repeatedError:
   for rhs, lhs in newRules.items():
     currentRule = classes.Rule()
     rules.append(currentRule)
-    currentRule.lhs = "__".join(sorted(lhs))
+    if len(lhs) == 1:
+      currentRule.lhs = lhs[0]
+    else:  
+      currentRule.lhs = "_" + "__".join(sorted(lhs))
     for token in rhs:
         if token in terminals:
           currentRule.rhs.append(token)
+        elif len(token) == 1:
+          currentRule.rhs.append(token[0])
         else:
-          currentRule.rhs.append("__".join(sorted(token)))
+          currentRule.rhs.append("_" + "__".join(sorted(token)))
 
-  nonterminals = ["__".join(sorted(n)) for n in newNonterminalsSet]
+  nonterminals = []
+  for n in newNonterminalsSet:
+    if len(n) == 1:
+      nonterminals.append(n[0])
+    else:  
+      nonterminals.append("_" + "__".join(sorted(lhs)))
   axiom = newAxiom
 
-  #These statements have been done in check.py for the old set of nonterminal; apparently they are strictly needed
+  #These statements have been done in check.py for the old set of nonterminals
   nonterminals.remove(axiom)
   nonterminals.insert(0, axiom)
 
@@ -104,29 +114,29 @@ if commandline_args.verbose==2:
 
 if commandline_args.verbose==1:
   sys.stdout.write("Printing real matrix.\n")
-  for i in range(0, len(terminals)):
-    for j in range(0, rowLen):
+  for i in xrange(0, len(terminals)):
+    for j in xrange(0, rowLen):
       sys.stdout.write("0x%2x " % intMatrix[i*rowLen + j])
     sys.stdout.write("\n")
   sys.stdout.write("Printing real conceptual matrix.\n")
   sys.stdout.write("%10s " % "i\\j")
-  for j in range(0, len(terminals)):
+  for j in xrange(0, len(terminals)):
     sys.stdout.write("%10s " % terminals[j])
   sys.stdout.write("\n")
-  for i in range(0, len(terminals)):
+  for i in xrange(0, len(terminals)):
     sys.stdout.write("%10s " % terminals[i])
-    for j in range(0, len(terminals)):
+    for j in xrange(0, len(terminals)):
       sys.stdout.write("%10s " % bitPack.getPrecedence(intMatrix, i, j, rowLen))
     sys.stdout.write("\n")
   sys.stdout.write("Printing C matrix.\n")
-  sys.stdout.write("uint8_t __matrix[ROW_LEN*TERM_LEN] = {%d" % intMatrix[0])
-  for i in range(1, len(intMatrix)):
+  sys.stdout.write("uint8_t __matrix[__ROW_LEN*__TERM_LEN] = {%d" % intMatrix[0])
+  for i in xrange(1, len(intMatrix)):
     sys.stdout.write(", %d" % intMatrix[i])
   sys.stdout.write("}\n")
 
 # Create reduction tree.
 root = classes.ReductionNode(len(rules))
-for index in range(0, len(rules)):
+for index in xrange(0, len(rules)):
   rule = rules[index]
   node = root
   for rhsToken in rule.rhs:
@@ -164,7 +174,7 @@ if commandline_args.verbose==1:
     sys.stdout.write("%s:%d\n" % (label, vectorTree[current_position]))
     sonsNumber = vectorTree[current_position + 1]/2
     current_position += 2
-    for i in range(0, sonsNumber):
+    for i in xrange(0, sonsNumber):
       label = bitPack.intToToken(vectorTree[current_position + i*2], nonterminals, terminals)
       sonOffset = vectorTree[current_position + i*2 + 1]
       workList.insert(i, [sonOffset, level + 1, label])
@@ -173,7 +183,7 @@ if commandline_args.verbose==1:
 if commandline_args.verbose==1:
   sys.stdout.write("C vectorized reduction tree\n")
   sys.stdout.write("uint16_t __reduction_tree = {%d" % vectorTree[0])
-  for i in range(1, len(vectorTree)):
+  for i in xrange(1, len(vectorTree)):
     sys.stdout.write(", %d" % vectorTree[i])
   sys.stdout.write("};\n")
 
@@ -233,7 +243,7 @@ for nonterminal in nonterminals:
 # Print array rewrite rules.
 if commandline_args.verbose==1:
   print "Array rewrite rules"
-  for i in range(0, len(nonterminals)):
+  for i in xrange(0, len(nonterminals)):
     sys.stdout.write("Rewrite(%s) = {" % nonterminals[i])
     offset = realRewrite[i]
     end = offset + realRewrite[offset] + 1
@@ -247,7 +257,7 @@ if commandline_args.verbose==1:
 if commandline_args.verbose==1:
   print "C rewrite rules"
   sys.stdout.write("uint32_t rewrite[] = {%d" % realRewrite[0])
-  for i in range(1, len(realRewrite)):
+  for i in xrange(1, len(realRewrite)):
     sys.stdout.write(", %d" % realRewrite[i])
   sys.stdout.write("};\n")
 
@@ -255,14 +265,14 @@ if commandline_args.verbose==1:
 for rule in rules:
   rule.tokenMap["lhs"] = "p_" + rule.lhs
   rule.headerName += "r_%s_" % rule.lhs
-  for i in range(0, len(rule.rhs)):
+  for i in xrange(0, len(rule.rhs)):
     rule.tokenMap[i + 1] = "p_" + rule.rhs[i] + "%d" % (i + 1)
     rule.headerName += rule.rhs[i]
 
 # Execute $x substitutions.
 for rule in rules:
   rule.text = rule.text.replace("$$", rule.tokenMap["lhs"] + "->value")
-  for i in range(0, len(rule.rhs)):
+  for i in xrange(0, len(rule.rhs)):
     rule.text = rule.text.replace("$%d" % (i + 1), rule.tokenMap[i + 1] + "->value")
 
 if commandline_args.verbose==1:

@@ -19,7 +19,7 @@ def inferTokens(rules, axiom):
   for token in tokens:
     if token not in nonterminals:
       terminals.append(token)
-  terminals.append('TERM')
+  terminals.append('__TERM')
   return nonterminals, terminals
 
 def detectBadRules(nonterminals, terminals, axiom, rules):
@@ -112,7 +112,7 @@ def detectUndefNTerm(nonterminals, rules, unusedNTerm):
 def detectUnusedTerm(terminals, rules):
   unusedTerm = []
   for terminal in terminals:
-    if terminal == "TERM":
+    if terminal == "__TERM":
       continue
     found = False
     for rule in rules:

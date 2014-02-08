@@ -46,6 +46,8 @@ x takes a numeric value (counting from one), to indicate the elements of the
 right hand side of the rule, while $$ indicates the left hand side.
 It is possible to include C style comments in the description of the grammar.
 
+We follow the convention that the names of the terminals and nonterminals of the grammar cannot have '$\_$' as initial character. 
+
 A sample grammar specification for arithmetic expressions is bundled with
 the generator.
 

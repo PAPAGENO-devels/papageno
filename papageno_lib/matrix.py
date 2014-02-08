@@ -16,7 +16,7 @@ def buildAndCheckMatrix(nonterminals, terminals, rules):
   for rule in rules:
     # Check digrams.
     rhs = rule.rhs
-    for i in range(0, len(rhs) - 1):
+    for i in xrange(0, len(rhs) - 1):
       tok1 = rhs[i]
       tok2 = rhs[i + 1]
       if (tok1 in terminals) and (tok2 in terminals):
@@ -30,17 +30,17 @@ def buildAndCheckMatrix(nonterminals, terminals, rules):
       else:
         nonOperator.append(classes.Conflict(rule, i, i + 1))
     # Check trigrams.
-    for i in range(0, len(rhs) - 2):
+    for i in xrange(0, len(rhs) - 2):
       tok1 = rhs[i]
       tok2 = rhs[i + 1]
       tok3 = rhs[i + 2]
       if (tok1 in terminals) and (tok2 in nonterminals) and (tok3 in terminals):
         matrix[tok1][tok3]['='].append(classes.Conflict(rule, i, i + 2))
   for j in terminals:
-    if j != 'TERM':
-      matrix['TERM'][j]['<'].append(classes.Conflict(rules[0], 0, 0))
-      matrix[j]['TERM']['>'].append(classes.Conflict(rules[0], 0, 0))
-  matrix['TERM']['TERM']['='].append(classes.Conflict(rules[0], 0, 0))
+    if j != '__TERM':
+      matrix['__TERM'][j]['<'].append(classes.Conflict(rules[0], 0, 0))
+      matrix[j]['__TERM']['>'].append(classes.Conflict(rules[0], 0, 0))
+  matrix['__TERM']['__TERM']['='].append(classes.Conflict(rules[0], 0, 0))
   # Check matrix.
   conflictError = False
   if len(nonOperator) > 0:
@@ -141,7 +141,7 @@ def toIntMatrix(realMatrix, terminals):
     rowLen = len(terminals)/4 + 1
 
   intMatrix = [0]*rowLen*len(terminals)
-  for i in range(0, len(terminals)):
-    for j in range(0, len(terminals)):
+  for i in xrange(0, len(terminals)):
+    for j in xrange(0, len(terminals)):
       bitPack.writePrecedence(intMatrix, i, j, realMatrix[terminals[i]][terminals[j]], rowLen)
   return intMatrix, rowLen
