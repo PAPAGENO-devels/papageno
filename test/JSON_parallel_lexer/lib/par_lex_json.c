@@ -1,10 +1,10 @@
 #include "par_lex_json.h"
 
-#define CHAR_TOKENS_LENGTH 21
-#define FIRST_CONTROL 0
-#define LAST_CONTROL 31
-#define FIRST_DIGIT 48
-#define LAST_DIGIT  57
+#define __CHAR_TOKENS_LENGTH 21
+#define __FIRST_CONTROL 0
+#define __LAST_CONTROL 31
+#define __FIRST_DIGIT 48
+#define __LAST_DIGIT  57
 
 
 //very very simple hash table for the array char_tokens
@@ -45,7 +45,7 @@ int32_t find_cut_points(FILE* f, int32_t file_length, int32_t **cut_points, int3
 
   /*Characters in char_tokens are not necessarily inside a string.*/
   int32_t* char_tokens = (int[]) {'{', '}', '[', ']', ',', ':', ' ', '+', '-', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'E', '.'};  
-  int32_t char_tokens_length = CHAR_TOKENS_LENGTH;
+  int32_t char_tokens_length = __CHAR_TOKENS_LENGTH;
 
   hash_char_tokens_size = char_tokens_length*char_tokens_length;  //large size
   hash_char_tokens = (int32_t *) malloc(sizeof(int32_t)*hash_char_tokens_size);
@@ -165,7 +165,7 @@ int32_t find_cut_points(FILE* f, int32_t file_length, int32_t **cut_points, int3
 /*Returns 1 if c is a control character (i.e., its code is between U+0000 and U+001F), 0 otherwise.*/
 int8_t control_char(int32_t c)
 {
-  return !(c > LAST_CONTROL);
+  return !(c > __LAST_CONTROL);
 
 }
 
@@ -200,7 +200,7 @@ int8_t is_inside_tokens(int32_t c, FILE* f, int32_t file_length, regex_t regex)
   int32_t unmatched;
   int32_t end_offset_match;
 
-  if (('a'<= c && c <= 'f') || ('A'<= c && c <= 'F') || (FIRST_DIGIT <= c && c <= LAST_DIGIT))
+  if (('a'<= c && c <= 'f') || ('A'<= c && c <= 'F') || (__FIRST_DIGIT <= c && c <= __LAST_DIGIT))
   {
     /*unicode_begin is the lower bound for a string containing \uXXXX and including character c.
     It cannot be set before the beginning of the file.*/
@@ -249,7 +249,7 @@ int8_t is_inside_tokens(int32_t c, FILE* f, int32_t file_length, regex_t regex)
     }
   }
 
-  if(lookup(c, hash_bools, hash_bools_size) || (FIRST_DIGIT <= c && c <= LAST_DIGIT) || lookup(c, hash_char_number, hash_char_number_size))
+  if(lookup(c, hash_bools, hash_bools_size) || (__FIRST_DIGIT <= c && c <= __LAST_DIGIT) || lookup(c, hash_char_number, hash_char_number_size))
     return 1;
 
   //Do not put '\\', otherwise it cannot break a sequence of \uXXXX\uXXXX\uXXXX...
@@ -284,7 +284,7 @@ int8_t check_thread_mission(lex_thread_arg* arg, int32_t lex_thread_num)
       fprintf(stdout, "Lexing thread number %d failed.\n", i);
   }
 
-  #ifdef DEBUG
+  #ifdef __DEBUG
   for(i = 0; i<lex_thread_num; i++)
     DEBUG_STDOUT_PRINT("thread %d: quotes_number = %d\n", i, arg[i].quotes_number)  
   #endif
@@ -402,7 +402,7 @@ void *lex_thread_task(void *arg)
   flex_return_code = yylex(scanner);  
 
   /*The procedure to find cut points cannot cut a single token in two parts.*/
-  while(flex_return_code != END_OF_FILE && current_pos < ar->cut_point_dx)
+  while(flex_return_code != __END_OF_FILE && current_pos < ar->cut_point_dx)
   {
     lex_token_length = yyget_leng(scanner); 
     current_pos += lex_token_length;
@@ -410,7 +410,7 @@ void *lex_thread_task(void *arg)
     /*Cannot have excessive characters spanning after cut_point_dx if the cut_point does not fall inside a single token.*/
     assert(current_pos <= ar->cut_point_dx);
 
-    if(flex_return_code == ERROR_BOTH)
+    if(flex_return_code == __ERROR_BOTH)
       {
         process_list[0] = 0;
         process_list[1] = 0;
@@ -420,7 +420,7 @@ void *lex_thread_task(void *arg)
         yylex_destroy(scanner);
         pthread_exit(NULL);
       }
-    else if(flex_return_code == SECOND_LIST_LEXING_ERROR)
+    else if(flex_return_code == __SECOND_LIST_LEXING_ERROR)
       {
         process_list[1] = 0;
 
@@ -433,7 +433,7 @@ void *lex_thread_task(void *arg)
           pthread_exit(NULL);
         }
       }
-    else if(flex_return_code == FIRST_LIST_LEXING_ERROR)
+    else if(flex_return_code == __FIRST_LIST_LEXING_ERROR)
       {
         process_list[0] = 0;
 
@@ -450,13 +450,13 @@ void *lex_thread_task(void *arg)
     if (process_list[0] == 1)
     {
       //process list 0
-      if(flex_return_code == LEX_CORRECT_BOTH || flex_return_code == LEX_FIRST_PAUSE_SEC || flex_return_code == LEX_FIRST_CHAR_SEC || flex_return_code == SECOND_LIST_LEXING_ERROR)
+      if(flex_return_code == __LEX_CORRECT_BOTH || flex_return_code == __LEX_FIRST_PAUSE_SEC || flex_return_code == __LEX_FIRST_CHAR_SEC || flex_return_code == __SECOND_LIST_LEXING_ERROR)
       {
         //append a single token
         par_append_token_node(flex_token->token[0], flex_token->semantic_value, &token_builder0, &(ar->list_begin[0]), &(stack[0]), realloc_size);
         (ar->lex_token_list_length[0])++;
       }
-      else if(flex_return_code == CHAR_FIRST_LEX_SEC)
+      else if(flex_return_code == __CHAR_FIRST_LEX_SEC)
       {
         //append a list of token CHAR, corresponding to (a portion of) a string scanned as a bool or a number
         for(i = 0; i < flex_token->token_lex_list_length; i++)
@@ -468,14 +468,14 @@ void *lex_thread_task(void *arg)
     if (ar->begin_with_string !=0 && process_list[1] == 1)
     {
       //process list 1
-      if(flex_return_code == LEX_CORRECT_BOTH || flex_return_code == PAUSE_FIRST_LEX_SEC || flex_return_code == CHAR_FIRST_LEX_SEC || flex_return_code == FIRST_LIST_LEXING_ERROR)
+      if(flex_return_code == __LEX_CORRECT_BOTH || flex_return_code == __PAUSE_FIRST_LEX_SEC || flex_return_code == __CHAR_FIRST_LEX_SEC || flex_return_code == __FIRST_LIST_LEXING_ERROR)
       {
         //append a single token
         par_append_token_node(flex_token->token[1], flex_token->semantic_value, &token_builder1, &(ar->list_begin[1]), &(stack[1]), realloc_size);
         (ar->lex_token_list_length[1])++;
 
       }
-      else if(flex_return_code == LEX_FIRST_CHAR_SEC)
+      else if(flex_return_code == __LEX_FIRST_CHAR_SEC)
       {
         //append a list of token CHAR, corresponding to (a portion of) a string scanned as a bool or a number
         for(i = 0; i < flex_token->token_lex_list_length; i++)

@@ -1,13 +1,13 @@
 #include <math.h>
 #include "delimiter_stack.h"
 
-#define DEPTH 3			//Rough guess: another possibility to compute the line length could be to consider the average of the lengths of the lines scanned
+#define __DEPTH 3			//Rough guess: another possibility to compute the line length could be to consider the average of the lengths of the lines scanned
 				//in each chunk while computing the cut points.
 
 void init_delimiter_stack(delimiter_stack * stack, uint32_t alloc_size)
 {
         void *new_delimiter = NULL;
-        posix_memalign( &new_delimiter,CACHE_LINE_SIZE,sizeof(delimiter)*alloc_size);
+        posix_memalign( &new_delimiter,__CACHE_LINE_SIZE,sizeof(delimiter)*alloc_size);
 	stack->stack = (delimiter*)new_delimiter;
 	stack->ceil = alloc_size;
         stack->tos = 0;
@@ -22,7 +22,7 @@ delimiter *push_delimiter_on_stack(delimiter_stack * stack,
 {
     delimiter *new_delimiter = NULL;
     if (stack->tos >= stack->ceil) {
-	        posix_memalign( (void**)&new_delimiter,CACHE_LINE_SIZE,sizeof(delimiter)*realloc_size);
+	        posix_memalign( (void**)&new_delimiter,__CACHE_LINE_SIZE,sizeof(delimiter)*realloc_size);
 		stack->stack =  new_delimiter;
 	stack->ceil = realloc_size;
 	stack->tos = 0;
@@ -46,7 +46,7 @@ void par_delimiter_compute_alloc_realloc_size(uint32_t chunk_length,
 					      uint32_t * alloc_size,
 					      uint32_t * realloc_size)
 {
-    uint32_t l_length = RHS_LENGTH * pow(RHS_LENGTH / 2, DEPTH - 1) * TOKEN_SIZE;	//try very very roughly to estimate the length of a line
+    uint32_t l_length = __RHS_LENGTH * pow(__RHS_LENGTH / 2, __DEPTH - 1) * __TOKEN_SIZE;	//try very very roughly to estimate the length of a line
     *alloc_size = ((float) chunk_length) / l_length;	//very very rough estimate of the number of lines
     *realloc_size = *alloc_size / 10+1;
 }

@@ -1,5 +1,5 @@
-#ifndef INTERRUPTED_STRING_H_
-#define INTERRUPTED_STRING_H_
+#ifndef __INTERRUPTED_STRING_H_
+#define __INTERRUPTED_STRING_H_
 
 #include "stdint.h"
 #include "pthread.h"

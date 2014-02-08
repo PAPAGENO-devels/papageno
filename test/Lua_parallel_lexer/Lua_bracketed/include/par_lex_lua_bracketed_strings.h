@@ -1,5 +1,5 @@
-#ifndef PAR_LEX_LUA_BRACKETED_STRINGS_H_
-#define PAR_LEX_LUA_BRACKETED_STRINGS_H_
+#ifndef __PAR_LEX_LUA_BRACKETED_STRINGS_H_
+#define __PAR_LEX_LUA_BRACKETED_STRINGS_H_
 
 #include "assert.h"
 #include "pthread.h"

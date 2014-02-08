@@ -1,5 +1,5 @@
-#ifndef PAR_LEX_JSON_H_
-#define PAR_LEX_JSON_H_
+#ifndef __PAR_LEX_JSON_H_
+#define __PAR_LEX_JSON_H_
 
 #include "regex.h"
 #include "utilities.h"

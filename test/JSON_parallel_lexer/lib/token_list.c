@@ -2,7 +2,7 @@
 
 void par_compute_alloc_realloc_size(uint32_t chunk_length, uint32_t *alloc_size, uint32_t *realloc_size)
 {
-  *alloc_size = ((float) chunk_length) / TOKEN_SIZE;
+  *alloc_size = ((float) chunk_length) / __TOKEN_SIZE;
   *realloc_size = *alloc_size/10;
 }
 

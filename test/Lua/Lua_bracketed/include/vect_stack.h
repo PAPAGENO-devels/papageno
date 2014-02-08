@@ -1,5 +1,5 @@
-#ifndef VECTORIZED_STACK_H_
-#define VECTORIZED_STACK_H_
+#ifndef __VECTORIZED_STACK_H_
+#define __VECTORIZED_STACK_H_
 
 #include <stdio.h>
 #include <stdint.h>

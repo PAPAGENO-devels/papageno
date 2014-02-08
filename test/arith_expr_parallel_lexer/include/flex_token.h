@@ -1,5 +1,5 @@
-#ifndef FLEX_TOKEN_H_
-#define FLEX_TOKEN_H_
+#ifndef __FLEX_TOKEN_H_
+#define __FLEX_TOKEN_H_
 
 #include "grammar_tokens.h"
 #include "sem_value_stack.h"

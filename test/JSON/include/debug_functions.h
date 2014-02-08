@@ -1,5 +1,5 @@
-#ifndef DEBUG_FUNCTIONS_H_
-#define DEBUG_FUNCTIONS_H_
+#ifndef __DEBUG_FUNCTIONS_H_
+#define __DEBUG_FUNCTIONS_H_
 
 #include <stdio.h>
 #include <stdint.h>
@@ -10,7 +10,7 @@
 #include "grammar.h"
 #include "token_node.h"
 
-#ifdef DEBUG
+#ifdef __DEBUG
 #define DEBUG_PRINT(...) fprintf(stderr, __VA_ARGS__);
 #define DEBUG_STDOUT_PRINT(...) fprintf(stdout, __VA_ARGS__);
 #define PRINT_TOKEN_NODE_FRONTIER(ctx) {\
@@ -53,7 +53,7 @@ void print_token_node_tree(parsing_ctx *ctx, uint32_t level, token_node *tree);
   uint32_t itr, offset; \
   uint32_t *ptr, *end; \
   fprintf(stdout, "Rewrite array:\n"); \
-  for (itr = 0; itr < NTERM_LEN; ++itr) { \
+  for (itr = 0; itr < __NTERM_LEN; ++itr) { \
     fprintf(stdout, "Rewrite(%s) = {", (ctx)->gr_token_name[token_value(gr_nterm_token(itr))]); \
     offset = (ctx)->rewrite[itr]; \
     ptr = &(ctx)->rewrite[offset]; \

@@ -16,7 +16,7 @@ char * append_to_buffer(char* buffer, char c, int32_t current_buffer_length, int
 	if (current_buffer_length >= (*allocated_buffer_size)-1) 
 	{	//*allocated_buffer_size-1 to leave space for ending \0.
 		//Realloc buffer: common string length usually should not cause more than one reallocation.
-		*allocated_buffer_size = *allocated_buffer_size + MAX_BUFFER_SIZE;
+		*allocated_buffer_size = *allocated_buffer_size + __MAX_BUFFER_SIZE;
 		buffer = realloc(buffer, *allocated_buffer_size);
     	if (buffer == NULL)
     	{

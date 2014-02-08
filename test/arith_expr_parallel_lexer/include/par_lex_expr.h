@@ -1,5 +1,5 @@
-#ifndef PAR_LEX_EXPR_H_
-#define PAR_LEX_EXPR_H_
+#ifndef __PAR_LEX_EXPR_H_
+#define __PAR_LEX_EXPR_H_
 
 #include "regex.h"
 #include "assert.h"

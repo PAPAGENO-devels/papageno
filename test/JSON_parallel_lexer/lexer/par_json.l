@@ -55,7 +55,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "{");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;				
-				 return LEX_CORRECT_BOTH;
+				 return __LEX_CORRECT_BOTH;
                                 }
 <INITIAL>{RBRACE}		{flex_token->token[0] = RBRACE;
 				 flex_token->token[1] = CHAR;
@@ -64,7 +64,7 @@ struct lex_token * flex_token = yyextra;
 				 //strcpy(ch, "}");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;	
-				 return LEX_CORRECT_BOTH;
+				 return __LEX_CORRECT_BOTH;
                                 }
 <INITIAL>{LSQUARE}		{flex_token->token[0] = LSQUARE;
 				 flex_token->token[1] = CHAR;
@@ -72,7 +72,7 @@ struct lex_token * flex_token = yyextra;
 				 //char* ch = (char *) malloc(sizeof(char)*2);
         		 //strcpy(ch, "[");	
 				 flex_token->semantic_value = NULL; 
-				 return LEX_CORRECT_BOTH;
+				 return __LEX_CORRECT_BOTH;
                                 }
 <INITIAL>{RSQUARE}		{flex_token->token[0] = RSQUARE;
 				 flex_token->token[1] = CHAR;
@@ -80,7 +80,7 @@ struct lex_token * flex_token = yyextra;
 				 // char* ch = (char*) malloc(sizeof(char)*2);
 				 // strcpy(ch, "]");	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT_BOTH;
+				 return __LEX_CORRECT_BOTH;
                                 }
 <INITIAL>{COMMA}		{flex_token->token[0] = COMMA;
 				 flex_token->token[1] = CHAR;
@@ -88,7 +88,7 @@ struct lex_token * flex_token = yyextra;
 				 // char* ch = (char*) malloc(sizeof(char)*2);
 				 // strcpy(ch, ",");	
 				 flex_token->semantic_value = NULL;
-				return LEX_CORRECT_BOTH;
+				return __LEX_CORRECT_BOTH;
                                 }
 <INITIAL>{COLON}		{flex_token->token[0] = COLON;
 				 flex_token->token[1] = CHAR;
@@ -96,7 +96,7 @@ struct lex_token * flex_token = yyextra;
 				 // char* ch = (char*) malloc(sizeof(char)*2);
 				 // strcpy(ch, ":");	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT_BOTH;
+				 return __LEX_CORRECT_BOTH;
                                 }
 <INITIAL>{BOOL}			{flex_token->token[0] = BOOL;
 				 flex_token->token[1] = CHAR;
@@ -106,7 +106,7 @@ struct lex_token * flex_token = yyextra;
 				 // strcpy(ch, yytext);
 				 // flex_token->semantic_value = ch;
 				 flex_token->semantic_value = NULL;
-				return LEX_FIRST_CHAR_SEC;
+				return __LEX_FIRST_CHAR_SEC;
                                 }
 <INITIAL>{QUOTES}		{flex_token->token[0] = QUOTES;
 				 flex_token->token[1] = QUOTES;
@@ -119,7 +119,7 @@ struct lex_token * flex_token = yyextra;
 					BEGIN(string1);
 				 else	
 				 	BEGIN(string);
-				 return LEX_CORRECT_BOTH;
+				 return __LEX_CORRECT_BOTH;
                                 }
 <INITIAL>{NUMBER}		{flex_token->token[0] = NUMBER;
 				 flex_token->token[1] = CHAR;
@@ -129,7 +129,7 @@ struct lex_token * flex_token = yyextra;
 				 // strcpy(ch, yytext);
 				 // flex_token->semantic_value = ch;
 				 flex_token->semantic_value = NULL;
-				 return LEX_FIRST_CHAR_SEC;
+				 return __LEX_FIRST_CHAR_SEC;
                                 }	
 <INITIAL>{SPACE}			{flex_token->token[1] = CHAR;
 				/* Semantic value stub. */
@@ -137,7 +137,7 @@ struct lex_token * flex_token = yyextra;
         		//strcpy(ch, " ");
 				//flex_token->semantic_value = ch;
 				flex_token->semantic_value = NULL;
-				return PAUSE_FIRST_LEX_SEC;
+				return __PAUSE_FIRST_LEX_SEC;
 				}
 <INITIAL>{NEWLINE}			{flex_token->token[1] = CHAR;
 				/* Semantic value stub. */
@@ -145,19 +145,19 @@ struct lex_token * flex_token = yyextra;
         		//strcpy(ch, "\n");
 				//flex_token->semantic_value = ch;
 				flex_token->semantic_value = NULL;
-				return PAUSE_FIRST_LEX_SEC;
+				return __PAUSE_FIRST_LEX_SEC;
 				}	
 <INITIAL>{RSOLIDUS}		{//?save = INITIAL;
 				  flex_token->state_before_rsolidus = INITIAL;
 				  BEGIN(escape);
-				  return PAUSE_BOTH;}										
+				  return __PAUSE_BOTH;}										
 <INITIAL>{CHAR}			{flex_token->token[1] = CHAR;
 				/* Semantic value stub. */
 				// char* ch = (char*) malloc(sizeof(char)*2);
 				// strcpy(ch, yytext);
 				flex_token->semantic_value = NULL;
-				return FIRST_LIST_LEXING_ERROR;}
-<INITIAL>.			{return ERROR_BOTH;}
+				return __FIRST_LIST_LEXING_ERROR;}
+<INITIAL>.			{return __ERROR_BOTH;}
 <escape>{SPECIAL}		{int32_t i;
 					if(flex_token->state_before_rsolidus == INITIAL){
 					flex_token->token[1] = CHAR;
@@ -187,10 +187,10 @@ struct lex_token * flex_token = yyextra;
 				// flex_token->semantic_value = ch;
 				flex_token->semantic_value = NULL;
 				return i;}
-<escape>.			{return ERROR_BOTH;}				
+<escape>.			{return __ERROR_BOTH;}				
 <string>{RSOLIDUS}		{flex_token->state_before_rsolidus = string;
 				BEGIN(escape);
-				return PAUSE_BOTH;
+				return __PAUSE_BOTH;
                                 }
 <string>{QUOTES}		{flex_token->token[0] = QUOTES;
 				 flex_token->token[1] = QUOTES;
@@ -200,7 +200,7 @@ struct lex_token * flex_token = yyextra;
 				 // strcpy(ch, "\"");
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT_BOTH;
+				 return __LEX_CORRECT_BOTH;
                                 }				
 <string>{LBRACE}		{flex_token->token[0] = CHAR;
 				 flex_token->token[1] = LBRACE;
@@ -208,7 +208,7 @@ struct lex_token * flex_token = yyextra;
 				 // char* ch = (char*) malloc(sizeof(char)*2);
 				 // strcpy(ch, "{");
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT_BOTH;
+				 return __LEX_CORRECT_BOTH;
                                 }
 <string>{RBRACE}		{flex_token->token[0] = CHAR;
 				 flex_token->token[1] = RBRACE;
@@ -216,7 +216,7 @@ struct lex_token * flex_token = yyextra;
 				 // char* ch = (char*) malloc(sizeof(char)*2);
 				 // strcpy(ch, "}");
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT_BOTH;
+				 return __LEX_CORRECT_BOTH;
                                 }
 <string>{LSQUARE}		{flex_token->token[0] = CHAR;
 				flex_token->token[1] = LSQUARE;
@@ -224,7 +224,7 @@ struct lex_token * flex_token = yyextra;
 				// char* ch = (char*) malloc(sizeof(char)*2);
 				// strcpy(ch, "[");
 				flex_token->semantic_value = NULL;
-				return LEX_CORRECT_BOTH;
+				return __LEX_CORRECT_BOTH;
                                 }
 <string>{RSQUARE}		{flex_token->token[0] = CHAR;
 				flex_token->token[1] = RSQUARE;
@@ -232,7 +232,7 @@ struct lex_token * flex_token = yyextra;
 				// char* ch = (char*) malloc(sizeof(char)*2);
 				// strcpy(ch, "]");
 				flex_token->semantic_value = NULL;
-				return LEX_CORRECT_BOTH;
+				return __LEX_CORRECT_BOTH;
                                 }
 <string>{COMMA}			{flex_token->token[0] = CHAR;
 				flex_token->token[1] = COMMA;
@@ -240,7 +240,7 @@ struct lex_token * flex_token = yyextra;
 				// char* ch = (char*) malloc(sizeof(char)*2);
 				// strcpy(ch, ",");
 				flex_token->semantic_value = NULL;
-				return LEX_CORRECT_BOTH;
+				return __LEX_CORRECT_BOTH;
                                 }
 <string>{COLON}			{flex_token->token[0] = CHAR;
 				 flex_token->token[1] = COLON;
@@ -248,7 +248,7 @@ struct lex_token * flex_token = yyextra;
 				 // char* ch = (char*) malloc(sizeof(char)*2);
 				 // strcpy(ch, ":");
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT_BOTH;
+				 return __LEX_CORRECT_BOTH;
                                 }
 <string>{BOOL}				{flex_token->token[0] = CHAR;
 				flex_token->token[1] = BOOL;
@@ -258,7 +258,7 @@ struct lex_token * flex_token = yyextra;
 				// strcpy(ch, yytext);
 				// flex_token->semantic_value = ch;
 				flex_token->semantic_value = NULL;
-				return CHAR_FIRST_LEX_SEC;
+				return __CHAR_FIRST_LEX_SEC;
                                 }
 <string>{NUMBER}		{flex_token->token[0] = CHAR;
 				 flex_token->token[1] = NUMBER;
@@ -268,7 +268,7 @@ struct lex_token * flex_token = yyextra;
 				 // strcpy(ch, yytext);
 				 // flex_token->semantic_value = ch;
 				 flex_token->semantic_value = NULL;
-				 return CHAR_FIRST_LEX_SEC;
+				 return __CHAR_FIRST_LEX_SEC;
                                 }	
 <string>{SPACE}				{flex_token->token[0] = CHAR;
 				/* Semantic value stub. */
@@ -276,33 +276,33 @@ struct lex_token * flex_token = yyextra;
         		//strcpy(ch, " ");
 				//flex_token->semantic_value = ch;
 				flex_token->semantic_value = NULL;
-				return LEX_FIRST_PAUSE_SEC;}
+				return __LEX_FIRST_PAUSE_SEC;}
 <string>{NEWLINE}			{flex_token->token[0] = CHAR;
 				/* Semantic value stub. */
 				//char* ch = (char *) malloc(sizeof(char)*2);
         		//strcpy(ch, "\n");
 				//flex_token->semantic_value = ch;
 				flex_token->semantic_value = NULL;
-				return LEX_FIRST_PAUSE_SEC;
+				return __LEX_FIRST_PAUSE_SEC;
                                 }		
 <string>{CHAR}			{flex_token->token[0] = CHAR;
 				 /* Semantic value stub. */
 				 // char* ch = (char*) malloc(sizeof(char)*2);
 				 // strcpy(ch, yytext);
 				 flex_token->semantic_value = NULL;
-				 return SECOND_LIST_LEXING_ERROR;
+				 return __SECOND_LIST_LEXING_ERROR;
                                 }	
-<string>.				{return ERROR_BOTH;}				
+<string>.				{return __ERROR_BOTH;}				
 <string1>{CHAR}			{flex_token->token[0] = CHAR;
 				 /* Semantic value stub. */
 				 // char* ch = (char*) malloc(sizeof(char)*2);
 				 // strcpy(ch, yytext);
 				 flex_token->semantic_value = NULL;
-				return SECOND_LIST_LEXING_ERROR;
+				return __SECOND_LIST_LEXING_ERROR;
                                 }
 <string1>{RSOLIDUS}		{flex_token->state_before_rsolidus = string1;
 				 BEGIN(escape);
-				 return PAUSE_BOTH;
+				 return __PAUSE_BOTH;
                                 }
 <string1>{QUOTES}		{flex_token->token[0] = QUOTES;
 				 (flex_token->quotes_number)++;
@@ -311,7 +311,7 @@ struct lex_token * flex_token = yyextra;
 				 // strcpy(ch, "\"");
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT_BOTH;
+				 return __LEX_CORRECT_BOTH;
                                 }	
-<string1>.			{ return ERROR_BOTH; }								
+<string1>.			{ return __ERROR_BOTH; }								
 %%

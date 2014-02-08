@@ -1,5 +1,5 @@
-#ifndef TOKEN_NODE_STACK_H_
-#define TOKEN_NODE_STACK_H_
+#ifndef __TOKEN_NODE_STACK_H_
+#define __TOKEN_NODE_STACK_H_
 
 #include <stdlib.h>
 #include <stdint.h>

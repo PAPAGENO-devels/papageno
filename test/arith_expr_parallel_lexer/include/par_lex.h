@@ -1,5 +1,5 @@
-#ifndef PAR_LEX_H_
-#define PAR_LEX_H_
+#ifndef __PAR_LEX_H_
+#define __PAR_LEX_H_
 
 #include "par_lex_expr.h"
 

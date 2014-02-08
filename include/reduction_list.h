@@ -1,5 +1,5 @@
-#ifndef REDUCTION_LIST_H_
-#define REDUCTION_LIST_H_
+#ifndef __REDUCTION_LIST_H_
+#define __REDUCTION_LIST_H_
 #include "config.h"
 #include <stdlib.h>
 #include <stdint.h>
@@ -13,17 +13,17 @@ typedef struct reduction_list {
 void init_reduction_list(reduction_list *list)
 {
     void* baseptr;
-    posix_memalign(&baseptr,CACHE_LINE_SIZE,sizeof(uint32_t)*LIST_ALLOC_SIZE);
+    posix_memalign(&baseptr,__CACHE_LINE_SIZE,sizeof(uint32_t)*__LIST_ALLOC_SIZE);
     list->list = (uint32_t*) baseptr;
-    list->ceil = LIST_ALLOC_SIZE;
+    list->ceil = __LIST_ALLOC_SIZE;
     list->idx_last = 0;
 }
 
 void append_position_on_reduction_list(reduction_list *list, uint32_t node)
 {
     if (list->idx_last >= list->ceil) {
-        list->list = (uint32_t*) realloc(list->list, sizeof(uint32_t)*(list->ceil + LIST_ALLOC_SIZE));
-        list->ceil += LIST_ALLOC_SIZE;
+        list->list = (uint32_t*) realloc(list->list, sizeof(uint32_t)*(list->ceil + __LIST_ALLOC_SIZE));
+        list->ceil += __LIST_ALLOC_SIZE;
     }
     list->list[list->idx_last] = node;
     ++list->idx_last;

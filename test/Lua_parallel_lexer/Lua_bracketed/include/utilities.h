@@ -1,5 +1,5 @@
-#ifndef UT_H_
-#define UT_H_
+#ifndef __UT_H_
+#define __UT_H_
 
 #include "stdio.h"
 #include "stdint.h"

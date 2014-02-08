@@ -5,7 +5,7 @@ struct lex_token* flex_token;
 void compute_alloc_realloc_size(FILE *input_file, uint32_t *alloc_size, uint32_t *realloc_size)
 {
   fseek(input_file, 0, SEEK_END);
-  *alloc_size = ((float) ftell(input_file)) / TOKEN_SIZE;
+  *alloc_size = ((float) ftell(input_file)) / __TOKEN_SIZE;
   *realloc_size = *alloc_size/10;
   fseek(input_file, 0, SEEK_SET);
 }
@@ -41,13 +41,13 @@ void perform_lexing(char *file_name, parsing_ctx *ctx)
   init_token_node_stack(&stack, alloc_size);
   flex_token = (lex_token*) malloc(sizeof(lex_token));
   flex_return_code = yylex();
-  while (flex_return_code != END_OF_FILE) {
-    if (flex_return_code == LEX_CORRECT) {
+  while (flex_return_code != __END_OF_FILE) {
+    if (flex_return_code == __LEX_CORRECT) {
       append_token_node(flex_token, &token_builder, ctx, &stack, realloc_size);
       ++token_list_length;
       flex_return_code = yylex();
     }
-    else {//flex_return_code is ERROR
+    else {//flex_return_code is __ERROR
       DEBUG_STDOUT_PRINT("Lexer scanned erroneous input. Abort.\n")
       fclose(yyin);
       exit(1);
@@ -63,7 +63,7 @@ void perform_lexing(char *file_name, parsing_ctx *ctx)
     exit(1);
   }
 
-  #ifdef DEBUG
+  #ifdef __DEBUG
   DEBUG_STDOUT_PRINT("ctx->token_list_length is %d\n", ctx->token_list_length)
   token_node * temp = ctx->token_list;
   for(i = 0; i<ctx->token_list_length; i++)

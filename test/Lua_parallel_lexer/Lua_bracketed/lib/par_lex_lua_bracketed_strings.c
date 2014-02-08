@@ -67,7 +67,7 @@ int32_t find_cut_points(FILE* f, int32_t file_length, int32_t **cut_points, int3
           while ((c == '\n' || c == ' ' || c == '\t' || c == '\f' || c == '\r' || c == '\v') && !feof(f))
             c = fgetc(f);
       
-      #if DEBUG
+      #if __DEBUG
       if (prev_prev_c == '\\' && prev_c == 'z')
         DEBUG_STDOUT_PRINT("Read \\z: skipping spaces\n")    
       #endif    
@@ -221,7 +221,7 @@ void compute_lex_token_list(parsing_ctx *ctx, lex_thread_arg *arg, int32_t lex_t
       }
   }
 
-  #ifdef DEBUG
+  #ifdef __DEBUG
   int8_t k, l;
   for (k = 0; k< lex_thread_num; k++){
     if (arg[k].list_begin[0] == NULL)
@@ -249,11 +249,11 @@ void compute_lex_token_list(parsing_ctx *ctx, lex_thread_arg *arg, int32_t lex_t
       }
       else {
         DEBUG_STDOUT_PRINT("delimiter = %d with number_tokens_from_last_comment_string[0] = %d, [1] = %d, error[0] = %d, [1] = %d\n", temp_delim[0]->type.bracket_delimiter, temp_delim[0]->number_tokens_from_last_comment_string[0],temp_delim[0]->number_tokens_from_last_comment_string[1], temp_delim[0]->error[0], temp_delim[0]->error[1]) 
-        if (temp_delim[0]->type.bracket_delimiter == CLOSED_BRACKETS_IN_STRING || temp_delim[0]->type.bracket_delimiter == CLOSED_BRACKETS_IN_SINGLECOMMENT) {
+        if (temp_delim[0]->type.bracket_delimiter == __CLOSED_BRACKETS_IN_STRING || temp_delim[0]->type.bracket_delimiter == __CLOSED_BRACKETS_IN_SINGLECOMMENT) {
           temp_delim[1] = temp_delim[0]->next[1];
           temp_delim[0] = temp_delim[0]->next[0];
           for (l = 0; l <= 1; l++)
-            while (!((temp_delim[l]->type_class == 1 && temp_delim[l]->type.comment < 0) || (temp_delim[l]->type_class == 2 && (temp_delim[l]->type.bracket_delimiter == END_DOUBLE_LIST || temp_delim[l]->type.bracket_delimiter == END_DOUBLE_LIST_NEWLINE)))) {
+            while (!((temp_delim[l]->type_class == 1 && temp_delim[l]->type.comment < 0) || (temp_delim[l]->type_class == 2 && (temp_delim[l]->type.bracket_delimiter == __END_DOUBLE_LIST || temp_delim[l]->type.bracket_delimiter == __END_DOUBLE_LIST_NEWLINE)))) {
               if(temp_delim[l]->type_class == 0)
                 DEBUG_STDOUT_PRINT("DEBUG> in branch %d token = %d = %s\n",l, temp_delim[l]->type.token, gr_token_to_string(temp_delim[l]->type.token))
               else if (temp_delim[l]->type_class == 1)
@@ -277,7 +277,7 @@ void compute_lex_token_list(parsing_ctx *ctx, lex_thread_arg *arg, int32_t lex_t
   while (d == NULL && current_thread < lex_thread_num) 
   {
     //We have to check whether or not this chunk ended with an unexpected lexeme and it needed to be inside a comment or a bracketed string: if the chunk ended with
-    //an unexpected lexeme, then yylex returned END_CHUNK_ERROR and arg[current_delimiter_thread]->error_comment_or_bracketed_string was set to 1.
+    //an unexpected lexeme, then yylex returned __END_CHUNK_ERROR and arg[current_delimiter_thread]->error_comment_or_bracketed_string was set to 1.
     if (arg[current_thread].error_comment_or_bracketed_string == 1) {
       fprintf(stdout, "Unexpected character in the input file while reading chunk %d. Exit.\n", current_thread);
       exit(1);
@@ -352,11 +352,11 @@ void compute_lex_token_list(parsing_ctx *ctx, lex_thread_arg *arg, int32_t lex_t
           while (d1 != NULL) {
             if (d1->type_class == 1 && d1->type.comment != -1)
               d1 = handle_comment(ctx, arg, lex_thread_num, d1, &next_delimiter_thread, &next_branch, d1->last_token[next_branch], next_delimiter_thread, check_end_chunk);
-            else if (d1->type_class == 2 && d1->type.bracket_delimiter == CLOSED_BRACKETS_IN_SINGLECOMMENT) {
+            else if (d1->type_class == 2 && d1->type.bracket_delimiter == __CLOSED_BRACKETS_IN_SINGLECOMMENT) {
               //here next_branch is necessarily 0
               d1 = d1->next[0];
-              //consider the possible delimiters which immediately follow CLOSED_BRACKETS_IN_SINGLECOMMENT
-              if (d1->type_class == 2 && (d1->type.bracket_delimiter == END_DOUBLE_LIST_NEWLINE || d1->type.bracket_delimiter == END_DOUBLE_LIST)) {
+              //consider the possible delimiters which immediately follow __CLOSED_BRACKETS_IN_SINGLECOMMENT
+              if (d1->type_class == 2 && (d1->type.bracket_delimiter == __END_DOUBLE_LIST_NEWLINE || d1->type.bracket_delimiter == __END_DOUBLE_LIST)) {
                 d1 = handle_bracket_delimiter(ctx, arg, lex_thread_num, d1, &next_delimiter_thread, &next_branch, check_end_chunk);
               }
               else if (d1->type_class == 1) {
@@ -364,7 +364,7 @@ void compute_lex_token_list(parsing_ctx *ctx, lex_thread_arg *arg, int32_t lex_t
               }
               //otherwise the analysis of delimiter d1 will be handled by the following checks of the switch.
             }
-            else if (d1->type_class == 2 && (d1->type.bracket_delimiter == END_DOUBLE_LIST_NEWLINE || d1->type.bracket_delimiter == END_DOUBLE_LIST)) {
+            else if (d1->type_class == 2 && (d1->type.bracket_delimiter == __END_DOUBLE_LIST_NEWLINE || d1->type.bracket_delimiter == __END_DOUBLE_LIST)) {
               d1 = handle_bracket_delimiter(ctx, arg, lex_thread_num, d1, &next_delimiter_thread, &next_branch, check_end_chunk);
             }
             else
@@ -414,8 +414,8 @@ void compute_lex_token_list(parsing_ctx *ctx, lex_thread_arg *arg, int32_t lex_t
       d = handle_comment(ctx, arg, lex_thread_num, d, &current_thread, &current_branch, d->last_token[current_branch], current_thread, check_end_chunk);
     }
     else {
-      if (d->type.bracket_delimiter == CHECKED_FUNCTION) 
-        {//the delimiter is CHECKED_FUNCTION
+      if (d->type.bracket_delimiter == __CHECKED_FUNCTION) 
+        {//the delimiter is __CHECKED_FUNCTION
         push_context(&func_table_stack, d);
         if (current_branch == 0)
           d = next_delimiter(arg, lex_thread_num, &current_thread, d, current_thread);
@@ -611,7 +611,7 @@ delimiter * next_matching_comment(lex_thread_arg *arg, int32_t lex_thread_num, i
     else if (matching_comment->type_class != 1 || matching_comment->type.comment + current_comment->type.comment != 0) {
       //the delimiter is neither a closing comment symbol nor the matching closing comment symbol.
       //If the end of the first double list has been reached, then change the current branch of the double list 
-      if (current_branch == 1 && ((matching_comment->type_class == 2 && (matching_comment->type.bracket_delimiter == END_DOUBLE_LIST || matching_comment->type.bracket_delimiter == END_DOUBLE_LIST_NEWLINE)) \
+      if (current_branch == 1 && ((matching_comment->type_class == 2 && (matching_comment->type.bracket_delimiter == __END_DOUBLE_LIST || matching_comment->type.bracket_delimiter == __END_DOUBLE_LIST_NEWLINE)) \
         || (matching_comment->type_class == 1 && matching_comment->type.comment < 0)))
         current_branch = 0;
       //scan the next delimiter
@@ -635,7 +635,7 @@ delimiter * next_delimiter(lex_thread_arg *arg, int32_t lex_thread_num, int32_t 
   //else the end of the delimiter list of the chunk has been reached.
   //This ending part of the chunk is not inside a comment; otherwise function next_matching_comment would have been called while processing it.
   //Thus, we have to check whether or not this chunk ended with an unexpected lexeme and it needed instead to be inside a comment.
-  //If the chunk ended with an unexpected lexeme, then yylex returned END_CHUNK_ERROR and arg[current_delimiter_thread]->error_comment_or_bracketed_string was set to 1.
+  //If the chunk ended with an unexpected lexeme, then yylex returned __END_CHUNK_ERROR and arg[current_delimiter_thread]->error_comment_or_bracketed_string was set to 1.
   if (arg[current_delimiter_thread].error_comment_or_bracketed_string == 1) {
     DEBUG_STDOUT_PRINT("Found error in next_delimiter> Current delimiter has type class = %d:\n", current_delimiter->type_class)
     fprintf(stdout, "ERROR> Unexpected character in the input file while reading the end of chunk %d. Exit.\n", current_delimiter_thread);
@@ -669,7 +669,7 @@ Precondition: this function is never called from within branch 1 of a double lis
 delimiter * closure_matching_comment(lex_thread_arg *arg, int32_t lex_thread_num, delimiter* d_next, int32_t* d_next_thread, delimiter **closing_comment, int32_t* closing_comment_thread)
 {  
   uint8_t next = 1;
-  while (next && d_next != NULL && ((d_next->type_class == 1 && d_next->type.comment >= 0) || (d_next->type_class == 2 && d_next->type.bracket_delimiter == CLOSED_BRACKETS_IN_SINGLECOMMENT)))
+  while (next && d_next != NULL && ((d_next->type_class == 1 && d_next->type.comment >= 0) || (d_next->type_class == 2 && d_next->type.bracket_delimiter == __CLOSED_BRACKETS_IN_SINGLECOMMENT)))
   {
     next = 0;
     if (d_next->type_class == 1 && d_next->type.comment == 0 && d_next->next[0]->number_tokens_from_last_comment_string[0] == 0) {
@@ -685,7 +685,7 @@ delimiter * closure_matching_comment(lex_thread_arg *arg, int32_t lex_thread_num
       d_next = next_delimiter(arg, lex_thread_num, d_next_thread, *closing_comment, *d_next_thread);
     }
     else if (d_next->type_class == 2) { // inside branch 0 of the double list
-      if (d_next->next[0]->type_class == 2 && (d_next->next[0]->type.bracket_delimiter == END_DOUBLE_LIST || d_next->next[0]->type.bracket_delimiter == END_DOUBLE_LIST_NEWLINE)) {
+      if (d_next->next[0]->type_class == 2 && (d_next->next[0]->type.bracket_delimiter == __END_DOUBLE_LIST || d_next->next[0]->type.bracket_delimiter == __END_DOUBLE_LIST_NEWLINE)) {
         if (d_next->next[0]->error[0] != 0) {
           fprintf(stdout, "ERROR> Unexpected character in input file. Exit.\n");
           exit(1);
@@ -699,7 +699,7 @@ delimiter * closure_matching_comment(lex_thread_arg *arg, int32_t lex_thread_num
         //otherwise, if number_tokens_from_last_comment_string != 0, delimiter d_next will be handled at the next check of the switch
       }
       else if (d_next->next[0]->type_class == 1 && d_next->next[0]->type.comment >= 0) {
-        //CLOSED_BRACKETS_IN_SINGLECOMMENT is immediately followed by a comment
+        //__CLOSED_BRACKETS_IN_SINGLECOMMENT is immediately followed by a comment
         next = 1;
         d_next = d_next->next[0];
       }
@@ -770,17 +770,17 @@ delimiter * handle_bracket_delimiter(parsing_ctx *ctx, lex_thread_arg *arg, int3
   int8_t branch = *delimiter_branch;
 
   switch (d->type.bracket_delimiter) {
-    case OPEN_BRACKETS:
+    case __OPEN_BRACKETS:
       ctx->token_list_length += d->number_tokens_from_last_comment_string[*delimiter_branch];
       DEBUG_STDOUT_PRINT("ctx->token_list_length = %d\n", ctx->token_list_length)
       d1 = d->next[*delimiter_branch]; 
       while (d1 != NULL && (d1->type_class == 0 || (d1->type_class == 1 && d1->type.comment != -1) || \
-                            (d1->type_class == 2 && (d1->type.bracket_delimiter == OPEN_BRACKETS || d1->type.bracket_delimiter == END_DOUBLE_LIST_NEWLINE || d1->type.bracket_delimiter == END_DOUBLE_LIST || d1->type.bracket_delimiter == ERROR_STRING_CHAR_MAX)))) {
-        if (d1->type_class == 2 && ((d1->type.bracket_delimiter == END_DOUBLE_LIST && d1->error[*delimiter_branch] != 0) || d1->type.bracket_delimiter == ERROR_STRING_CHAR_MAX)) {
+                            (d1->type_class == 2 && (d1->type.bracket_delimiter == __OPEN_BRACKETS || d1->type.bracket_delimiter == __END_DOUBLE_LIST_NEWLINE || d1->type.bracket_delimiter == __END_DOUBLE_LIST || d1->type.bracket_delimiter == __ERROR_STRING_CHAR_MAX)))) {
+        if (d1->type_class == 2 && ((d1->type.bracket_delimiter == __END_DOUBLE_LIST && d1->error[*delimiter_branch] != 0) || d1->type.bracket_delimiter == __ERROR_STRING_CHAR_MAX)) {
           fprintf(stdout, "ERROR> Found bracketed string with errors. Exit.\n");
           exit(1);
         }
-        if (branch == 1 && (d1->type_class == 2 && (d1->type.bracket_delimiter == END_DOUBLE_LIST_NEWLINE || d1->type.bracket_delimiter == END_DOUBLE_LIST) || (d1->type_class == 1 && d1->type.comment < 0)))
+        if (branch == 1 && (d1->type_class == 2 && (d1->type.bracket_delimiter == __END_DOUBLE_LIST_NEWLINE || d1->type.bracket_delimiter == __END_DOUBLE_LIST) || (d1->type_class == 1 && d1->type.comment < 0)))
           branch = 0;
         d1 = d1->next[branch];
       }
@@ -801,10 +801,10 @@ delimiter * handle_bracket_delimiter(parsing_ctx *ctx, lex_thread_arg *arg, int3
       }
       if (d1->type_class == 2) {
         switch (d1->type.bracket_delimiter) {
-          case CLOSED_BRACKETS: 
-          case CLOSED_BRACKETS_NOT_RBRACK_RBRACK:
+          case __CLOSED_BRACKETS: 
+          case __CLOSED_BRACKETS_NOT_RBRACK_RBRACK:
             //branch is necessarily 0.
-            #ifdef DEBUG
+            #ifdef __DEBUG
               assert(branch == 0);
             #endif
             //Do not update ctx->token_list_length since the closed brackets are not interpreted as the sequence RBRACK RBRACK, but as the end of the bracketed string.
@@ -815,7 +815,7 @@ delimiter * handle_bracket_delimiter(parsing_ctx *ctx, lex_thread_arg *arg, int3
             d1 = closure_matching_comment(arg, lex_thread_num, d1, &next_delimiter_thread, &closing_comment, &closing_comment_thread);
 
             //Link token STRING with the token following the closing brackets.
-            //check_tokens is not called, since there is no newline and, after reading CLOSED_BRACKETS, it reaches state endStat1 or endStat2.
+            //check_tokens is not called, since there is no newline and, after reading __CLOSED_BRACKETS, it reaches state endStat1 or endStat2.
             before_comment = d->last_token[*delimiter_branch]; //before_comment is always not NULL since its last_token is a token RBRACK
             after_comment = closing_comment->last_token[0];
             after_comment_thread = closing_comment_thread;
@@ -834,17 +834,17 @@ delimiter * handle_bracket_delimiter(parsing_ctx *ctx, lex_thread_arg *arg, int3
               check_end_chunk[i] = 0;
             }
             break;           
-          case CLOSED_BRACKETS_IN_STRING:
-          case CLOSED_BRACKETS_IN_SINGLECOMMENT:
+          case __CLOSED_BRACKETS_IN_STRING:
+          case __CLOSED_BRACKETS_IN_SINGLECOMMENT:
             d2 = d1->next[1]; //d2 is the first delimiter of the branch 1 of the the double list (or the end of the double list, if there is no other delimiter)
             branch = 1; 
             //Do not update ctx->token_list_length.
-            //In the following, consider only the relevant cases for the delimiters that can immediately follow CLOSED_BRACKETS_IN_STRING|CLOSED_BRACKETS_IN_SINGLECOMMENT
+            //In the following, consider only the relevant cases for the delimiters that can immediately follow __CLOSED_BRACKETS_IN_STRING|__CLOSED_BRACKETS_IN_SINGLECOMMENT
             //For the other possible delimiters occurring in branch 1 of the double list, the analysis will be done by the function which called handle_bracket_delimiter.
             if (d2->type_class == 1) { 
               if (d2->number_tokens_from_last_comment_string[1] != 0) {
                 //Link token STRING with the token following the closing brackets.
-                //check_tokens is not called, since there is no newline and, after reading CLOSED_BRACKETS_IN_STRING|CLOSED_BRACKETS_IN_SINGLECOMMENT, it reaches state endStat1.
+                //check_tokens is not called, since there is no newline and, after reading __CLOSED_BRACKETS_IN_STRING|__CLOSED_BRACKETS_IN_SINGLECOMMENT, it reaches state endStat1.
                 if (d1->last_token[branch] == NULL)
                   d->last_token[*delimiter_branch]->next = arg[next_delimiter_thread].list_begin[1];
                 else if (d1->last_token[branch] == last_linked_token1)
@@ -864,7 +864,7 @@ delimiter * handle_bracket_delimiter(parsing_ctx *ctx, lex_thread_arg *arg, int3
             else {
               //otherwise, the analysis of delimiter d1 will be handled by the function which called handle_bracket_delimiter.
               //Only link token STRING with the token following the closing brackets.
-              //check_tokens is not called, since there is no newline and, after reading CLOSED_BRACKETS_IN_STRING|CLOSED_BRACKETS_IN_SINGLECOMMENT, it reaches state endStat1.
+              //check_tokens is not called, since there is no newline and, after reading __CLOSED_BRACKETS_IN_STRING|__CLOSED_BRACKETS_IN_SINGLECOMMENT, it reaches state endStat1.
               if (d1->last_token[branch] == NULL)
                   d->last_token[*delimiter_branch]->next = arg[next_delimiter_thread].list_begin[1];
               else if (d1->last_token[branch] == last_linked_token1)
@@ -873,14 +873,14 @@ delimiter * handle_bracket_delimiter(parsing_ctx *ctx, lex_thread_arg *arg, int3
                 d->last_token[*delimiter_branch]->next = d1->last_token[branch]->next;
               //update check_end_chunk
               for (i = *current_thread; i < next_delimiter_thread; i++) {
-                DEBUG_STDOUT_PRINT("DEBUG> in handle_bracket_delimiter. Read a delimiter after OPEN_BRACKETS. Set check_end_chunk[%d] = 0\n", i)
+                DEBUG_STDOUT_PRINT("DEBUG> in handle_bracket_delimiter. Read a delimiter after __OPEN_BRACKETS. Set check_end_chunk[%d] = 0\n", i)
                 check_end_chunk[i] = 0;
               }  
               d1 = d2;
             }
             break; 
           default:
-            DEBUG_STDOUT_PRINT("ERROR> After reading OPEN_BRACKETS, found a case in the switch which is not handled. Aborting.\n");
+            DEBUG_STDOUT_PRINT("ERROR> After reading __OPEN_BRACKETS, found a case in the switch which is not handled. Aborting.\n");
             exit(1);
             break;            
         }
@@ -911,7 +911,7 @@ delimiter * handle_bracket_delimiter(parsing_ctx *ctx, lex_thread_arg *arg, int3
         branch = 0;
       }
       break;
-    case CLOSED_BRACKETS:
+    case __CLOSED_BRACKETS:
       //It is interpreted as the sequence RBRACK RBRACK, not followed by newline; 
       //since it always leads to state endStat2, there is no need for checking the following token.
       //Ignore the delimiter and continue
@@ -919,18 +919,18 @@ delimiter * handle_bracket_delimiter(parsing_ctx *ctx, lex_thread_arg *arg, int3
       DEBUG_STDOUT_PRINT("ctx->token_list_length = %d\n", ctx->token_list_length)
       d1 = next_delimiter(arg, lex_thread_num, &next_delimiter_thread, d, *current_thread);
       break; 
-    case CLOSED_BRACKETS_NOT_RBRACK_RBRACK:
+    case __CLOSED_BRACKETS_NOT_RBRACK_RBRACK:
       //It cannot be interpreted as the sequence RBRACK RBRACK, so there is an error.
       fprintf(stdout, "ERROR> Unexpected characters ]] in the input file. Exit.\n");
       exit(1);
       break; 
-    case CLOSED_BRACKETS_IN_STRING:
-    case CLOSED_BRACKETS_IN_SINGLECOMMENT:
+    case __CLOSED_BRACKETS_IN_STRING:
+    case __CLOSED_BRACKETS_IN_SINGLECOMMENT:
       //Beginning of a double list. Follow branch 0.
       d1 = next_delimiter(arg, lex_thread_num, &next_delimiter_thread,  d, *current_thread);
       break; 
-    case END_DOUBLE_LIST_NEWLINE:
-    case END_DOUBLE_LIST:
+    case __END_DOUBLE_LIST_NEWLINE:
+    case __END_DOUBLE_LIST:
       //*delimiter_branch can be 0 or 1 
       if (d->error[*delimiter_branch] == 1) {
         fprintf(stdout, "ERROR> Unexpected character in the input file. Exit.\n");
@@ -938,9 +938,9 @@ delimiter * handle_bracket_delimiter(parsing_ctx *ctx, lex_thread_arg *arg, int3
       }
       ctx->token_list_length += d->number_tokens_from_last_comment_string[*delimiter_branch];
       DEBUG_STDOUT_PRINT("ctx->token_list_length = %d\n", ctx->token_list_length)
-      //Do the check between the token preceding the insertion of END_DOUBLE_LIST|END_DOUBLE_LIST_NEWLINE and the token following it (bypassing possible subsequent 
+      //Do the check between the token preceding the insertion of __END_DOUBLE_LIST|__END_DOUBLE_LIST_NEWLINE and the token following it (bypassing possible subsequent 
       //comments which do not have valid tokens in between).
-      //Check whether END_DOUBLE_LIST|END_DOUBLE_LIST_NEWLINE is followed by other comments without valid tokens in between
+      //Check whether __END_DOUBLE_LIST|__END_DOUBLE_LIST_NEWLINE is followed by other comments without valid tokens in between
       before_comment = d->last_token[*delimiter_branch];
       before_comment_thread = *current_thread;
 
@@ -958,14 +958,14 @@ delimiter * handle_bracket_delimiter(parsing_ctx *ctx, lex_thread_arg *arg, int3
       after_comment = closing_comment->last_token[0];
       after_comment_thread = closing_comment_thread;
 
-      //bypass END_DOUBLE_LIST|END_DOUBLE_LIST_NEWLINE and the comments that follow them and that are not preceded by valid tokens
-      if (d->type.bracket_delimiter == END_DOUBLE_LIST_NEWLINE) 
+      //bypass __END_DOUBLE_LIST|__END_DOUBLE_LIST_NEWLINE and the comments that follow them and that are not preceded by valid tokens
+      if (d->type.bracket_delimiter == __END_DOUBLE_LIST_NEWLINE) 
         link_tokens_before_after_comment(ctx, arg, lex_thread_num, before_comment, before_comment_thread, after_comment, after_comment_thread, 1, check_end_chunk);
       else 
         link_tokens_before_after_comment(ctx, arg, lex_thread_num, before_comment, before_comment_thread, after_comment, after_comment_thread, 0, check_end_chunk);
       branch = 0;
       break;     
-    case ERROR_STRING_CHAR_MAX:
+    case __ERROR_STRING_CHAR_MAX:
       fprintf(stdout, "ERROR> Unexpected character in the input file. Exit.\n");
       exit(1);
       break; 
@@ -1100,12 +1100,12 @@ void *lex_thread_task(void *arg)
 
   flex_return_code = yylex(scanner);
 
-  while (flex_return_code != END_OF_FILE && !end_of_chunk)
+  while (flex_return_code != __END_OF_FILE && !end_of_chunk)
   {
     token_list_number = flex_token->insert_token_in_list;
 
     switch(flex_return_code){
-      case LEX_CORRECT:
+      case __LEX_CORRECT:
         par_append_token_node(flex_token->token, flex_token->semantic_value[token_list_number], &(token_builder[token_list_number]), &(ar->list_begin[token_list_number]), &(stack[token_list_number]), realloc_size[token_list_number]);
         DEBUG_STDOUT_PRINT("Lexing thread %d read token : %x = %s\n", ar->id, flex_token->token, (char *)flex_token->semantic_value[token_list_number])
         number_tokens_from_last_comment_string[token_list_number]++;
@@ -1116,20 +1116,20 @@ void *lex_thread_task(void *arg)
           function_token_list_number = token_list_number;
         }
         if (flex_token->token == RPARENFUNC) {
-          //insert delimiter CHECKED_FUNCTION into the delimiter list
-          delimiter_union.bracket_delimiter = CHECKED_FUNCTION;
+          //insert delimiter __CHECKED_FUNCTION into the delimiter list
+          delimiter_union.bracket_delimiter = __CHECKED_FUNCTION;
           par_append_delimiter(delimiter_union, 2, token_list_number, token_builder[token_list_number], &(delimiter_builder[token_list_number]), &(ar->delimiter_list[token_list_number]), &(delim_stack[token_list_number]), delimiter_realloc_size[token_list_number]);
-          DEBUG_STDOUT_PRINT("Lexing thread %d inserted delimiter CHECKED_FUNCTION\n", ar->id)       
+          DEBUG_STDOUT_PRINT("Lexing thread %d inserted delimiter __CHECKED_FUNCTION\n", ar->id)       
         }
         break;
-      case LEX_CORRECT_INSERT_RBRACK_RBRACK:
+      case __LEX_CORRECT_INSERT_RBRACK_RBRACK:
         par_append_token_node(RBRACK, "]", &(token_builder[token_list_number]), &(ar->list_begin[token_list_number]), &(stack[token_list_number]), realloc_size[token_list_number]);
         par_append_token_node(RBRACK, "]", &(token_builder[token_list_number]), &(ar->list_begin[token_list_number]), &(stack[token_list_number]), realloc_size[token_list_number]);
         DEBUG_STDOUT_PRINT("Lexing thread %d put tokens RBRACK RBRACK in the token list.\n", ar->id)
         number_tokens_from_last_comment_string[token_list_number] += 2;
         DEBUG_STDOUT_PRINT("Lexing thread %d:number_tokens_from_last_comment_string[%d] = %d\n", ar->id, token_list_number, number_tokens_from_last_comment_string[token_list_number])
         break;
-      case ADD_SEMI:
+      case __ADD_SEMI:
         //append both SEMI and token to the token list
         par_append_token_node(SEMI, ";", &(token_builder[token_list_number]), &(ar->list_begin[token_list_number]), &(stack[token_list_number]), realloc_size[token_list_number]);
         DEBUG_STDOUT_PRINT("Lexing thread %d added token SEMI\n", ar->id)           
@@ -1143,7 +1143,7 @@ void *lex_thread_task(void *arg)
           function_token_list_number = token_list_number;
         }
         break;
-      case INSERT_DELIMITER_ADD_SEMI:
+      case __INSERT_DELIMITER_ADD_SEMI:
         //append both SEMI and token to the token list
         par_append_token_node(SEMI, ";", &(token_builder[token_list_number]), &(ar->list_begin[token_list_number]), &(stack[token_list_number]), realloc_size[token_list_number]);
         DEBUG_STDOUT_PRINT("Lexing thread %d added token SEMI\n", ar->id)           
@@ -1156,7 +1156,7 @@ void *lex_thread_task(void *arg)
         par_append_delimiter(delimiter_union, 0, token_list_number, token_builder[token_list_number], &(delimiter_builder[token_list_number]), &(ar->delimiter_list[token_list_number]), &(delim_stack[token_list_number]), delimiter_realloc_size[token_list_number]);
         DEBUG_STDOUT_PRINT("Lexing thread %d inserted delimiter %x = %s\n", ar->id, flex_token->token, (char *)flex_token->semantic_value[token_list_number])     
         break;  
-      case INSERT_DELIMITER:
+      case __INSERT_DELIMITER:
         if (flex_token->token != FUNCTION){
           par_append_token_node(flex_token->token, flex_token->semantic_value[token_list_number], &(token_builder[token_list_number]), &(ar->list_begin[token_list_number]), &(stack[token_list_number]), realloc_size[token_list_number]);
           DEBUG_STDOUT_PRINT("Lexing thread %d read token : %x = %s\n", ar->id, flex_token->token, (char *)flex_token->semantic_value[token_list_number])
@@ -1174,7 +1174,7 @@ void *lex_thread_task(void *arg)
           DEBUG_STDOUT_PRINT("Lexing thread %d inserted delimiter FUNCTION\n", ar->id)     
         }
         break;
-      case INSERT_COMMENT:
+      case __INSERT_COMMENT:
         if (flex_token->comment_type == -1) {
           if (flex_token->error[0] == 0) {
             par_append_token_node( RBRACK, "]", &(token_builder[0]), &(ar->list_begin[0]), &(stack[0]), realloc_size[0]);
@@ -1236,7 +1236,7 @@ void *lex_thread_task(void *arg)
           DEBUG_STDOUT_PRINT("Lexing thread %d inserted delimiter FUNCTION\n", ar->id)     
         }
         break;
-      case INSERT_SINGLEMULTICOMMENT:
+      case __INSERT_SINGLEMULTICOMMENT:
         if (flex_token->double_list_ended == 0){
           //insert both a singleline and a multiline comment in the list of delimiters flex_token->insert_token_in_list
           delimiter_union.comment = 0;
@@ -1328,16 +1328,16 @@ void *lex_thread_task(void *arg)
           DEBUG_STDOUT_PRINT("Lexing thread %d inserted delimiter FUNCTION\n", ar->id)     
         }
         break;
-      case INSERT_DELIMITER_BRACKETED_STRING:
+      case __INSERT_DELIMITER_BRACKETED_STRING:
         switch(flex_token->bracket_delimiter){
-          case OPEN_BRACKETS:
+          case __OPEN_BRACKETS:
             /*Insert the token STRING in the token list and insert [[ in the delimiter list*/  
             //insert token STRING
             par_append_token_node(flex_token->token, flex_token->semantic_value[0], &(token_builder[0]), &(ar->list_begin[0]), &(stack[0]), realloc_size[0]);
             number_tokens_from_last_comment_string[0]++;
             DEBUG_STDOUT_PRINT("Lexing thread %d read token : %x = %s\n", ar->id, flex_token->token, (char *)flex_token->semantic_value[0])
-            //insert delimiter OPEN_BRACKETS
-            delimiter_union.bracket_delimiter = OPEN_BRACKETS;
+            //insert delimiter __OPEN_BRACKETS
+            delimiter_union.bracket_delimiter = __OPEN_BRACKETS;
             par_append_delimiter(delimiter_union, 2, 0, token_builder[0], &(delimiter_builder[0]), &(ar->delimiter_list[0]), &(delim_stack[0]), delimiter_realloc_size[0]);
             delimiter_builder[0]->number_tokens_from_last_comment_string[0] = number_tokens_from_last_comment_string[0];
             //reset counter of number tokens
@@ -1345,14 +1345,14 @@ void *lex_thread_task(void *arg)
             DEBUG_STDOUT_PRINT("Lexing thread %d inserted delimiter %d\n", ar->id, flex_token->bracket_delimiter)     
             DEBUG_STDOUT_PRINT("Lexing thread %d:number_tokens_from_last_comment_string[%d] = %d\n", ar->id, 0, number_tokens_from_last_comment_string[0])
             break;
-          case CLOSED_BRACKETS:
+          case __CLOSED_BRACKETS:
             //insert RBRACK RBRACK into the token list
             par_append_token_node(RBRACK, "]", &(token_builder[token_list_number]), &(ar->list_begin[token_list_number]), &(stack[token_list_number]), realloc_size[token_list_number]);
             par_append_token_node(RBRACK, "]", &(token_builder[token_list_number]), &(ar->list_begin[token_list_number]), &(stack[token_list_number]), realloc_size[token_list_number]);
             DEBUG_STDOUT_PRINT("Lexing thread %d added tokens RBRACK RBRACK to the token list.\n", ar->id)     
             number_tokens_from_last_comment_string[token_list_number] += 2; 
             DEBUG_STDOUT_PRINT("Lexing thread %d:number_tokens_from_last_comment_string[%d] = %d\n", ar->id, token_list_number, number_tokens_from_last_comment_string[token_list_number])
-            //insert delimiter CLOSED_BRACKETS
+            //insert delimiter __CLOSED_BRACKETS
             delimiter_union.bracket_delimiter = flex_token->bracket_delimiter;
             par_append_delimiter(delimiter_union, 2, token_list_number, token_builder[token_list_number], &(delimiter_builder[token_list_number]), &(ar->delimiter_list[token_list_number]), &(delim_stack[token_list_number]), delimiter_realloc_size[token_list_number]);    
             delimiter_builder[token_list_number]->number_tokens_from_last_comment_string[token_list_number] = number_tokens_from_last_comment_string[token_list_number];
@@ -1365,8 +1365,8 @@ void *lex_thread_task(void *arg)
             DEBUG_STDOUT_PRINT("Lexing thread %d inserted delimiter ]] = %d\n", ar->id, flex_token->bracket_delimiter)     
             DEBUG_STDOUT_PRINT("Lexing thread %d:number_tokens_from_last_comment_string[%d] = %d\n", ar->id, token_list_number, number_tokens_from_last_comment_string[token_list_number])
             break;
-          case CLOSED_BRACKETS_NOT_RBRACK_RBRACK:
-            //insert delimiter CLOSED_BRACKETS_NOT_RBRACK_RBRACK
+          case __CLOSED_BRACKETS_NOT_RBRACK_RBRACK:
+            //insert delimiter __CLOSED_BRACKETS_NOT_RBRACK_RBRACK
             delimiter_union.bracket_delimiter = flex_token->bracket_delimiter;
             par_append_delimiter(delimiter_union, 2, token_list_number, token_builder[token_list_number], &(delimiter_builder[token_list_number]), &(ar->delimiter_list[token_list_number]), &(delim_stack[token_list_number]), delimiter_realloc_size[token_list_number]);
             delimiter_builder[token_list_number]->number_tokens_from_last_comment_string[token_list_number] = number_tokens_from_last_comment_string[token_list_number];
@@ -1387,9 +1387,9 @@ void *lex_thread_task(void *arg)
               DEBUG_STDOUT_PRINT("Lexing thread %d inserted delimiter FUNCTION\n", ar->id)     
             }
             break; 
-          case CLOSED_BRACKETS_IN_STRING: 
-          case CLOSED_BRACKETS_IN_SINGLECOMMENT:
-            //insert delimiter CLOSED_BRACKETS_IN_STRING|CLOSED_BRACKETS_IN_SINGLECOMMENT, and set both last_token[0] and last_token[1]
+          case __CLOSED_BRACKETS_IN_STRING: 
+          case __CLOSED_BRACKETS_IN_SINGLECOMMENT:
+            //insert delimiter __CLOSED_BRACKETS_IN_STRING|__CLOSED_BRACKETS_IN_SINGLECOMMENT, and set both last_token[0] and last_token[1]
             delimiter_union.bracket_delimiter = flex_token->bracket_delimiter;
             par_append_delimiter(delimiter_union, 2, 0, token_builder[0], &(delimiter_builder[0]), &(ar->delimiter_list[0]), &(delim_stack[0]), delimiter_realloc_size[0]);
             delimiter_builder[0]->last_token[1] = token_builder[1];
@@ -1399,7 +1399,7 @@ void *lex_thread_task(void *arg)
             }
             DEBUG_STDOUT_PRINT("Lexing thread %d inserted delimiter ]] = %d\n", ar->id, flex_token->bracket_delimiter)     
 
-            //Set the builder of the second branch of the delimiter list to the delimiter CLOSED_BRACKETS_IN_STRING|CLOSED_BRACKETS_IN_SINGLECOMMENT
+            //Set the builder of the second branch of the delimiter list to the delimiter __CLOSED_BRACKETS_IN_STRING|__CLOSED_BRACKETS_IN_SINGLECOMMENT
             delimiter_builder[1] = delimiter_builder[0];
 
             if (flex_token->insert_function == 1) {
@@ -1410,8 +1410,8 @@ void *lex_thread_task(void *arg)
               DEBUG_STDOUT_PRINT("Lexing thread %d inserted delimiter FUNCTION\n", ar->id)     
             }
             break;
-          case END_DOUBLE_LIST_NEWLINE:
-          case END_DOUBLE_LIST:
+          case __END_DOUBLE_LIST_NEWLINE:
+          case __END_DOUBLE_LIST:
             if (token_list_number == 0 || token_list_number == 1)
             { 
               if (flex_token->insert_function != 1){
@@ -1441,7 +1441,7 @@ void *lex_thread_task(void *arg)
               DEBUG_STDOUT_PRINT("Lexing thread %d:number_tokens_from_last_comment_string[1] = %d\n", ar->id, number_tokens_from_last_comment_string[1])
             }
 
-            //insert END_DOUBLE_LIST|END_DOUBLE_LIST_NEWLINE into the delimiter list. 
+            //insert __END_DOUBLE_LIST|__END_DOUBLE_LIST_NEWLINE into the delimiter list. 
             delimiter_union.bracket_delimiter = flex_token->bracket_delimiter;
             par_append_delimiter(delimiter_union, 2, 0, token_builder[0], &(delimiter_builder[0]), &(ar->delimiter_list[0]), &(delim_stack[0]), delimiter_realloc_size[0]);
             delimiter_builder[0]->number_tokens_from_last_comment_string[0] = number_tokens_from_last_comment_string[0];
@@ -1460,12 +1460,12 @@ void *lex_thread_task(void *arg)
             delimiter_builder[0]->error[1] = flex_token->error[1];
 
             break;
-          case ERROR_STRING_CHAR_MAX:
-            //insert delimiter ERROR_STRING_CHAR_MAX
+          case __ERROR_STRING_CHAR_MAX:
+            //insert delimiter __ERROR_STRING_CHAR_MAX
             delimiter_union.bracket_delimiter = flex_token->bracket_delimiter;
             par_append_delimiter(delimiter_union, 2, token_list_number, token_builder[token_list_number], &(delimiter_builder[token_list_number]), &(ar->delimiter_list[token_list_number]), &(delim_stack[token_list_number]), delimiter_realloc_size[token_list_number]);
             DEBUG_STDOUT_PRINT("Lexing thread %d inserted delimiter for pending brackets: %d\n", ar->id, flex_token->bracket_delimiter) 
-            if (flex_token->state != SINGLE_COMMENT)
+            if (flex_token->state != __SINGLE_COMMENT)
               ar->error_comment_or_bracketed_string = 1;    
             break;
           default:
@@ -1473,22 +1473,22 @@ void *lex_thread_task(void *arg)
             exit(1);
         }
         break;
-      case INSERT_STRING_WITH_BRACKETS:
+      case __INSERT_STRING_WITH_BRACKETS:
         //insert STRING with its semantic value into the token list and [[ and ]] into the delimiter list.
         //insert token STRING
         par_append_token_node(flex_token->token, flex_token->semantic_value[token_list_number], &(token_builder[token_list_number]), &(ar->list_begin[token_list_number]), &(stack[token_list_number]), realloc_size[token_list_number]);
         number_tokens_from_last_comment_string[token_list_number]++;
         DEBUG_STDOUT_PRINT("Lexing thread %d read token : %x = %s\n", ar->id, flex_token->token, (char *)flex_token->semantic_value[token_list_number])
-        //insert delimiter OPEN_BRACKETS
-        delimiter_union.bracket_delimiter = OPEN_BRACKETS;
+        //insert delimiter __OPEN_BRACKETS
+        delimiter_union.bracket_delimiter = __OPEN_BRACKETS;
         par_append_delimiter(delimiter_union, 2, token_list_number, token_builder[token_list_number], &(delimiter_builder[token_list_number]), &(ar->delimiter_list[token_list_number]), &(delim_stack[token_list_number]), delimiter_realloc_size[token_list_number]);
         delimiter_builder[token_list_number]->number_tokens_from_last_comment_string[token_list_number] = number_tokens_from_last_comment_string[token_list_number];
         //reset counter of number tokens
         number_tokens_from_last_comment_string[token_list_number] = 0;
         DEBUG_STDOUT_PRINT("Lexing thread %d inserted delimiter %d\n", ar->id, flex_token->bracket_delimiter)     
         DEBUG_STDOUT_PRINT("Lexing thread %d:number_tokens_from_last_comment_string[%d] = %d\n", ar->id, token_list_number, number_tokens_from_last_comment_string[token_list_number])
-        //insert delimiter CLOSED_BRACKETS
-        delimiter_union.bracket_delimiter = CLOSED_BRACKETS;
+        //insert delimiter __CLOSED_BRACKETS
+        delimiter_union.bracket_delimiter = __CLOSED_BRACKETS;
         par_append_delimiter(delimiter_union, 2, token_list_number, token_builder[token_list_number], &(delimiter_builder[token_list_number]), &(ar->delimiter_list[token_list_number]), &(delim_stack[token_list_number]), delimiter_realloc_size[token_list_number]);
         if (first_closing_bracket == 1 && flex_token->first_closing_bracket == 0) {
               first_closing_bracket = 0;
@@ -1496,7 +1496,7 @@ void *lex_thread_task(void *arg)
         }
         DEBUG_STDOUT_PRINT("Lexing thread %d inserted delimiter %d\n", ar->id, flex_token->bracket_delimiter)     
         break;
-      case INSERT_STRING_MULTICOMMENT:
+      case __INSERT_STRING_MULTICOMMENT:
         if (flex_token->double_list_ended == 0) {
           //insert STRING with its semantic_value into the token list, [[ into the delimiter list and the comment of type comment_type < 0 into the delimiter list.
           //insert token STRING
@@ -1508,8 +1508,8 @@ void *lex_thread_task(void *arg)
             flex_token->append_pending_bracketed_string = 0;          
             append_pending_bracketed_string(&(flex_token->pending_bracketed_string_list), &(flex_token->top_pending_bracketed_string_list), (char **) &(token_builder[0]->value), flex_token->current_buffer_length[0]);      
           }
-          //insert delimiter OPEN_BRACKETS
-          delimiter_union.bracket_delimiter = OPEN_BRACKETS;          
+          //insert delimiter __OPEN_BRACKETS
+          delimiter_union.bracket_delimiter = __OPEN_BRACKETS;          
           par_append_delimiter(delimiter_union, 2, 0, token_builder[0], &(delimiter_builder[0]), &(ar->delimiter_list[0]), &(delim_stack[0]), delimiter_realloc_size[0]);
           delimiter_builder[0]->number_tokens_from_last_comment_string[0] = number_tokens_from_last_comment_string[0];
           //reset counter of number tokens
@@ -1549,8 +1549,8 @@ void *lex_thread_task(void *arg)
               append_pending_bracketed_string(&(flex_token->pending_bracketed_string_list), &(flex_token->top_pending_bracketed_string_list), (char **) &(token_builder[0]->value), flex_token->current_buffer_length[0]);      
               append_pending_bracketed_string(&(flex_token->pending_bracketed_string_list), &(flex_token->top_pending_bracketed_string_list), (char **) &(token_builder[1]->value), flex_token->current_buffer_length[1]);      
             }
-            //insert delimiter OPEN_BRACKETS
-            delimiter_union.bracket_delimiter = OPEN_BRACKETS;
+            //insert delimiter __OPEN_BRACKETS
+            delimiter_union.bracket_delimiter = __OPEN_BRACKETS;
             par_append_delimiter(delimiter_union, 2, 0, token_builder[0], &(delimiter_builder[0]), &(ar->delimiter_list[0]), &(delim_stack[0]), delimiter_realloc_size[0]);
             par_append_delimiter(delimiter_union, 2, 1, token_builder[1], &(delimiter_builder[1]), &(ar->delimiter_list[1]), &(delim_stack[1]), delimiter_realloc_size[1]);           
             delimiter_builder[0]->number_tokens_from_last_comment_string[0] = number_tokens_from_last_comment_string[0];
@@ -1572,8 +1572,8 @@ void *lex_thread_task(void *arg)
               flex_token->append_pending_bracketed_string = 0;          
               append_pending_bracketed_string(&(flex_token->pending_bracketed_string_list), &(flex_token->top_pending_bracketed_string_list), (char **) &(token_builder[token_list_number]->value), flex_token->current_buffer_length[token_list_number]);      
             }
-            //insert delimiter OPEN_BRACKETS
-            delimiter_union.bracket_delimiter = OPEN_BRACKETS;
+            //insert delimiter __OPEN_BRACKETS
+            delimiter_union.bracket_delimiter = __OPEN_BRACKETS;
             par_append_delimiter(delimiter_union, 2, token_list_number, token_builder[token_list_number], &(delimiter_builder[token_list_number]), &(ar->delimiter_list[token_list_number]), &(delim_stack[token_list_number]), delimiter_realloc_size[token_list_number]);
             delimiter_builder[token_list_number]->number_tokens_from_last_comment_string[token_list_number] = number_tokens_from_last_comment_string[token_list_number];
             //reset counter of number tokens
@@ -1628,9 +1628,9 @@ void *lex_thread_task(void *arg)
           }
         }  
         break;  
-      case END_CHUNK_INTERRUPTED_BRACKETED_STRING:
+      case __END_CHUNK_INTERRUPTED_BRACKETED_STRING:
         /*Insert the token STRING in the tokenlist of the state insert_token_in_list, insert [[ in the delimiter list.
-          If this is the end of a double list, then inserts END_DOUBLE_LIST_NEWLINE at the end of the double list in the delimiter list.*/        
+          If this is the end of a double list, then inserts __END_DOUBLE_LIST_NEWLINE at the end of the double list in the delimiter list.*/        
         if (token_list_number == 3) {
           //insert in both branches the token STRING with its semantic value and the delimiter [[
           //insert token STRING
@@ -1640,8 +1640,8 @@ void *lex_thread_task(void *arg)
           number_tokens_from_last_comment_string[1]++; 
           DEBUG_STDOUT_PRINT("Lexing thread %d read token : %x = %s\n", ar->id, flex_token->token, (char *)flex_token->semantic_value[0])
           DEBUG_STDOUT_PRINT("Lexing thread %d read token : %x = %s\n", ar->id, flex_token->token, (char *)flex_token->semantic_value[1])
-          //insert delimiter OPEN_BRACKETS
-          delimiter_union.bracket_delimiter = OPEN_BRACKETS;
+          //insert delimiter __OPEN_BRACKETS
+          delimiter_union.bracket_delimiter = __OPEN_BRACKETS;
           par_append_delimiter(delimiter_union, 2, 0, token_builder[0], &(delimiter_builder[0]), &(ar->delimiter_list[0]), &(delim_stack[0]), delimiter_realloc_size[0]);
           par_append_delimiter(delimiter_union, 2, 1, token_builder[1], &(delimiter_builder[1]), &(ar->delimiter_list[1]), &(delim_stack[1]), delimiter_realloc_size[1]);
           delimiter_builder[0]->number_tokens_from_last_comment_string[0] = number_tokens_from_last_comment_string[0];
@@ -1657,8 +1657,8 @@ void *lex_thread_task(void *arg)
           par_append_token_node(flex_token->token, flex_token->semantic_value[token_list_number], &(token_builder[token_list_number]), &(ar->list_begin[token_list_number]), &(stack[token_list_number]), realloc_size[token_list_number]);
           number_tokens_from_last_comment_string[token_list_number]++;
           DEBUG_STDOUT_PRINT("Lexing thread %d read token : %x = %s\n", ar->id, flex_token->token, (char *)flex_token->semantic_value[token_list_number])
-          //insert delimiter OPEN_BRACKETS
-          delimiter_union.bracket_delimiter = OPEN_BRACKETS;
+          //insert delimiter __OPEN_BRACKETS
+          delimiter_union.bracket_delimiter = __OPEN_BRACKETS;
           par_append_delimiter(delimiter_union, 2, token_list_number, token_builder[token_list_number], &(delimiter_builder[token_list_number]), &(ar->delimiter_list[token_list_number]), &(delim_stack[token_list_number]), delimiter_realloc_size[token_list_number]);
           delimiter_builder[token_list_number]->number_tokens_from_last_comment_string[token_list_number] = number_tokens_from_last_comment_string[token_list_number];
           //reset counter of number tokens
@@ -1667,8 +1667,8 @@ void *lex_thread_task(void *arg)
           DEBUG_STDOUT_PRINT("Lexing thread %d:number_tokens_from_last_comment_string[%d] = %d\n", ar->id, token_list_number, number_tokens_from_last_comment_string[token_list_number])
         }
         if (flex_token->double_list_ended == 1){
-          //insert END_DOUBLE_LIST_NEWLINE into the delimiter list. 
-          delimiter_union.bracket_delimiter = END_DOUBLE_LIST_NEWLINE;
+          //insert __END_DOUBLE_LIST_NEWLINE into the delimiter list. 
+          delimiter_union.bracket_delimiter = __END_DOUBLE_LIST_NEWLINE;
           par_append_delimiter(delimiter_union, 2, 0, token_builder[0], &(delimiter_builder[0]), &(ar->delimiter_list[0]), &(delim_stack[0]), delimiter_realloc_size[0]);
           delimiter_builder[0]->number_tokens_from_last_comment_string[0] = number_tokens_from_last_comment_string[0];
           delimiter_builder[0]->number_tokens_from_last_comment_string[1] = number_tokens_from_last_comment_string[1];
@@ -1695,7 +1695,7 @@ void *lex_thread_task(void *arg)
           }
         }
         break;
-      case END_DOUBLE_LIST_STRING_RBRACK_RBRACK:
+      case __END_DOUBLE_LIST_STRING_RBRACK_RBRACK:
         //insert token STRING
         par_append_token_node(flex_token->token, flex_token->semantic_value[token_list_number], &(token_builder[token_list_number]), &(ar->list_begin[token_list_number]), &(stack[token_list_number]), realloc_size[token_list_number]);
         DEBUG_STDOUT_PRINT("Lexing thread %d read token : %x = %s\n", ar->id, flex_token->token, (char *)flex_token->semantic_value[token_list_number])
@@ -1708,8 +1708,8 @@ void *lex_thread_task(void *arg)
         DEBUG_STDOUT_PRINT("Lexing thread %d added tokens RBRACK RBRACK to the token list = %d.\n", ar->id, other_token_list_number)     
         number_tokens_from_last_comment_string[other_token_list_number] += 2; 
         DEBUG_STDOUT_PRINT("Lexing thread %d:number_tokens_from_last_comment_string[%d] = %d\n", ar->id, token_list_number, number_tokens_from_last_comment_string[token_list_number])
-        //insert END_DOUBLE_LIST into the delimiter list. 
-        delimiter_union.bracket_delimiter = END_DOUBLE_LIST;
+        //insert __END_DOUBLE_LIST into the delimiter list. 
+        delimiter_union.bracket_delimiter = __END_DOUBLE_LIST;
         par_append_delimiter(delimiter_union, 2, 0, token_builder[0], &(delimiter_builder[0]), &(ar->delimiter_list[0]), &(delim_stack[0]), delimiter_realloc_size[0]);
         delimiter_builder[0]->number_tokens_from_last_comment_string[0] = number_tokens_from_last_comment_string[0];
         delimiter_builder[0]->number_tokens_from_last_comment_string[1] = number_tokens_from_last_comment_string[1];
@@ -1725,11 +1725,11 @@ void *lex_thread_task(void *arg)
         delimiter_builder[0]->error[0] = flex_token->error[0];
         delimiter_builder[0]->error[1] = flex_token->error[1];
         break;
-      case END_CHUNK_ERROR:
-        DEBUG_STDOUT_PRINT("DEBUG> received END_CHUNK_ERROR return code.\n")
+      case __END_CHUNK_ERROR:
+        DEBUG_STDOUT_PRINT("DEBUG> received __END_CHUNK_ERROR return code.\n")
         ar->error_comment_or_bracketed_string = 1;
         //check insert_function
-      case END_CHUNK: 
+      case __END_CHUNK: 
         if (flex_token->insert_function == 1) {
           //Insert delimiter FUNCTION at the saved position
           flex_token->insert_function = 0;
@@ -1745,7 +1745,7 @@ void *lex_thread_task(void *arg)
         flex_token->state = 0;
         //Set the branch where the lexer inserts token from now on
         flex_token->insert_token_in_list = 0;
-        //Link branch 1 of the double list with delimiter END_DOUBLE_LIST|END_DOUBLE_LIST_NEWLINE
+        //Link branch 1 of the double list with delimiter __END_DOUBLE_LIST|__END_DOUBLE_LIST_NEWLINE
         delimiter_builder[1]->next[1] = delimiter_builder[0];
       }
 
@@ -1778,14 +1778,14 @@ void *lex_thread_task(void *arg)
 void initialize_flex_token(lex_token * flex_token)
 {
   flex_token->num_chars = 0;
-  flex_token->allocated_buffer_size[0] = MAX_BUFFER_SIZE;
-  flex_token->allocated_buffer_size[1] = MAX_BUFFER_SIZE;
-  flex_token->string_buffer[0] = (char*) malloc(sizeof(char)*MAX_BUFFER_SIZE); 
+  flex_token->allocated_buffer_size[0] = __MAX_BUFFER_SIZE;
+  flex_token->allocated_buffer_size[1] = __MAX_BUFFER_SIZE;
+  flex_token->string_buffer[0] = (char*) malloc(sizeof(char)*__MAX_BUFFER_SIZE); 
   if (flex_token->string_buffer[0] == NULL) {
     DEBUG_STDOUT_PRINT("ERROR> In Flex: could not complete malloc string_buffer. Aborting.\n");
     exit(1);
   }  
-  flex_token->string_buffer[1] = (char*) malloc(sizeof(char)*MAX_BUFFER_SIZE); 
+  flex_token->string_buffer[1] = (char*) malloc(sizeof(char)*__MAX_BUFFER_SIZE); 
   if (flex_token->string_buffer[1] == NULL) {
     DEBUG_STDOUT_PRINT("ERROR> In Flex: could not complete malloc string_buffer. Aborting.\n");
     exit(1);

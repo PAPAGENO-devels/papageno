@@ -1,7 +1,7 @@
 #include "par_lex_expr.h"
 
-#define FIRST_DIGIT 48
-#define LAST_DIGIT  57
+#define __FIRST_DIGIT 48
+#define __LAST_DIGIT  57
 
 
 int32_t find_cut_points(FILE* f, int32_t file_length, int32_t **cut_points, int32_t lex_thread_max_num)
@@ -16,7 +16,7 @@ int32_t find_cut_points(FILE* f, int32_t file_length, int32_t **cut_points, int3
     fseek(f, cut_points_ptr[i], SEEK_SET);
     c = fgetc(f);
 
-    while(FIRST_DIGIT<=c && c<=LAST_DIGIT && !feof(f)) 
+    while(__FIRST_DIGIT<=c && c<=__LAST_DIGIT && !feof(f)) 
       c = fgetc(f);
 
     if(!feof(f))
@@ -156,15 +156,15 @@ void *lex_thread_task(void *arg)
   flex_return_code = yylex(scanner); 
 
   /*The procedure to find cut points cannot cut a single token in two parts.*/
-  while(!end_of_chunk && flex_return_code != END_OF_CHUNK && flex_return_code != END_OF_FILE)
+  while(!end_of_chunk && flex_return_code != __END_OF_CHUNK && flex_return_code != __END_OF_FILE)
   {
-    if(flex_return_code == LEX_CORRECT) {
+    if(flex_return_code == __LEX_CORRECT) {
       //append a token
       par_append_token_node(flex_token->token, flex_token->semantic_value, &token_builder, &(ar->list_begin), &stack, realloc_size);
       ar->lex_token_list_length++;
     }
     else {
-      //flex_return_code is ERROR)
+      //flex_return_code is __ERROR)
       DEBUG_STDOUT_PRINT("Lexing thread %d scanned erroneous input. Abort.\n", ar->id)
       ar->result = 1; /*Signal error by returning result!=0.*/
       fclose(yyget_in(scanner));

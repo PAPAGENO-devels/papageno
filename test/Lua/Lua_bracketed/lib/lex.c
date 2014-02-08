@@ -9,7 +9,7 @@ context_token *func_table_stack;
 void compute_alloc_realloc_size(FILE *input_file, uint32_t *alloc_size, uint32_t *realloc_size)
 {
   fseek(input_file, 0, SEEK_END);
-  *alloc_size = ((float) ftell(input_file)) / TOKEN_SIZE;
+  *alloc_size = ((float) ftell(input_file)) / __TOKEN_SIZE;
   *realloc_size = *alloc_size/10;
   fseek(input_file, 0, SEEK_SET);
 }
@@ -92,7 +92,7 @@ void perform_lexing(char *file_name, parsing_ctx *c)
   flex_token = (lex_token*) malloc(sizeof(lex_token));
   //Initialize flex_token
   flex_token->handle_context = 0;
-  flex_token->string_buffer = (char*) malloc(sizeof(char)*MAX_BUFFER_SIZE); 
+  flex_token->string_buffer = (char*) malloc(sizeof(char)*__MAX_BUFFER_SIZE); 
   if (flex_token->string_buffer == NULL) {
      DEBUG_STDOUT_PRINT("LEXER> Error: could not complete malloc string_buffer. Aborting.\n");
      exit(1);
@@ -100,13 +100,13 @@ void perform_lexing(char *file_name, parsing_ctx *c)
 
   flex_return_code = yylex();
 
-  while (flex_return_code != END_OF_FILE) {
-    if (flex_return_code == LEX_CORRECT) {
+  while (flex_return_code != __END_OF_FILE) {
+    if (flex_return_code == __LEX_CORRECT) {
       append_token_node(flex_token->token, flex_token->semantic_value, &token_builder, &stack, realloc_size, flex_token->handle_context);
       DEBUG_STDOUT_PRINT("Lexer read token : %x = %s\n", flex_token->token, (char *)flex_token->semantic_value)  
       ++token_list_length;
     }
-    else if (flex_return_code == ADD_SEMI) {
+    else if (flex_return_code == __ADD_SEMI) {
       //append both SEMI and token to the token list
       append_token_node((gr_token) SEMI, ";", &token_builder, &stack, realloc_size, 0);
       DEBUG_STDOUT_PRINT("Lexer added token SEMI\n")           
@@ -114,7 +114,7 @@ void perform_lexing(char *file_name, parsing_ctx *c)
       DEBUG_STDOUT_PRINT("Lexer read token : %x = %s\n", flex_token->token, (char *)flex_token->semantic_value)  
       token_list_length +=2;   
     }
-    else {//flex_return_code is ERROR
+    else {//flex_return_code is __ERROR
       DEBUG_STDOUT_PRINT("Lexer scanned erroneous input. Abort.\n")
       fclose(yyin);
       exit(1);
@@ -135,7 +135,7 @@ void perform_lexing(char *file_name, parsing_ctx *c)
     exit(1);
   }
 
-  #ifdef DEBUG
+  #ifdef __DEBUG
   DEBUG_STDOUT_PRINT("ctx->token_list_length is %d\n", ctx->token_list_length)
   token_node * temp = ctx->token_list;
   int32_t i;

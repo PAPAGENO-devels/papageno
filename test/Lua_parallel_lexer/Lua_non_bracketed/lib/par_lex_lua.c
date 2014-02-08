@@ -199,7 +199,7 @@ void compute_lex_token_list(parsing_ctx *ctx, lex_thread_arg *arg, int32_t lex_t
       }
   }
 
-  #if DEBUG
+  #if __DEBUG
   int8_t k;
   for (k = 0; k< lex_thread_num; k++){
     if (arg[k].list_begin == NULL)
@@ -233,7 +233,7 @@ void compute_lex_token_list(parsing_ctx *ctx, lex_thread_arg *arg, int32_t lex_t
   while (d == NULL && current_thread < lex_thread_num) 
   {
     //We have to check whether or not this chunk ended with an unexpected lexeme and it needed to be inside a comment: if the chunk ended with
-    //an unexpected lexeme, then yylex returned END_CHUNK_ERROR and arg[current_delimiter_thread]->need_end_comment was set to 1.
+    //an unexpected lexeme, then yylex returned __END_CHUNK_ERROR and arg[current_delimiter_thread]->need_end_comment was set to 1.
     if (arg[current_thread].need_end_comment == 1) {
       fprintf(stdout, "Unexpected character in the input file while reading chunk %d. Exit.\n", current_thread);
       exit(1);
@@ -545,7 +545,7 @@ delimiter * next_delimiter(lex_thread_arg *arg, int32_t lex_thread_num, int32_t 
   //else the end of the delimiter list of the chunk has been reached.
   //This ending part of the chunk is not inside a comment; otherwise function next_matching_comment would have been called while processing it.
   //Thus, we have to check whether or not this chunk ended with an unexpected lexeme and it needed instead to be inside a comment.
-  //If the chunk ended with an unexpected lexeme, then yylex returned END_CHUNK_ERROR and arg[current_delimiter_thread]->need_end_comment was set to 1.
+  //If the chunk ended with an unexpected lexeme, then yylex returned __END_CHUNK_ERROR and arg[current_delimiter_thread]->need_end_comment was set to 1.
   if (arg[current_delimiter_thread].need_end_comment == 1) {
     DEBUG_STDOUT_PRINT("next_delimiter> Current delimiter has type class = %d\n", current_delimiter->type_class)
     fprintf(stdout, "Unexpected character in the input file while reading the end of chunk %d. Exit.\n", current_delimiter_thread);
@@ -657,8 +657,8 @@ void *lex_thread_task(void *arg)
   flex_token->num_chars = 0;
   flex_token->read_new_line = 0;
   flex_token->insert_function = 0;
-  flex_token->allocated_buffer_size = MAX_BUFFER_SIZE;
-  flex_token->string_buffer = (char*) malloc(sizeof(char)*MAX_BUFFER_SIZE); 
+  flex_token->allocated_buffer_size = __MAX_BUFFER_SIZE;
+  flex_token->string_buffer = (char*) malloc(sizeof(char)*__MAX_BUFFER_SIZE); 
   if (flex_token->string_buffer == NULL) {
     DEBUG_STDOUT_PRINT("ERROR> In Flex: could not complete malloc string_buffer. Aborting.\n");
     exit(1);
@@ -681,25 +681,25 @@ void *lex_thread_task(void *arg)
 
   flex_return_code = yylex(scanner);
 
-  while (flex_return_code != END_OF_FILE && !end_of_chunk)
+  while (flex_return_code != __END_OF_FILE && !end_of_chunk)
   {
     //1)Handle errors.
-    if (flex_return_code == END_CHUNK_ERROR || flex_return_code == END_CHUNK || flex_return_code == END_CHUNK_INSERT_COMMENT || flex_return_code == END_CHUNK_INSERT_SINGLEMULTICOMMENT)
+    if (flex_return_code == __END_CHUNK_ERROR || flex_return_code == __END_CHUNK || flex_return_code == __END_CHUNK_INSERT_COMMENT || flex_return_code == __END_CHUNK_INSERT_SINGLEMULTICOMMENT)
     {
       end_of_chunk = 1;
-      if (flex_return_code == END_CHUNK_ERROR)
+      if (flex_return_code == __END_CHUNK_ERROR)
         ar->need_end_comment = 1;
     }
 
     //2)Insert the token returned by flex into the token list.
     
-    //Insert token received with return codes LEX_CORRECT, INSERT_DELIMITER, ADD_SEMI.
+    //Insert token received with return codes __LEX_CORRECT, __INSERT_DELIMITER, __ADD_SEMI.
     //If the token returned by yylex is FUNCTION, then it saves both the position of the token in the token list and the current position in the delimiter list.
-    //In particular, token FUNCTION is received with LEX_CORRECT or ADD_SEMI.
+    //In particular, token FUNCTION is received with __LEX_CORRECT or __ADD_SEMI.
     //If the delimiters' list is empty when yylex returns a token FUNCTION, then the current position which is saved is NULL: if afterwards FUNCTION should be
     //inserted into the delimiters' list, then it would be put at the head of the list.
   
-    if (flex_return_code == LEX_CORRECT)
+    if (flex_return_code == __LEX_CORRECT)
     {
       par_append_token_node(flex_token->token, flex_token->semantic_value, &token_builder, &(ar->list_begin), &stack, realloc_size);
       DEBUG_STDOUT_PRINT("Lexing thread %d read token : %x = %s\n", ar->id, flex_token->token, (char *)flex_token->semantic_value)
@@ -719,7 +719,7 @@ void *lex_thread_task(void *arg)
         delimiter_builder->checked = 1;
       }
     }
-    else if (flex_return_code == INSERT_DELIMITER)
+    else if (flex_return_code == __INSERT_DELIMITER)
       {
         par_append_token_node(flex_token->token, flex_token->semantic_value, &token_builder, &(ar->list_begin), &stack, realloc_size); 
         DEBUG_STDOUT_PRINT("Lexing thread %d read token : %x = %s\n", ar->id, flex_token->token, (char *)flex_token->semantic_value)     
@@ -730,7 +730,7 @@ void *lex_thread_task(void *arg)
         par_append_delimiter(delimiter_union, 0, 0, token_builder, &delimiter_builder, &(ar->delimiter_list), &delim_stack, delimiter_realloc_size);
         DEBUG_STDOUT_PRINT("Lexing thread %d inserted delimiter %x = %s\n", ar->id, flex_token->token, (char *)flex_token->semantic_value)     
       }
-    else if (flex_return_code == ADD_SEMI)
+    else if (flex_return_code == __ADD_SEMI)
     {//append both SEMI and token to the token list
       par_append_token_node((gr_token) SEMI, ";", &token_builder, &(ar->list_begin), &stack, realloc_size);
       DEBUG_STDOUT_PRINT("Lexing thread %d added token SEMI\n", ar->id)           
@@ -744,7 +744,7 @@ void *lex_thread_task(void *arg)
         function_current_delim_pos = delimiter_builder;
       }
     }
-    else if (flex_return_code == INSERT_DELIMITER_ADD_SEMI)
+    else if (flex_return_code == __INSERT_DELIMITER_ADD_SEMI)
     {//append both SEMI and token to the token list
       par_append_token_node((gr_token) SEMI, ";", &token_builder, &(ar->list_begin), &stack, realloc_size);
       DEBUG_STDOUT_PRINT("Lexing thread %d added token SEMI\n", ar->id)           
@@ -760,16 +760,16 @@ void *lex_thread_task(void *arg)
     }
 
     //3)Insert comment symbol into the delimiter list.
-    //Handle return codes INSERT_COMMENT, INSERT_SINGLEMULTICOMMENT, END_CHUNK_INSERT_COMMENT, END_CHUNK_INSERT_SINGLEMULTICOMMENT.
-    if (flex_return_code == INSERT_COMMENT || flex_return_code == END_CHUNK_INSERT_COMMENT)
+    //Handle return codes __INSERT_COMMENT, __INSERT_SINGLEMULTICOMMENT, __END_CHUNK_INSERT_COMMENT, __END_CHUNK_INSERT_SINGLEMULTICOMMENT.
+    if (flex_return_code == __INSERT_COMMENT || flex_return_code == __END_CHUNK_INSERT_COMMENT)
     {
-      //If the return code is INSERT_COMMENT, INSERT_SINGLEMULTICOMMENT, END_CHUNK_INSERT_COMMENT or END_CHUNK_INSERT_SINGLEMULTICOMMENT,
+      //If the return code is __INSERT_COMMENT, __INSERT_SINGLEMULTICOMMENT, __END_CHUNK_INSERT_COMMENT or __END_CHUNK_INSERT_SINGLEMULTICOMMENT,
       //and the number of equal signs in the comment symbol is 0, the symbol of comment could be also RBRACK RBRACK and the two parentheses should
       //be put into the token list (the pointer of the delimiter of the comment symbol will keep the position of the second RBRACK in the token listen).
       //However, if flex_token->insert_function equals 1, the symbol must be a comment (otherwise it would be an error).
-      //Furthermore, if the return code is INSERT_SINGLEMULTICOMMENT or END_CHUNK_INSERT_SINGLEMULTICOMMENT, the two parentheses belong to the singleline comment
+      //Furthermore, if the return code is __INSERT_SINGLEMULTICOMMENT or __END_CHUNK_INSERT_SINGLEMULTICOMMENT, the two parentheses belong to the singleline comment
       //since they are immediately followed by a newline; thus it is not necessary to insert them into the token list.
-      //Thus, only INSERT_COMMENT and END_CHUNK_INSERT_COMMENT should be considered.
+      //Thus, only __INSERT_COMMENT and __END_CHUNK_INSERT_COMMENT should be considered.
       if (flex_token->comment_type == -1 && flex_token->insert_function != 1) {
          par_append_token_node((gr_token) RBRACK, "]", &token_builder, &(ar->list_begin), &stack, realloc_size);      
          par_append_token_node((gr_token) RBRACK, "]", &token_builder, &(ar->list_begin), &stack, realloc_size);
@@ -783,7 +783,7 @@ void *lex_thread_task(void *arg)
       number_tokens_from_last_comment = 0;
       DEBUG_STDOUT_PRINT("Lexing thread %d:number_tokens_from_last_comment = %d\n", ar->id, number_tokens_from_last_comment)
     }
-    else if (flex_return_code == INSERT_SINGLEMULTICOMMENT || flex_return_code == END_CHUNK_INSERT_SINGLEMULTICOMMENT)
+    else if (flex_return_code == __INSERT_SINGLEMULTICOMMENT || flex_return_code == __END_CHUNK_INSERT_SINGLEMULTICOMMENT)
     {
       delimiter_union.comment = 0;
       par_append_delimiter(delimiter_union, 1, 0, token_builder, &delimiter_builder, &(ar->delimiter_list), &delim_stack, delimiter_realloc_size);

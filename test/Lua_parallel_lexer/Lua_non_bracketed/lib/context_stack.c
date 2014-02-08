@@ -30,10 +30,10 @@ uint8_t top_context(context_delimiter *stack)
 		return 0;
 
 	delimiter * top = stack->current;
-	//Check whether there is a delimiter LBRACE or one among DO, IF, FUNCTION, CHECKED_FUCTION
+	//Check whether there is a delimiter LBRACE or one among DO, IF, FUNCTION, __CHECKED_FUCTION
 	if (top->type_class == 0 && top->type.token == LBRACE)
 		return 1;
-	//Otherwise type_class is 2 for delimiter CHECKED_FUNCTION or type_class is 0 but the type is DO, IF or FUNCTION.
+	//Otherwise type_class is 2 for delimiter __CHECKED_FUNCTION or type_class is 0 but the type is DO, IF or FUNCTION.
 	return 0;
 
 }

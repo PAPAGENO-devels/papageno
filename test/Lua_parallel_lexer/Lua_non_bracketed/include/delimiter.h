@@ -1,5 +1,5 @@
-#ifndef DELIMITER_H_
-#define DELIMITER_H_
+#ifndef __DELIMITER_H_
+#define __DELIMITER_H_
 
 #include "stdint.h"
 #include "token_node.h"

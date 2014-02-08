@@ -3,7 +3,7 @@
 void init_token_node_stack(token_node_stack *stack, uint32_t alloc_size)
 {
   void* baseptr;
-  posix_memalign(&baseptr,CACHE_LINE_SIZE,sizeof(token_node)*alloc_size);
+  posix_memalign(&baseptr,__CACHE_LINE_SIZE,sizeof(token_node)*alloc_size);
   stack->stack = (token_node*) baseptr;
   stack->ceil = alloc_size;
   stack->tos = 0;
@@ -17,7 +17,7 @@ token_node *push_token_node_on_stack(token_node_stack *stack, gr_token token, vo
    a new slab*/
   if (stack->tos >= stack->ceil) {
     void* new_slab;
-    posix_memalign(&new_slab,CACHE_LINE_SIZE,sizeof(token_node)*realloc_size);
+    posix_memalign(&new_slab,__CACHE_LINE_SIZE,sizeof(token_node)*realloc_size);
     stack->stack = (token_node*) new_slab;
     stack->ceil = realloc_size;
     stack->tos = 0;

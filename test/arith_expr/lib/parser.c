@@ -6,41 +6,41 @@ void compute_preallocation_sizes(parsing_ctx* ctx,int32_t threads){
 
   float cur_node_estimate;
 
-  ctx->NODE_ALLOC_SIZE = 1;
+  ctx->__NODE_ALLOC_SIZE = 1;
   cur_node_estimate = 1;
   while (cur_node_estimate < ctx->token_list_length) {
-    cur_node_estimate *= RHS_LENGTH;
-    ctx->NODE_ALLOC_SIZE += (uint32_t) cur_node_estimate;
+    cur_node_estimate *= __RHS_LENGTH;
+    ctx->__NODE_ALLOC_SIZE += (uint32_t) cur_node_estimate;
   }
-  ctx->NODE_ALLOC_SIZE -= cur_node_estimate;
-  ctx->NODE_ALLOC_SIZE = ctx->NODE_ALLOC_SIZE*2/3/threads;
-  ctx->NODE_REALLOC_SIZE = ctx->NODE_ALLOC_SIZE/10 + 1;
+  ctx->__NODE_ALLOC_SIZE -= cur_node_estimate;
+  ctx->__NODE_ALLOC_SIZE = ctx->__NODE_ALLOC_SIZE*2/3/threads;
+  ctx->__NODE_REALLOC_SIZE = ctx->__NODE_ALLOC_SIZE/10 + 1;
 
-  ctx->PREC_ALLOC_SIZE = ctx->token_list_length/100;
-  ctx->PREC_ALLOC_SIZE += 4096/sizeof(token_node *) - ((ctx->PREC_ALLOC_SIZE*sizeof(token_node *)) % 4096)/sizeof(token_node *);
-  ctx->PREC_REALLOC_SIZE = ctx->PREC_ALLOC_SIZE/10;
+  ctx->__PREC_ALLOC_SIZE = ctx->token_list_length/100;
+  ctx->__PREC_ALLOC_SIZE += 4096/sizeof(token_node *) - ((ctx->__PREC_ALLOC_SIZE*sizeof(token_node *)) % 4096)/sizeof(token_node *);
+  ctx->__PREC_REALLOC_SIZE = ctx->__PREC_ALLOC_SIZE/10;
 }
 
 void pretty_print_parse_status(uint32_t parse_status){
    fprintf(stdout, "Parse action finished:");
    switch (parse_status){
-     case PARSE_SUCCESS:
-       fprintf(stderr,  "Successful parse\n");
+     case __PARSE_SUCCESS:
+       fprintf(stdout,  "Successful parse\n");
        break;
-     case PARSE_NOT_RECOGNIZED:
-      fprintf(stderr, "The string does not to the language\n");
+     case __PARSE_NOT_RECOGNIZED:
+      fprintf(stdout, "The string does not belong to the language\n");
       break;
-     case PARSE_IN_PROGRESS:
-      fprintf(stderr, "Chunk parse ended, more parsing to be done\n");
+     case __PARSE_IN_PROGRESS:
+      fprintf(stdout, "Chunk parse ended, more parsing to be done\n");
       break;
      default:
-      fprintf(stderr, "Invalid return code\n");
+      fprintf(stdout, "Invalid return code\n");
   }  
 }
 
 token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
 {
-  uint32_t i,j, parse_status;
+  uint32_t i, parse_status;
   uint32_t step_size, step_index;
   int32_t num_threads;
   uint8_t *results;
@@ -52,9 +52,11 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
   thread_context_t *arg;
   struct timespec parse_timer_start, parse_timer_end, lex_timer_start, lex_timer_end;
   double lexing_time, parsing_time;
-
+#if defined __LOG_RECOMBINATION
+  uint32_t j;
+#endif
   /* Redirect stderr. */
-#ifdef DEBUG
+#ifdef __DEBUG
   if (freopen("DEBUG", "w", stderr) == NULL) {
     DEBUG_STDOUT_PRINT("OPP> Error: could not redirect stderr to DEBUG.\n")
   }
@@ -65,7 +67,7 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
   portable_clock_gettime(&lex_timer_start);
 
   DEBUG_STDOUT_PRINT("OPP> Lexing...\n")
-  perform_lexing(file_name, &ctx);
+  perform_lexing(lex_thread_max_num, file_name, &ctx);
   portable_clock_gettime(&lex_timer_end);
   
   portable_clock_gettime(&parse_timer_start);
@@ -76,9 +78,9 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
   /* Compute number of threads based on mode. */
   num_threads = threads;
   if (threads > 1) {
-#if defined SINGLE_RECOMBINATION
+#if defined __SINGLE_RECOMBINATION
     ++num_threads;
-#elif defined LOG_RECOMBINATION
+#elif defined __LOG_RECOMBINATION
     num_threads = num_threads*2 -__builtin_popcount(num_threads);
 #else
 #error "Chunk recombination strategy undefined, define it in config.h"
@@ -111,7 +113,7 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
     }
     /* Get prev context. */
     if (i == 0) {
-      l_token = new_token_node(TERM, NULL);
+      l_token = new_token_node(__TERM, NULL);
     } else {
       list_ptr = bounds[i];
       l_token = new_token_node(list_ptr->token, NULL);
@@ -120,7 +122,7 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
     arg[i].c_prev = l_token;
     /* Get next context. */
     if (i == threads - 1) {
-      l_token = new_token_node(TERM, NULL);
+      l_token = new_token_node(__TERM, NULL);
     } else {
       list_ptr = bounds[i + 1]->next;
       l_token = new_token_node(list_ptr->token, NULL);
@@ -139,7 +141,7 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
   if (threads < num_threads) {
     DEBUG_STDOUT_PRINT("OPP> creating additional threads, starting from i = %d.\n", i)
     /* Create additional threads depending on mode. */
-#if defined SINGLE_RECOMBINATION      
+#if defined __SINGLE_RECOMBINATION      
       /* Only one iteration. */
       DEBUG_STDOUT_PRINT("OPP> creating mode ONE thread, i = %d.\n", threads)
       arg[threads].id = threads;
@@ -155,7 +157,7 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
       arg[threads].results = results;
       arg[threads].ctx = &ctx;
       pthread_create(&thread[threads], NULL, thread_task, (void *)&arg[threads]);
-#elif defined LOG_RECOMBINATION
+#elif defined __LOG_RECOMBINATION
       unsigned int step_first_index = 0;
       step_size /= 2;
       DEBUG_STDOUT_PRINT("OPP> creating mode LOG threads.\n")
@@ -214,7 +216,7 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
   lexing_time= compute_time_interval(&lex_timer_start, &lex_timer_end);
   parsing_time=compute_time_interval(&parse_timer_start, &parse_timer_end);
 
-  fprintf(stdout, "Lexer: %lf s, Parser %lf s ",lexing_time,parsing_time);
+  fprintf(stdout, "\nLexer: %lf s\nParser: %lf s ",lexing_time,parsing_time);
 
   return ctx.token_list;
 }
@@ -258,7 +260,7 @@ void *thread_task(void *worker_thread_ctx)
   uint32_t parse_result,i;
   uint32_t parent_index;
   token_node *list_ptr;
-  uint32_t parse_status = PARSE_IN_PROGRESS;
+  uint32_t parse_status = __PARSE_IN_PROGRESS;
 
   thread_context = (thread_context_t*) worker_thread_ctx;
   thread_arguments = thread_context->args;
@@ -267,7 +269,7 @@ void *thread_task(void *worker_thread_ctx)
     for (i = 0; i < thread_context->num_parents; ++i) {
       pthread_join(thread_context->threads[thread_context->parents[i]], NULL);
       parse_status = thread_context->results[thread_context->parents[i]];
-      if (parse_status != PARSE_IN_PROGRESS) {
+      if (parse_status != __PARSE_IN_PROGRESS) {
         break;
       }
     }
@@ -291,13 +293,13 @@ void *thread_task(void *worker_thread_ctx)
     thread_context->list_end = thread_arguments[thread_context->parents[thread_context->num_parents - 1]].list_end;
   }
   /* Launch parser. */
-  if (parse_status == PARSE_IN_PROGRESS) { 
+  if (parse_status == __PARSE_IN_PROGRESS) { 
     parse_result = opp_parse(thread_context->c_prev, thread_context->c_next, thread_context->list_begin, thread_context->list_end, thread_context->ctx);
 
     fprintf(stdout, "Pthread %d> result %d\n", thread_context->id, parse_result);
     thread_context->results[thread_context->id] = parse_result;
 
-#ifdef DEBUG
+#ifdef __DEBUG
     if (parse_result== 0) {
       PRINT_TOKEN_NODE_TREE(thread_context->ctx, 0, thread_context->ctx->token_list)
     }

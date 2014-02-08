@@ -1,6 +1,6 @@
 #include "debug_functions.h"
 
-#ifdef DEBUG
+#ifdef __DEBUG
 
 void print_token_node_tree(parsing_ctx *ctx, uint32_t level, token_node *tree)
 {

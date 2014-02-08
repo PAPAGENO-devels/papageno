@@ -1,5 +1,5 @@
-#ifndef DEBUG_FUNCTIONS_H_
-#define DEBUG_FUNCTIONS_H_
+#ifndef __DEBUG_FUNCTIONS_H_
+#define __DEBUG_FUNCTIONS_H_
 
 #include <stdio.h>
 #include <stdint.h>
@@ -10,7 +10,7 @@
 #include "grammar.h"
 #include "token_node.h"
 
-#ifdef DEBUG
+#ifdef __DEBUG
 #define DEBUG_PRINT(...) fprintf(stderr, __VA_ARGS__);
 #define DEBUG_STDOUT_PRINT(...) fprintf(stdout, __VA_ARGS__);
 #define PRINT_TOKEN_NODE_FRONTIER(ctx) {\

@@ -1,12 +1,12 @@
 #include "delimiter_stack_bracketed_strings.h"
 
-#define DEPTH 3 //Rough guess: another possibility to compute the line length could be to consider the average of the lengths of the lines scanned 
+#define __DEPTH 3 //Rough guess: another possibility to compute the line length could be to consider the average of the lengths of the lines scanned 
 				//in each chunk while computing the cut points.
 
 void init_delimiter_stack(delimiter_stack *stack, uint32_t alloc_size)
 {  
         void *new_delimiter = NULL;
-        posix_memalign( &new_delimiter,CACHE_LINE_SIZE,sizeof(delimiter)*alloc_size);
+        posix_memalign( &new_delimiter,__CACHE_LINE_SIZE,sizeof(delimiter)*alloc_size);
 	stack->stack = (delimiter *)new_delimiter;
 	if (stack->stack == NULL) {
 	    DEBUG_STDOUT_PRINT("ERROR> could not complete malloc stack->stack. Aborting.\n");
@@ -20,7 +20,7 @@ delimiter *push_delimiter_on_stack(delimiter_stack *stack, delimiter_type type, 
 {
     delimiter *new_delimiter = NULL;
 	if (stack->tos >= stack->ceil) {
-	        posix_memalign( (void **)&new_delimiter,CACHE_LINE_SIZE,sizeof(delimiter)*realloc_size);
+	        posix_memalign( (void **)&new_delimiter,__CACHE_LINE_SIZE,sizeof(delimiter)*realloc_size);
 		stack->stack =  (delimiter*) new_delimiter;
 		if (stack->stack == NULL) {
 		    DEBUG_STDOUT_PRINT("ERROR> could not complete malloc stack->stack. Aborting.\n");
@@ -48,7 +48,7 @@ delimiter *push_delimiter_on_stack(delimiter_stack *stack, delimiter_type type, 
 /*Compute allocation and reallocation size to handle a list of delimiters by a stack.*/
 void par_delimiter_compute_alloc_realloc_size(uint32_t chunk_length, uint32_t *alloc_size, uint32_t *realloc_size)
 {
-  uint32_t l_length = RHS_LENGTH * pow(RHS_LENGTH/2, DEPTH-1) * TOKEN_SIZE; //try very very roughly to estimate the length of a line
+  uint32_t l_length = __RHS_LENGTH * pow(__RHS_LENGTH/2, __DEPTH-1) * __TOKEN_SIZE; //try very very roughly to estimate the length of a line
   *alloc_size = ((float) chunk_length) / l_length; //very very rough estimate of the number of lines
   *realloc_size = *alloc_size/10+1;
   
@@ -63,7 +63,7 @@ void par_append_delimiter(delimiter_type type, int8_t type_class, uint8_t token_
   	DEBUG_STDOUT_PRINT("LEXING> par_insert_delimiter: delimiter_list is NULL. Inserted delimiter.\n");
     *delimiter_list = d;
     if (*delimiter_builder != NULL){
-    	/*delimiter_list is NULL and delimiter_builder is not NULL at the end of the first double list of delimiters, when CLOSED_BRACKETS_IN_STRING_OR_COMMENT is read*/
+    	/*delimiter_list is NULL and delimiter_builder is not NULL at the end of the first double list of delimiters, when __CLOSED_BRACKETS_IN_STRING_OR_COMMENT is read*/
     	(*delimiter_builder)->next[token_list_number] = d;
     }
     *delimiter_builder = d;

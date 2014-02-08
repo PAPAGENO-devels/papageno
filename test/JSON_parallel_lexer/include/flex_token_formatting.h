@@ -1,5 +1,5 @@
-#ifndef FLEX_TOKEN_FORMATTING_H_
-#define FLEX_TOKEN_FORMATTING_H_
+#ifndef __FLEX_TOKEN_FORMATTING_H_
+#define __FLEX_TOKEN_FORMATTING_H_
 
 #include <ctype.h>
 #include <limits.h>
@@ -8,7 +8,7 @@
 #include <string.h>
 #include "debug_functions.h"
 
-#define MAX_BUFFER_SIZE 256
+#define __MAX_BUFFER_SIZE 256
 
 
 typedef struct bracketed_string_node{

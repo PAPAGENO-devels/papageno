@@ -1,5 +1,5 @@
-#ifndef SEM_VALUE_STACK_H_
-#define SEM_VALUE_STACK_H_
+#ifndef __SEM_VALUE_STACK_H_
+#define __SEM_VALUE_STACK_H_
 
 #include <stdlib.h>
 #include <stdint.h>

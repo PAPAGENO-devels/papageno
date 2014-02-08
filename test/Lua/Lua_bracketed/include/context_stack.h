@@ -1,5 +1,5 @@
-#ifndef CONTEXT_STACK_H_
-#define CONTEXT_STACK_H_
+#ifndef __CONTEXT_STACK_H_
+#define __CONTEXT_STACK_H_
 
 #include <stdlib.h>
 #include <stdint.h>

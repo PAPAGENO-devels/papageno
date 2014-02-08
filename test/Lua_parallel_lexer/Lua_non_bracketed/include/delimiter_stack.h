@@ -1,5 +1,5 @@
-#ifndef DELIMITER_STACK_H_
-#define DELIMITER_STACK_H_
+#ifndef __DELIMITER_STACK_H_
+#define __DELIMITER_STACK_H_
 
 #include <stdlib.h>
 #include <stdint.h>

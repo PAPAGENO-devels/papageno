@@ -1,5 +1,5 @@
-#ifndef DELIMITER_STACK_BRACKETED_STRINGS_H_
-#define DELIMITER_STACK_BRACKETED_STRINGS_H_
+#ifndef __DELIMITER_STACK_BRACKETED_STRINGS_H_
+#define __DELIMITER_STACK_BRACKETED_STRINGS_H_
 
 #include <stdlib.h>
 #include <stdint.h>
@@ -13,9 +13,6 @@ typedef struct delimiter_stack {
 	delimiter *stack; 	/**< The actual stack. */
 	uint32_t tos; 		/**< Current top of the stack. */
 	uint32_t ceil; 		/**< Current maximum size of the stack. */
-#if TEST
-	uint32_t reallocations; /**< Number of reallocations performed. */
-#endif
 } delimiter_stack;
 
 void init_delimiter_stack(delimiter_stack *stack, uint32_t alloc_size);

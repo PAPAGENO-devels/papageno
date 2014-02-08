@@ -1,5 +1,5 @@
-#ifndef PARSING_CONTEXT_H_
-#define PARSING_CONTEXT_H_
+#ifndef __PARSING_CONTEXT_H_
+#define __PARSING_CONTEXT_H_
 
 #include <stdint.h>
 #include <grammar_tokens.h>
@@ -17,9 +17,9 @@ typedef struct parsing_ctx {
   uint32_t PREC_REALLOC_SIZE;
 } parsing_ctx;
 
-#define PARSE_SUCCESS 0
-#define PARSE_IN_PROGRESS 1
-#define PARSE_NOT_RECOGNIZED 2
-#define PARSE_ERROR 3
+#define __PARSE_SUCCESS 0
+#define __PARSE_IN_PROGRESS 1
+#define __PARSE_NOT_RECOGNIZED 2
+#define __PARSE_ERROR 3
 
 #endif

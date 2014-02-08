@@ -10,14 +10,6 @@
 
 //---
 
- * In file generator.py we must rename all the tokens and the nonterminals of the input grammar so that they do not create conflicts with reserved keywords as NULL, exp, TERM (which is used internally by Papageno)... 
-A possibility is to add __ at the beginning of the name.
- * optimization for comments described in file par_in_lua.l
- * parsing_ctx * ctx come parametro di tutte le funzioni in par_in_lua_bracketed_string.c pu˜ essere sostituito dai soli parametri
-struct token_node *token_list;
-uint32_t token_list_length; 
-oppure si pu˜ usare una variabile globale.
-Probabilmente la stessa modifica si pu˜ eseguire nei parametri delle funzioni di altri moduli
- * It should be possible to reuse lex thread arguments used for the first phase of lexing also as thread arguments for the second phase of lexing. This should lead to a little gain in execution time (avoid time for malloc thread arguments).
  * Allocate in advance strings for the semantic values of the tokens, so that malloc requests of the different lexing threads are not serialized, with negative serious consequences in the execution time of the lexing phase
- * Correct identification of the context to handle both EQ and SEMI in Lua_parallel_lexer/Lua_non_bracketed in the same way done for Lua_bracketed, which has already been handled
+ * It should be possible to reuse lex thread arguments used for the first phase of lexing also as thread arguments for the second phase of lexing. This should lead to a little gain in execution time (avoid time for malloc thread arguments).
+ * optimization for comments in file par_in_lua.l: Crea una tabella hash che memorizza le classi di simboli di commenti chiusi (identificati dal numero di '=') gia' incontrati dall'inizio del chunk.Tiene traccia di una stack dei simboli di commento multilinea aperti pendenti nel chunk gia' scandito e, se incontra un simbolo di commento chiuso con un numero di '=' per cui non ci sono commenti aperti pendenti e il cui numero di = era gia' nella tabella hash dei simboli di commento chiusi incontrati dall'inizio del chunk, allora interrompe la scansione andando nello stato commentOrError. (hashtable per confrontare il numero di = del simbolo di commento pendente con quelli gia' letti). Il vantaggio di usare l'ottimizzazione e' che, alla lettura del commento chiuso che soddisfa queste condizioni, si puo' evitare di andare nello stato INITIAL e invece andare direttamente in commentOrError.

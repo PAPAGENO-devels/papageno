@@ -6,8 +6,8 @@
 #include "matrix.h"
 #include "reduction_tree.h"
 #include "rewrite_rules.h"
-#define END_OF_INPUT 1
-#define MORE_INPUT 0
+#define __END_OF_INPUT 1
+#define __MORE_INPUT 0
 
 uint8_t rewrite_to_axiom(gr_token token)
 {
@@ -46,22 +46,22 @@ uint32_t get_next_token(token_node ** current_list_pos,
     /* end of chunk condition for the final chunk */
     if ((*current_list_pos)->next == NULL) {
 	*current_list_pos = lookahead_ptr;
-	return END_OF_INPUT;
+	return __END_OF_INPUT;
     }
     *current_list_pos = (*current_list_pos)->next;
     /* end of chunk condition for an inner chunk */
     if (*current_list_pos == chunk_end) {
 	*current_list_pos = lookahead_ptr;
-	return END_OF_INPUT;
+	return __END_OF_INPUT;
     }
-    return MORE_INPUT;
+    return __MORE_INPUT;
 }
 
 uint32_t get_precedence(token_node * current_list_pos, 
 			token_node * last_terminal)
 {
     uint32_t prec;
-    prec = PRECEDENCE(precedence_matrix, last_terminal->token, current_list_pos->token);
+    prec = __PRECEDENCE(precedence_matrix, last_terminal->token, current_list_pos->token);
     return prec;
 }
 
@@ -153,7 +153,7 @@ uint32_t opp_parse(token_node * lookback_ptr,
 {
     uint32_t parse_result = 0;
     reduction_list *main_reduction_list, *temp_reduction_list;	/* reduction_list represents where we are inside the reduction tree. */
-    uint32_t end_chunk_parse = MORE_INPUT;
+    uint32_t end_chunk_parse = __MORE_INPUT;
     uint32_t reduction_error = 0;
     uint32_t node = 0;
     token_node * current_list_pos = list_begin;
@@ -164,9 +164,9 @@ uint32_t opp_parse(token_node * lookback_ptr,
     uint32_t prec=0;
     token_node_stack stack;
     
-    init_token_node_stack(&stack, ctx->NODE_ALLOC_SIZE);
-    init_vect_stack(&yields_prec_stack, ctx->PREC_ALLOC_SIZE);
-    init_vect_stack(&parsing_stack,     ctx->PREC_ALLOC_SIZE);
+    init_token_node_stack(&stack, ctx->__NODE_ALLOC_SIZE);
+    init_vect_stack(&yields_prec_stack, ctx->__PREC_ALLOC_SIZE);
+    init_vect_stack(&parsing_stack,     ctx->__PREC_ALLOC_SIZE);
 
     main_reduction_list = (reduction_list *) malloc(sizeof(reduction_list));
     init_reduction_list(main_reduction_list);
@@ -184,27 +184,27 @@ uint32_t opp_parse(token_node * lookback_ptr,
 	/* lookup precedence between last stack terminal token and new token. */
         prec = get_precedence(current_list_pos,last_terminal);
         /*this was inserted by the guys: add the string terminator to the precedence table to remove this cruft */
-        if (lookback_ptr->token == TERM && prec == _EQ_ && yields_prec_stack.top_of_stack == 0) {
-	     prec = _GT_;
+        if (lookback_ptr->token == __TERM && prec == __EQ && yields_prec_stack.top_of_stack == 0) {
+	     prec = __GT;
         }
 	/* Invalid precedence value fetched from precedence table, abort parsing */
-	if (prec == _NOP_) {
-	    parse_result = PARSE_ERROR;
+	if (prec == __NOP) {
+	    parse_result = __PARSE_ERROR;
 	    break;
 	}
-	/* if precedence is _EQ_ or _LT_, we should shift */
-	if (prec != _GT_ || yields_prec_stack.top_of_stack == 0) {
-	    if (end_chunk_parse == END_OF_INPUT) {
-		parse_result = PARSE_IN_PROGRESS;
+	/* if precedence is __EQ or __LT, we should shift */
+	if (prec != __GT || yields_prec_stack.top_of_stack == 0) {
+	    if (end_chunk_parse == __END_OF_INPUT) {
+		parse_result = __PARSE_IN_PROGRESS;
 		break;
 	    }
 	    /* Push token_node on top of yields_prec_stack. */
-	    if (prec == _LT_) {
-               vect_stack_push(&yields_prec_stack, last_terminal, ctx->PREC_REALLOC_SIZE);
+	    if (prec == __LT) {
+               vect_stack_push(&yields_prec_stack, last_terminal, ctx->__PREC_REALLOC_SIZE);
 	    }
 	    /* Get next token. */
 	    assert(is_terminal(current_list_pos->token));
-	    vect_stack_push(&parsing_stack, last_terminal, ctx->NODE_REALLOC_SIZE);
+	    vect_stack_push(&parsing_stack, last_terminal, ctx->__NODE_REALLOC_SIZE);
 	    last_terminal=current_list_pos;
 	    end_chunk_parse = get_next_token(&current_list_pos, &prev_symbol_ptr, chunk_end, lookahead_ptr);
 	} else {
@@ -250,21 +250,21 @@ uint32_t opp_parse(token_node * lookback_ptr,
 		}
 		
 		/* Finished handle identification. */
-		if (!reduction_error && vect_reduction_tree[get_reduction_position_at_index(main_reduction_list, 0)] == GRAMMAR_SIZE) {
+		if (!reduction_error && vect_reduction_tree[get_reduction_position_at_index(main_reduction_list, 0)] == __GRAMMAR_SIZE) {
 		    DEBUG_PRINT("Not in reducible position.\n")
 			reduction_error = 1;
 		}
 		if (!reduction_error) {
 		    call_semantics(main_reduction_list, prev_symbol_ptr, &stack, ctx);
 		} else {
-		    parse_result = PARSE_NOT_RECOGNIZED;
+		    parse_result = __PARSE_NOT_RECOGNIZED;
 		    break;
 		}
 		/* if the axiom is reached and only two terminators are left reduce and exit */
-		if (lookback_ptr->token == TERM && ctx->token_list->next == NULL && current_list_pos->token == TERM &&
+		if (lookback_ptr->token == __TERM && ctx->token_list->next == NULL && current_list_pos->token == __TERM &&
 		    !is_terminal(ctx->token_list->token) && rewrite_to_axiom(ctx->token_list->token)) {
 		    perform_rewrite(lookback_ptr, ctx->token_list->token, S, &stack, ctx);
-		    parse_result = PARSE_SUCCESS;
+		    parse_result = __PARSE_SUCCESS;
 		    break;
 		}
 	    }

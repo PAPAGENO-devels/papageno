@@ -120,7 +120,7 @@ void perform_lexing(int32_t lex_thread_max_num, char *file_name, parsing_ctx *ct
   DEBUG_STDOUT_PRINT("OPP> Freeing threads.\n")
   free(lex_threads); 
 
-  #ifdef DEBUG
+  #ifdef __DEBUG
   DEBUG_STDOUT_PRINT("ctx->token_list_length is %d\n", ctx->token_list_length)
   token_node * temp = ctx->token_list;
   for(i = 0; i<ctx->token_list_length; i++)

@@ -4,7 +4,7 @@ struct lex_token* flex_token;
 void compute_alloc_realloc_size(FILE *input_file, uint32_t *alloc_size, uint32_t *realloc_size)
 {
   fseek(input_file, 0, SEEK_END);
-  *alloc_size = ((float) ftell(input_file)) / TOKEN_SIZE;
+  *alloc_size = ((float) ftell(input_file)) / __TOKEN_SIZE;
   *realloc_size = *alloc_size/10;
   fseek(input_file, 0, SEEK_SET);
 }

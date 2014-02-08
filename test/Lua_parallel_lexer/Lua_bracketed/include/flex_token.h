@@ -1,12 +1,12 @@
-#ifndef FLEX_TOKEN_H_
-#define FLEX_TOKEN_H_
+#ifndef __FLEX_TOKEN_H_
+#define __FLEX_TOKEN_H_
 
 #include "grammar_tokens.h"
 #include "delimiter_bracketed_strings.h"
 #include "flex_token_formatting_bracketed_strings.h"
 
 typedef enum state_tuple {
-  DOUBLE_STRING = 0, SINGLE_STRING, BRACKETED_STRING, SINGLE_COMMENT
+  __DOUBLE_STRING = 0, __SINGLE_STRING, __BRACKETED_STRING, __SINGLE_COMMENT
 } state_tuple;
 
 typedef enum state_comment {

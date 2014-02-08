@@ -16,7 +16,7 @@ char * append_to_buffer(char* buffer, char c, int32_t* current_buffer_length, in
 	if (*current_buffer_length >= (*allocated_buffer_size)-1) 
 	{	//*allocated_buffer_size-1 to leave space for ending \0.
 		//Realloc buffer: common string length usually should not cause more than one reallocation.
-		*allocated_buffer_size = *allocated_buffer_size + MAX_BUFFER_SIZE;
+		*allocated_buffer_size = *allocated_buffer_size + __MAX_BUFFER_SIZE;
 		buffer = realloc(buffer, *allocated_buffer_size);
     	if (buffer == NULL)
     	{
@@ -36,10 +36,10 @@ char * concat_to_buffer(char* buffer, char* string_to_concat, int32_t string_to_
 	if (*current_buffer_length + string_to_concat_length >= (*allocated_buffer_size) - 1) 
 	{	//*allocated_buffer_size-1 to leave space for ending \0.
 		//Realloc buffer: common string length usually should not cause more than one reallocation.
-		if (string_to_concat_length >= MAX_BUFFER_SIZE)
+		if (string_to_concat_length >= __MAX_BUFFER_SIZE)
 			maximum_length = string_to_concat_length;
 		else
-			maximum_length = MAX_BUFFER_SIZE;
+			maximum_length = __MAX_BUFFER_SIZE;
 		*allocated_buffer_size = *allocated_buffer_size + maximum_length;
 		buffer = realloc(buffer, *allocated_buffer_size);
     	if (buffer == NULL)

@@ -16,10 +16,10 @@ token_node * node;
 
 int32_t comment_type, matching_comment_type;
 int32_t i, result;
-int32_t allocated_buffer_size = MAX_BUFFER_SIZE;
+int32_t allocated_buffer_size = __MAX_BUFFER_SIZE;
 int32_t current_buffer_length;
 char* ch;
-char* string_buffer = (char*) malloc(sizeof(char)*MAX_BUFFER_SIZE); 
+char* string_buffer = (char*) malloc(sizeof(char)*__MAX_BUFFER_SIZE); 
 if (string_buffer == NULL) {
    yyerror("LEXER> Error: could not complete malloc string_buffer. Aborting.\n");
    exit(1);

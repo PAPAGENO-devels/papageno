@@ -15,15 +15,6 @@
 #define YY_USER_ACTION flex_token->num_chars += yyleng;
   
 
-/*TODO: 
--ottimizzazione da aggiungere: 
-Crea una tabella hash che memorizza le classi di simboli di commenti chiusi (identificati dal numero di '=') gia' incontrati dall'inizio del chunk.
-Tiene traccia di una stack dei simboli di commento multilinea aperti pendenti nel chunk gia' scandito e, se incontra un simbolo di commento chiuso con un numero di '=' 
-per cui non ci sono commenti aperti pendenti e il cui numero di = era gia' nella tabella hash dei simboli di commento chiusi incontrati dall'inizio del chunk,
-allora interrompe la scansione andando nello stato commentOrError. (hashtable per confrontare il numero di = del simbolo di commento pendente con quelli gia' letti).
-Il vantaggio di usare l'ottimizzazione e' che, alla lettura del commento chiuso che soddisfa queste condizioni, si puo' evitare di andare nello stato INITIAL e invece
-andare direttamente in commentOrError.
-*/
 /*
 ENDSTATTOKEN			(NIL|FALSE|TRUE|NUMBER|DOT3|RBRACE|RPAREN|RBRACK|NAME|END|BREAK)
 BEGINSTATTOKEN 			(LPAREN|NAME|COLON2|BREAK|GOTO|DO|WHILE|REPEAT|IF|FOR|FUNCTION|LOCAL)
@@ -121,7 +112,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "and");
 				 ////flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{DO}		{flex_token->token = DO;
 				 /* Semantic value stub. */
@@ -129,7 +120,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "do");
 				 ////flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return INSERT_DELIMITER;
+				 return __INSERT_DELIMITER;
                                 } 
 <INITIAL>{ELSE}		{flex_token->token = ELSE;
 				 /* Semantic value stub. */
@@ -137,7 +128,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "else");
 				 ////flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{ELSEIF}		{flex_token->token = ELSEIF;
 				 /* Semantic value stub. */
@@ -145,7 +136,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "elseif");
 				 ////flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;		
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{FOR}		{flex_token->token = FOR;
 				 /* Semantic value stub. */
@@ -153,7 +144,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "for");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{FUNCTION}		{flex_token->token = FUNCTION;
 				 /* Semantic value stub. */
@@ -162,7 +153,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(function1);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <INITIAL>{GOTO}		{flex_token->token = GOTO;
 				 /* Semantic value stub. */
@@ -170,7 +161,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "goto");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{IF}		{flex_token->token = IF;
 				 /* Semantic value stub. */
@@ -178,7 +169,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "if");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return INSERT_DELIMITER;
+				 return __INSERT_DELIMITER;
                                 } 
 <INITIAL>{IN}		{flex_token->token = IN;
 				 /* Semantic value stub. */
@@ -186,7 +177,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "in");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{LOCAL}		{flex_token->token = LOCAL;
 				 /* Semantic value stub. */
@@ -194,7 +185,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "local");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{NOT}		{flex_token->token = NOT;
 				 /* Semantic value stub. */
@@ -202,7 +193,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "not");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{OR}		{flex_token->token = OR;
 				 /* Semantic value stub. */
@@ -210,7 +201,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "or");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{REPEAT}		{flex_token->token = REPEAT;
 				 /* Semantic value stub. */
@@ -218,7 +209,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "repeat");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{RETURN}		{flex_token->token = RETURN;
 				 /* Semantic value stub. */
@@ -226,7 +217,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "return");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{THEN}		{flex_token->token = THEN;
 				 /* Semantic value stub. */
@@ -234,7 +225,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "then");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{UNTIL}		{flex_token->token = UNTIL;
 				 /* Semantic value stub. */
@@ -242,7 +233,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "until");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                                                                                                                                                                                                                                                                                 
 <INITIAL>{WHILE}		{flex_token->token = WHILE;
 				 /* Semantic value stub. */
@@ -250,7 +241,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "while");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <INITIAL>{NIL}		{flex_token->token = NIL;
 				 /* Semantic value stub. */
@@ -260,7 +251,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;
 				 BEGIN(endStat1);			
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <INITIAL>{FALSE}		{flex_token->token = FALSE;
 				 /* Semantic value stub. */
@@ -270,7 +261,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;
 				 BEGIN(endStat1);						
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <INITIAL>{TRUE}		{flex_token->token = TRUE;
 				 /* Semantic value stub. */
@@ -280,7 +271,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;
 				 BEGIN(endStat1);					
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <INITIAL>{NUMBER}		{flex_token->token = NUMBER;
 				 /* Semantic value stub. */
@@ -290,7 +281,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;
 				 BEGIN(endStat1);			
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <INITIAL>{DOT3}		{flex_token->token = DOT3;
 				 /* Semantic value stub. */
@@ -300,7 +291,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;	
 				 BEGIN(endStat1);			
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <INITIAL>{RBRACE}		{flex_token->token = RBRACE;
 				 /* Semantic value stub. */
@@ -310,7 +301,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;	
 				 BEGIN(endStat1);
-				 return INSERT_DELIMITER;
+				 return __INSERT_DELIMITER;
                                 }
 <INITIAL>{END}		{flex_token->token = END;
 				 /* Semantic value stub. */
@@ -320,7 +311,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;	
 				 BEGIN(endStat1);			
-				 return INSERT_DELIMITER;
+				 return __INSERT_DELIMITER;
                                 }
 <INITIAL>{BREAK}		{flex_token->token = BREAK;
 				 /* Semantic value stub. */
@@ -330,7 +321,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;	
 				 BEGIN(endStat1);		
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <INITIAL>{NAME}		{flex_token->token = NAME;
 				 /* Semantic value stub. */
@@ -340,7 +331,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;	
 				 BEGIN(endStat2);		
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <INITIAL>{RBRACK}		{flex_token->token = RBRACK;
 				 /* Semantic value stub. */
@@ -350,7 +341,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;	
 				 BEGIN(endStat2);			
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <INITIAL>{RPAREN}		{flex_token->token = RPAREN;
 				 /* Semantic value stub. */
@@ -360,7 +351,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;	
 				 BEGIN(endStat2);			
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }    
 <INITIAL>{SEMI}		{flex_token->token = SEMI;
 				 /* Semantic value stub. */
@@ -368,7 +359,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, ";");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return INSERT_DELIMITER;
+				 return __INSERT_DELIMITER;
                                 }                                   
 <INITIAL>{COLON}		{flex_token->token = COLON;
 				 /* Semantic value stub. */
@@ -376,7 +367,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, ":");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{COLON2}		{flex_token->token = COLON2;
 				 /* Semantic value stub. */
@@ -384,7 +375,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "::");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{DOT}		{flex_token->token = DOT;
 				 /* Semantic value stub. */
@@ -392,7 +383,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, ".");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{COMMA}		{flex_token->token = COMMA;
 				 /* Semantic value stub. */
@@ -400,7 +391,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, ",");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{LBRACK}		{flex_token->token = LBRACK;
 				 /* Semantic value stub. */
@@ -408,7 +399,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "[");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{LBRACE}		{flex_token->token = LBRACE;
 				 /* Semantic value stub. */
@@ -416,7 +407,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "{");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return INSERT_DELIMITER;
+				 return __INSERT_DELIMITER;
                                 }                                   
 <INITIAL>{LPAREN}		{flex_token->token = LPAREN;
 				 /* Semantic value stub. */
@@ -424,7 +415,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "(");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{XEQ}		{flex_token->token = XEQ;
 				 /* Semantic value stub. */
@@ -432,7 +423,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "=");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return INSERT_DELIMITER;
+				 return __INSERT_DELIMITER;
                                 }                                  
 <INITIAL>{PLUS}		{flex_token->token = PLUS;
 				 /* Semantic value stub. */
@@ -440,7 +431,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "+");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{UMINUS}		{flex_token->token = UMINUS;
 				 /* Semantic value stub. */
@@ -448,7 +439,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "-");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{ASTERISK}		{flex_token->token = ASTERISK;
 				 /* Semantic value stub. */
@@ -456,7 +447,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "*");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{DIVIDE}		{flex_token->token = DIVIDE;
 				 /* Semantic value stub. */
@@ -464,7 +455,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "/");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{CARET}		{flex_token->token = CARET;
 				 /* Semantic value stub. */
@@ -472,7 +463,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "^");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{PERCENT}		{flex_token->token = PERCENT;
 				 /* Semantic value stub. */
@@ -480,7 +471,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "%");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }  
 <INITIAL>{DOT2}		{flex_token->token = DOT2;
 				 /* Semantic value stub. */
@@ -488,7 +479,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "..");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{LT}		{flex_token->token = LT;
 				 /* Semantic value stub. */
@@ -496,7 +487,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "<");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{GT}		{flex_token->token = GT;
 				 /* Semantic value stub. */
@@ -504,7 +495,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, ">");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{LTEQ}		{flex_token->token = LTEQ;
 				 /* Semantic value stub. */
@@ -512,7 +503,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "<=");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{GTEQ}		{flex_token->token = GTEQ;
 				 /* Semantic value stub. */
@@ -520,7 +511,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, ">=");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{EQ2}		{flex_token->token = EQ2;
 				 /* Semantic value stub. */
@@ -528,7 +519,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "==");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{NEQ}		{flex_token->token = NEQ;
 				 /* Semantic value stub. */
@@ -536,7 +527,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "~=");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{SHARP}		{flex_token->token = SHARP;
 				 /* Semantic value stub. */
@@ -544,7 +535,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "#");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <INITIAL>\]=*\]{SPACE}*{NEWLINE}	{int32_t i = 1;
 				 flex_token->comment_type = 0;
@@ -557,8 +548,8 @@ struct lex_token * flex_token = yyextra;
 				 (flex_token->comment_type)--;
 				 flex_token->semantic_value = NULL;
 				 if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK_INSERT_COMMENT;
-				 return INSERT_COMMENT;
+					return __END_CHUNK_INSERT_COMMENT;
+				 return __INSERT_COMMENT;
                                 }
 <INITIAL>\]=+\]			{flex_token->semantic_value = NULL;
 				 BEGIN(commentOrError);						 
@@ -575,7 +566,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->state_before_comment = INITIAL;
 				 BEGIN(multiComment);							 
-				 return INSERT_COMMENT;
+				 return __INSERT_COMMENT;
                                 }
 <INITIAL>--		{flex_token->semantic_value = NULL;
 				 flex_token->state_before_comment = INITIAL;
@@ -592,13 +583,13 @@ struct lex_token * flex_token = yyextra;
 <INITIAL>{SPACE}+		{}
 <INITIAL>{NEWLINE}+		{flex_token->semantic_value = NULL;
 				if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK;
+					return __END_CHUNK;
 						}
 <INITIAL>.				{
 						 flex_token->semantic_value = NULL;
 						 BEGIN(commentOrError);						 
 						 if(flex_token->num_chars >= flex_token->chunk_length)
-							return END_CHUNK_ERROR;
+							return __END_CHUNK_ERROR;
 						}              						
 <endStat1>{LPAREN}		{flex_token->token = LPAREN;
 				 /* Semantic value stub. */
@@ -608,9 +599,9 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(flex_token->read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat1>{COLON2}		{flex_token->token = COLON2;
 				 /* Semantic value stub. */
@@ -620,9 +611,9 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(flex_token->read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat1>{BREAK}		{flex_token->token = BREAK;
 				 /* Semantic value stub. */
@@ -632,11 +623,11 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 if(flex_token->read_new_line == 1)	{	
 				 	flex_token->read_new_line = 0;	
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				 }
 				 else {
 				 	flex_token->read_new_line = 0;
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
 				 }
                                 }
 <endStat1>{GOTO}		{flex_token->token = GOTO;
@@ -647,9 +638,9 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(flex_token->read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat1>{DO}		{flex_token->token = DO;
 				 /* Semantic value stub. */
@@ -659,9 +650,9 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(flex_token->read_new_line == 1)			
-					return INSERT_DELIMITER_ADD_SEMI;
+					return __INSERT_DELIMITER_ADD_SEMI;
 				else
-					return INSERT_DELIMITER;
+					return __INSERT_DELIMITER;
                                 }
 <endStat1>{WHILE}		{flex_token->token = WHILE;
 				 /* Semantic value stub. */
@@ -671,9 +662,9 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(flex_token->read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat1>{REPEAT}		{flex_token->token = REPEAT;
 				 /* Semantic value stub. */
@@ -683,9 +674,9 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(flex_token->read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat1>{IF}		{flex_token->token = IF;
 				 /* Semantic value stub. */
@@ -695,9 +686,9 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(flex_token->read_new_line == 1)			
-					return INSERT_DELIMITER_ADD_SEMI;
+					return __INSERT_DELIMITER_ADD_SEMI;
 				else
-					return INSERT_DELIMITER;
+					return __INSERT_DELIMITER;
                                 }
 <endStat1>{FOR}		{flex_token->token = FOR;
 				 /* Semantic value stub. */
@@ -707,9 +698,9 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(flex_token->read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat1>{LOCAL}		{flex_token->token = LOCAL;
 				 /* Semantic value stub. */
@@ -719,9 +710,9 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(flex_token->read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat1>{FUNCTION}	{flex_token->token = FUNCTION;
 				 /* Semantic value stub. */
@@ -731,9 +722,9 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(function1);
 				 if(flex_token->read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat1>{AND}		{flex_token->token = AND;
 				 /* Semantic value stub. */
@@ -742,7 +733,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat1>{ELSE}		{flex_token->token = ELSE;
 				 /* Semantic value stub. */
@@ -751,7 +742,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat1>{ELSEIF}		{flex_token->token = ELSEIF;
 				 /* Semantic value stub. */
@@ -760,7 +751,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;	
 				 BEGIN(INITIAL);	
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat1>{IN}		{flex_token->token = IN;
 				 /* Semantic value stub. */
@@ -769,7 +760,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat1>{NOT}		{flex_token->token = NOT;
 				 /* Semantic value stub. */
@@ -778,7 +769,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat1>{OR}		{flex_token->token = OR;
 				 /* Semantic value stub. */
@@ -787,7 +778,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat1>{RETURN}		{flex_token->token = RETURN;
 				 /* Semantic value stub. */
@@ -796,7 +787,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat1>{THEN}		{flex_token->token = THEN;
 				 /* Semantic value stub. */
@@ -805,7 +796,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat1>{UNTIL}		{flex_token->token = UNTIL;
 				 /* Semantic value stub. */
@@ -814,7 +805,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat1>{NIL}		{flex_token->token = NIL;
 				 /* Semantic value stub. */
@@ -823,7 +814,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat1>{FALSE}		{flex_token->token = FALSE;
 				 /* Semantic value stub. */
@@ -832,7 +823,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat1>{TRUE}		{flex_token->token = TRUE;
 				 /* Semantic value stub. */
@@ -841,7 +832,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat1>{NUMBER}		{flex_token->token = NUMBER;
 				 /* Semantic value stub. */
@@ -850,7 +841,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat1>{DOT3}		{flex_token->token = DOT3;
 				 /* Semantic value stub. */
@@ -859,7 +850,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;	
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat1>{RBRACE}		{flex_token->token = RBRACE;
 				 /* Semantic value stub. */
@@ -868,7 +859,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;	
-				 return INSERT_DELIMITER;
+				 return __INSERT_DELIMITER;
                                 }
 <endStat1>{END}		{flex_token->token = END;
 				 /* Semantic value stub. */
@@ -877,7 +868,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;	
-				 return INSERT_DELIMITER;
+				 return __INSERT_DELIMITER;
                                 }
 <endStat1>{RBRACK}		{flex_token->token = RBRACK;
 				 /* Semantic value stub. */
@@ -887,7 +878,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;	
 				 BEGIN(endStat2);			
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat1>{RPAREN}		{flex_token->token = RPAREN;
 				 /* Semantic value stub. */
@@ -897,7 +888,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;	
 				 BEGIN(endStat2);			
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }    
 <endStat1>{SEMI}		{flex_token->token = SEMI;
 				 /* Semantic value stub. */
@@ -906,7 +897,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return INSERT_DELIMITER;
+				 return __INSERT_DELIMITER;
                                 }                                   
 <endStat1>{COLON}		{flex_token->token = COLON;
 				 /* Semantic value stub. */
@@ -915,7 +906,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                                                   
 <endStat1>{DOT}		{flex_token->token = DOT;
 				 /* Semantic value stub. */
@@ -924,7 +915,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{COMMA}		{flex_token->token = COMMA;
 				 /* Semantic value stub. */
@@ -933,7 +924,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{LBRACK}		{flex_token->token = LBRACK;
 				 /* Semantic value stub. */
@@ -942,7 +933,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{LBRACE}		{flex_token->token = LBRACE;
 				 /* Semantic value stub. */
@@ -951,7 +942,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return INSERT_DELIMITER;
+				 return __INSERT_DELIMITER;
                                 }                                   
 <endStat1>{XEQ}		{flex_token->token = XEQ;
 				 /* Semantic value stub. */
@@ -960,7 +951,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return INSERT_DELIMITER;
+				 return __INSERT_DELIMITER;
                                 }                                  
 <endStat1>{PLUS}		{flex_token->token = PLUS;
 				 /* Semantic value stub. */
@@ -969,7 +960,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                                                   
 <endStat1>{ASTERISK}		{flex_token->token = ASTERISK;
 				 /* Semantic value stub. */
@@ -978,7 +969,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{DIVIDE}		{flex_token->token = DIVIDE;
 				 /* Semantic value stub. */
@@ -987,7 +978,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{CARET}		{flex_token->token = CARET;
 				 /* Semantic value stub. */
@@ -996,7 +987,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{PERCENT}		{flex_token->token = PERCENT;
 				 /* Semantic value stub. */
@@ -1005,7 +996,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }  
 <endStat1>{DOT2}		{flex_token->token = DOT2;
 				 /* Semantic value stub. */
@@ -1014,7 +1005,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{LT}		{flex_token->token = LT;
 				 /* Semantic value stub. */
@@ -1023,7 +1014,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{GT}		{flex_token->token = GT;
 				 /* Semantic value stub. */
@@ -1032,7 +1023,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{LTEQ}		{flex_token->token = LTEQ;
 				 /* Semantic value stub. */
@@ -1041,7 +1032,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{GTEQ}		{flex_token->token = GTEQ;
 				 /* Semantic value stub. */
@@ -1050,7 +1041,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{EQ2}		{flex_token->token = EQ2;
 				 /* Semantic value stub. */
@@ -1059,7 +1050,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{NEQ}		{flex_token->token = NEQ;
 				 /* Semantic value stub. */
@@ -1068,7 +1059,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{SHARP}		{flex_token->token = SHARP;
 				 /* Semantic value stub. */
@@ -1077,7 +1068,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                
 <endStat1>{NAME}		{flex_token->token = NAME;
 				 /* Semantic value stub. */
@@ -1088,12 +1079,12 @@ struct lex_token * flex_token = yyextra;
 				 if(flex_token->read_new_line == 1)	{
 				 	flex_token->read_new_line = 0;
 				 	BEGIN(endStat2);
-					return ADD_SEMI;				 	
+					return __ADD_SEMI;				 	
 				 }		
 				else {
 				 	flex_token->read_new_line = 0;
 				 	BEGIN(endStat2);
-					return LEX_CORRECT;				 	
+					return __LEX_CORRECT;				 	
 				 }	
                                 }                                
 <endStat1>{MINUS}		{flex_token->token = MINUS;
@@ -1103,7 +1094,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat1>\]=*\]{SPACE}*{NEWLINE}	{int32_t i= 1;
 				 flex_token->comment_type = 0;
@@ -1117,8 +1108,8 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK_INSERT_COMMENT;
-				 return INSERT_COMMENT;
+					return __END_CHUNK_INSERT_COMMENT;
+				 return __INSERT_COMMENT;
                                 }                                
 <endStat1>--\[=*\[		{int32_t i= 3;
 				 flex_token->comment_type = 0;
@@ -1132,7 +1123,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->state_before_comment = endStat1; 
 				 BEGIN(multiComment);
-				 return INSERT_COMMENT;
+				 return __INSERT_COMMENT;
                                 }
 <endStat1>--		{flex_token->semantic_value = NULL;
 				 flex_token->state_before_comment = endStat1;
@@ -1142,7 +1133,7 @@ struct lex_token * flex_token = yyextra;
 <endStat1>{NEWLINE}+	{flex_token->read_new_line = 1;
 						 flex_token->semantic_value = NULL;
 						 if(flex_token->num_chars >= flex_token->chunk_length)
-							return END_CHUNK;
+							return __END_CHUNK;
 						}
 <endStat1>.				{flex_token->semantic_value = NULL;
 						 unput(yytext[yyleng - 1]);
@@ -1156,9 +1147,9 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(flex_token->read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat2>{BREAK}		{flex_token->token = BREAK;
 				 /* Semantic value stub. */
@@ -1169,12 +1160,12 @@ struct lex_token * flex_token = yyextra;
 				 if(flex_token->read_new_line == 1){	
 				 	flex_token->read_new_line = 0;
 				 	BEGIN(endStat1);		
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				 }
 				else {
 					flex_token->read_new_line = 0;
 					BEGIN(endStat1);
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
 				 }
                                 }
 <endStat2>{GOTO}		{flex_token->token = GOTO;
@@ -1185,9 +1176,9 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(flex_token->read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat2>{DO}		{flex_token->token = DO;
 				 /* Semantic value stub. */
@@ -1197,9 +1188,9 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(flex_token->read_new_line == 1)			
-					return INSERT_DELIMITER_ADD_SEMI;
+					return __INSERT_DELIMITER_ADD_SEMI;
 				else
-					return INSERT_DELIMITER;
+					return __INSERT_DELIMITER;
                                 }
 <endStat2>{WHILE}		{flex_token->token = WHILE;
 				 /* Semantic value stub. */
@@ -1209,9 +1200,9 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(flex_token->read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat2>{REPEAT}		{flex_token->token = REPEAT;
 				 /* Semantic value stub. */
@@ -1221,9 +1212,9 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(flex_token->read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat2>{IF}		{flex_token->token = IF;
 				 /* Semantic value stub. */
@@ -1233,9 +1224,9 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(flex_token->read_new_line == 1)			
-					return INSERT_DELIMITER_ADD_SEMI;
+					return __INSERT_DELIMITER_ADD_SEMI;
 				else
-					return INSERT_DELIMITER;
+					return __INSERT_DELIMITER;
                                 }
 <endStat2>{FOR}		{flex_token->token = FOR;
 				 /* Semantic value stub. */
@@ -1245,9 +1236,9 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(flex_token->read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat2>{LOCAL}		{flex_token->token = LOCAL;
 				 /* Semantic value stub. */
@@ -1257,9 +1248,9 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(flex_token->read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat2>{FUNCTION}		{flex_token->token = FUNCTION;
 				 /* Semantic value stub. */
@@ -1269,9 +1260,9 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(function1);
 				 if(flex_token->read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat2>{AND}		{flex_token->token = AND;
 				 /* Semantic value stub. */
@@ -1280,7 +1271,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat2>{ELSE}		{flex_token->token = ELSE;
 				 /* Semantic value stub. */
@@ -1289,7 +1280,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat2>{ELSEIF}		{flex_token->token = ELSEIF;
 				 /* Semantic value stub. */
@@ -1298,7 +1289,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat2>{IN}		{flex_token->token = IN;
 				 /* Semantic value stub. */
@@ -1307,7 +1298,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat2>{NOT}		{flex_token->token = NOT;
 				 /* Semantic value stub. */
@@ -1316,7 +1307,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat2>{OR}		{flex_token->token = OR;
 				 /* Semantic value stub. */
@@ -1325,7 +1316,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat2>{RETURN}		{flex_token->token = RETURN;
 				 /* Semantic value stub. */
@@ -1334,7 +1325,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat2>{THEN}		{flex_token->token = THEN;
 				 /* Semantic value stub. */
@@ -1343,7 +1334,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat2>{UNTIL}		{flex_token->token = UNTIL;
 				 /* Semantic value stub. */
@@ -1352,7 +1343,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat2>{NIL}		{flex_token->token = NIL;
 				 /* Semantic value stub. */
@@ -1362,7 +1353,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;
 				 BEGIN(endStat1);			
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat2>{FALSE}		{flex_token->token = FALSE;
 				 /* Semantic value stub. */
@@ -1372,7 +1363,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;
 				 BEGIN(endStat1);						
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat2>{TRUE}		{flex_token->token = TRUE;
 				 /* Semantic value stub. */
@@ -1382,7 +1373,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;
 				 BEGIN(endStat1);					
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat2>{NUMBER}		{flex_token->token = NUMBER;
 				 /* Semantic value stub. */
@@ -1392,7 +1383,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;
 				 BEGIN(endStat1);			
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat2>{DOT3}		{flex_token->token = DOT3;
 				 /* Semantic value stub. */
@@ -1402,7 +1393,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;	
 				 BEGIN(endStat1);			
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat2>{RBRACE}		{flex_token->token = RBRACE;
 				 /* Semantic value stub. */
@@ -1412,7 +1403,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;	
 				 BEGIN(endStat1);
-				 return INSERT_DELIMITER;
+				 return __INSERT_DELIMITER;
                                 }
 <endStat2>{END}		{flex_token->token = END;
 				 /* Semantic value stub. */
@@ -1422,7 +1413,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;	
 				 BEGIN(endStat1);			
-				 return INSERT_DELIMITER;
+				 return __INSERT_DELIMITER;
                                 }
 <endStat2>{RBRACK}		{flex_token->token = RBRACK;
 				 /* Semantic value stub. */
@@ -1431,7 +1422,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;	
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat2>{RPAREN}		{flex_token->token = RPAREN;
 				 /* Semantic value stub. */
@@ -1440,7 +1431,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;	
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }    
 <endStat2>{SEMI}		{flex_token->token = SEMI;
 				 /* Semantic value stub. */
@@ -1449,7 +1440,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return INSERT_DELIMITER;
+				 return __INSERT_DELIMITER;
                                 }                                   
 <endStat2>{COLON}		{flex_token->token = COLON;
 				 /* Semantic value stub. */
@@ -1458,7 +1449,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                                                    
 <endStat2>{DOT}		{flex_token->token = DOT;
 				 /* Semantic value stub. */
@@ -1467,7 +1458,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{COMMA}		{flex_token->token = COMMA;
 				 /* Semantic value stub. */
@@ -1476,7 +1467,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{LBRACK}		{flex_token->token = LBRACK;
 				 /* Semantic value stub. */
@@ -1485,7 +1476,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{LBRACE}		{flex_token->token = LBRACE;
 				 /* Semantic value stub. */
@@ -1494,7 +1485,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return INSERT_DELIMITER;
+				 return __INSERT_DELIMITER;
                                 }                                   
 <endStat2>{LPAREN}		{flex_token->token = LPAREN;
 				 /* Semantic value stub. */
@@ -1503,7 +1494,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat2>{XEQ}		{flex_token->token = XEQ;
 				 /* Semantic value stub. */
@@ -1512,7 +1503,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return INSERT_DELIMITER;
+				 return __INSERT_DELIMITER;
                                 }                                  
 <endStat2>{PLUS}		{flex_token->token = PLUS;
 				 /* Semantic value stub. */
@@ -1521,7 +1512,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                                                     
 <endStat2>{ASTERISK}		{flex_token->token = ASTERISK;
 				 /* Semantic value stub. */
@@ -1530,7 +1521,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{DIVIDE}		{flex_token->token = DIVIDE;
 				 /* Semantic value stub. */
@@ -1539,7 +1530,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{CARET}		{flex_token->token = CARET;
 				 /* Semantic value stub. */
@@ -1548,7 +1539,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{PERCENT}		{flex_token->token = PERCENT;
 				 /* Semantic value stub. */
@@ -1557,7 +1548,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }  
 <endStat2>{DOT2}		{flex_token->token = DOT2;
 				 /* Semantic value stub. */
@@ -1566,7 +1557,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{LT}		{flex_token->token = LT;
 				 /* Semantic value stub. */
@@ -1575,7 +1566,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{GT}		{flex_token->token = GT;
 				 /* Semantic value stub. */
@@ -1584,7 +1575,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{LTEQ}		{flex_token->token = LTEQ;
 				 /* Semantic value stub. */
@@ -1593,7 +1584,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{GTEQ}		{flex_token->token = GTEQ;
 				 /* Semantic value stub. */
@@ -1602,7 +1593,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{EQ2}		{flex_token->token = EQ2;
 				 /* Semantic value stub. */
@@ -1611,7 +1602,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{NEQ}		{flex_token->token = NEQ;
 				 /* Semantic value stub. */
@@ -1620,7 +1611,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{SHARP}		{flex_token->token = SHARP;
 				 /* Semantic value stub. */
@@ -1629,7 +1620,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                
 <endStat2>{NAME}		{flex_token->token = NAME;
 				 /* Semantic value stub. */
@@ -1639,11 +1630,11 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 if(flex_token->read_new_line == 1)	{
 				 	flex_token->read_new_line = 0;		
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				 }
 				else{
 					flex_token->read_new_line = 0;
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
 				}
                                 }                                
 <endStat2>{MINUS}		{flex_token->token = MINUS;
@@ -1653,7 +1644,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat2>\]=*\]{SPACE}*{NEWLINE}	{int32_t i= 1;
 				 flex_token->comment_type = 0;
@@ -1667,8 +1658,8 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK_INSERT_COMMENT;
-				 return INSERT_COMMENT;
+					return __END_CHUNK_INSERT_COMMENT;
+				 return __INSERT_COMMENT;
                                 }                                
 <endStat2>--\[=*\[		{int32_t i= 3;
 				 flex_token->comment_type = 0;
@@ -1682,7 +1673,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->state_before_comment = endStat2;
 				 BEGIN(multiComment);
-				 return INSERT_COMMENT;
+				 return __INSERT_COMMENT;
                                 }
 <endStat2>--		{flex_token->semantic_value = NULL;
 				 flex_token->state_before_comment = endStat2;
@@ -1692,7 +1683,7 @@ struct lex_token * flex_token = yyextra;
 <endStat2>{NEWLINE}+	{flex_token->read_new_line = 1;
 						 flex_token->semantic_value = NULL;
 						 if(flex_token->num_chars >= flex_token->chunk_length)
-							return END_CHUNK;
+							return __END_CHUNK;
 						}
 <endStat2>.				{flex_token->semantic_value = NULL;
 						 unput(yytext[yyleng - 1]);
@@ -1717,8 +1708,8 @@ struct lex_token * flex_token = yyextra;
 			     flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK_INSERT_SINGLEMULTICOMMENT;
-				 return INSERT_SINGLEMULTICOMMENT;
+					return __END_CHUNK_INSERT_SINGLEMULTICOMMENT;
+				 return __INSERT_SINGLEMULTICOMMENT;
                                 }
 <singleComment>{NEWLINE}+	{flex_token->semantic_value = NULL;
 				// if(flex_token->state_before_comment == function1 || flex_token->state_before_comment == function2)
@@ -1729,7 +1720,7 @@ struct lex_token * flex_token = yyextra;
 				 if(flex_token->num_chars >= flex_token->chunk_length){
 				 	if(flex_token->state_before_comment == function1 || flex_token->state_before_comment == function2)
 				 		flex_token->insert_function = 1;
-					return END_CHUNK;
+					return __END_CHUNK;
                 }
                                 }
 <singleComment>.			{}   
@@ -1752,15 +1743,15 @@ struct lex_token * flex_token = yyextra;
 				    BEGIN(flex_token->state_before_comment);*/
 				 BEGIN(INITIAL);
 				 if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK_INSERT_COMMENT;
-				 return INSERT_COMMENT;
+					return __END_CHUNK_INSERT_COMMENT;
+				 return __INSERT_COMMENT;
                                 }
 <multiComment>{NEWLINE}+	{
 				 if(flex_token->state_before_comment == function1 || flex_token->state_before_comment == function2)
 				 	flex_token->insert_function = 1;
 				 flex_token->semantic_value = NULL;
 				 if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK_ERROR;
+					return __END_CHUNK_ERROR;
                                 }
 <multiComment>.				{}                                
 <doubleString,singleString>\\x[0-9a-fA-F]{2}		{
@@ -1856,8 +1847,8 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK_INSERT_COMMENT;
-				 return INSERT_COMMENT;
+					return __END_CHUNK_INSERT_COMMENT;
+				 return __INSERT_COMMENT;
                                 }
 <doubleString>\"		{flex_token->token = STRING;
 				 flex_token->string_buffer[flex_token->current_buffer_length] = '\0';
@@ -1868,17 +1859,17 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;				 
 				 BEGIN(endStat1);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                         }
 <doubleString,singleString>{NEWLINE}	{
 						 flex_token->semantic_value = NULL;
 						 BEGIN(commentOrError);						 
 						 if(flex_token->num_chars >= flex_token->chunk_length)
-							return END_CHUNK_ERROR;
+							return __END_CHUNK_ERROR;
 						} 
 <doubleString,singleString><<EOF>>		{
 						 flex_token->semantic_value = NULL;
-						 return END_CHUNK_ERROR;
+						 return __END_CHUNK_ERROR;
 							}	
 <doubleString>[^\\\]\"\n\r]+			{
 						 /*Append chars to string buffer*/
@@ -1898,7 +1889,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->read_new_line = 0;				 
 				 BEGIN(endStat1);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                         }	
 <singleString>[^\\\]\'\n\r]+			{
 						 /*Append chars to string buffer*/
@@ -1921,17 +1912,17 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK_INSERT_COMMENT;
-				 return INSERT_COMMENT;
+					return __END_CHUNK_INSERT_COMMENT;
+				 return __INSERT_COMMENT;
                                 }
 <commentOrError>{NEWLINE}	{
 						 flex_token->semantic_value = NULL;
 						 if(flex_token->num_chars >= flex_token->chunk_length)
-							return END_CHUNK_ERROR;
+							return __END_CHUNK_ERROR;
 							}                        
 <commentOrError><<EOF>>		{
 						 flex_token->semantic_value = NULL;
-						 return END_CHUNK_ERROR;
+						 return __END_CHUNK_ERROR;
 							}							
 <commentOrError>.			{}
 <function1>{NAME}		{flex_token->token = NAME;
@@ -1940,7 +1931,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, yytext);
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                         }
 <function1>{DOT}		{flex_token->token = DOT;
 				 /* Semantic value stub. */
@@ -1948,7 +1939,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, ".");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <function1>{COLON}		{flex_token->token = COLON;
 				 /* Semantic value stub. */
@@ -1956,7 +1947,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, ":");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                                         
 <function1>{LPAREN}		{flex_token->token = LPARENFUNC;
 				 /*Return LPARENFUNC instead of LPAREN*/
@@ -1966,7 +1957,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(function2);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                                                     
 <function1>--\[=*\[		{int32_t i= 3;
 				 flex_token->comment_type = 0;
@@ -1980,7 +1971,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->state_before_comment = function1;
 				 BEGIN(multiComment);							 
-				 return INSERT_COMMENT;
+				 return __INSERT_COMMENT;
                                 }
 <function1>--	{flex_token->semantic_value = NULL;
 				 flex_token->state_before_comment = function1;
@@ -1998,13 +1989,13 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK_INSERT_COMMENT;
-				 return INSERT_COMMENT;
+					return __END_CHUNK_INSERT_COMMENT;
+				 return __INSERT_COMMENT;
                                 }                                     
 <function1>{SPACE}+		{}
 <function1>{NEWLINE}+	{flex_token->insert_function = 1;
 				if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK;
+					return __END_CHUNK;
 						}
 <function1>.	{flex_token->semantic_value = NULL;
 				 BEGIN(commentOrError);
@@ -2015,7 +2006,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, yytext);
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                         }
 <function2>{DOT3}		{flex_token->token = DOT3;
 				 /* Semantic value stub. */
@@ -2023,7 +2014,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, "...");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <function2>{COMMA}		{flex_token->token = COMMA;
 				 /* Semantic value stub. */
@@ -2031,7 +2022,7 @@ struct lex_token * flex_token = yyextra;
         		 //strcpy(ch, ",");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                                                                         
 <function2>{RPAREN}		{flex_token->token = RPARENFUNC;
 				 /*Return RPARENFUNC instead of RPAREN*/
@@ -2041,7 +2032,7 @@ struct lex_token * flex_token = yyextra;
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                            
 <function2>--\[=*\[		{int32_t i= 3;
 				 flex_token->comment_type = 0;
@@ -2055,7 +2046,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 flex_token->state_before_comment = function2;
 				 BEGIN(multiComment);							 
-				 return INSERT_COMMENT;
+				 return __INSERT_COMMENT;
                                 }
 <function2>--	{flex_token->semantic_value = NULL;
 				 flex_token->state_before_comment = function2;
@@ -2073,13 +2064,13 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK_INSERT_COMMENT;
-				 return INSERT_COMMENT;
+					return __END_CHUNK_INSERT_COMMENT;
+				 return __INSERT_COMMENT;
                                 }                                 
 <function2>{SPACE}+		{}
 <function2>{NEWLINE}+	{flex_token->insert_function = 1;
 				if(flex_token->num_chars >= flex_token->chunk_length)
-					return END_CHUNK;
+					return __END_CHUNK;
 						}
 <function2>.	{flex_token->semantic_value = NULL;
 				 BEGIN(commentOrError);

@@ -1,5 +1,5 @@
-#ifndef CONTEXT_STACK_BRACKETED_STRINGS_H_
-#define CONTEXT_STACK_BRACKETED_STRINGS_H_
+#ifndef __CONTEXT_STACK_BRACKETED_STRINGS_H_
+#define __CONTEXT_STACK_BRACKETED_STRINGS_H_
 
 #include <stdlib.h>
 #include <stdint.h>

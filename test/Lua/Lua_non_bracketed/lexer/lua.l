@@ -25,7 +25,7 @@ int32_t comment_type;
 int8_t state_before_comment;
 int32_t i, result;
 int8_t read_new_line = 0;
-int32_t allocated_buffer_size = MAX_BUFFER_SIZE;
+int32_t allocated_buffer_size = __MAX_BUFFER_SIZE;
 int32_t current_buffer_length = 0;
 char* ch;  
 
@@ -123,7 +123,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "and");
 				 ////flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{DO}		{flex_token->token = DO;
 				 /* Semantic value stub. */
@@ -132,7 +132,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 ////flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 flex_token->handle_context = 1;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{ELSE}		{flex_token->token = ELSE;
 				 /* Semantic value stub. */
@@ -140,7 +140,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "else");
 				 ////flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{ELSEIF}		{flex_token->token = ELSEIF;
 				 /* Semantic value stub. */
@@ -148,7 +148,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "elseif");
 				 ////flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;		
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{FOR}		{flex_token->token = FOR;
 				 /* Semantic value stub. */
@@ -156,7 +156,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "for");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{FUNCTION}		{flex_token->token = FUNCTION;
 				 /* Semantic value stub. */
@@ -166,7 +166,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 flex_token->handle_context = 1;
 				 BEGIN(function1);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <INITIAL>{GOTO}		{flex_token->token = GOTO;
 				 /* Semantic value stub. */
@@ -174,7 +174,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "goto");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{IF}		{flex_token->token = IF;
 				 /* Semantic value stub. */
@@ -183,7 +183,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 flex_token->handle_context = 1;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{IN}		{flex_token->token = IN;
 				 /* Semantic value stub. */
@@ -191,7 +191,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "in");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{LOCAL}		{flex_token->token = LOCAL;
 				 /* Semantic value stub. */
@@ -199,7 +199,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "local");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{NOT}		{flex_token->token = NOT;
 				 /* Semantic value stub. */
@@ -207,7 +207,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "not");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{OR}		{flex_token->token = OR;
 				 /* Semantic value stub. */
@@ -215,7 +215,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "or");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{REPEAT}		{flex_token->token = REPEAT;
 				 /* Semantic value stub. */
@@ -223,7 +223,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "repeat");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{RETURN}		{flex_token->token = RETURN;
 				 /* Semantic value stub. */
@@ -231,7 +231,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "return");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{THEN}		{flex_token->token = THEN;
 				 /* Semantic value stub. */
@@ -239,7 +239,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "then");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{UNTIL}		{flex_token->token = UNTIL;
 				 /* Semantic value stub. */
@@ -247,7 +247,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "until");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                                                                                                                                                                                                                                                                                 
 <INITIAL>{WHILE}		{flex_token->token = WHILE;
 				 /* Semantic value stub. */
@@ -255,7 +255,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "while");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <INITIAL>{NIL}		{flex_token->token = NIL;
 				 /* Semantic value stub. */
@@ -265,7 +265,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;
 				 BEGIN(endStat1);			
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <INITIAL>{FALSE}		{flex_token->token = FALSE;
 				 /* Semantic value stub. */
@@ -275,7 +275,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;
 				 BEGIN(endStat1);						
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <INITIAL>{TRUE}		{flex_token->token = TRUE;
 				 /* Semantic value stub. */
@@ -285,7 +285,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;
 				 BEGIN(endStat1);					
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <INITIAL>{NUMBER}		{flex_token->token = NUMBER;
 				 /* Semantic value stub. */
@@ -295,7 +295,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;
 				 BEGIN(endStat1);			
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <INITIAL>{DOT3}		{flex_token->token = DOT3;
 				 /* Semantic value stub. */
@@ -305,7 +305,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;	
 				 BEGIN(endStat1);			
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <INITIAL>{RBRACE}		{flex_token->token = RBRACE;
 				 /* Semantic value stub. */
@@ -316,7 +316,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 read_new_line = 0;	
 				 BEGIN(endStat1);
 				 flex_token->handle_context = 1;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <INITIAL>{END}		{flex_token->token = END;
 				 /* Semantic value stub. */
@@ -327,7 +327,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 read_new_line = 0;	
 				 BEGIN(endStat1);			
 				 flex_token->handle_context = 1;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <INITIAL>{BREAK}		{flex_token->token = BREAK;
 				 /* Semantic value stub. */
@@ -337,7 +337,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;	
 				 BEGIN(endStat1);		
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <INITIAL>{NAME}		{flex_token->token = NAME;
 				 /* Semantic value stub. */
@@ -347,7 +347,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;	
 				 BEGIN(endStat2);		
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <INITIAL>{RBRACK}		{flex_token->token = RBRACK;
 				 /* Semantic value stub. */
@@ -357,7 +357,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;	
 				 BEGIN(endStat2);			
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <INITIAL>{RPAREN}		{flex_token->token = RPAREN;
 				 /* Semantic value stub. */
@@ -367,7 +367,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;	
 				 BEGIN(endStat2);			
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }    
 <INITIAL>{SEMI}		{flex_token->token = SEMI;
 				 /* Semantic value stub. */
@@ -376,7 +376,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 flex_token->handle_context = 1;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{COLON}		{flex_token->token = COLON;
 				 /* Semantic value stub. */
@@ -384,7 +384,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, ":");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{COLON2}		{flex_token->token = COLON2;
 				 /* Semantic value stub. */
@@ -392,7 +392,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "::");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{DOT}		{flex_token->token = DOT;
 				 /* Semantic value stub. */
@@ -400,7 +400,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, ".");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{COMMA}		{flex_token->token = COMMA;
 				 /* Semantic value stub. */
@@ -408,7 +408,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, ",");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{LBRACK}		{flex_token->token = LBRACK;
 				 /* Semantic value stub. */
@@ -416,7 +416,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "[");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{LBRACE}		{flex_token->token = LBRACE;
 				 /* Semantic value stub. */
@@ -425,7 +425,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 flex_token->handle_context = 1;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{LPAREN}		{flex_token->token = LPAREN;
 				 /* Semantic value stub. */
@@ -433,7 +433,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "(");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <INITIAL>{XEQ}		{flex_token->token = XEQ;
 				 /* Semantic value stub. */
@@ -442,7 +442,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 flex_token->handle_context = 1;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                  
 <INITIAL>{PLUS}		{flex_token->token = PLUS;
 				 /* Semantic value stub. */
@@ -450,7 +450,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "+");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{UMINUS}		{flex_token->token = UMINUS;
 				 /* Semantic value stub. */
@@ -458,7 +458,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "-");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{ASTERISK}		{flex_token->token = ASTERISK;
 				 /* Semantic value stub. */
@@ -466,7 +466,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "*");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{DIVIDE}		{flex_token->token = DIVIDE;
 				 /* Semantic value stub. */
@@ -474,7 +474,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "/");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{CARET}		{flex_token->token = CARET;
 				 /* Semantic value stub. */
@@ -482,7 +482,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "^");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{PERCENT}		{flex_token->token = PERCENT;
 				 /* Semantic value stub. */
@@ -490,7 +490,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "%");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }  
 <INITIAL>{DOT2}		{flex_token->token = DOT2;
 				 /* Semantic value stub. */
@@ -498,7 +498,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "..");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{LT}		{flex_token->token = LT;
 				 /* Semantic value stub. */
@@ -506,7 +506,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "<");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{GT}		{flex_token->token = GT;
 				 /* Semantic value stub. */
@@ -514,7 +514,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, ">");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{LTEQ}		{flex_token->token = LTEQ;
 				 /* Semantic value stub. */
@@ -522,7 +522,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "<=");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{GTEQ}		{flex_token->token = GTEQ;
 				 /* Semantic value stub. */
@@ -530,7 +530,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, ">=");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{EQ2}		{flex_token->token = EQ2;
 				 /* Semantic value stub. */
@@ -538,7 +538,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "==");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{NEQ}		{flex_token->token = NEQ;
 				 /* Semantic value stub. */
@@ -546,7 +546,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "~=");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <INITIAL>{SHARP}		{flex_token->token = SHARP;
 				 /* Semantic value stub. */
@@ -554,7 +554,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "#");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <INITIAL>--		{
 				 state_before_comment = INITIAL;
@@ -582,7 +582,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 <INITIAL>{NEWLINE}+		{}           
 <INITIAL>.				{/*Error*/
 						 flex_token->semantic_value = NULL;
-						 return ERROR;
+						 return __ERROR;
 						}              						
 <endStat1>{LPAREN}		{flex_token->token = LPAREN;
 				 /* Semantic value stub. */
@@ -592,9 +592,9 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat1>{COLON2}		{flex_token->token = COLON2;
 				 /* Semantic value stub. */
@@ -604,9 +604,9 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat1>{BREAK}		{flex_token->token = BREAK;
 				 /* Semantic value stub. */
@@ -616,11 +616,11 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 if(read_new_line == 1)	{	
 				 	read_new_line = 0;	
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				 }
 				 else {
 				 	read_new_line = 0;
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
 				 }
                                 }
 <endStat1>{GOTO}		{flex_token->token = GOTO;
@@ -631,9 +631,9 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat1>{DO}		{flex_token->token = DO;
 				 /* Semantic value stub. */
@@ -644,9 +644,9 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 BEGIN(INITIAL);
 				 flex_token->handle_context = 1;
 				 if(read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat1>{WHILE}		{flex_token->token = WHILE;
 				 /* Semantic value stub. */
@@ -656,9 +656,9 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat1>{REPEAT}		{flex_token->token = REPEAT;
 				 /* Semantic value stub. */
@@ -668,9 +668,9 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat1>{IF}		{flex_token->token = IF;
 				 /* Semantic value stub. */
@@ -681,9 +681,9 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 BEGIN(INITIAL);
 				 flex_token->handle_context = 1;
 				 if(read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat1>{FOR}		{flex_token->token = FOR;
 				 /* Semantic value stub. */
@@ -693,9 +693,9 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat1>{LOCAL}		{flex_token->token = LOCAL;
 				 /* Semantic value stub. */
@@ -705,9 +705,9 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat1>{FUNCTION}	{flex_token->token = FUNCTION;
 				 /* Semantic value stub. */
@@ -718,9 +718,9 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->handle_context = 1;
 				 BEGIN(function1);
 				 if(read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat1>{AND}		{flex_token->token = AND;
 				 /* Semantic value stub. */
@@ -729,7 +729,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat1>{ELSE}		{flex_token->token = ELSE;
 				 /* Semantic value stub. */
@@ -738,7 +738,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat1>{ELSEIF}		{flex_token->token = ELSEIF;
 				 /* Semantic value stub. */
@@ -747,7 +747,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;	
 				 BEGIN(INITIAL);	
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat1>{IN}		{flex_token->token = IN;
 				 /* Semantic value stub. */
@@ -756,7 +756,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat1>{NOT}		{flex_token->token = NOT;
 				 /* Semantic value stub. */
@@ -765,7 +765,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat1>{OR}		{flex_token->token = OR;
 				 /* Semantic value stub. */
@@ -774,7 +774,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat1>{RETURN}		{flex_token->token = RETURN;
 				 /* Semantic value stub. */
@@ -783,7 +783,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat1>{THEN}		{flex_token->token = THEN;
 				 /* Semantic value stub. */
@@ -792,7 +792,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat1>{UNTIL}		{flex_token->token = UNTIL;
 				 /* Semantic value stub. */
@@ -801,7 +801,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat1>{NIL}		{flex_token->token = NIL;
 				 /* Semantic value stub. */
@@ -810,7 +810,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat1>{FALSE}		{flex_token->token = FALSE;
 				 /* Semantic value stub. */
@@ -819,7 +819,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat1>{TRUE}		{flex_token->token = TRUE;
 				 /* Semantic value stub. */
@@ -828,7 +828,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat1>{NUMBER}		{flex_token->token = NUMBER;
 				 /* Semantic value stub. */
@@ -837,7 +837,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat1>{DOT3}		{flex_token->token = DOT3;
 				 /* Semantic value stub. */
@@ -846,7 +846,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;	
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat1>{RBRACE}		{flex_token->token = RBRACE;
 				 /* Semantic value stub. */
@@ -856,7 +856,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;	
 				 flex_token->handle_context = 1;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat1>{END}		{flex_token->token = END;
 				 /* Semantic value stub. */
@@ -866,7 +866,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;	
 				 flex_token->handle_context = 1;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat1>{RBRACK}		{flex_token->token = RBRACK;
 				 /* Semantic value stub. */
@@ -876,7 +876,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;	
 				 BEGIN(endStat2);			
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat1>{RPAREN}		{flex_token->token = RPAREN;
 				 /* Semantic value stub. */
@@ -886,7 +886,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;	
 				 BEGIN(endStat2);			
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }    
 <endStat1>{SEMI}		{flex_token->token = SEMI;
 				 /* Semantic value stub. */
@@ -896,7 +896,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 flex_token->handle_context = 1;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{COLON}		{flex_token->token = COLON;
 				 /* Semantic value stub. */
@@ -905,7 +905,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                                                   
 <endStat1>{DOT}		{flex_token->token = DOT;
 				 /* Semantic value stub. */
@@ -914,7 +914,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{COMMA}		{flex_token->token = COMMA;
 				 /* Semantic value stub. */
@@ -923,7 +923,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{LBRACK}		{flex_token->token = LBRACK;
 				 /* Semantic value stub. */
@@ -932,7 +932,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{LBRACE}		{flex_token->token = LBRACE;
 				 /* Semantic value stub. */
@@ -942,7 +942,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 flex_token->handle_context = 1;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{XEQ}		{flex_token->token = XEQ;
 				 /* Semantic value stub. */
@@ -952,7 +952,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 flex_token->handle_context = 1;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                  
 <endStat1>{PLUS}		{flex_token->token = PLUS;
 				 /* Semantic value stub. */
@@ -961,7 +961,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                                                   
 <endStat1>{ASTERISK}		{flex_token->token = ASTERISK;
 				 /* Semantic value stub. */
@@ -970,7 +970,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{DIVIDE}		{flex_token->token = DIVIDE;
 				 /* Semantic value stub. */
@@ -979,7 +979,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{CARET}		{flex_token->token = CARET;
 				 /* Semantic value stub. */
@@ -988,7 +988,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{PERCENT}		{flex_token->token = PERCENT;
 				 /* Semantic value stub. */
@@ -997,7 +997,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }  
 <endStat1>{DOT2}		{flex_token->token = DOT2;
 				 /* Semantic value stub. */
@@ -1006,7 +1006,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{LT}		{flex_token->token = LT;
 				 /* Semantic value stub. */
@@ -1015,7 +1015,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{GT}		{flex_token->token = GT;
 				 /* Semantic value stub. */
@@ -1024,7 +1024,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{LTEQ}		{flex_token->token = LTEQ;
 				 /* Semantic value stub. */
@@ -1033,7 +1033,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{GTEQ}		{flex_token->token = GTEQ;
 				 /* Semantic value stub. */
@@ -1042,7 +1042,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{EQ2}		{flex_token->token = EQ2;
 				 /* Semantic value stub. */
@@ -1051,7 +1051,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{NEQ}		{flex_token->token = NEQ;
 				 /* Semantic value stub. */
@@ -1060,7 +1060,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat1>{SHARP}		{flex_token->token = SHARP;
 				 /* Semantic value stub. */
@@ -1069,7 +1069,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                
 <endStat1>{NAME}		{flex_token->token = NAME;
 				 /* Semantic value stub. */
@@ -1080,12 +1080,12 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 if(read_new_line == 1)	{
 				 	read_new_line = 0;
 				 	BEGIN(endStat2);
-					return ADD_SEMI;				 	
+					return __ADD_SEMI;				 	
 				 }		
 				else {
 				 	read_new_line = 0;
 				 	BEGIN(endStat2);
-					return LEX_CORRECT;				 	
+					return __LEX_CORRECT;				 	
 				 }	
                                 }                                
 <endStat1>{MINUS}		{flex_token->token = MINUS;
@@ -1095,7 +1095,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat1>--		{
 				 state_before_comment = endStat1;
@@ -1125,9 +1125,9 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat2>{BREAK}		{flex_token->token = BREAK;
 				 /* Semantic value stub. */
@@ -1138,12 +1138,12 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 if(read_new_line == 1){	
 				 	read_new_line = 0;
 				 	BEGIN(endStat1);		
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				 }
 				else {
 					read_new_line = 0;
 					BEGIN(endStat1);
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
 				 }
                                 }
 <endStat2>{GOTO}		{flex_token->token = GOTO;
@@ -1154,9 +1154,9 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat2>{DO}		{flex_token->token = DO;
 				 /* Semantic value stub. */
@@ -1167,9 +1167,9 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 BEGIN(INITIAL);
 				 flex_token->handle_context = 1;
 				 if(read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat2>{WHILE}		{flex_token->token = WHILE;
 				 /* Semantic value stub. */
@@ -1179,9 +1179,9 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat2>{REPEAT}		{flex_token->token = REPEAT;
 				 /* Semantic value stub. */
@@ -1191,9 +1191,9 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat2>{IF}		{flex_token->token = IF;
 				 /* Semantic value stub. */
@@ -1204,9 +1204,9 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 BEGIN(INITIAL);
 				 flex_token->handle_context = 1;
 				 if(read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat2>{FOR}		{flex_token->token = FOR;
 				 /* Semantic value stub. */
@@ -1216,9 +1216,9 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat2>{LOCAL}		{flex_token->token = LOCAL;
 				 /* Semantic value stub. */
@@ -1228,9 +1228,9 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 if(read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat2>{FUNCTION}		{flex_token->token = FUNCTION;
 				 /* Semantic value stub. */
@@ -1241,9 +1241,9 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->handle_context = 1;
 				 BEGIN(function1);
 				 if(read_new_line == 1)			
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				else
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
                                 }
 <endStat2>{AND}		{flex_token->token = AND;
 				 /* Semantic value stub. */
@@ -1252,7 +1252,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat2>{ELSE}		{flex_token->token = ELSE;
 				 /* Semantic value stub. */
@@ -1261,7 +1261,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat2>{ELSEIF}		{flex_token->token = ELSEIF;
 				 /* Semantic value stub. */
@@ -1270,7 +1270,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat2>{IN}		{flex_token->token = IN;
 				 /* Semantic value stub. */
@@ -1279,7 +1279,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat2>{NOT}		{flex_token->token = NOT;
 				 /* Semantic value stub. */
@@ -1288,7 +1288,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat2>{OR}		{flex_token->token = OR;
 				 /* Semantic value stub. */
@@ -1297,7 +1297,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat2>{RETURN}		{flex_token->token = RETURN;
 				 /* Semantic value stub. */
@@ -1306,7 +1306,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat2>{THEN}		{flex_token->token = THEN;
 				 /* Semantic value stub. */
@@ -1315,7 +1315,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat2>{UNTIL}		{flex_token->token = UNTIL;
 				 /* Semantic value stub. */
@@ -1324,7 +1324,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat2>{NIL}		{flex_token->token = NIL;
 				 /* Semantic value stub. */
@@ -1334,7 +1334,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;
 				 BEGIN(endStat1);			
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat2>{FALSE}		{flex_token->token = FALSE;
 				 /* Semantic value stub. */
@@ -1344,7 +1344,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;
 				 BEGIN(endStat1);						
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat2>{TRUE}		{flex_token->token = TRUE;
 				 /* Semantic value stub. */
@@ -1354,7 +1354,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;
 				 BEGIN(endStat1);					
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat2>{NUMBER}		{flex_token->token = NUMBER;
 				 /* Semantic value stub. */
@@ -1364,7 +1364,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;
 				 BEGIN(endStat1);			
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat2>{DOT3}		{flex_token->token = DOT3;
 				 /* Semantic value stub. */
@@ -1374,7 +1374,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;	
 				 BEGIN(endStat1);			
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat2>{RBRACE}		{flex_token->token = RBRACE;
 				 /* Semantic value stub. */
@@ -1385,7 +1385,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 read_new_line = 0;	
 				 BEGIN(endStat1);
 				 flex_token->handle_context = 1;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat2>{END}		{flex_token->token = END;
 				 /* Semantic value stub. */
@@ -1396,7 +1396,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 read_new_line = 0;	
 				 BEGIN(endStat1);			
 				 flex_token->handle_context = 1;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat2>{RBRACK}		{flex_token->token = RBRACK;
 				 /* Semantic value stub. */
@@ -1405,7 +1405,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;	
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat2>{RPAREN}		{flex_token->token = RPAREN;
 				 /* Semantic value stub. */
@@ -1414,7 +1414,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;	
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }    
 <endStat2>{SEMI}		{flex_token->token = SEMI;
 				 /* Semantic value stub. */
@@ -1424,7 +1424,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 flex_token->handle_context = 1;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{COLON}		{flex_token->token = COLON;
 				 /* Semantic value stub. */
@@ -1433,7 +1433,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                                                    
 <endStat2>{DOT}		{flex_token->token = DOT;
 				 /* Semantic value stub. */
@@ -1442,7 +1442,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{COMMA}		{flex_token->token = COMMA;
 				 /* Semantic value stub. */
@@ -1451,7 +1451,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{LBRACK}		{flex_token->token = LBRACK;
 				 /* Semantic value stub. */
@@ -1460,7 +1460,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{LBRACE}		{flex_token->token = LBRACE;
 				 /* Semantic value stub. */
@@ -1470,7 +1470,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 flex_token->handle_context = 1;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{LPAREN}		{flex_token->token = LPAREN;
 				 /* Semantic value stub. */
@@ -1479,7 +1479,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <endStat2>{XEQ}		{flex_token->token = XEQ;
 				 /* Semantic value stub. */
@@ -1489,7 +1489,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
 				 flex_token->handle_context = 1;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                  
 <endStat2>{PLUS}		{flex_token->token = PLUS;
 				 /* Semantic value stub. */
@@ -1498,7 +1498,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                                                     
 <endStat2>{ASTERISK}		{flex_token->token = ASTERISK;
 				 /* Semantic value stub. */
@@ -1507,7 +1507,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{DIVIDE}		{flex_token->token = DIVIDE;
 				 /* Semantic value stub. */
@@ -1516,7 +1516,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{CARET}		{flex_token->token = CARET;
 				 /* Semantic value stub. */
@@ -1525,7 +1525,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{PERCENT}		{flex_token->token = PERCENT;
 				 /* Semantic value stub. */
@@ -1534,7 +1534,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }  
 <endStat2>{DOT2}		{flex_token->token = DOT2;
 				 /* Semantic value stub. */
@@ -1543,7 +1543,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{LT}		{flex_token->token = LT;
 				 /* Semantic value stub. */
@@ -1552,7 +1552,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{GT}		{flex_token->token = GT;
 				 /* Semantic value stub. */
@@ -1561,7 +1561,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{LTEQ}		{flex_token->token = LTEQ;
 				 /* Semantic value stub. */
@@ -1570,7 +1570,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{GTEQ}		{flex_token->token = GTEQ;
 				 /* Semantic value stub. */
@@ -1579,7 +1579,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{EQ2}		{flex_token->token = EQ2;
 				 /* Semantic value stub. */
@@ -1588,7 +1588,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{NEQ}		{flex_token->token = NEQ;
 				 /* Semantic value stub. */
@@ -1597,7 +1597,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                   
 <endStat2>{SHARP}		{flex_token->token = SHARP;
 				 /* Semantic value stub. */
@@ -1606,7 +1606,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                
 <endStat2>{NAME}		{flex_token->token = NAME;
 				 /* Semantic value stub. */
@@ -1616,11 +1616,11 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 if(read_new_line == 1)	{
 				 	read_new_line = 0;		
-					return ADD_SEMI;
+					return __ADD_SEMI;
 				 }
 				else{
 					read_new_line = 0;
-					return LEX_CORRECT;
+					return __LEX_CORRECT;
 				}
                                 }                                
 <endStat2>{MINUS}		{flex_token->token = MINUS;
@@ -1630,7 +1630,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <endStat2>--		{
 				 state_before_comment = endStat2;
@@ -1665,7 +1665,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 read_new_line = 1;
                 }
 <multiComment><<EOF>>		{
-						 return ERROR;
+						 return __ERROR;
 							}		                
 <multiComment>.				{}                                
 <doubleString,singleString>\\x[0-9a-fA-F]{2}		{
@@ -1686,7 +1686,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 					}
 					/*Maximal system value of unsigned char (e.g. 255)*/
 					if(result > UCHAR_MAX)
-						 return ERROR;						 
+						 return __ERROR;						 
 					/*Append (char)result to string buffer*/
 					flex_token->string_buffer = append_to_buffer(flex_token->string_buffer, (char) result, current_buffer_length, &allocated_buffer_size);
 					current_buffer_length++;
@@ -1758,15 +1758,15 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;				 
 				 BEGIN(endStat1);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                         }
 <doubleString,singleString>{NEWLINE}	{
 						 flex_token->semantic_value = NULL;
-						 return ERROR;
+						 return __ERROR;
 						} 
 <doubleString,singleString><<EOF>>		{
 						 flex_token->semantic_value = NULL;
-						 return ERROR;
+						 return __ERROR;
 							}	
 <doubleString>[^\\\"\n\r]+			{
 						 /*Append chars to string buffer*/
@@ -1786,7 +1786,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 flex_token->semantic_value = NULL;
 				 read_new_line = 0;				 
 				 BEGIN(endStat1);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                         }	
 <singleString>[^\\\'\n\r]+			{
 						 /*Append chars to string buffer*/
@@ -1803,7 +1803,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, yytext);
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                         }
 <function1>{DOT}		{flex_token->token = DOT;
 				 /* Semantic value stub. */
@@ -1811,7 +1811,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, ".");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <function1>{COLON}		{flex_token->token = COLON;
 				 /* Semantic value stub. */
@@ -1819,7 +1819,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, ":");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                                         
 <function1>{LPAREN}		{flex_token->token = LPARENFUNC;
 				 /*Return LPARENFUNC instead of LPAREN*/
@@ -1829,7 +1829,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(function2);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                                                     
 <function1>--\[=*\[		{i= 3;
 				 comment_type = 0;
@@ -1848,7 +1848,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 <function1>{SPACE}+		{}
 <function1>{NEWLINE}+	{}
 <function1>.	{
-				 return ERROR;
+				 return __ERROR;
 				}                                                                                                                
 <function2>{NAME}		{flex_token->token = NAME;
 				 /* Semantic value stub. */
@@ -1856,7 +1856,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, yytext);
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                         }
 <function2>{DOT3}		{flex_token->token = DOT3;
 				 /* Semantic value stub. */
@@ -1864,7 +1864,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, "...");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }
 <function2>{COMMA}		{flex_token->token = COMMA;
 				 /* Semantic value stub. */
@@ -1872,7 +1872,7 @@ NEWLINE		\n|\r|\r\n|\n\r
         		 //strcpy(ch, ",");
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 }                                                                                         
 <function2>{RPAREN}		{flex_token->token = RPARENFUNC;
 				 /*Return RPARENFUNC instead of RPAREN*/
@@ -1882,7 +1882,7 @@ NEWLINE		\n|\r|\r\n|\n\r
 				 //flex_token->semantic_value = ch;	
 				 flex_token->semantic_value = NULL;
 				 BEGIN(INITIAL);
-				 return LEX_CORRECT;
+				 return __LEX_CORRECT;
                                 } 
 <function2>--\[=*\[		{i= 3;
 				 comment_type = 0;
@@ -1901,6 +1901,6 @@ NEWLINE		\n|\r|\r\n|\n\r
 <function2>{SPACE}+		{}
 <function2>{NEWLINE}+	{}
 <function2>.	{
-				 return ERROR;
+				 return __ERROR;
 				}
 %%
