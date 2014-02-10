@@ -103,17 +103,26 @@ The function returns a pointer to the root of the abstract syntax tree resulting
 
 The generator is invoked with the following syntax:\\
 \begin{verbatim}
-generator.py <grammar_specification> <output_dir> [-d|-dhigh|-dlow]
+papageno.py [-h] [--verbose verb] --inputfile inputfile
+                   [--out_header header_outpath] [--out_core source_outpath]
  \end{verbatim}
 
 where the parameters represent:
+%\begin{itemize}
+% \item  \texttt{grammar\_specification} indicates the grammar specification file
+% \item  \texttt{output\_dir} indicates the directory where the generated parser files are output
+% \item  \texttt{-dlow}: shows low level debug information, such as C preamble, bitpacked matrix vectorized reduction tree and token mapping;
+% \item  \texttt{-dhigh}: shows high level debug information, such as identified rules, precedence matrix and rewrite rules;
+% \item  \texttt{-d}: is equivalent to -dlow -dhigh;
+%\end{itemize}
 \begin{itemize}
- \item  \texttt{grammar\_specification} indicates the grammar specification file
- \item  \texttt{output\_dir} indicates the directory where the generated parser files are output
- \item  \texttt{-dlow}: shows low level debug information, such as C preamble, bitpacked matrix vectorized reduction tree and token mapping;
- \item  \texttt{-dhigh}: shows high level debug information, such as identified rules, precedence matrix and rewrite rules;
- \item  \texttt{-d}: is equivalent to -dlow -dhigh;
+ \item  \texttt{-h, --help}: show an help message and exit;
+ \item  \texttt{--verbose verb, -v verb}:  Verbosity level [0-2];
+ \item  \texttt{--inputfile inputfile, -i inputfile}: Grammar specification file, mandatory;
+ \item  \texttt{--out\_header header\_outpath}: Location where the output headerfiles should be generated. Defaults to ./include/ in the calling path;
+ \item  \texttt{--out\_core source\_outpath}: Location where the output C files should be generated. Defaults to ./lib/ in the calling path.
 \end{itemize}
+
 The generator executes checks on the input grammar to assess whether it is in
 the required operator form or not. In particular, it detects repeated rhs,
 rules with consecutive nonterminal symbols and precedence conflicts among
