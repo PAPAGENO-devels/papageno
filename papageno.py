@@ -35,23 +35,23 @@ if repeatedError:
     currentRule = classes.Rule()
     rules.append(currentRule)
     if len(lhs) == 1:
-      currentRule.lhs = lhs[0]
+      currentRule.lhs = next(iter(lhs))
     else:  
       currentRule.lhs = "_" + "__".join(sorted(lhs))
     for token in rhs:
         if token in terminals:
           currentRule.rhs.append(token)
         elif len(token) == 1:
-          currentRule.rhs.append(token[0])
+          currentRule.rhs.append(next(iter(token)))
         else:
           currentRule.rhs.append("_" + "__".join(sorted(token)))
 
   nonterminals = []
   for n in newNonterminalsSet:
     if len(n) == 1:
-      nonterminals.append(n[0])
+      nonterminals.append(next(iter(n)))
     else:  
-      nonterminals.append("_" + "__".join(sorted(lhs)))
+      nonterminals.append("_" + "__".join(sorted(n)))
   axiom = newAxiom
 
   #These statements have been done in check.py for the old set of nonterminals
