@@ -6,19 +6,19 @@ void compute_preallocation_sizes(parsing_ctx* ctx,int32_t threads){
 
   float cur_node_estimate;
 
-  ctx->__NODE_ALLOC_SIZE = 1;
+  ctx->NODE_ALLOC_SIZE = 1;
   cur_node_estimate = 1;
   while (cur_node_estimate < ctx->token_list_length) {
     cur_node_estimate *= __RHS_LENGTH;
-    ctx->__NODE_ALLOC_SIZE += (uint32_t) cur_node_estimate;
+    ctx->NODE_ALLOC_SIZE += (uint32_t) cur_node_estimate;
   }
-  ctx->__NODE_ALLOC_SIZE -= cur_node_estimate;
-  ctx->__NODE_ALLOC_SIZE = ctx->__NODE_ALLOC_SIZE*2/3/threads;
-  ctx->__NODE_REALLOC_SIZE = ctx->__NODE_ALLOC_SIZE/10 + 1;
+  ctx->NODE_ALLOC_SIZE -= cur_node_estimate;
+  ctx->NODE_ALLOC_SIZE = ctx->NODE_ALLOC_SIZE*2/3/threads;
+  ctx->NODE_REALLOC_SIZE = ctx->NODE_ALLOC_SIZE/10 + 1;
 
-  ctx->__PREC_ALLOC_SIZE = ctx->token_list_length/100;
-  ctx->__PREC_ALLOC_SIZE += 4096/sizeof(token_node *) - ((ctx->__PREC_ALLOC_SIZE*sizeof(token_node *)) % 4096)/sizeof(token_node *);
-  ctx->__PREC_REALLOC_SIZE = ctx->__PREC_ALLOC_SIZE/10;
+  ctx->PREC_ALLOC_SIZE = ctx->token_list_length/100;
+  ctx->PREC_ALLOC_SIZE += 4096/sizeof(token_node *) - ((ctx->PREC_ALLOC_SIZE*sizeof(token_node *)) % 4096)/sizeof(token_node *);
+  ctx->PREC_REALLOC_SIZE = ctx->PREC_ALLOC_SIZE/10;
 }
 
 void pretty_print_parse_status(uint32_t parse_status){

@@ -10,7 +10,7 @@ typedef enum state_tuple {
 } state_tuple;
 
 typedef enum state_comment {
-	initial_state = 0, endStat1_state, endStat2_state, function1_state, function2_state
+	__initial_state = 0, __endStat1_state, __endStat2_state, __function1_state, __function2_state
 } state_comment;
 
 typedef struct lex_token {

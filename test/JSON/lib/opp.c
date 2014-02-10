@@ -18,7 +18,7 @@ uint8_t rewrite_to_axiom(gr_token token)
     ptr = &ptr[offset];
     end = ptr + *ptr + 1;
     for (++ptr; ptr != end; ++ptr) {
-	if (*ptr == S) {
+	if (*ptr == __S) {
 	    return 1;
 	}
     }
@@ -163,9 +163,9 @@ uint32_t opp_parse(token_node * lookback_ptr,
     uint32_t prec=0;
     token_node_stack stack;
     
-    init_token_node_stack(&stack, ctx->__NODE_ALLOC_SIZE);
-    init_vect_stack(&yields_prec_stack, ctx->__PREC_ALLOC_SIZE);
-    init_vect_stack(&parsing_stack,     ctx->__PREC_ALLOC_SIZE);
+    init_token_node_stack(&stack, ctx->NODE_ALLOC_SIZE);
+    init_vect_stack(&yields_prec_stack, ctx->PREC_ALLOC_SIZE);
+    init_vect_stack(&parsing_stack,     ctx->PREC_ALLOC_SIZE);
 
     main_reduction_list = (reduction_list *) malloc(sizeof(reduction_list));
     init_reduction_list(main_reduction_list);
@@ -199,11 +199,11 @@ uint32_t opp_parse(token_node * lookback_ptr,
 	    }
 	    /* Push token_node on top of yields_prec_stack. */
 	    if (prec == __LT) {
-               vect_stack_push(&yields_prec_stack, last_terminal, ctx->__PREC_REALLOC_SIZE);
+               vect_stack_push(&yields_prec_stack, last_terminal, ctx->PREC_REALLOC_SIZE);
 	    }
 	    /* Get next token. */
 	    assert(is_terminal(current_list_pos->token));
-	    vect_stack_push(&parsing_stack, last_terminal, ctx->__NODE_REALLOC_SIZE);
+	    vect_stack_push(&parsing_stack, last_terminal, ctx->NODE_REALLOC_SIZE);
 	    last_terminal=current_list_pos;
 	    end_chunk_parse = get_next_token(&current_list_pos, &prev_symbol_ptr, chunk_end, lookahead_ptr);
 	} else {
@@ -262,7 +262,7 @@ uint32_t opp_parse(token_node * lookback_ptr,
 		/* if the axiom is reached and only two terminators are left reduce and exit */
 		if (lookback_ptr->token == __TERM && ctx->token_list->next == NULL && current_list_pos->token == __TERM &&
 		    !is_terminal(ctx->token_list->token) && rewrite_to_axiom(ctx->token_list->token)) {
-		    perform_rewrite(lookback_ptr, ctx->token_list->token, S, &stack, ctx);
+		    perform_rewrite(lookback_ptr, ctx->token_list->token, __S, &stack, ctx);
 		    parse_result = __PARSE_SUCCESS;
 		    break;
 		}

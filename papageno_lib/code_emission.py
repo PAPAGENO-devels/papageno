@@ -170,7 +170,7 @@ def emit_semantic_actions(rules,cPreamble, out_core):
     for rhsIndex in xrange(0, len(rule.rhs)):
       grammar_semantics_c.write(", *%s" % rule.tokenMap[rhsIndex + 1])
     grammar_semantics_c.write(";\n\n")
-    grammar_semantics_c.write("  %s = push_token_node_on_stack(stack, %s, NULL, ctx->__NODE_REALLOC_SIZE);\n" % (rule.tokenMap["lhs"], rule.lhs))
+    grammar_semantics_c.write("  %s = push_token_node_on_stack(stack, %s, NULL, ctx->NODE_REALLOC_SIZE);\n" % (rule.tokenMap["lhs"], rule.lhs))
     grammar_semantics_c.write("  if (p->token == __TERM) {\n")
     grammar_semantics_c.write("    %s = ctx->token_list;\n" % rule.tokenMap[1])
     grammar_semantics_c.write("    ctx->token_list = %s;\n" % rule.tokenMap["lhs"])

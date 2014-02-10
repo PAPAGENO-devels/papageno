@@ -668,7 +668,7 @@ struct lex_token * flex_token = yyextra;
 				 BEGIN(onelist_bracketedString);
                                 }                                
 <onelist_INITIAL>\]\]	{flex_token->semantic_value[0] = NULL;
-				flex_token->bracket_delimiter = CLOSED_BRACKETS;
+				flex_token->bracket_delimiter = __CLOSED_BRACKETS;
 				 if (flex_token->first_closing_bracket == 1) {
 				 	flex_token->first_closing_bracket = 0;
 				 	flex_token->first_closing_bracket_pos = flex_token->num_chars - yyleng;
@@ -810,7 +810,7 @@ struct lex_token * flex_token = yyextra;
 						 	}while (temp != NULL);
 						 	flex_token->pending_bracketed_string_list = NULL;
 						 	flex_token->top_pending_bracketed_string_list = NULL;
-						 	flex_token->bracket_delimiter = ERROR_STRING_CHAR_MAX;
+						 	flex_token->bracket_delimiter = __ERROR_STRING_CHAR_MAX;
 						 	return __INSERT_DELIMITER_BRACKETED_STRING;
 					} else{/*Append (char)result to string buffer*/
 						flex_token->string_buffer[0] = append_to_buffer(flex_token->string_buffer[0], (char) result, &(flex_token->current_buffer_length[0]), &(flex_token->allocated_buffer_size[0]));	
@@ -1553,7 +1553,7 @@ struct lex_token * flex_token = yyextra;
 				 BEGIN(onelist_bracketedString);
                                 }                                
 <onelist_endStat1>\]\]	{flex_token->semantic_value[0] = NULL;
-				 flex_token->bracket_delimiter = CLOSED_BRACKETS;
+				 flex_token->bracket_delimiter = __CLOSED_BRACKETS;
 				 if (flex_token->first_closing_bracket == 1) {
 				 		flex_token->first_closing_bracket = 0;
 				 		flex_token->first_closing_bracket_pos = flex_token->num_chars - yyleng;
@@ -2279,7 +2279,7 @@ struct lex_token * flex_token = yyextra;
 				 BEGIN(onelist_bracketedString);
                                 }                                
 <onelist_endStat2>\]\]	{flex_token->semantic_value[0] = NULL;
-				 flex_token->bracket_delimiter = CLOSED_BRACKETS;
+				 flex_token->bracket_delimiter = __CLOSED_BRACKETS;
 				 if (flex_token->first_closing_bracket == 1) {
 				 		flex_token->first_closing_bracket = 0;
 				 		flex_token->first_closing_bracket_pos = flex_token->num_chars - yyleng;
@@ -2412,24 +2412,24 @@ struct lex_token * flex_token = yyextra;
 				 	/*Enter state with a double list of delimiters*/
 				 	switch(flex_token->state_before_comment){
 				 		case onelist_INITIAL:
-				 			flex_token->before_comment[0] = initial_state;
+				 			flex_token->before_comment[0] = __initial_state;
 				 			break;
 				 		case onelist_endStat1:
-				 			flex_token->before_comment[0] = endStat1_state;
+				 			flex_token->before_comment[0] = __endStat1_state;
 				 			break;
 				 		case onelist_endStat2:
-				 			flex_token->before_comment[0] = endStat2_state;
+				 			flex_token->before_comment[0] = __endStat2_state;
 				 			break;
 				 		case onelist_function1:
-				 			flex_token->before_comment[0] = function1_state;
+				 			flex_token->before_comment[0] = __function1_state;
 				 			break;
 				 		case onelist_function2:
-				 			flex_token->before_comment[0] = function2_state;
+				 			flex_token->before_comment[0] = __function2_state;
 				 			break;				
 				 	}
-				 	flex_token->state = SINGLE_COMMENT;
+				 	flex_token->state = __SINGLE_COMMENT;
 				 	BEGIN(twolists_endStat1);
-				 	flex_token->bracket_delimiter = CLOSED_BRACKETS_IN_SINGLECOMMENT;
+				 	flex_token->bracket_delimiter = __CLOSED_BRACKETS_IN_SINGLECOMMENT;
 					return __INSERT_DELIMITER_BRACKETED_STRING;
 				}   
 				/*otherwise it remains in state singleComment.*/
@@ -2530,7 +2530,7 @@ struct lex_token * flex_token = yyextra;
 						 	}while (temp != NULL);
 						 	flex_token->pending_bracketed_string_list = NULL;
 						 	flex_token->top_pending_bracketed_string_list = NULL;
-						 	flex_token->bracket_delimiter = ERROR_STRING_CHAR_MAX;
+						 	flex_token->bracket_delimiter = __ERROR_STRING_CHAR_MAX;
 						 	return __INSERT_DELIMITER_BRACKETED_STRING;
 					} else{/*Append (char)result*/
 						append_to_all_pending_bracketed_string(flex_token->pending_bracketed_string_list, (char) result);
@@ -2648,7 +2648,7 @@ struct lex_token * flex_token = yyextra;
 					 	flex_token->pending_bracketed_string_list = NULL;
 					 	flex_token->top_pending_bracketed_string_list = NULL;
 				 	}
-				 	flex_token->bracket_delimiter = CLOSED_BRACKETS_NOT_RBRACK_RBRACK;
+				 	flex_token->bracket_delimiter = __CLOSED_BRACKETS_NOT_RBRACK_RBRACK;
 				 	BEGIN(onelist_endStat1);
 				 	return __INSERT_DELIMITER_BRACKETED_STRING;
 				 }
@@ -2752,7 +2752,7 @@ struct lex_token * flex_token = yyextra;
 						 	}while (temp != NULL);
 						 	flex_token->pending_bracketed_string_list = NULL;
 						 	flex_token->top_pending_bracketed_string_list = NULL;
-						 	flex_token->bracket_delimiter = ERROR_STRING_CHAR_MAX;
+						 	flex_token->bracket_delimiter = __ERROR_STRING_CHAR_MAX;
 						 	return __INSERT_DELIMITER_BRACKETED_STRING;
 						 }
 					}
@@ -2912,8 +2912,8 @@ struct lex_token * flex_token = yyextra;
 					 	flex_token->pending_bracketed_string_list = NULL;
 					 	flex_token->top_pending_bracketed_string_list = NULL;
 				 	}
-			 		flex_token->bracket_delimiter = CLOSED_BRACKETS_IN_STRING;
-			 		flex_token->state = DOUBLE_STRING;
+			 		flex_token->bracket_delimiter = __CLOSED_BRACKETS_IN_STRING;
+			 		flex_token->state = __DOUBLE_STRING;
 			 		BEGIN(twolists_endStat1);
 			 		return __INSERT_DELIMITER_BRACKETED_STRING;
 				}
@@ -2963,8 +2963,8 @@ struct lex_token * flex_token = yyextra;
 					 	flex_token->pending_bracketed_string_list = NULL;
 					 	flex_token->top_pending_bracketed_string_list = NULL;
 				 	}
-			 		flex_token->bracket_delimiter = CLOSED_BRACKETS_IN_STRING;
-			 		flex_token->state = SINGLE_STRING;
+			 		flex_token->bracket_delimiter = __CLOSED_BRACKETS_IN_STRING;
+			 		flex_token->state = __SINGLE_STRING;
 			 		BEGIN(twolists_endStat1);
 			 		return __INSERT_DELIMITER_BRACKETED_STRING;
 				}
@@ -3140,7 +3140,7 @@ struct lex_token * flex_token = yyextra;
 						 	}while (temp != NULL);
 						 	flex_token->pending_bracketed_string_list = NULL;
 					 		flex_token->top_pending_bracketed_string_list = NULL;
-					 		flex_token->bracket_delimiter = ERROR_STRING_CHAR_MAX;
+					 		flex_token->bracket_delimiter = __ERROR_STRING_CHAR_MAX;
 						 	return __INSERT_DELIMITER_BRACKETED_STRING;
 					 	}
 					}						 
@@ -3210,7 +3210,7 @@ struct lex_token * flex_token = yyextra;
 								}
 <onelist_bracketedStringOrError>\]\]	{
 				 flex_token->read_new_line = 0;
-		 		 flex_token->bracket_delimiter = CLOSED_BRACKETS_NOT_RBRACK_RBRACK;
+		 		 flex_token->bracket_delimiter = __CLOSED_BRACKETS_NOT_RBRACK_RBRACK;
 		 		 //flex_token->string_or_error = 1; /*States that the two brackets cannot be interpreted as RBRACK RBRACK.*/
 		 		 if (flex_token->first_closing_bracket == 1 || flex_token->pending_bracketed_string_list != NULL) {
 					 if (flex_token->first_closing_bracket == 1) {
@@ -3410,7 +3410,7 @@ struct lex_token * flex_token = yyextra;
 					 	flex_token->top_pending_bracketed_string_list = NULL;
 					}
 			 		flex_token->read_new_line = 0;
-			 		flex_token->bracket_delimiter = CLOSED_BRACKETS;
+			 		flex_token->bracket_delimiter = __CLOSED_BRACKETS;
 					BEGIN(onelist_endStat2);
 					return __INSERT_DELIMITER_BRACKETED_STRING;
 				 }
@@ -3554,7 +3554,7 @@ struct lex_token * flex_token = yyextra;
 					 	flex_token->top_pending_bracketed_string_list = NULL;
 				 	}
 			 		flex_token->read_new_line = 0;
-			 		flex_token->bracket_delimiter = CLOSED_BRACKETS;
+			 		flex_token->bracket_delimiter = __CLOSED_BRACKETS;
 					BEGIN(onelist_endStat2);
 					return __INSERT_DELIMITER_BRACKETED_STRING;
 				 }
@@ -3627,7 +3627,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "(");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '(', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -3638,7 +3638,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "::");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 				 	flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "::", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -3649,7 +3649,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "break");
 				 flex_token->semantic_value[flex_token->second_state] = ch;*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;	
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 				 	flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "break", 5, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;	
 				 flex_token->read_new_line = 0;	
@@ -3661,7 +3661,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "goto");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "goto", 4, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -3672,7 +3672,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "do");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "do", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __INSERT_DELIMITER;
@@ -3683,7 +3683,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "while");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "while", 5, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -3694,7 +3694,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "repeat");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "repeat", 6, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -3705,7 +3705,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "if");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "if", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __INSERT_DELIMITER;
@@ -3716,7 +3716,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "for");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "for", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -3727,7 +3727,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "local");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "local", 5, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -3738,7 +3738,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "function");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "function", 8, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_function1);
@@ -3750,7 +3750,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "and");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "and", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -3761,7 +3761,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "else");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "else", 4, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -3772,7 +3772,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "elseif");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;	
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "elseif", 6, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -3783,7 +3783,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "in");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "in", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -3794,7 +3794,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "not");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "not", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -3805,7 +3805,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "or");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "or", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -3816,7 +3816,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "return");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "return", 6, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -3827,7 +3827,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "then");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "then", 4, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -3838,7 +3838,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "until");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "until", 5, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -3850,7 +3850,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "nil", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_endStat1);
@@ -3863,7 +3863,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "false", 5, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_endStat1);
@@ -3876,7 +3876,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "true", 4, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_endStat1);
@@ -3889,7 +3889,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext, yyleng, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_endStat1);
@@ -3902,7 +3902,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "...", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_endStat1);
@@ -3915,7 +3915,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '}', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_endStat1);
@@ -3928,7 +3928,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "end", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_endStat1);
@@ -3941,7 +3941,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ']', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_endStat2);
@@ -3954,7 +3954,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ')', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_endStat2);
@@ -3966,7 +3966,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, ";");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ';', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __INSERT_DELIMITER;
@@ -3977,7 +3977,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, ":");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ':', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -3988,7 +3988,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, ".");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '.', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -3999,7 +3999,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, ",");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ',', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -4010,7 +4010,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "[");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '[', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -4021,7 +4021,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "{");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '{', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __INSERT_DELIMITER;
@@ -4032,7 +4032,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "=");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '=', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __INSERT_DELIMITER;
@@ -4043,7 +4043,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "+");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '+', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -4054,7 +4054,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "-");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '-', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -4065,7 +4065,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "*");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '*', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -4076,7 +4076,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "/");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '/', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -4087,7 +4087,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "^");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '^', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -4098,7 +4098,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "%");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '%', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -4109,7 +4109,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "..");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "..", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -4120,7 +4120,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "<");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '<', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -4131,7 +4131,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, ">");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '>', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -4142,7 +4142,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "<=");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "<=", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -4153,7 +4153,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, ">=");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], ">=", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -4164,7 +4164,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "==");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "==", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -4175,7 +4175,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "~=");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "~=", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -4186,7 +4186,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "#");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '#', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -4198,30 +4198,30 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext, yyleng, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_endStat2);
 				 return __LEX_CORRECT;				 		
                                 }                                
 <twolists_INITIAL,twolists_endStat1,twolists_endStat2>\[\[	{flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT){
+				 if (flex_token->state != __SINGLE_COMMENT){
 					flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "[[", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 	flex_token->current_buffer_length[flex_token->second_state] = 0;
 				 	BEGIN(twolists_bracketedString);
 				 }
-				 else{//state is SINGLE_COMMENT
+				 else{//state is __SINGLE_COMMENT
 				 	flex_token->current_buffer_length[flex_token->second_state] = 0;
 				 	int8_t swap = flex_token->first_state;
 				 	flex_token->first_state = flex_token->second_state;
 				 	flex_token->second_state = swap;
-				 	flex_token->state = BRACKETED_STRING;
+				 	flex_token->state = __BRACKETED_STRING;
 				 	BEGIN(twolists_singleComment);
 				 }
                                 } 
 <twolists_INITIAL,twolists_endStat1,twolists_endStat2>\]\]		{
 				 flex_token->read_new_line = 0;	
-				 if (flex_token->state == BRACKETED_STRING){
+				 if (flex_token->state == __BRACKETED_STRING){
 				 	flex_token->token = STRING;
 				 	int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					flex_token->string_buffer[flex_token->first_state][length] = '\0';
@@ -4237,7 +4237,7 @@ struct lex_token * flex_token = yyextra;
 				 	flex_token->double_list_ended = 1;
 				 	return __END_DOUBLE_LIST_STRING_RBRACK_RBRACK;
 				 }
-				 else if (flex_token->state != SINGLE_COMMENT){//state is doubleString or singleString
+				 else if (flex_token->state != __SINGLE_COMMENT){//state is doubleString or singleString
 				 	flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "]]", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				}
 				flex_token->insert_token_in_list = flex_token->second_state;	
@@ -4250,7 +4250,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->error[flex_token->second_state] = 0;
 				 if(flex_token->num_chars >= flex_token->chunk_length)
 						flex_token->chunk_ended = 1;
-				 if (flex_token->state == BRACKETED_STRING){
+				 if (flex_token->state == __BRACKETED_STRING){
 				 	 flex_token->token = STRING;
 				 	 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
@@ -4265,7 +4265,7 @@ struct lex_token * flex_token = yyextra;
 					 BEGIN(onelist_INITIAL);
 					 return __INSERT_STRING_MULTICOMMENT;
 				 }
-				 else if (flex_token->state == SINGLE_COMMENT){
+				 else if (flex_token->state == __SINGLE_COMMENT){
 				 	flex_token->semantic_value[flex_token->first_state] = NULL;
 				 	flex_token->insert_single_comment_in_list = flex_token->first_state;
 				 	flex_token->insert_token_in_list = 2;
@@ -4292,7 +4292,7 @@ struct lex_token * flex_token = yyextra;
 				 (flex_token->comment_type)--;
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->double_list_ended = 1;
-				 if(flex_token->state == BRACKETED_STRING){
+				 if(flex_token->state == __BRACKETED_STRING){
 				 	flex_token->insert_single_comment_in_list = 2;
 					flex_token->token = STRING;
 					i--;
@@ -4320,13 +4320,13 @@ struct lex_token * flex_token = yyextra;
 					BEGIN(onelist_INITIAL);
 					return __INSERT_STRING_MULTICOMMENT;
 				 }
-				 else if (flex_token->state != SINGLE_COMMENT) {//doubleString or singleString are the value of state
+				 else if (flex_token->state != __SINGLE_COMMENT) {//doubleString or singleString are the value of state
 					 BEGIN(onelist_INITIAL);
 					 if(flex_token->num_chars >= flex_token->chunk_length)
 						flex_token->chunk_ended = 1;
 					 return __INSERT_COMMENT;
 					}
-				else{//state is SINGLE_COMMENT
+				else{//state is __SINGLE_COMMENT
 					flex_token->semantic_value[flex_token->first_state] = NULL;
 				 	flex_token->insert_single_comment_in_list = flex_token->first_state;
 				 	flex_token->insert_token_in_list = 2;
@@ -4346,36 +4346,36 @@ struct lex_token * flex_token = yyextra;
 				 /*Type of beginning multiline comment is positive and starts from 1*/
 				 (flex_token->comment_type)++;
 				 // flex_token->semantic_value[flex_token->first_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext, yyleng, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state; /*Insert the symbol of beginning comment in this delimiter list.*/
 				 BEGIN(twolists_multiComment);
 				 return __INSERT_COMMENT;
                                 }
 <twolists_INITIAL>--		{//flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "--", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
-				 flex_token->before_comment[flex_token->second_state] = initial_state;
+				 flex_token->before_comment[flex_token->second_state] = __initial_state;
 				 BEGIN(twolists_singleComment);
                     }
 <twolists_endStat1>--		{//flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "--", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
-				 flex_token->before_comment[flex_token->second_state] = endStat1_state;
+				 flex_token->before_comment[flex_token->second_state] = __endStat1_state;
 				 BEGIN(twolists_singleComment);
                     }
 <twolists_endStat2>--		{//flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "--", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
-				 flex_token->before_comment[flex_token->second_state] = endStat2_state;
+				 flex_token->before_comment[flex_token->second_state] = __endStat2_state;
 				 BEGIN(twolists_singleComment);
                     }                                                                                                        
 <twolists_INITIAL,twolists_endStat1,twolists_endStat2,twolists_function1,twolists_function2>{SPACE}+		{
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext, yyleng, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 }
 <twolists_INITIAL>{NEWLINE}	{flex_token->read_new_line = 1;
-				 if (flex_token->state == BRACKETED_STRING){
+				 if (flex_token->state == __BRACKETED_STRING){
 				 	flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\n', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 					if(flex_token->num_chars >= flex_token->chunk_length) {
 						flex_token->error[flex_token->first_state] = 0;
@@ -4394,7 +4394,7 @@ struct lex_token * flex_token = yyextra;
 						return __END_CHUNK_INTERRUPTED_BRACKETED_STRING;
 				 	}
 				 }
-				 else if (flex_token->state != SINGLE_COMMENT) {//state is doubleString or singleString
+				 else if (flex_token->state != __SINGLE_COMMENT) {//state is doubleString or singleString
 				 	flex_token->error[flex_token->first_state] = 1;
 					flex_token->error[flex_token->second_state] = 0;
 					// flex_token->semantic_value[flex_token->first_state] = NULL;
@@ -4403,10 +4403,10 @@ struct lex_token * flex_token = yyextra;
 						flex_token->chunk_ended = 1;
 					BEGIN(onelist_INITIAL);
 					flex_token->double_list_ended = 1;
-					flex_token->bracket_delimiter = END_DOUBLE_LIST_NEWLINE;
+					flex_token->bracket_delimiter = __END_DOUBLE_LIST_NEWLINE;
 					return __INSERT_DELIMITER_BRACKETED_STRING;
 				 }
-				 else{//state is SINGLE_COMMENT
+				 else{//state is __SINGLE_COMMENT
 				 	flex_token->error[flex_token->first_state] = 0;
 				 	flex_token->error[flex_token->second_state] = 0;
 				 	//flex_token->semantic_value[flex_token->first_state] = NULL;
@@ -4415,12 +4415,12 @@ struct lex_token * flex_token = yyextra;
 						flex_token->chunk_ended = 1;
 					BEGIN(onelist_INITIAL);
 					flex_token->double_list_ended = 1;
-					flex_token->bracket_delimiter = END_DOUBLE_LIST_NEWLINE;
+					flex_token->bracket_delimiter = __END_DOUBLE_LIST_NEWLINE;
 					return __INSERT_DELIMITER_BRACKETED_STRING;
 				 }
 						}
 <twolists_INITIAL,twolists_endStat1,twolists_endStat2,twolists_function1,twolists_function2>\\x[0-9a-fA-F]{2}		{
-					if (flex_token->state != SINGLE_COMMENT){
+					if (flex_token->state != __SINGLE_COMMENT){
 						/*Compute the decimal value of the hexadecimal number*/
 						int32_t result = hex2dec(yytext[2]);
 						result = (result << 4) + hex2dec(yytext[3]);
@@ -4430,7 +4430,7 @@ struct lex_token * flex_token = yyextra;
 					BEGIN(twolists_commentOrError);
 									}
 <twolists_INITIAL,twolists_endStat1,twolists_endStat2,twolists_function1,twolists_function2>\\[0-9]{1,3}		{
-					if (flex_token->state != SINGLE_COMMENT){
+					if (flex_token->state != __SINGLE_COMMENT){
 						/*Compute the decimal value of the number*/
 						int32_t result = 0, i = 1;
 						while(i < yyleng)
@@ -4446,7 +4446,7 @@ struct lex_token * flex_token = yyextra;
 							 flex_token->double_list_ended = 1;
 							 flex_token->insert_token_in_list = 2;
 							 // flex_token->semantic_value[flex_token->first_state] = NULL;
-							 flex_token->bracket_delimiter = END_DOUBLE_LIST;							 
+							 flex_token->bracket_delimiter = __END_DOUBLE_LIST;							 
 							 return __INSERT_DELIMITER_BRACKETED_STRING;
 						}
 						else{					 
@@ -4463,21 +4463,21 @@ struct lex_token * flex_token = yyextra;
 					BEGIN(twolists_commentOrError);
 								}
 <twolists_INITIAL,twolists_endStat1,twolists_endStat2>\\z{SPACE}*{NEWLINE}({SPACE}|{NEWLINE})*	{
-					if (flex_token->state == SINGLE_COMMENT){
+					if (flex_token->state == __SINGLE_COMMENT){
 						flex_token->read_new_line = 1;
 						// flex_token->semantic_value[flex_token->first_state] = NULL;
 						flex_token->error[flex_token->first_state] = 0;
 						flex_token->error[flex_token->second_state] = 1;
 						BEGIN(onelist_INITIAL);
 						flex_token->double_list_ended = 1;
-						flex_token->bracket_delimiter = END_DOUBLE_LIST_NEWLINE;
+						flex_token->bracket_delimiter = __END_DOUBLE_LIST_NEWLINE;
 						return __INSERT_DELIMITER_BRACKETED_STRING;
 					}
 					/*Skips the following span of white-space characters, including line breaks.*/
 					BEGIN(twolists_commentOrError);
 								}
 <twolists_function1,twolists_function2>\\z{SPACE}*{NEWLINE}({SPACE}|{NEWLINE})*	{
-					if (flex_token->state == SINGLE_COMMENT){
+					if (flex_token->state == __SINGLE_COMMENT){
 						flex_token->read_new_line = 1;
 						// flex_token->semantic_value[flex_token->first_state] = NULL;
 						flex_token->error[flex_token->first_state] = 0;
@@ -4485,21 +4485,21 @@ struct lex_token * flex_token = yyextra;
 						flex_token->insert_token_in_list = 2;
 						BEGIN(onelist_INITIAL);
 						flex_token->double_list_ended = 1;
-						flex_token->bracket_delimiter = END_DOUBLE_LIST_NEWLINE;
+						flex_token->bracket_delimiter = __END_DOUBLE_LIST_NEWLINE;
 						return __INSERT_DELIMITER_BRACKETED_STRING;
 					}
 					/*Skips the following span of white-space characters, including line breaks.*/
 					BEGIN(twolists_commentOrError);
 								}																															
 <twolists_INITIAL,twolists_endStat1,twolists_endStat2>\\{NEWLINE}		{
-					if (flex_token->state == SINGLE_COMMENT){
+					if (flex_token->state == __SINGLE_COMMENT){
 						flex_token->read_new_line = 1;
 						// flex_token->semantic_value[flex_token->first_state] = NULL;
 						flex_token->error[flex_token->first_state] = 0;
 						flex_token->error[flex_token->second_state] = 1;
 						BEGIN(onelist_INITIAL);
 						flex_token->double_list_ended = 1;
-						flex_token->bracket_delimiter = END_DOUBLE_LIST_NEWLINE;
+						flex_token->bracket_delimiter = __END_DOUBLE_LIST_NEWLINE;
 						return __INSERT_DELIMITER_BRACKETED_STRING;
 					}
 					/*Append character newline to string buffer*/
@@ -4507,7 +4507,7 @@ struct lex_token * flex_token = yyextra;
 					BEGIN(twolists_commentOrError);			
 								}
 <twolists_function1,twolists_function2>\\{NEWLINE}		{
-					if (flex_token->state == SINGLE_COMMENT){
+					if (flex_token->state == __SINGLE_COMMENT){
 						flex_token->read_new_line = 1;
 						// flex_token->semantic_value[flex_token->first_state] = NULL;
 						flex_token->error[flex_token->first_state] = 0;
@@ -4515,7 +4515,7 @@ struct lex_token * flex_token = yyextra;
 						flex_token->insert_token_in_list = 2;
 						BEGIN(onelist_INITIAL);
 						flex_token->double_list_ended = 1;
-						flex_token->bracket_delimiter = END_DOUBLE_LIST_NEWLINE;
+						flex_token->bracket_delimiter = __END_DOUBLE_LIST_NEWLINE;
 						return __INSERT_DELIMITER_BRACKETED_STRING;
 					}
 					/*Append character newline to string buffer*/
@@ -4524,66 +4524,66 @@ struct lex_token * flex_token = yyextra;
 								}								
 <twolists_INITIAL,twolists_endStat1,twolists_endStat2,twolists_function1,twolists_function2>\\\\		{
 					/*Append escaped character to string buffer*/
-					if (flex_token->state != SINGLE_COMMENT)
+					if (flex_token->state != __SINGLE_COMMENT)
 						flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\\', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 					BEGIN(twolists_commentOrError);			
 								}
 <twolists_INITIAL,twolists_endStat1,twolists_endStat2,twolists_function1,twolists_function2>\\\"		{
 					/*Append escaped character to string buffer*/
-					if (flex_token->state != SINGLE_COMMENT)
+					if (flex_token->state != __SINGLE_COMMENT)
 						flex_token->string_buffer[0] = append_to_buffer(flex_token->string_buffer[0], '\"', &(flex_token->current_buffer_length[0]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 					BEGIN(twolists_commentOrError);			
 								}
 <twolists_INITIAL,twolists_endStat1,twolists_endStat2,twolists_function1,twolists_function2>\\\'		{
 					/*Append escaped character to string buffer*/
-					if (flex_token->state != SINGLE_COMMENT)
+					if (flex_token->state != __SINGLE_COMMENT)
 						flex_token->string_buffer[0] = append_to_buffer(flex_token->string_buffer[0], '\'', &(flex_token->current_buffer_length[0]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 					BEGIN(twolists_commentOrError);
 								}
 <twolists_INITIAL,twolists_endStat1,twolists_endStat2,twolists_function1,twolists_function2>\\a		{
 					/*Append escaped character to string buffer*/
-					if (flex_token->state != SINGLE_COMMENT)
+					if (flex_token->state != __SINGLE_COMMENT)
 						flex_token->string_buffer[0] = append_to_buffer(flex_token->string_buffer[0], '\a', &(flex_token->current_buffer_length[0]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 					BEGIN(twolists_commentOrError);
 								}
 <twolists_INITIAL,twolists_endStat1,twolists_endStat2,twolists_function1,twolists_function2>\\b		{
 					/*Append escaped character to string buffer*/
-					if (flex_token->state != SINGLE_COMMENT)
+					if (flex_token->state != __SINGLE_COMMENT)
 						flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\b',&(flex_token->current_buffer_length[0]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 					BEGIN(twolists_commentOrError);
 								}
 <twolists_INITIAL,twolists_endStat1,twolists_endStat2,twolists_function1,twolists_function2>\\f		{
 					/*Append escaped character to string buffer*/
-					if (flex_token->state != SINGLE_COMMENT)
+					if (flex_token->state != __SINGLE_COMMENT)
 						flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\f',&(flex_token->current_buffer_length[0]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 					BEGIN(twolists_commentOrError);
 								}
 <twolists_INITIAL,twolists_endStat1,twolists_endStat2,twolists_function1,twolists_function2>\\n		{
 					/*Append escaped character to string buffer*/
-					if (flex_token->state != SINGLE_COMMENT)
+					if (flex_token->state != __SINGLE_COMMENT)
 						flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\n',&(flex_token->current_buffer_length[0]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 					BEGIN(twolists_commentOrError);
 								}
 <twolists_INITIAL,twolists_endStat1,twolists_endStat2,twolists_function1,twolists_function2>\\r		{
 					/*Append escaped character to string buffer*/
-					if (flex_token->state != SINGLE_COMMENT)
+					if (flex_token->state != __SINGLE_COMMENT)
 						flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\r',&(flex_token->current_buffer_length[0]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 					BEGIN(twolists_commentOrError);
 								}
 <twolists_INITIAL,twolists_endStat1,twolists_endStat2,twolists_function1,twolists_function2>\\t		{
 					/*Append escaped character to string buffer*/
-					if (flex_token->state != SINGLE_COMMENT)
+					if (flex_token->state != __SINGLE_COMMENT)
 						flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\t',&(flex_token->current_buffer_length[0]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 					BEGIN(twolists_commentOrError);
 								}
 <twolists_INITIAL,twolists_endStat1,twolists_endStat2,twolists_function1,twolists_function2>\\v		{
 					/*Append escaped character to string buffer*/
-					if (flex_token->state != SINGLE_COMMENT)
+					if (flex_token->state != __SINGLE_COMMENT)
 						flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\v',&(flex_token->current_buffer_length[0]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 					BEGIN(twolists_commentOrError);
 								}
 <twolists_INITIAL,twolists_endStat1,twolists_endStat2>\"		{
-				if (flex_token->state == DOUBLE_STRING) {
+				if (flex_token->state == __DOUBLE_STRING) {
 					 flex_token->token = STRING;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
@@ -4602,24 +4602,24 @@ struct lex_token * flex_token = yyextra;
 					 return __LEX_CORRECT;
 				}
 				else{/*Append char to buffer*/
-				 	 if (flex_token->state != SINGLE_COMMENT)
+				 	 if (flex_token->state != __SINGLE_COMMENT)
 					 	 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\"',&(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 					 flex_token->current_buffer_length[flex_token->second_state] = 0;
 					 int8_t swap = flex_token->first_state; //go to the state doubleString_state
 					 flex_token->first_state = flex_token->second_state;
 					 flex_token->second_state = swap;
-					 if (flex_token->state == SINGLE_STRING)
+					 if (flex_token->state == __SINGLE_STRING)
 					 	BEGIN(twolists_singleString);
-					 else if (flex_token->state == BRACKETED_STRING)
+					 else if (flex_token->state == __BRACKETED_STRING)
 					 	BEGIN(twolists_bracketedString);
-					 else{ //state is SINGLE_COMMENT
+					 else{ //state is __SINGLE_COMMENT
 					 	BEGIN(twolists_singleComment);
 					 }
-					 flex_token->state = DOUBLE_STRING;	 
+					 flex_token->state = __DOUBLE_STRING;	 
 				}
             }
 <twolists_INITIAL,twolists_endStat1,twolists_endStat2>\'		{
-				if (flex_token->state == SINGLE_STRING) {
+				if (flex_token->state == __SINGLE_STRING) {
 					 flex_token->token = STRING;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
@@ -4637,44 +4637,44 @@ struct lex_token * flex_token = yyextra;
 					 BEGIN(twolists_endStat1);
 					 return __LEX_CORRECT;
 				}
-				else if (flex_token->state == DOUBLE_STRING){/*Append char to buffer*/
+				else if (flex_token->state == __DOUBLE_STRING){/*Append char to buffer*/
 				 	 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\'',&(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 					 flex_token->current_buffer_length[flex_token->second_state] = 0;
 					 BEGIN(twolists_singleString);
 				}
-				else if (flex_token->state == BRACKETED_STRING){/*Append char to buffer*/
+				else if (flex_token->state == __BRACKETED_STRING){/*Append char to buffer*/
 				 	 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\'',&(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 					 flex_token->current_buffer_length[flex_token->second_state] = 0;
 				 	 int8_t swap = flex_token->first_state; //go to the state singleString_state
 					 flex_token->first_state = flex_token->second_state;
 					 flex_token->second_state = swap;
-					 flex_token->state = SINGLE_STRING;
+					 flex_token->state = __SINGLE_STRING;
 				 	 BEGIN(twolists_bracketedString);
 				 	}
-				else{//state is SINGLE_COMMENT
+				else{//state is __SINGLE_COMMENT
 					 flex_token->current_buffer_length[flex_token->second_state] = 0;
 				 	 int8_t swap = flex_token->first_state; //go to the state singleString_state
 					 flex_token->first_state = flex_token->second_state;
 					 flex_token->second_state = swap;
-					 flex_token->state = SINGLE_STRING;
+					 flex_token->state = __SINGLE_STRING;
 				 	 BEGIN(twolists_singleComment);
 				} 	
                         }  
 <twolists_INITIAL><<EOF>>		{
 				 flex_token->error[flex_token->second_state] = 0;
-				 if (flex_token->state != SINGLE_COMMENT) {//state is doubleString or singleString or bracketedString
+				 if (flex_token->state != __SINGLE_COMMENT) {//state is doubleString or singleString or bracketedString
 				 	flex_token->error[flex_token->first_state] = 1;
 				 }
 				 else
-				 	flex_token->error[flex_token->first_state] = 0; //state is SINGLE_COMMENT
+				 	flex_token->error[flex_token->first_state] = 0; //state is __SINGLE_COMMENT
 				 flex_token->insert_token_in_list = 2;	
 				 flex_token->double_list_ended = 1;
 				 flex_token->chunk_ended = 1;
-				 flex_token->bracket_delimiter = END_DOUBLE_LIST;
+				 flex_token->bracket_delimiter = __END_DOUBLE_LIST;
 				 return __INSERT_DELIMITER_BRACKETED_STRING;
 						}
 <twolists_INITIAL>.				{/*Append char to buffer*/
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext[0],&(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 BEGIN(twolists_commentOrError);
 				}
@@ -4684,7 +4684,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "(");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '(', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -4699,7 +4699,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "::");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "::", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -4714,7 +4714,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "break");
 				 flex_token->semantic_value[flex_token->second_state] = ch;*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;	
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "break", 5, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 if(flex_token->read_new_line == 1)	{	
@@ -4732,7 +4732,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "goto");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "goto", 4, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -4747,7 +4747,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "do");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "do", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -4762,7 +4762,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "while");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "while", 5, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -4777,7 +4777,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "repeat");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "repeat", 6, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -4792,7 +4792,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "if");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "if", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -4807,7 +4807,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "for");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "for", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -4822,7 +4822,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "local");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "local", 5, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -4837,7 +4837,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "function");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "function", 8, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_function1);
@@ -4852,7 +4852,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "and");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "and", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -4864,7 +4864,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "else");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "else", 4, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -4876,7 +4876,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "elseif");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;	
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "elseif", 6, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);	
@@ -4888,7 +4888,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "in");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "in", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -4900,7 +4900,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "not");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "not", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -4912,7 +4912,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "or");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "or", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -4924,7 +4924,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "return");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "return", 6, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -4936,7 +4936,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "then");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "then", 4, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -4948,7 +4948,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "until");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "until", 5, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -4961,7 +4961,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "nil", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -4973,7 +4973,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "false", 5, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -4985,7 +4985,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "true", 4, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -4997,7 +4997,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext, yyleng, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -5009,7 +5009,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "...", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -5021,7 +5021,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '}', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __INSERT_DELIMITER;
@@ -5033,7 +5033,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "end", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __INSERT_DELIMITER;
@@ -5045,7 +5045,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ']', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_endStat2);
@@ -5058,7 +5058,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ')', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_endStat2);
@@ -5070,7 +5070,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, ";");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ';', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -5082,7 +5082,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, ":");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ':', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -5094,7 +5094,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, ".");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '.', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -5106,7 +5106,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, ",");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ',', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -5118,7 +5118,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "[");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '[', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -5130,7 +5130,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "{");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '{', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -5142,7 +5142,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "=");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '=', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -5154,7 +5154,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "+");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '+', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -5166,7 +5166,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "*");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '*', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -5178,7 +5178,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "/");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '/', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -5190,7 +5190,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "^");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '^', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -5202,7 +5202,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "%");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '%', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -5214,7 +5214,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "..");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "..", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -5226,7 +5226,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "<");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '<', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -5238,7 +5238,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, ">");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '>', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -5250,7 +5250,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "<=");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "<=", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -5262,7 +5262,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, ">=");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], ">=", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -5274,7 +5274,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "==");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "==", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -5286,7 +5286,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "~=");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "~=", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -5298,7 +5298,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "#");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '#', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -5311,7 +5311,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->insert_token_in_list = flex_token->second_state;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext, yyleng, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 BEGIN(twolists_endStat2);
 				 if(flex_token->read_new_line == 1)	{
@@ -5327,14 +5327,14 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "-");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '-', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
 				 return __LEX_CORRECT;
                                 }
 <twolists_endStat1>{NEWLINE}	{flex_token->read_new_line = 1;
-						 if (flex_token->state == BRACKETED_STRING){
+						 if (flex_token->state == __BRACKETED_STRING){
 						 	flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\n', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 							if(flex_token->num_chars >= flex_token->chunk_length) {
 								flex_token->error[flex_token->first_state] = 0;
@@ -5353,7 +5353,7 @@ struct lex_token * flex_token = yyextra;
 								return __END_CHUNK_INTERRUPTED_BRACKETED_STRING;
 						 	}
 						 }
-						 else if (flex_token->state != SINGLE_COMMENT) {//state is doubleString or singleString
+						 else if (flex_token->state != __SINGLE_COMMENT) {//state is doubleString or singleString
 						 	flex_token->error[flex_token->first_state] = 1;
 							flex_token->error[flex_token->second_state] = 0;
 							// flex_token->semantic_value[flex_token->first_state] = NULL;
@@ -5362,10 +5362,10 @@ struct lex_token * flex_token = yyextra;
 								flex_token->chunk_ended = 1;
 							BEGIN(onelist_endStat1);
 							flex_token->double_list_ended = 1;
-							flex_token->bracket_delimiter = END_DOUBLE_LIST_NEWLINE;
+							flex_token->bracket_delimiter = __END_DOUBLE_LIST_NEWLINE;
 							return __INSERT_DELIMITER_BRACKETED_STRING;
 						 }
-						 else{//state is SINGLE_COMMENT
+						 else{//state is __SINGLE_COMMENT
 						 	flex_token->error[flex_token->first_state] = 0;
 						 	flex_token->error[flex_token->second_state] = 0;
 						 	// flex_token->semantic_value[flex_token->first_state] = NULL;
@@ -5374,30 +5374,30 @@ struct lex_token * flex_token = yyextra;
 								flex_token->chunk_ended = 1;
 							BEGIN(onelist_endStat1);
 							flex_token->double_list_ended = 1;
-							flex_token->bracket_delimiter = END_DOUBLE_LIST_NEWLINE;
+							flex_token->bracket_delimiter = __END_DOUBLE_LIST_NEWLINE;
 							return __INSERT_DELIMITER_BRACKETED_STRING;
 						 }
 						}
 <twolists_endStat1><<EOF>>		{
 				 flex_token->error[flex_token->second_state] = 0;
-				 if (flex_token->state != SINGLE_COMMENT) {//state is doubleString or singleString or bracketedString
+				 if (flex_token->state != __SINGLE_COMMENT) {//state is doubleString or singleString or bracketedString
 				 	flex_token->error[flex_token->first_state] = 1;
 				 }
 				 else
-				 	flex_token->error[flex_token->first_state] = 0; //state is SINGLE_COMMENT
+				 	flex_token->error[flex_token->first_state] = 0; //state is __SINGLE_COMMENT
 				 flex_token->insert_token_in_list = 2;	
 				 flex_token->double_list_ended = 1;
 				 flex_token->chunk_ended = 1;
-				 flex_token->bracket_delimiter = END_DOUBLE_LIST;
+				 flex_token->bracket_delimiter = __END_DOUBLE_LIST;
 				 return __INSERT_DELIMITER_BRACKETED_STRING;
 						}													                                
 <twolists_endStat1>.				{/*Append char to buffer*/
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext[0],&(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 BEGIN(twolists_commentOrError);
 				}						
 <twolists_endStat2>{NEWLINE}	{flex_token->read_new_line = 1;
-						 if (flex_token->state == BRACKETED_STRING){
+						 if (flex_token->state == __BRACKETED_STRING){
 						 	flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\n', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 							if(flex_token->num_chars >= flex_token->chunk_length) {
 								flex_token->error[flex_token->first_state] = 0;
@@ -5416,7 +5416,7 @@ struct lex_token * flex_token = yyextra;
 								return __END_CHUNK_INTERRUPTED_BRACKETED_STRING;
 						 	}
 						 }
-						 else if (flex_token->state != SINGLE_COMMENT) {//state is doubleString or singleString
+						 else if (flex_token->state != __SINGLE_COMMENT) {//state is doubleString or singleString
 						 	flex_token->error[flex_token->first_state] = 1;
 							flex_token->error[flex_token->second_state] = 0;
 							// flex_token->semantic_value[flex_token->first_state] = NULL;
@@ -5425,10 +5425,10 @@ struct lex_token * flex_token = yyextra;
 								flex_token->chunk_ended = 1;
 							BEGIN(onelist_endStat2);
 							flex_token->double_list_ended = 1;
-							flex_token->bracket_delimiter = END_DOUBLE_LIST_NEWLINE;
+							flex_token->bracket_delimiter = __END_DOUBLE_LIST_NEWLINE;
 							return __INSERT_DELIMITER_BRACKETED_STRING;
 						 }
-						 else{//state is SINGLE_COMMENT
+						 else{//state is __SINGLE_COMMENT
 						 	flex_token->error[flex_token->first_state] = 0;
 						 	flex_token->error[flex_token->second_state] = 0;
 						 	// flex_token->semantic_value[flex_token->first_state] = NULL;
@@ -5437,7 +5437,7 @@ struct lex_token * flex_token = yyextra;
 								flex_token->chunk_ended = 1;
 							BEGIN(onelist_endStat2);
 							flex_token->double_list_ended = 1;
-							flex_token->bracket_delimiter = END_DOUBLE_LIST_NEWLINE;
+							flex_token->bracket_delimiter = __END_DOUBLE_LIST_NEWLINE;
 							return __INSERT_DELIMITER_BRACKETED_STRING;
 
 						 }
@@ -5448,7 +5448,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "break");
 				 flex_token->semantic_value[flex_token->second_state] = ch;*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;	
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "break", 5, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 if(flex_token->read_new_line == 1)	{	
@@ -5469,7 +5469,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "nil", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_endStat1);
@@ -5482,7 +5482,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "false", 5, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_endStat1);
@@ -5495,7 +5495,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "true", 4, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_endStat1);
@@ -5508,7 +5508,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext, yyleng, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_endStat1);
@@ -5521,7 +5521,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "...", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_endStat1);
@@ -5534,7 +5534,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '}', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_endStat1);
@@ -5547,7 +5547,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "end", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_endStat1);
@@ -5560,7 +5560,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ']', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -5572,7 +5572,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ')', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -5583,7 +5583,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "(");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '(', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -5596,7 +5596,7 @@ struct lex_token * flex_token = yyextra;
 				flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				flex_token->semantic_value[flex_token->second_state] = NULL;
 				flex_token->insert_token_in_list = flex_token->second_state;
-				if (flex_token->state != SINGLE_COMMENT)
+				if (flex_token->state != __SINGLE_COMMENT)
 					 	flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext, yyleng, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				if(flex_token->read_new_line == 1)	{
 				 	flex_token->read_new_line = 0;
@@ -5607,24 +5607,24 @@ struct lex_token * flex_token = yyextra;
             }
 <twolists_endStat2><<EOF>>		{
 				 flex_token->error[flex_token->second_state] = 0;
-				 if (flex_token->state != SINGLE_COMMENT) {//state is doubleString or singleString or bracketedString
+				 if (flex_token->state != __SINGLE_COMMENT) {//state is doubleString or singleString or bracketedString
 				 	flex_token->error[flex_token->first_state] = 1;
 				 }
 				 else
-				 	flex_token->error[flex_token->first_state] = 0; //state is SINGLE_COMMENT
+				 	flex_token->error[flex_token->first_state] = 0; //state is __SINGLE_COMMENT
 				 flex_token->insert_token_in_list = 2;	
 				 flex_token->double_list_ended = 1;
 				 flex_token->chunk_ended = 1;
-				 flex_token->bracket_delimiter = END_DOUBLE_LIST;
+				 flex_token->bracket_delimiter = __END_DOUBLE_LIST;
 				 return __INSERT_DELIMITER_BRACKETED_STRING;
 						}              
 <twolists_endStat2>.		{/*Append char to buffer*/
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext[0], &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 BEGIN(twolists_commentOrError);
 				}	                                                                                                  
 <twolists_singleComment>\\[0-9]{1,3}		{
-					if (flex_token->state != SINGLE_COMMENT){
+					if (flex_token->state != __SINGLE_COMMENT){
 						/*Compute the decimal value of the number*/
 						int32_t result = 0, i = 1;
 						while(i < yyleng)
@@ -5638,8 +5638,8 @@ struct lex_token * flex_token = yyextra;
 							 int8_t swap = flex_token->first_state;
 							 flex_token->first_state = flex_token->second_state;
 							 flex_token->second_state = swap;
-							 flex_token->state = SINGLE_COMMENT;
-							 flex_token->bracket_delimiter = ERROR_STRING_CHAR_MAX;
+							 flex_token->state = __SINGLE_COMMENT;
+							 flex_token->bracket_delimiter = __ERROR_STRING_CHAR_MAX;
 							 BEGIN(twolists_commentOrError);	
 						 	 return __INSERT_DELIMITER_BRACKETED_STRING;
 							 }
@@ -5650,7 +5650,7 @@ struct lex_token * flex_token = yyextra;
 					}
 								}
 <twolists_singleComment>\"	  {
-				if (flex_token->state == DOUBLE_STRING) {
+				if (flex_token->state == __DOUBLE_STRING) {
 					 flex_token->token = STRING;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
@@ -5664,16 +5664,16 @@ struct lex_token * flex_token = yyextra;
 					 int8_t swap = flex_token->first_state;
 					 flex_token->first_state = flex_token->second_state;
 					 flex_token->second_state = swap;	
-					 flex_token->state = SINGLE_COMMENT;	 
+					 flex_token->state = __SINGLE_COMMENT;	 
 					 BEGIN(twolists_endStat1);
 					 return __LEX_CORRECT;
 				}
-				else if (flex_token->state == SINGLE_STRING || flex_token->state == BRACKETED_STRING) {/*Append char to buffer*/
+				else if (flex_token->state == __SINGLE_STRING || flex_token->state == __BRACKETED_STRING) {/*Append char to buffer*/
 				 	 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\"',&(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				}
                         }    
 <twolists_singleComment>\'	  {
-				if (flex_token->state == SINGLE_STRING) {
+				if (flex_token->state == __SINGLE_STRING) {
 					 flex_token->token = STRING;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
@@ -5687,16 +5687,16 @@ struct lex_token * flex_token = yyextra;
 					 int8_t swap = flex_token->first_state;
 					 flex_token->first_state = flex_token->second_state;
 					 flex_token->second_state = swap;	
-					 flex_token->state = SINGLE_COMMENT;	 
+					 flex_token->state = __SINGLE_COMMENT;	 
 					 BEGIN(twolists_endStat1);
 					 return __LEX_CORRECT;
 				}
-				else if (flex_token->state == DOUBLE_STRING || flex_token->state == BRACKETED_STRING){/*Append char to buffer*/
+				else if (flex_token->state == __DOUBLE_STRING || flex_token->state == __BRACKETED_STRING){/*Append char to buffer*/
 				 	 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\'',&(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				}
                         }                   
 <twolists_singleComment>\]\]	  {
-				if (flex_token->state == BRACKETED_STRING) {
+				if (flex_token->state == __BRACKETED_STRING) {
 					 flex_token->token = STRING;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
@@ -5710,11 +5710,11 @@ struct lex_token * flex_token = yyextra;
 					 int8_t swap = flex_token->first_state;
 					 flex_token->first_state = flex_token->second_state;
 					 flex_token->second_state = swap;	
-					 flex_token->state = SINGLE_COMMENT;	 
+					 flex_token->state = __SINGLE_COMMENT;	 
 					 BEGIN(twolists_endStat1);
 					 return __LEX_CORRECT;
 				}
-				else if (flex_token->state == DOUBLE_STRING || flex_token->state == SINGLE_STRING) {/*Append char to buffer*/
+				else if (flex_token->state == __DOUBLE_STRING || flex_token->state == __SINGLE_STRING) {/*Append char to buffer*/
 				 	 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "]]", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				}
                         } 
@@ -5722,7 +5722,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->comment_type = -1;
 				 flex_token->double_list_ended = 1;
 				 flex_token->error[flex_token->second_state] = 1;
-				 if (flex_token->state == BRACKETED_STRING){
+				 if (flex_token->state == __BRACKETED_STRING){
 				 	 flex_token->token = STRING;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
@@ -5739,7 +5739,7 @@ struct lex_token * flex_token = yyextra;
 						flex_token->chunk_ended = 1;
 					 return __INSERT_STRING_MULTICOMMENT;
 				 }
-				 else if (flex_token->state != SINGLE_COMMENT) {//state is doubleString or singleString
+				 else if (flex_token->state != __SINGLE_COMMENT) {//state is doubleString or singleString
 					 // flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->error[flex_token->first_state] = 1;
 					 flex_token->insert_token_in_list = 2;
@@ -5750,7 +5750,7 @@ struct lex_token * flex_token = yyextra;
 						flex_token->chunk_ended = 1;
 					 return __INSERT_SINGLEMULTICOMMENT;
 				}
-				else{//state is SINGLE_COMMENT
+				else{//state is __SINGLE_COMMENT
 					 // flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->error[flex_token->first_state] = 1;
 					 flex_token->insert_token_in_list = 2;
@@ -5772,7 +5772,7 @@ struct lex_token * flex_token = yyextra;
 				 /*Type of ending multiline comment is negative and starts from -1*/
 				 (flex_token->comment_type)--;
 				 flex_token->double_list_ended = 1;
-				 if(flex_token->state == BRACKETED_STRING){
+				 if(flex_token->state == __BRACKETED_STRING){
 					 flex_token->token = STRING;
 					 i--;
 				 	 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ']', &(flex_token->current_buffer_length[flex_token->first_state]),  &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -5800,7 +5800,7 @@ struct lex_token * flex_token = yyextra;
 					BEGIN(onelist_INITIAL);
 					return __INSERT_STRING_MULTICOMMENT;
 				 }
-				 else if (flex_token->state != SINGLE_COMMENT) {//doubleString or singleString are the value of state
+				 else if (flex_token->state != __SINGLE_COMMENT) {//doubleString or singleString are the value of state
 				 	 // flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->insert_token_in_list = 2;
 					 BEGIN(onelist_INITIAL);
@@ -5809,7 +5809,7 @@ struct lex_token * flex_token = yyextra;
 						flex_token->chunk_ended = 1;
 					 return __INSERT_SINGLEMULTICOMMENT;
 				}
-				else{//state is SINGLE_COMMENT
+				else{//state is __SINGLE_COMMENT
 					// flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->insert_token_in_list = 2;
 					 flex_token->insert_single_comment_in_list = 3; //insert singlecommentin both delimiters'lists
@@ -5821,23 +5821,23 @@ struct lex_token * flex_token = yyextra;
 				}
                                 }
 <twolists_singleComment>{SPACE}+		{
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext, yyleng, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 }						
 <twolists_singleComment>{NEWLINE}	{flex_token->read_new_line = 1;
-						 if (flex_token->state == BRACKETED_STRING){
+						 if (flex_token->state == __BRACKETED_STRING){
 						 	flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\n', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 							switch(flex_token->before_comment[flex_token->second_state])
 							{
-								case initial_state:
-								case function1_state:
-								case function2_state:
+								case __initial_state:
+								case __function1_state:
+								case __function2_state:
 									BEGIN(twolists_INITIAL);
 									break;
-								case endStat1_state:
+								case __endStat1_state:
 									BEGIN(twolists_endStat1);
 									break;
-								case endStat2_state:
+								case __endStat2_state:
 									BEGIN(twolists_endStat2);
 									break;	
 							}
@@ -5859,7 +5859,7 @@ struct lex_token * flex_token = yyextra;
 								return __END_CHUNK_INTERRUPTED_BRACKETED_STRING;
 						 	}
 						 }
-						 else if (flex_token->state != SINGLE_COMMENT) {//state is doubleString or singleString
+						 else if (flex_token->state != __SINGLE_COMMENT) {//state is doubleString or singleString
 						 	flex_token->error[flex_token->first_state] = 1;
 							flex_token->error[flex_token->second_state] = 0;
 							// flex_token->semantic_value[flex_token->first_state] = NULL;
@@ -5868,10 +5868,10 @@ struct lex_token * flex_token = yyextra;
 								flex_token->chunk_ended = 1;
 							BEGIN(onelist_INITIAL);
 							flex_token->double_list_ended = 1;
-							flex_token->bracket_delimiter = END_DOUBLE_LIST_NEWLINE;
+							flex_token->bracket_delimiter = __END_DOUBLE_LIST_NEWLINE;
 							return __INSERT_DELIMITER_BRACKETED_STRING;
 						 }
-						 else{//state is SINGLE_COMMENT
+						 else{//state is __SINGLE_COMMENT
 						 	flex_token->error[flex_token->first_state] = 0;
 						 	flex_token->error[flex_token->second_state] = 0;
 						 	// flex_token->semantic_value[flex_token->first_state] = NULL;
@@ -5880,13 +5880,13 @@ struct lex_token * flex_token = yyextra;
 								flex_token->chunk_ended = 1;
 							BEGIN(onelist_INITIAL);
 							flex_token->double_list_ended = 1;
-							flex_token->bracket_delimiter = END_DOUBLE_LIST_NEWLINE;
+							flex_token->bracket_delimiter = __END_DOUBLE_LIST_NEWLINE;
 							return __INSERT_DELIMITER_BRACKETED_STRING;
 
 						 }
 						}											
 <twolists_singleComment,twolists_multiComment,twolists_commentOrError>\\x[0-9a-fA-F]{2}		{
-					if (flex_token->state != SINGLE_COMMENT){
+					if (flex_token->state != __SINGLE_COMMENT){
 						/*Compute the decimal value of the hexadecimal number*/
 						int32_t result = hex2dec(yytext[2]);
 						result = (result << 4) + hex2dec(yytext[3]);
@@ -5895,7 +5895,7 @@ struct lex_token * flex_token = yyextra;
 					}
 						}
 <twolists_multiComment,twolists_commentOrError>\\[0-9]{1,3}		{
-					if (flex_token->state != SINGLE_COMMENT){
+					if (flex_token->state != __SINGLE_COMMENT){
 						/*Compute the decimal value of the number*/
 						int32_t result = 0, i = 1;
 						while(i < yyleng)
@@ -5910,9 +5910,9 @@ struct lex_token * flex_token = yyextra;
 							 flex_token->error[flex_token->second_state] = 1;
 							 flex_token->double_list_ended = 1;
 							 flex_token->insert_token_in_list = 2;
-							 flex_token->bracket_delimiter = END_DOUBLE_LIST;							 
+							 flex_token->bracket_delimiter = __END_DOUBLE_LIST;							 
 							 return __INSERT_DELIMITER_BRACKETED_STRING;
-							 /*Note that it does not insert ERROR_PENDING_BRACKET: it suffices to insert END_DOUBLE_LIST with error == 1*/
+							 /*Note that it does not insert ERROR_PENDING_BRACKET: it suffices to insert __END_DOUBLE_LIST with error == 1*/
 						}
 						else{					 
 						/*Append (char)result to string buffer*/
@@ -5924,24 +5924,24 @@ struct lex_token * flex_token = yyextra;
 					/*Skips the following span of white-space characters, including line breaks.*/
 								}
 <twolists_singleComment>\\z{SPACE}*{NEWLINE}({SPACE}|{NEWLINE})*	{
-					if (flex_token->state != SINGLE_COMMENT){
+					if (flex_token->state != __SINGLE_COMMENT){
 						/*Skips the following span of white-space characters, including line breaks.*/
 						/*Singleline comment ends here.*/
 						switch(flex_token->before_comment[flex_token->second_state]){
-										case initial_state:
-										case function1_state:
-										case function2_state:
+										case __initial_state:
+										case __function1_state:
+										case __function2_state:
 											BEGIN(twolists_INITIAL);
 											break;
-										case endStat1_state:
+										case __endStat1_state:
 											BEGIN(twolists_endStat1);
 											break;
-										case endStat2_state:
+										case __endStat2_state:
 											BEGIN(twolists_endStat2);
 											break;	
 						}
 					}
-					else{//state is SINGLE_COMMENT
+					else{//state is __SINGLE_COMMENT
 						flex_token->read_new_line = 1;
 						flex_token->error[flex_token->first_state] = 0;
 						flex_token->error[flex_token->second_state] = 0;
@@ -5949,7 +5949,7 @@ struct lex_token * flex_token = yyextra;
 						flex_token->insert_token_in_list = 2; /*Do not insert any token in the token lists.*/
 						BEGIN(onelist_INITIAL);
 						flex_token->double_list_ended = 1;
-						flex_token->bracket_delimiter = END_DOUBLE_LIST_NEWLINE;
+						flex_token->bracket_delimiter = __END_DOUBLE_LIST_NEWLINE;
 						return __INSERT_DELIMITER_BRACKETED_STRING;
 					}
 				}
@@ -5957,7 +5957,7 @@ struct lex_token * flex_token = yyextra;
 					/*Skips the following span of white-space characters, including line breaks.*/
 								}								
 <twolists_multiComment,twolists_commentOrError>\\z{SPACE}*{NEWLINE}({SPACE}|{NEWLINE})*	{
-					if (flex_token->state == SINGLE_COMMENT){
+					if (flex_token->state == __SINGLE_COMMENT){
 						flex_token->read_new_line = 1;
 						// flex_token->semantic_value[flex_token->first_state] = NULL;
 						flex_token->error[flex_token->first_state] = 0;
@@ -5965,31 +5965,31 @@ struct lex_token * flex_token = yyextra;
 						flex_token->insert_token_in_list = 2;
 						BEGIN(onelist_INITIAL);
 						flex_token->double_list_ended = 1;
-						flex_token->bracket_delimiter = END_DOUBLE_LIST_NEWLINE;
+						flex_token->bracket_delimiter = __END_DOUBLE_LIST_NEWLINE;
 						return __INSERT_DELIMITER_BRACKETED_STRING;
 					}
 					/*otherwise skips the following span of white-space characters, including line breaks.*/
 								}												
 <twolists_singleComment>\\{NEWLINE}		{
-					if (flex_token->state != SINGLE_COMMENT){
+					if (flex_token->state != __SINGLE_COMMENT){
 						/*Append character newline to string buffer*/
 						flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\n', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 						/*Singleline comment ends here.*/
 						switch(flex_token->before_comment[flex_token->second_state]){
-										case initial_state:
-										case function1_state:
-										case function2_state:
+										case __initial_state:
+										case __function1_state:
+										case __function2_state:
 											BEGIN(twolists_INITIAL);
 											break;
-										case endStat1_state:
+										case __endStat1_state:
 											BEGIN(twolists_endStat1);
 											break;
-										case endStat2_state:
+										case __endStat2_state:
 											BEGIN(twolists_endStat2);
 											break;	
 						}
 					}
-					else{//state is SINGLE_COMMENT
+					else{//state is __SINGLE_COMMENT
 						flex_token->read_new_line = 1;
 						flex_token->error[flex_token->first_state] = 0;
 						flex_token->error[flex_token->second_state] = 0;
@@ -5997,16 +5997,16 @@ struct lex_token * flex_token = yyextra;
 						flex_token->insert_token_in_list = 2; /*Do not insert any token in the token lists.*/
 						BEGIN(onelist_INITIAL);
 						flex_token->double_list_ended = 1;
-						flex_token->bracket_delimiter = END_DOUBLE_LIST_NEWLINE;
+						flex_token->bracket_delimiter = __END_DOUBLE_LIST_NEWLINE;
 						return __INSERT_DELIMITER_BRACKETED_STRING;
 					}
 								}																								
 <twolists_multiComment,twolists_commentOrError>\\{NEWLINE}		{
-					if (flex_token->state != SINGLE_COMMENT) {
+					if (flex_token->state != __SINGLE_COMMENT) {
 					/*Append character newline to string buffer*/
 					flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\n', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 					}
-					else{//state is SINGLE_COMMENT
+					else{//state is __SINGLE_COMMENT
 						flex_token->read_new_line = 1;
 						flex_token->error[flex_token->first_state] = 0;
 						flex_token->error[flex_token->second_state] = 1;
@@ -6014,62 +6014,62 @@ struct lex_token * flex_token = yyextra;
 						flex_token->insert_token_in_list = 2; /*Do not insert any token in the token lists.*/
 						BEGIN(onelist_INITIAL);
 						flex_token->double_list_ended = 1;
-						flex_token->bracket_delimiter = END_DOUBLE_LIST_NEWLINE;
+						flex_token->bracket_delimiter = __END_DOUBLE_LIST_NEWLINE;
 						return __INSERT_DELIMITER_BRACKETED_STRING;
 					}
 								}
 <twolists_singleComment,twolists_multiComment,twolists_commentOrError>\\\\		{
 					/*Append escaped character to string buffer*/
-					if (flex_token->state != SINGLE_COMMENT)
+					if (flex_token->state != __SINGLE_COMMENT)
 						flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\\', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 								}
 <twolists_singleComment,twolists_multiComment,twolists_commentOrError>\\\"		{
 					/*Append escaped character to string buffer*/
-					if (flex_token->state != SINGLE_COMMENT)
+					if (flex_token->state != __SINGLE_COMMENT)
 						flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\"', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 								}
 <twolists_singleComment,twolists_multiComment,twolists_commentOrError>\\\'		{
 					/*Append escaped character to string buffer*/
-					if (flex_token->state != SINGLE_COMMENT)
+					if (flex_token->state != __SINGLE_COMMENT)
 						flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\'', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 								}
 <twolists_singleComment,twolists_multiComment,twolists_commentOrError>\\a		{
 					/*Append escaped character to string buffer*/
-					if (flex_token->state != SINGLE_COMMENT)
+					if (flex_token->state != __SINGLE_COMMENT)
 						flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\a', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 								}
 <twolists_singleComment,twolists_multiComment,twolists_commentOrError>\\b		{
 					/*Append escaped character to string buffer*/
-					if (flex_token->state != SINGLE_COMMENT)
+					if (flex_token->state != __SINGLE_COMMENT)
 						flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\b',&(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 								}
 <twolists_singleComment,twolists_multiComment,twolists_commentOrError>\\f		{
 					/*Append escaped character to string buffer*/
-					if (flex_token->state != SINGLE_COMMENT)
+					if (flex_token->state != __SINGLE_COMMENT)
 						flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\f',&(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 								}
 <twolists_singleComment,twolists_multiComment,twolists_commentOrError>\\n		{
 					/*Append escaped character to string buffer*/
-					if (flex_token->state != SINGLE_COMMENT)
+					if (flex_token->state != __SINGLE_COMMENT)
 						flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\n',&(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 								}
 <twolists_singleComment,twolists_multiComment,twolists_commentOrError>\\r		{
 					/*Append escaped character to string buffer*/
-					if (flex_token->state != SINGLE_COMMENT)
+					if (flex_token->state != __SINGLE_COMMENT)
 						flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\r',&(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 								}
 <twolists_singleComment,twolists_multiComment,twolists_commentOrError>\\t		{
 					/*Append escaped character to string buffer*/
-					if (flex_token->state != SINGLE_COMMENT)
+					if (flex_token->state != __SINGLE_COMMENT)
 						flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\t',&(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 								}
 <twolists_singleComment,twolists_multiComment,twolists_commentOrError>\\v		{
 					/*Append escaped character to string buffer*/
-					if (flex_token->state != SINGLE_COMMENT)
+					if (flex_token->state != __SINGLE_COMMENT)
 						flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\v',&(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 								}								
 <twolists_multiComment,twolists_commentOrError>\"		{
-				if (flex_token->state == DOUBLE_STRING) {
+				if (flex_token->state == __DOUBLE_STRING) {
 					 flex_token->token = STRING;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
@@ -6084,15 +6084,15 @@ struct lex_token * flex_token = yyextra;
 					 flex_token->error[flex_token->second_state] = 1;	
 					 BEGIN(onelist_endStat1);
 					 flex_token->double_list_ended = 1;
-					 flex_token->bracket_delimiter = END_DOUBLE_LIST;
+					 flex_token->bracket_delimiter = __END_DOUBLE_LIST;
 					 return __INSERT_DELIMITER_BRACKETED_STRING;
 				}
-				else if (flex_token->state != SINGLE_COMMENT) {/*Append char to buffer*/
+				else if (flex_token->state != __SINGLE_COMMENT) {/*Append char to buffer*/
 				 	 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\"',&(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				}	
                         }
 <twolists_multiComment,twolists_commentOrError>\'		{
-				if (flex_token->state == SINGLE_STRING) {
+				if (flex_token->state == __SINGLE_STRING) {
 					 flex_token->token = STRING;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
@@ -6107,15 +6107,15 @@ struct lex_token * flex_token = yyextra;
 					 flex_token->error[flex_token->second_state] = 1;	
 					 BEGIN(onelist_endStat1);
 					 flex_token->double_list_ended = 1;
-					 flex_token->bracket_delimiter = END_DOUBLE_LIST;
+					 flex_token->bracket_delimiter = __END_DOUBLE_LIST;
 					 return __INSERT_DELIMITER_BRACKETED_STRING;
 				}
-				else if (flex_token->state != SINGLE_COMMENT) {/*Append char to buffer*/
+				else if (flex_token->state != __SINGLE_COMMENT) {/*Append char to buffer*/
 				 	 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\'',&(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				}	 
                         } 
 <twolists_multiComment,twolists_commentOrError>\]\]		{
-				if (flex_token->state == BRACKETED_STRING) {
+				if (flex_token->state == __BRACKETED_STRING) {
 					 flex_token->token = STRING;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
@@ -6130,16 +6130,16 @@ struct lex_token * flex_token = yyextra;
 					 flex_token->error[flex_token->second_state] = 1;	
 					 BEGIN(onelist_endStat1);
 					 flex_token->double_list_ended = 1;
-					 flex_token->bracket_delimiter = END_DOUBLE_LIST;
+					 flex_token->bracket_delimiter = __END_DOUBLE_LIST;
 					 return __INSERT_DELIMITER_BRACKETED_STRING;
 				}
-				else if (flex_token->state != SINGLE_COMMENT) {
+				else if (flex_token->state != __SINGLE_COMMENT) {
 					flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext, yyleng, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
                      }
                         }
 <twolists_multiComment,twolists_commentOrError>{NEWLINE}	{
 						flex_token->read_new_line = 1;
-						if (flex_token->state == BRACKETED_STRING){
+						if (flex_token->state == __BRACKETED_STRING){
 						 	flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\n', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 							if(flex_token->num_chars >= flex_token->chunk_length) {
 								flex_token->error[flex_token->first_state] = 0;
@@ -6158,7 +6158,7 @@ struct lex_token * flex_token = yyextra;
 								return __END_CHUNK_INTERRUPTED_BRACKETED_STRING;
 						 	}
 						}
-						else if (flex_token->state != SINGLE_COMMENT) {//state is doubleString or singleString
+						else if (flex_token->state != __SINGLE_COMMENT) {//state is doubleString or singleString
 							 flex_token->error[flex_token->first_state] = 1;
 							 flex_token->error[flex_token->second_state] = 1;
 							 // flex_token->semantic_value[flex_token->first_state] = NULL;
@@ -6167,10 +6167,10 @@ struct lex_token * flex_token = yyextra;
 								flex_token->chunk_ended = 1;
 							 BEGIN(onelist_commentOrError);
 							 flex_token->double_list_ended = 1;
-							 flex_token->bracket_delimiter = END_DOUBLE_LIST_NEWLINE;
+							 flex_token->bracket_delimiter = __END_DOUBLE_LIST_NEWLINE;
 							 return __INSERT_DELIMITER_BRACKETED_STRING;
 						}
-						else{//state is SINGLE_COMMENT
+						else{//state is __SINGLE_COMMENT
 						 	flex_token->error[flex_token->first_state] = 0;
 						 	flex_token->error[flex_token->second_state] = 1;
 						 	// flex_token->semantic_value[flex_token->first_state] = NULL;
@@ -6179,7 +6179,7 @@ struct lex_token * flex_token = yyextra;
 								flex_token->chunk_ended = 1;
 							BEGIN(onelist_INITIAL);
 							flex_token->double_list_ended = 1;
-							flex_token->bracket_delimiter = END_DOUBLE_LIST_NEWLINE;
+							flex_token->bracket_delimiter = __END_DOUBLE_LIST_NEWLINE;
 					 		return __INSERT_DELIMITER_BRACKETED_STRING;
 						 }
 							}
@@ -6187,7 +6187,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->comment_type = -1;
 				 flex_token->double_list_ended = 1;
 				 flex_token->error[flex_token->second_state] = 1;
-				 if (flex_token->state == BRACKETED_STRING){
+				 if (flex_token->state == __BRACKETED_STRING){
 				 	 flex_token->token = STRING;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
@@ -6204,7 +6204,7 @@ struct lex_token * flex_token = yyextra;
 						flex_token->chunk_ended = 1;
 					 return __INSERT_STRING_MULTICOMMENT;
 				 }
-				 else if (flex_token->state != SINGLE_COMMENT) {//state is doubleString or singleString
+				 else if (flex_token->state != __SINGLE_COMMENT) {//state is doubleString or singleString
 					 // flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->error[flex_token->first_state] = 1;
 					 flex_token->insert_token_in_list = 2;
@@ -6213,7 +6213,7 @@ struct lex_token * flex_token = yyextra;
 						flex_token->chunk_ended = 1;
 					 return __INSERT_COMMENT;
 				}
-				else{//state is SINGLE_COMMENT
+				else{//state is __SINGLE_COMMENT
 					// flex_token->semantic_value[flex_token->first_state] = NULL;
 					flex_token->error[flex_token->first_state] = 1;
 					 flex_token->insert_token_in_list = 2;
@@ -6228,7 +6228,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->comment_type = -1;
 				 flex_token->double_list_ended = 1;
 				 flex_token->error[flex_token->second_state] = 1;
-				 if (flex_token->state == BRACKETED_STRING){
+				 if (flex_token->state == __BRACKETED_STRING){
 				 	 flex_token->token = STRING;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					flex_token->string_buffer[flex_token->first_state][length] = '\0';
@@ -6245,7 +6245,7 @@ struct lex_token * flex_token = yyextra;
 						flex_token->chunk_ended = 1;
 					 return __INSERT_STRING_MULTICOMMENT;
 				 }
-				 else if (flex_token->state != SINGLE_COMMENT){//state is doubleString or singleString
+				 else if (flex_token->state != __SINGLE_COMMENT){//state is doubleString or singleString
 					 // flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->error[flex_token->first_state] = 1;
 					 flex_token->insert_token_in_list = 2;
@@ -6254,7 +6254,7 @@ struct lex_token * flex_token = yyextra;
 						flex_token->chunk_ended = 1;
 					 return __INSERT_COMMENT;
 				}
-				else{//state is SINGLE_COMMENT
+				else{//state is __SINGLE_COMMENT
 					// flex_token->semantic_value[flex_token->first_state] = NULL;
 					flex_token->error[flex_token->first_state] = 1;
 					 flex_token->insert_token_in_list = 2;
@@ -6275,7 +6275,7 @@ struct lex_token * flex_token = yyextra;
 				 /*Type of ending multiline comment is negative and starts from -1*/
 				 (flex_token->comment_type)--;
 				 flex_token->double_list_ended = 1;
-				 if(flex_token->state == BRACKETED_STRING){
+				 if(flex_token->state == __BRACKETED_STRING){
 					flex_token->token = STRING;
 					i--;
 				 	flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ']', &(flex_token->current_buffer_length[flex_token->first_state]),  &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -6303,7 +6303,7 @@ struct lex_token * flex_token = yyextra;
 					BEGIN(onelist_INITIAL);
 					return __INSERT_STRING_MULTICOMMENT;
 				 }
-				 else if (flex_token->state != SINGLE_COMMENT) {//doubleString or singleString are the value of state
+				 else if (flex_token->state != __SINGLE_COMMENT) {//doubleString or singleString are the value of state
 				 	 // flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->insert_token_in_list = 2;
 					 BEGIN(onelist_INITIAL);
@@ -6311,7 +6311,7 @@ struct lex_token * flex_token = yyextra;
 						flex_token->chunk_ended = 1;
 					 return __INSERT_COMMENT;
 					}
-				 else{//state is SINGLE_COMMENT
+				 else{//state is __SINGLE_COMMENT
 					 // flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->insert_token_in_list = 2;
 					 flex_token->insert_single_comment_in_list = flex_token->first_state; //insert singlecomment in the delimiters'list of flex_token->first_state
@@ -6331,7 +6331,7 @@ struct lex_token * flex_token = yyextra;
 				 /*Type of ending multiline comment is negative and starts from -1*/
 				 (flex_token->comment_type)--;
 				 flex_token->double_list_ended = 1;
-				 if(flex_token->state == BRACKETED_STRING){
+				 if(flex_token->state == __BRACKETED_STRING){
 					flex_token->token = STRING;
 					i--;
 				 	flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ']', &(flex_token->current_buffer_length[flex_token->first_state]),  &(flex_token->allocated_buffer_size[flex_token->first_state]));
@@ -6360,7 +6360,7 @@ struct lex_token * flex_token = yyextra;
 					BEGIN(onelist_INITIAL);
 					return __INSERT_STRING_MULTICOMMENT;
 				 }
-				 else if (flex_token->state != SINGLE_COMMENT) {//doubleString or singleString are the value of state
+				 else if (flex_token->state != __SINGLE_COMMENT) {//doubleString or singleString are the value of state
 				 	 // flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->insert_token_in_list = 2;
 					 BEGIN(onelist_INITIAL);
@@ -6368,7 +6368,7 @@ struct lex_token * flex_token = yyextra;
 						flex_token->chunk_ended = 1;
 					 return __INSERT_COMMENT;
 					}
-				 else{//state is SINGLE_COMMENT
+				 else{//state is __SINGLE_COMMENT
 					 // flex_token->semantic_value[flex_token->first_state] = NULL;
 					 flex_token->insert_token_in_list = 2;
 					 flex_token->insert_single_comment_in_list = flex_token->first_state; //insert singlecomment in the delimiters'list of flex_token->first_state
@@ -6379,37 +6379,37 @@ struct lex_token * flex_token = yyextra;
 				 }	
                                 }                                
 <twolists_multiComment,twolists_commentOrError>{SPACE}+		{
-				if (flex_token->state != SINGLE_COMMENT)
+				if (flex_token->state != __SINGLE_COMMENT)
 					flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext, yyleng, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 			}
 <twolists_singleComment><<EOF>>		{
 				 flex_token->error[flex_token->second_state] = 0;
-				 if (flex_token->state != SINGLE_COMMENT) {//state is doubleString or singleString or bracketedString
+				 if (flex_token->state != __SINGLE_COMMENT) {//state is doubleString or singleString or bracketedString
 				 	flex_token->error[flex_token->first_state] = 1;
 				 }
 				 else
-				 	flex_token->error[flex_token->first_state] = 0; //state is SINGLE_COMMENT
+				 	flex_token->error[flex_token->first_state] = 0; //state is __SINGLE_COMMENT
 				 flex_token->insert_token_in_list = 2;	
 				 flex_token->double_list_ended = 1;
 				 flex_token->chunk_ended = 1;
-				 flex_token->bracket_delimiter = END_DOUBLE_LIST;
+				 flex_token->bracket_delimiter = __END_DOUBLE_LIST;
 				 return __INSERT_DELIMITER_BRACKETED_STRING;
 						}						
 <twolists_multiComment,twolists_commentOrError><<EOF>>		{
 				 flex_token->error[flex_token->second_state] = 1;
-				 if (flex_token->state != SINGLE_COMMENT) {//state is doubleString or singleString or bracketedString
+				 if (flex_token->state != __SINGLE_COMMENT) {//state is doubleString or singleString or bracketedString
 				 	flex_token->error[flex_token->first_state] = 1;
 				 }
 				 else
-				 	flex_token->error[flex_token->first_state] = 0; //state is SINGLE_COMMENT
+				 	flex_token->error[flex_token->first_state] = 0; //state is __SINGLE_COMMENT
 				 flex_token->insert_token_in_list = 2;	
 				 flex_token->double_list_ended = 1;
 				 flex_token->chunk_ended = 1;
-				 flex_token->bracket_delimiter = END_DOUBLE_LIST;
+				 flex_token->bracket_delimiter = __END_DOUBLE_LIST;
 				 return __INSERT_DELIMITER_BRACKETED_STRING;
 						}									                                    
 <twolists_singleComment,twolists_multiComment,twolists_commentOrError>. {/*Append character to string buffer*/
-				if (flex_token->state != SINGLE_COMMENT)
+				if (flex_token->state != __SINGLE_COMMENT)
 					flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext[0], &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 			} 
 <twolists_singleString,twolists_bracketedString>\\x[0-9a-fA-F]{2}		{
@@ -6435,7 +6435,7 @@ struct lex_token * flex_token = yyextra;
 							 flex_token->error[flex_token->second_state] = 1;
 							 flex_token->double_list_ended = 1;
 							 flex_token->insert_token_in_list = 2;
-							 flex_token->bracket_delimiter = END_DOUBLE_LIST;							 
+							 flex_token->bracket_delimiter = __END_DOUBLE_LIST;							 
 							 return __INSERT_DELIMITER_BRACKETED_STRING;
 						}
 						else{	 					 
@@ -6502,7 +6502,7 @@ struct lex_token * flex_token = yyextra;
 						flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\v',&(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 						flex_token->string_buffer[flex_token->second_state] = append_to_buffer(flex_token->string_buffer[flex_token->second_state], '\v', &(flex_token->current_buffer_length[flex_token->second_state]), &(flex_token->allocated_buffer_size[flex_token->second_state]));
 								}
-<twolists_singleString>\"		{/*state is necessarily DOUBLE_STRING*/
+<twolists_singleString>\"		{/*state is necessarily __DOUBLE_STRING*/
 				 flex_token->token = STRING;
 				 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 				 flex_token->string_buffer[flex_token->first_state][length] = '\0';
@@ -6518,11 +6518,11 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->first_state = flex_token->second_state;
 				 flex_token->second_state = swap;	
 				 flex_token->current_buffer_length[flex_token->first_state] = 0;	
-				 flex_token->state = SINGLE_STRING; 
+				 flex_token->state = __SINGLE_STRING; 
 				 BEGIN(twolists_endStat1);// go to state twolists_singleString_endStat1
 				 return __LEX_CORRECT;
                         }
-<twolists_singleString>\'		{/*state is necessarily DOUBLE_STRING*/
+<twolists_singleString>\'		{/*state is necessarily __DOUBLE_STRING*/
 				 flex_token->token = STRING;
 				 int32_t length = flex_token->current_buffer_length[flex_token->second_state];
 				 flex_token->string_buffer[flex_token->second_state][length] = '\0';
@@ -6538,7 +6538,7 @@ struct lex_token * flex_token = yyextra;
 				 BEGIN(twolists_endStat1);// go to state twolists_doubleString_endStat1 
 				 return __LEX_CORRECT;
                         }                         
-<twolists_singleString>\]=*\]{SPACE}*{NEWLINE}	{/*state is necessarily DOUBLE_STRING*/
+<twolists_singleString>\]=*\]{SPACE}*{NEWLINE}	{/*state is necessarily __DOUBLE_STRING*/
 				 int32_t i= 1;
 				 flex_token->comment_type = 0;
 				 while(yytext[i] == '=')
@@ -6556,7 +6556,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->double_list_ended = 1;	
 				 return __INSERT_COMMENT;
                                 }                                
-<twolists_singleString>{NEWLINE}	{/*state is necessarily DOUBLE_STRING*/
+<twolists_singleString>{NEWLINE}	{/*state is necessarily __DOUBLE_STRING*/
 						 flex_token->read_new_line = 1;
 						 flex_token->error[flex_token->first_state] = 1;
 						 flex_token->error[flex_token->second_state] = 1;
@@ -6566,10 +6566,10 @@ struct lex_token * flex_token = yyextra;
 							flex_token->chunk_ended = 1;
 						 BEGIN(onelist_commentOrError);
 						 flex_token->double_list_ended = 1;
-						 flex_token->bracket_delimiter = END_DOUBLE_LIST_NEWLINE;
+						 flex_token->bracket_delimiter = __END_DOUBLE_LIST_NEWLINE;
 						return __INSERT_DELIMITER_BRACKETED_STRING;
 						}		
-<twolists_singleString>[^\\\]\"\'\n\r]+				{/*state is necessarily DOUBLE_STRING*/
+<twolists_singleString>[^\\\]\"\'\n\r]+				{/*state is necessarily __DOUBLE_STRING*/
 				 /*Concatenate chars to buffer*/
 				 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext, yyleng, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->string_buffer[flex_token->second_state] = concat_to_buffer(flex_token->string_buffer[flex_token->second_state], yytext, yyleng, &(flex_token->current_buffer_length[flex_token->second_state]), &(flex_token->allocated_buffer_size[flex_token->second_state]));
@@ -6580,16 +6580,16 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->insert_token_in_list = 2;	
 				 flex_token->double_list_ended = 1;
 				 flex_token->chunk_ended = 1;
-				 flex_token->bracket_delimiter = END_DOUBLE_LIST;
+				 flex_token->bracket_delimiter = __END_DOUBLE_LIST;
 				 return __INSERT_DELIMITER_BRACKETED_STRING;
 						}											                                               						
-<twolists_singleString>.				{/*state is necessarily DOUBLE_STRING*/
+<twolists_singleString>.				{/*state is necessarily __DOUBLE_STRING*/
 				 /*Append char to buffer*/
 				 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext[0], &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->string_buffer[flex_token->second_state] = append_to_buffer(flex_token->string_buffer[flex_token->second_state], yytext[0], &(flex_token->current_buffer_length[flex_token->second_state]), &(flex_token->allocated_buffer_size[flex_token->second_state]));
 				}
-<twolists_bracketedString>\"		{/*state is necessarily DOUBLE_STRING or SINGLE_STRING or BRACKETED_STRING*/
-				if (flex_token->state == DOUBLE_STRING){
+<twolists_bracketedString>\"		{/*state is necessarily __DOUBLE_STRING or __SINGLE_STRING or __BRACKETED_STRING*/
+				if (flex_token->state == __DOUBLE_STRING){
 					 flex_token->token = STRING;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
@@ -6605,7 +6605,7 @@ struct lex_token * flex_token = yyextra;
 					 flex_token->first_state = flex_token->second_state;
 					 flex_token->second_state = swap;	
 					 flex_token->current_buffer_length[flex_token->first_state] = 0;
-					 flex_token->state = BRACKETED_STRING;
+					 flex_token->state = __BRACKETED_STRING;
 					 BEGIN(twolists_endStat1);// go to state twolists_bracketedString_endStat1
 					 return __LEX_CORRECT;
 				}
@@ -6614,8 +6614,8 @@ struct lex_token * flex_token = yyextra;
 					flex_token->string_buffer[flex_token->second_state] = append_to_buffer(flex_token->string_buffer[flex_token->second_state], '\"', &(flex_token->current_buffer_length[flex_token->second_state]), &(flex_token->allocated_buffer_size[flex_token->second_state]));
 				}
 			}
-<twolists_bracketedString>\'		{/*state is necessarily DOUBLE_STRING or SINGLE_STRING or BRACKETED_STRING*/
-				if (flex_token->state == SINGLE_STRING){
+<twolists_bracketedString>\'		{/*state is necessarily __DOUBLE_STRING or __SINGLE_STRING or __BRACKETED_STRING*/
+				if (flex_token->state == __SINGLE_STRING){
 					 flex_token->token = STRING;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 		   			 flex_token->string_buffer[flex_token->first_state][length] = '\0';
@@ -6631,7 +6631,7 @@ struct lex_token * flex_token = yyextra;
 					 flex_token->first_state = flex_token->second_state;
 					 flex_token->second_state = swap;	
 					 flex_token->current_buffer_length[flex_token->first_state] = 0;
-					 flex_token->state = BRACKETED_STRING;	 
+					 flex_token->state = __BRACKETED_STRING;	 
 					 BEGIN(twolists_endStat1);
 					 return __LEX_CORRECT;
 				}
@@ -6640,7 +6640,7 @@ struct lex_token * flex_token = yyextra;
 					flex_token->string_buffer[flex_token->second_state] = append_to_buffer(flex_token->string_buffer[flex_token->second_state], '\'', &(flex_token->current_buffer_length[flex_token->second_state]), &(flex_token->allocated_buffer_size[flex_token->second_state]));
 				}                       
 			}				
-<twolists_bracketedString>\]\]		{/*state is necessarily DOUBLE_STRING or SINGLE_STRING or BRACKETED_STRING*/
+<twolists_bracketedString>\]\]		{/*state is necessarily __DOUBLE_STRING or __SINGLE_STRING or __BRACKETED_STRING*/
 				 flex_token->token = STRING;
 				 int32_t length = flex_token->current_buffer_length[flex_token->second_state];
 				 flex_token->string_buffer[flex_token->second_state][length] = '\0';
@@ -6650,13 +6650,13 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
 				 flex_token->read_new_line = 0;	
-				 if (flex_token->state != BRACKETED_STRING){/*state is necessarily DOUBLE_STRING or SINGLE_STRING*/
+				 if (flex_token->state != __BRACKETED_STRING){/*state is necessarily __DOUBLE_STRING or __SINGLE_STRING*/
 				 	 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext, yyleng, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 					 flex_token->insert_token_in_list = flex_token->second_state;	
 					 BEGIN(twolists_endStat1); 
 					 return __LEX_CORRECT;				 	
 				 }
-				 else{/*state is BRACKETED_STRING*/
+				 else{/*state is __BRACKETED_STRING*/
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
 					 /* Semantic value stub. */
@@ -6669,11 +6669,11 @@ struct lex_token * flex_token = yyextra;
 					 flex_token->insert_token_in_list = 3;
 					 BEGIN(onelist_endStat1);	
 					 flex_token->double_list_ended = 1;
-					 flex_token->bracket_delimiter = END_DOUBLE_LIST;
+					 flex_token->bracket_delimiter = __END_DOUBLE_LIST;
 					 return __INSERT_DELIMITER_BRACKETED_STRING;
 				 }
                         }                        
-<twolists_bracketedString>\]\]{SPACE}*{NEWLINE}	{/*state is necessarily DOUBLE_STRING or SINGLE_STRING or BRACKETED_STRING*/
+<twolists_bracketedString>\]\]{SPACE}*{NEWLINE}	{/*state is necessarily __DOUBLE_STRING or __SINGLE_STRING or __BRACKETED_STRING*/
 				 flex_token->token = STRING;
 				 int32_t length = flex_token->current_buffer_length[flex_token->second_state];
 				 flex_token->string_buffer[flex_token->second_state][length] = '\0';
@@ -6683,7 +6683,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;	
 				 flex_token->error[flex_token->second_state] = 1;
-				 if (flex_token->state != BRACKETED_STRING){
+				 if (flex_token->state != __BRACKETED_STRING){
 					 flex_token->error[flex_token->first_state] = 1; //flex_token->first_state is doubleString or singleString
 				 	 flex_token->insert_token_in_list = flex_token->second_state;
 				 }
@@ -6733,7 +6733,7 @@ struct lex_token * flex_token = yyextra;
         		strcpy(ch, flex_token->string_buffer[flex_token->second_state]);
 				flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				// flex_token->semantic_value[flex_token->second_state] = NULL;							
-				if (flex_token->state != BRACKETED_STRING){
+				if (flex_token->state != __BRACKETED_STRING){
 				 	 flex_token->insert_token_in_list = flex_token->second_state;
 				}
 				else{
@@ -6764,7 +6764,7 @@ struct lex_token * flex_token = yyextra;
 				BEGIN(onelist_INITIAL);
 				return __INSERT_STRING_MULTICOMMENT;
                                 }                                
-<twolists_bracketedString>{NEWLINE}	{//state is DOUBLE_STRING or SINGLE_STRING or BRACKETED_STRING
+<twolists_bracketedString>{NEWLINE}	{//state is __DOUBLE_STRING or __SINGLE_STRING or __BRACKETED_STRING
 						 flex_token->error[flex_token->second_state] = 0;
 						 if(flex_token->num_chars >= flex_token->chunk_length) {
 						 	flex_token->token = STRING;
@@ -6776,7 +6776,7 @@ struct lex_token * flex_token = yyextra;
 			        		strcpy(ch, flex_token->string_buffer[flex_token->second_state]);
 							flex_token->semantic_value[flex_token->second_state] = ch;	*/
 							flex_token->semantic_value[flex_token->second_state] = NULL;							
-							if (flex_token->state != BRACKETED_STRING){
+							if (flex_token->state != __BRACKETED_STRING){
 								 flex_token->error[flex_token->first_state] = 1;
 							 	 flex_token->insert_token_in_list = flex_token->second_state;
 							}
@@ -6799,11 +6799,11 @@ struct lex_token * flex_token = yyextra;
 						 //flex_token->semantic_value[flex_token->second_state] = NULL; /*If the chunk did not end, there is no token to return.*/
 						 //flex_token->insert_token_in_list = 2; /*Do not insert any token in the token lists.*/
 						 flex_token->string_buffer[flex_token->second_state] = append_to_buffer(flex_token->string_buffer[flex_token->second_state], '\n', &(flex_token->current_buffer_length[flex_token->second_state]), &(flex_token->allocated_buffer_size[flex_token->second_state]));
-						 if (flex_token->state != BRACKETED_STRING){
+						 if (flex_token->state != __BRACKETED_STRING){
 							 int8_t swap = flex_token->first_state;
 							 flex_token->first_state = flex_token->second_state;
 							 flex_token->second_state = swap;
-							 flex_token->state = BRACKETED_STRING;
+							 flex_token->state = __BRACKETED_STRING;
 							 BEGIN(twolists_commentOrError); //go to state twolists_bracketedString_commentOrError
 						}
 						else{//Keep being in state bracketedString_bracketed_string
@@ -6820,7 +6820,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->insert_token_in_list = 2;	
 				 flex_token->double_list_ended = 1;
 				 flex_token->chunk_ended = 1;
-				 flex_token->bracket_delimiter = END_DOUBLE_LIST;
+				 flex_token->bracket_delimiter = __END_DOUBLE_LIST;
 				 return __INSERT_DELIMITER_BRACKETED_STRING;
 						}									                                              						
 <twolists_bracketedString>.				{/*Append char to buffer*/
@@ -6833,7 +6833,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, yytext);
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext, yyleng, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;				 		
@@ -6844,7 +6844,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, ".");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '.', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -6855,7 +6855,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, ":");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ':', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -6866,7 +6866,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "(");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '(', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_function2);
@@ -6882,7 +6882,7 @@ struct lex_token * flex_token = yyextra;
 				 /*Type of beginning multiline comment is positive and starts from 1*/
 				 (flex_token->comment_type)++;
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext, yyleng, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state; /*Insert the symbol of beginning comment in this delimiter list.*/
 				 flex_token->insert_function = 1; 
@@ -6890,20 +6890,20 @@ struct lex_token * flex_token = yyextra;
 				 return __INSERT_COMMENT;
                                 }
 <twolists_function1>--		{flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "--", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 flex_token->token = FUNCTION;
-				 flex_token->before_comment[flex_token->second_state] = function1_state;
+				 flex_token->before_comment[flex_token->second_state] = __function1_state;
 				 BEGIN(twolists_singleComment);
 				 return __INSERT_DELIMITER;
                     } 
 <twolists_function2>--		{flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "--", 2, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 flex_token->token = FUNCTION;
-				 flex_token->before_comment[flex_token->second_state] = function2_state;
+				 flex_token->before_comment[flex_token->second_state] = __function2_state;
 				 BEGIN(twolists_singleComment);
 				 return __INSERT_DELIMITER;
                     } 
@@ -6913,7 +6913,7 @@ struct lex_token * flex_token = yyextra;
 				 flex_token->error[flex_token->second_state] = 1;
 				 if(flex_token->num_chars >= flex_token->chunk_length)
 						flex_token->chunk_ended = 1;
-				 if (flex_token->state == BRACKETED_STRING){
+				 if (flex_token->state == __BRACKETED_STRING){
 				 	 flex_token->token = STRING;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
@@ -6928,7 +6928,7 @@ struct lex_token * flex_token = yyextra;
 					 BEGIN(onelist_INITIAL);
 					 return __INSERT_STRING_MULTICOMMENT;
 				 }
-				 else if (flex_token->state == SINGLE_COMMENT){
+				 else if (flex_token->state == __SINGLE_COMMENT){
 				 	// flex_token->semantic_value[flex_token->first_state] = NULL;
 				 	flex_token->insert_single_comment_in_list = flex_token->first_state;
 				 	flex_token->insert_token_in_list = 2;
@@ -6945,7 +6945,7 @@ struct lex_token * flex_token = yyextra;
 				 }
                             }                        
 <twolists_function1,twolists_function2>{NEWLINE}	{flex_token->read_new_line = 1;
-						 if (flex_token->state == BRACKETED_STRING){
+						 if (flex_token->state == __BRACKETED_STRING){
 						 	flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\n', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 							if(flex_token->num_chars >= flex_token->chunk_length) {
 								flex_token->error[flex_token->first_state] = 0;
@@ -6965,7 +6965,7 @@ struct lex_token * flex_token = yyextra;
 								return __END_CHUNK_INTERRUPTED_BRACKETED_STRING;
 						 	}
 						 }
-						 else if (flex_token->state != SINGLE_COMMENT){//state is doubleString or singleString
+						 else if (flex_token->state != __SINGLE_COMMENT){//state is doubleString or singleString
 						 	flex_token->error[flex_token->first_state] = 1;
 						 	flex_token->error[flex_token->second_state] = 0;
 							flex_token->semantic_value[flex_token->second_state] = NULL;
@@ -6975,10 +6975,10 @@ struct lex_token * flex_token = yyextra;
 								flex_token->chunk_ended = 1;
 							BEGIN(onelist_INITIAL);
 							flex_token->double_list_ended = 1;
-							flex_token->bracket_delimiter = END_DOUBLE_LIST_NEWLINE;
+							flex_token->bracket_delimiter = __END_DOUBLE_LIST_NEWLINE;
 							return __INSERT_DELIMITER_BRACKETED_STRING;
 						 }
-						 else{//state is SINGLE_COMMENT
+						 else{//state is __SINGLE_COMMENT
 						 	flex_token->error[flex_token->first_state] = 0;
 						 	flex_token->error[flex_token->second_state] = 0;
 						 	flex_token->semantic_value[flex_token->second_state] = NULL;
@@ -6988,13 +6988,13 @@ struct lex_token * flex_token = yyextra;
 								flex_token->chunk_ended = 1;
 							BEGIN(onelist_INITIAL);
 							flex_token->double_list_ended = 1;
-							flex_token->bracket_delimiter = END_DOUBLE_LIST_NEWLINE;
+							flex_token->bracket_delimiter = __END_DOUBLE_LIST_NEWLINE;
 							return __INSERT_DELIMITER_BRACKETED_STRING;
 						 }
 						}						
 <twolists_function1,twolists_function2>\"		{
 				//Reading a string in state function1 and function2 is an error.
-				if (flex_token->state == DOUBLE_STRING) {
+				if (flex_token->state == __DOUBLE_STRING) {
 					 flex_token->token = STRING;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
@@ -7009,18 +7009,18 @@ struct lex_token * flex_token = yyextra;
 				 	 flex_token->error[flex_token->second_state] = 1;	
 				 	 BEGIN(onelist_endStat1);
 				 	 flex_token->double_list_ended = 1;
-				 	 flex_token->bracket_delimiter = END_DOUBLE_LIST;
+				 	 flex_token->bracket_delimiter = __END_DOUBLE_LIST;
 					 return __INSERT_DELIMITER_BRACKETED_STRING;	
 				}
 				else{/*Append char to buffer*/
-				 	 if (flex_token->state != SINGLE_COMMENT)
+				 	 if (flex_token->state != __SINGLE_COMMENT)
 					 	 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\"',&(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 					 BEGIN(twolists_commentOrError); 
 				}
                         }
 <twolists_function1,twolists_function2>\'		{
 				//Reading a string in state function1 and function2 is an error.
-				if (flex_token->state == SINGLE_STRING) {
+				if (flex_token->state == __SINGLE_STRING) {
 					 flex_token->token = STRING;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
@@ -7035,18 +7035,18 @@ struct lex_token * flex_token = yyextra;
 				 	 flex_token->error[flex_token->second_state] = 1;	
 				 	 BEGIN(onelist_endStat1);
 				 	 flex_token->double_list_ended = 1;
-				 	 flex_token->bracket_delimiter = END_DOUBLE_LIST;
+				 	 flex_token->bracket_delimiter = __END_DOUBLE_LIST;
 					 return __INSERT_DELIMITER_BRACKETED_STRING;	
 				}
 				else{/*Append char to buffer*/
-				 	 if (flex_token->state != SINGLE_COMMENT)
+				 	 if (flex_token->state != __SINGLE_COMMENT)
 					 	 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], '\'',&(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 					 BEGIN(twolists_commentOrError); 
 				}
                         } 
 <twolists_function1,twolists_function2>\]\]		{
 				//Reading a string or RBRACK RBRACK in state function1 and function2 is an error.
-				if (flex_token->state == BRACKETED_STRING) {
+				if (flex_token->state == __BRACKETED_STRING) {
 					 flex_token->token = STRING;
 					 int32_t length = flex_token->current_buffer_length[flex_token->first_state];
 					 flex_token->string_buffer[flex_token->first_state][length] = '\0';
@@ -7062,11 +7062,11 @@ struct lex_token * flex_token = yyextra;
 				 	 BEGIN(onelist_endStat1);
 				 	 flex_token->double_list_ended = 1;
 				 	 // return __END_DOUBLE_LIST_CLOSING_BRACKET;
-				 	 flex_token->bracket_delimiter = END_DOUBLE_LIST;
+				 	 flex_token->bracket_delimiter = __END_DOUBLE_LIST;
 					 return __INSERT_DELIMITER_BRACKETED_STRING;
 				}
 				else{/*Append char to buffer*/
-				 	 if (flex_token->state != SINGLE_COMMENT)
+				 	 if (flex_token->state != __SINGLE_COMMENT)
 					 	 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state],  yytext, yyleng, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 					 BEGIN(twolists_commentOrError); 
 				}
@@ -7077,7 +7077,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, "...");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = concat_to_buffer(flex_token->string_buffer[flex_token->first_state], "...", 3, &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -7088,7 +7088,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, ",");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ',', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 return __LEX_CORRECT;
@@ -7099,7 +7099,7 @@ struct lex_token * flex_token = yyextra;
         		 strcpy(ch, ")");
 				 flex_token->semantic_value[flex_token->second_state] = ch;	*/
 				 flex_token->semantic_value[flex_token->second_state] = NULL;
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], ')', &(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 flex_token->insert_token_in_list = flex_token->second_state;
 				 BEGIN(twolists_INITIAL);
@@ -7107,19 +7107,19 @@ struct lex_token * flex_token = yyextra;
                                 }
 <twolists_function1,twolists_function2><<EOF>>		{
 				 flex_token->error[flex_token->second_state] = 0;
-				 if (flex_token->state != SINGLE_COMMENT) {//state is doubleString or singleString or bracketedString
+				 if (flex_token->state != __SINGLE_COMMENT) {//state is doubleString or singleString or bracketedString
 				 	flex_token->error[flex_token->first_state] = 1;
 				 }
 				 else
-				 	flex_token->error[flex_token->first_state] = 0; //state is SINGLE_COMMENT
+				 	flex_token->error[flex_token->first_state] = 0; //state is __SINGLE_COMMENT
 				 flex_token->insert_token_in_list = 2;	
 				 flex_token->double_list_ended = 1;
 				 flex_token->chunk_ended = 1;
-				 flex_token->bracket_delimiter = END_DOUBLE_LIST;
+				 flex_token->bracket_delimiter = __END_DOUBLE_LIST;
 				 return __INSERT_DELIMITER_BRACKETED_STRING;
 						}                                
 <twolists_function1,twolists_function2>.	 {/*Append char to buffer*/
-				 if (flex_token->state != SINGLE_COMMENT)
+				 if (flex_token->state != __SINGLE_COMMENT)
 					 flex_token->string_buffer[flex_token->first_state] = append_to_buffer(flex_token->string_buffer[flex_token->first_state], yytext[0],&(flex_token->current_buffer_length[flex_token->first_state]), &(flex_token->allocated_buffer_size[flex_token->first_state]));
 				 BEGIN(twolists_commentOrError);
 				} 
