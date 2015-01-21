@@ -24,7 +24,7 @@ void append_token_node(lex_token *token, token_node **token_builder, parsing_ctx
 
 void perform_lexing(char *file_name, parsing_ctx *ctx)
 {
-  uint32_t token_list_length = 0, alloc_size = 0, realloc_size = 0, i;
+  uint32_t token_list_length = 0, alloc_size = 0, realloc_size = 0;
   int8_t flex_return_code;
   token_node *token_builder = NULL;
   token_node_stack stack;

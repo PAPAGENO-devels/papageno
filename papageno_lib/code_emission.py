@@ -130,12 +130,12 @@ def emit_grammar(terminals, nonterminals, axiom, rules, out_core):
   grammar_c.write('};\n\n')
   grammar_c.write('const gr_rule __grammar[] = {')
   rule = rules[0]
-  grammar_c.write('\n  {%s, &%s, %d, (gr_token []){%s' % (rule.lhs, rule.headerName, len(rule.rhs), rule.rhs[0]))
+  grammar_c.write('\n  {%d, %s, &%s, %d, (gr_token []){%s' % (rule.index, rule.lhs, rule.headerName, len(rule.rhs), rule.rhs[0]))
   for rhsIndex in xrange(1, len(rule.rhs)):
     grammar_c.write(', %s' % rule.rhs[rhsIndex])
   grammar_c.write('}}')
   for rule in rules[1:]:
-    grammar_c.write(',\n  {%s, &%s, %d, (gr_token []){%s' % (rule.lhs, rule.headerName, len(rule.rhs), rule.rhs[0]))
+    grammar_c.write(',\n  {%d, %s, &%s, %d, (gr_token []){%s' % (rule.index, rule.lhs, rule.headerName, len(rule.rhs), rule.rhs[0]))
     for rhsIndex in xrange(1, len(rule.rhs)):
       grammar_c.write(', %s' % rule.rhs[rhsIndex])
     grammar_c.write('}}')
