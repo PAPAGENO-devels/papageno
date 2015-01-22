@@ -7,7 +7,6 @@ class Rule:
     self.lhs = ""
     self.rhs = []
     self.tokenMap = dict()
-    self.headerName = ""
   def toString(self):
     s = ""
     s += self.lhs + " -> " + " ".join(self.rhs)

@@ -1,7 +1,7 @@
-CC := gcc 
-LFLAGS = -lrt -lpthread 
+CC := clang 
+LFLAGS = -lrt -pthread 
 INCLUDES := -I./include -I./lexer -I../include
-CFLAGS := -O3 -march=native -pipe -lpthread -UDEBUG -Wall $(INCLUDES)
+CFLAGS := -O3 -march=native -pipe -pthread -UDEBUG -Wall $(INCLUDES)
 #CFLAGS := -g3 -Wall $(INCLUDES)
 SRCDIR := lib
 SRC := $(wildcard $(SRCDIR)/*.c)

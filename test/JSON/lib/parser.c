@@ -67,7 +67,7 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
   portable_clock_gettime(&lex_timer_start);
 
   DEBUG_STDOUT_PRINT("OPP> Lexing...\n")
-  perform_lexing(lex_thread_max_num, file_name, &ctx);
+  perform_lexing(file_name, &ctx);
   portable_clock_gettime(&lex_timer_end);
   
   portable_clock_gettime(&parse_timer_start);

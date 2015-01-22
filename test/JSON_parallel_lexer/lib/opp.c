@@ -106,18 +106,19 @@ void perform_rewrite(token_node * rewrite_pos,
 		     token_node_stack * stack, 
 		     parsing_ctx * ctx)
 {
-    gr_function semantics_fun;
     gr_token next;
     uint32_t node;
     const gr_rule *rule;
+    uint32_t rule_number;
 
     while (current != lhs) {
 	node = vect_reduction_tree[0];
 	node = get_son_with(vect_reduction_tree, node, current);
 	rule = &ctx->grammar[vect_reduction_tree[node]];
-	semantics_fun = rule->semantics;
+	//semantics_fun = rule->semantics;
 	next = rule->lhs;
-	semantics_fun(rewrite_pos, stack, ctx);
+    rule_number = rule->rule_number;
+	semantic_fun(rule_number, rewrite_pos, stack, ctx);
 	current = next;
     }
 }
@@ -127,10 +128,11 @@ void call_semantics(reduction_list * main_reduction_list,
 		    token_node_stack * stack, 
 		    parsing_ctx * ctx)
 {
-    gr_function semantics_fun;
+    //gr_function semantics_fun;
     const gr_rule *rule;
     token_node *rewrite_pos;
     uint8_t rhs_itr;
+    uint32_t rule_number;
     /* Manage rewrite rules. */
     rule = &ctx->grammar[vect_reduction_tree[get_reduction_position_at_index(main_reduction_list, 0)]];
     rewrite_pos = prev_symbol_ptr;
@@ -140,8 +142,9 @@ void call_semantics(reduction_list * main_reduction_list,
 	rewrite_pos = rewrite_pos->next;
     }
     /* Reduce handle. */
-    semantics_fun = rule->semantics;
-    semantics_fun(prev_symbol_ptr, stack, ctx);
+    rule_number = rule->rule_number;
+    //semantics_fun = rule->semantics;
+    semantic_fun(rule_number, prev_symbol_ptr, stack, ctx);
 }
 
 uint32_t opp_parse(token_node * lookback_ptr, 

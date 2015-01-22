@@ -264,10 +264,8 @@ if commandline_args.verbose==1:
 # Create rhs mapping for $x substitutions and headerName.
 for rule in rules:
   rule.tokenMap["lhs"] = "p_" + rule.lhs
-  rule.headerName += "r_%s_" % rule.lhs
   for i in xrange(0, len(rule.rhs)):
     rule.tokenMap[i + 1] = "p_" + rule.rhs[i] + "%d" % (i + 1)
-    rule.headerName += rule.rhs[i]
 
 # Execute $x substitutions.
 for rule in rules:

@@ -40,10 +40,13 @@ def parse_grammar_description(args):
   # Parse reduction rules and semantic functions.
   inp = ''.join(inputLines[lineIndex:])
   rules = scanner.getRules(inp)
+  # fill each rule with an index
+  for index in xrange(0, len(rules)):
+    rule = rules[index]
+    rule.index = index 
   if args.verbose==2:
     print "Rules:"
     for index in xrange(0, len(rules)):
       rule = rules[index]
-      rule.index = index 
       sys.stdout.write("%2d:%s\n" % (index, rule.toString()))
   return rules,axiom,cPreamble 
