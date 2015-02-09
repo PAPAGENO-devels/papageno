@@ -1,4 +1,5 @@
 #include "lex.h"
+#include "vect_stack.h"
 struct lex_token* flex_token;
 
 
@@ -10,9 +11,16 @@ void compute_alloc_realloc_size(FILE *input_file, uint32_t *alloc_size, uint32_t
   fseek(input_file, 0, SEEK_SET);
 }
 
-void append_token_node(lex_token *token, token_node **token_builder, parsing_ctx *ctx, token_node_stack *stack, uint32_t realloc_size)
+void append_token_node(lex_token *token, token_node **token_builder, parsing_ctx *ctx, vect_stack *stack, uint32_t realloc_size)
 {
-  token_node *tok = push_token_node_on_stack(stack, token->token, token->semantic_value, realloc_size);
+  token_node *ttp = (token_node*) malloc(sizeof(token_node));
+  ttp->token = token->token;
+  ttp->value = token->semantic_value;
+  ttp->next = NULL;
+  ttp->parent = NULL;
+  ttp->child = NULL;
+
+  token_node *tok = vect_stack_push(stack, ttp, realloc_size);
   if (ctx->token_list == NULL) {
     ctx->token_list = tok;
     *token_builder = tok;
@@ -27,7 +35,7 @@ void perform_lexing(char *file_name, parsing_ctx *ctx)
   uint32_t token_list_length = 0, alloc_size = 0, realloc_size = 0;
   int8_t flex_return_code;
   token_node *token_builder = NULL;
-  token_node_stack stack;
+  vect_stack stack;
 
   yyin = fopen(file_name, "r");
   if (yyin == NULL) {
@@ -38,7 +46,7 @@ void perform_lexing(char *file_name, parsing_ctx *ctx)
   compute_alloc_realloc_size(yyin, &alloc_size, &realloc_size);
   DEBUG_STDOUT_PRINT("LEXER> alloc_size %d, realloc_size %d\n", alloc_size, realloc_size)
   ctx->token_list = NULL;
-  init_token_node_stack(&stack, alloc_size);
+  init_vect_stack(&stack, alloc_size);
   flex_token = (lex_token*) malloc(sizeof(lex_token));
   flex_return_code = yylex();
   while (flex_return_code != __END_OF_FILE) {

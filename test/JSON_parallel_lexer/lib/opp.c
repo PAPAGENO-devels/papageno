@@ -103,7 +103,7 @@ void reduction_step(reduction_list * temp_reduction_list,
 void perform_rewrite(token_node * rewrite_pos, 
 		     gr_token current, 
 		     gr_token lhs, 
-		     token_node_stack * stack, 
+		     vect_stack * stack, 
 		     parsing_ctx * ctx)
 {
     gr_token next;
@@ -125,7 +125,7 @@ void perform_rewrite(token_node * rewrite_pos,
 
 void call_semantics(reduction_list * main_reduction_list, 
 		    token_node * prev_symbol_ptr, 
-		    token_node_stack * stack, 
+		    vect_stack * stack, 
 		    parsing_ctx * ctx)
 {
     //gr_function semantics_fun;
@@ -164,9 +164,9 @@ uint32_t opp_parse(token_node * lookback_ptr,
     vect_stack yields_prec_stack,parsing_stack;
     token_node * last_terminal = NULL;
     uint32_t prec=0;
-    token_node_stack stack;
+    vect_stack stack;
     
-    init_token_node_stack(&stack, ctx->NODE_ALLOC_SIZE);
+    init_vect_stack(&stack, ctx->NODE_ALLOC_SIZE);
     init_vect_stack(&yields_prec_stack, ctx->PREC_ALLOC_SIZE);
     init_vect_stack(&parsing_stack,     ctx->PREC_ALLOC_SIZE);
 

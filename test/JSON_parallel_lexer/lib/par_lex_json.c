@@ -352,7 +352,7 @@ void *lex_thread_task(void *arg)
   int32_t flex_return_code;
   token_node *token_builder0 = NULL;
   token_node *token_builder1 = NULL;
-  token_node_stack stack[2];
+  vect_stack stack[2];
 
   uint32_t alloc_size = 0, realloc_size = 0;
 
@@ -381,12 +381,12 @@ void *lex_thread_task(void *arg)
   yyset_in(f, scanner);
   
   ar->list_begin[0] = NULL;
-  init_token_node_stack(&(stack[0]), alloc_size);
+  init_vect_stack(&(stack[0]), alloc_size);
 
   if (ar->begin_with_string != 0)
     {
       ar->list_begin[1] = NULL;
-      init_token_node_stack(&(stack[1]), alloc_size);
+      init_vect_stack(&(stack[1]), alloc_size);
     }
 
   /*process_list[i] is 1 iff list i can be processed, and no errors have been met until now.*/
