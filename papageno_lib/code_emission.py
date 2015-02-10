@@ -89,7 +89,6 @@ def emit_grammar_header(rules,out_header_path):
 #include "grammar_tokens.h"
 #include "grammar_semantics.h"
 #include "token_node.h"
-#include "token_node_stack.h"
 """)
   grammar_h.write("#define __GRAMMAR_SIZE %d\n\n" % len(rules))
   grammar_h.write("""
