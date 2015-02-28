@@ -81,21 +81,26 @@ void reduction_step(reduction_list * temp_reduction_list,
 {
     uint32_t node, offset;
     const uint32_t *itr, *end;
+    DEBUG_STDOUT_PRINT("REDUCTION_STEP> Evaluating token %s\n", gr_token_to_string(list_itr->token));
     if (is_terminal(list_itr->token)) {
 	itr = &ctx->gr_token_alloc[token_value(list_itr->token)];
 	end = itr + 1;
+    DEBUG_STDOUT_PRINT("REDUCTION_STEP> Terminal case, Itr: %d, End: %d\n", *itr, *end);
     } else {
 	offset = rewrite_rules[list_itr->token];
 	itr = &(rewrite_rules[offset]);
 	end = itr + *itr + 1;
 	++itr;
+    DEBUG_STDOUT_PRINT("REDUCTION_STEP> NonTerminal case, Itr: %d, End: %d \n", *itr, *end);
     }
     /* For each token in the current stack element token list. */
     for (; itr != end; ++itr) {
 	node = get_son_with(vect_reduction_tree, red_list_node, *itr);
+    DEBUG_STDOUT_PRINT("REDUCTION_STEP> Get son with node result: %d, in tree is value %d \n", node, vect_reduction_tree[node]);
 	/* If current position has a son corresponding to the current token, navigate the tree. */
 	if (node != 0) {
 	    append_position_on_reduction_list(temp_reduction_list, node);
+        DEBUG_STDOUT_PRINT("REDUCTION_STEP> Node appended in list, now it has length %d\n", temp_reduction_list->idx_last);
 	}
     }
 }
@@ -173,15 +178,19 @@ uint32_t opp_parse(token_node * lookback_ptr,
     temp_reduction_list = (reduction_list *) malloc(sizeof(reduction_list));
     init_reduction_list(temp_reduction_list);
 
+    DEBUG_STDOUT_PRINT("OPP> current_list_pos, token %s \n", gr_token_to_string(current_list_pos->token));
     /* set correctly last_terminal and current_pos */
     while ( !( is_terminal(current_list_pos->token) || end_chunk_parse ) ) {
-	    end_chunk_parse = get_next_token(&current_list_pos, &prev_symbol_ptr, chunk_end, lookahead_ptr); 
+	    end_chunk_parse = get_next_token(&current_list_pos, &prev_symbol_ptr, chunk_end, lookahead_ptr);
 	}
     last_terminal= is_terminal(lookback_ptr->token) ? lookback_ptr : current_list_pos;
+    DEBUG_STDOUT_PRINT("OPP> last terminal for this thread is %s \n\n", gr_token_to_string(last_terminal->token));
     /* Start the parsing process. */
     while (current_list_pos != NULL) {
 	/* lookup precedence between last stack terminal token and new token. */
+        DEBUG_STDOUT_PRINT("\nREADING> Current token %s, value is %s \n", gr_token_to_string(current_list_pos->token), current_list_pos->value);
         prec = get_precedence(current_list_pos,last_terminal);
+        DEBUG_STDOUT_PRINT("CHECK_PRECEDENCE> %s against %s, precendence %d\n", gr_token_to_string(current_list_pos->token), gr_token_to_string(last_terminal->token), prec);
         /*this was inserted by the guys: add the string terminator to the precedence table to remove this cruft */
         if (lookback_ptr->token == __TERM && prec == __EQ && yields_prec_stack.top_of_stack == 0) {
 	     prec = __GT;
@@ -193,6 +202,7 @@ uint32_t opp_parse(token_node * lookback_ptr,
 	}
 	/* if precedence is __EQ or __LT, we should shift */
 	if (prec != __GT || yields_prec_stack.top_of_stack == 0) {
+        DEBUG_STDOUT_PRINT("DECISION> Shifting \n");
 	    if (end_chunk_parse == __END_OF_INPUT) {
 		parse_result = __PARSE_IN_PROGRESS;
 		break;
@@ -200,6 +210,7 @@ uint32_t opp_parse(token_node * lookback_ptr,
 	    /* Push token_node on top of yields_prec_stack. */
 	    if (prec == __LT) {
                vect_stack_push(&yields_prec_stack, last_terminal, ctx->PREC_REALLOC_SIZE);
+               DEBUG_STDOUT_PRINT("OPP> pushed %s on yields stack, now it has %d elements \n", gr_token_to_string(last_terminal->token), yields_prec_stack.top_of_stack);
 	    }
 	    /* Get next token. */
 	    assert(is_terminal(current_list_pos->token));
@@ -207,12 +218,14 @@ uint32_t opp_parse(token_node * lookback_ptr,
 	    last_terminal=current_list_pos;
 	    end_chunk_parse = get_next_token(&current_list_pos, &prev_symbol_ptr, chunk_end, lookahead_ptr);
 	} else {
+        DEBUG_STDOUT_PRINT("DECISION> Start reducing \n");
 		/*clear reduction list */
 	        main_reduction_list->idx_last = 0;
 		/* node is the offset of the root of the vectorized reduction trie. */
 		node = vect_reduction_tree[0];
 		/* obtain the position of the previous yields precedence */
 		prev_symbol_ptr = vect_stack_pop(&yields_prec_stack);
+        DEBUG_STDOUT_PRINT("OPP> Previous symbol to reach with popping %s \n", gr_token_to_string(prev_symbol_ptr->token));
 	        /* add pop to parsing stack to remove all the terminals up to the one 
 		 which should be reduced */
 		while (last_terminal!= prev_symbol_ptr && last_terminal!=NULL){
@@ -224,14 +237,18 @@ uint32_t opp_parse(token_node * lookback_ptr,
 		list_itr = prev_symbol_ptr->next;
 		/* Set the first element of the reduction list to the root. */
 		append_position_on_reduction_list(main_reduction_list, node);
+        DEBUG_STDOUT_PRINT("OPP> Append position on reduction list done with node %d, now the list has %d elements \n", node, main_reduction_list->idx_last);
 		reduction_error = 0;
 
 		/* starting from the previous yields precedence scan the candidate rhs and 
 		 *match it against the reduction trie */
+        DEBUG_STDOUT_PRINT("OPP> Here starts the search for the rule \n");
 		while (list_itr != NULL && list_itr != current_list_pos && list_itr != chunk_end) {
 		    /* For each available position in the reduction tree. */
 		    uint32_t i;
+            DEBUG_STDOUT_PRINT("REDUCTION_STEP> Number of reduction step to do %d\n", main_reduction_list->idx_last);
 		    for (i = 0; i < main_reduction_list->idx_last; i++) {
+            DEBUG_STDOUT_PRINT("REDUCTION_STEP> step %d\n", i);   
 			reduction_step(temp_reduction_list, 
 				       get_reduction_position_at_index(main_reduction_list, i), 
 				       list_itr, 
