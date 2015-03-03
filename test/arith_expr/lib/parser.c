@@ -67,7 +67,7 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
   portable_clock_gettime(&lex_timer_start);
 
   DEBUG_STDOUT_PRINT("OPP> Lexing...\n")
-  perform_lexing(lex_thread_max_num, file_name, &ctx);
+  perform_lexing(file_name, &ctx);
   portable_clock_gettime(&lex_timer_end);
   
   portable_clock_gettime(&parse_timer_start);
@@ -107,25 +107,31 @@ token_node *parse(int32_t threads, int32_t lex_thread_max_num, char *file_name)
     /* Set list_begin. */
     if (i == 0) {
       contexts[i].list_begin = bounds[i];
+      DEBUG_STDOUT_PRINT("OPP> list begin first thread %s \n", gr_token_to_string(bounds[i]->token));
     } else {
       list_ptr = bounds[i]->next;
       contexts[i].list_begin = list_ptr;
+      DEBUG_STDOUT_PRINT("OPP> list begin thread %d is %s \n", i, gr_token_to_string(list_ptr->token));
     }
     /* Get prev context. */
     if (i == 0) {
       l_token = new_token_node(__TERM, NULL);
+      DEBUG_STDOUT_PRINT("OPP> c_prev context thread %d is __TERM \n", i);
     } else {
       list_ptr = bounds[i];
       l_token = new_token_node(list_ptr->token, NULL);
+      DEBUG_STDOUT_PRINT("OPP> c_prev context thread %d is %s \n", i, gr_token_to_string(list_ptr->token));
     }
     l_token->next = contexts[i].list_begin;
     contexts[i].c_prev = l_token;
     /* Get next context. */
     if (i == threads - 1) {
       l_token = new_token_node(__TERM, NULL);
+      DEBUG_STDOUT_PRINT("OPP> c_next context thread %d is __TERM \n", i);
     } else {
       list_ptr = bounds[i + 1]->next;
       l_token = new_token_node(list_ptr->token, NULL);
+      DEBUG_STDOUT_PRINT("OPP> c_next context thread %d is %s \n", i, gr_token_to_string(list_ptr->token));
     }
     contexts[i].c_next = l_token;
     /* Set list end. */
@@ -245,6 +251,7 @@ token_node **compute_bounds(uint32_t length, uint8_t n, token_node *token_list)
   while (list != NULL && t_pos < n_len*n) {
     if (t_pos % n_len == 0) {
       bounds[n_itr] = list;
+      DEBUG_STDOUT_PRINT("PARSER> bounds %d has token %s in position %d \n", n_itr, gr_token_to_string(list->token), t_pos);
       ++n_itr;
     }
     list = list->next;

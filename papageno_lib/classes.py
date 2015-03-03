@@ -2,11 +2,11 @@ import bitPack
 
 class Rule:
   def __init__(self):
+    self.index = 0
     self.text = ""
     self.lhs = ""
     self.rhs = []
     self.tokenMap = dict()
-    self.headerName = ""
   def toString(self):
     s = ""
     s += self.lhs + " -> " + " ".join(self.rhs)

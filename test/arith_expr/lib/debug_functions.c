@@ -9,7 +9,7 @@ void print_token_node_tree(parsing_ctx *ctx, uint32_t level, token_node *tree)
 
   fprintf(stdout, "L:%03d", level);
   for (itr = 0; itr < level; itr++) {
-    fprintf(stdout, "    ");
+    fprintf(stdout, " ");
   }
   if (tree->value != NULL) {
     fprintf(stdout, "<%s>\n", (char *) tree->value);

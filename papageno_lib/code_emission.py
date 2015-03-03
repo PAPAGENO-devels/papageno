@@ -67,12 +67,12 @@ def emit_semantic_actions_header(rules,out_header_path):
 #define __GRAMMAR_SEMANTICS_H_
 
 #include "token_node.h"
-#include "token_node_stack.h"
+#include "vect_stack.h"
 #include "parsing_context.h"
 
+void semantic_fun(uint32_t rule_number, token_node *p, vect_stack *stack, parsing_ctx *ctx);
+
 """)
-  for rule in rules:
-    grammar_semantics_h.write("void %s(token_node *p, token_node_stack *stack, parsing_ctx *ctx);\n" % rule.headerName)
   grammar_semantics_h.write("\n#endif\n")
   grammar_semantics_h.close()
 
@@ -89,19 +89,17 @@ def emit_grammar_header(rules,out_header_path):
 #include "grammar_tokens.h"
 #include "grammar_semantics.h"
 #include "token_node.h"
-#include "token_node_stack.h"
 """)
   grammar_h.write("#define __GRAMMAR_SIZE %d\n\n" % len(rules))
-  grammar_h.write("""typedef void (*gr_function) (token_node *, token_node_stack *, parsing_ctx *);
+  grammar_h.write("""
 typedef struct gr_rule {
+  uint32_t rule_number;
   gr_token lhs;
-  gr_function semantics;
   uint8_t rhs_length;
   gr_token *rhs;
 } gr_rule;
 
 void init_grammar(parsing_ctx *ctx);
-
 const char * gr_token_to_string(gr_token token);
 
 #endif
@@ -130,12 +128,12 @@ def emit_grammar(terminals, nonterminals, axiom, rules, out_core):
   grammar_c.write('};\n\n')
   grammar_c.write('const gr_rule __grammar[] = {')
   rule = rules[0]
-  grammar_c.write('\n  {%s, &%s, %d, (gr_token []){%s' % (rule.lhs, rule.headerName, len(rule.rhs), rule.rhs[0]))
+  grammar_c.write('\n  {%d, %s, %d, (gr_token []){%s' % (rule.index, rule.lhs, len(rule.rhs), rule.rhs[0]))
   for rhsIndex in xrange(1, len(rule.rhs)):
     grammar_c.write(', %s' % rule.rhs[rhsIndex])
   grammar_c.write('}}')
   for rule in rules[1:]:
-    grammar_c.write(',\n  {%s, &%s, %d, (gr_token []){%s' % (rule.lhs, rule.headerName, len(rule.rhs), rule.rhs[0]))
+    grammar_c.write(',\n  {%d, %s, %d, (gr_token []){%s' % (rule.index, rule.lhs, len(rule.rhs), rule.rhs[0]))
     for rhsIndex in xrange(1, len(rule.rhs)):
       grammar_c.write(', %s' % rule.rhs[rhsIndex])
     grammar_c.write('}}')
@@ -160,31 +158,55 @@ const char * gr_token_to_string(gr_token token){
   grammar_c.close()
   
 def emit_semantic_actions(rules,cPreamble, out_core):
+  # obtains the max length of the rhs token between all the grammar rules
+  lenRhs = []
+  for rule in rules:
+    l = len(rule.rhs)
+    if l not in lenRhs:
+      lenRhs.append(l)
+  varNames = []
+  # prepare the array of variables
+  for i in range(1,max(lenRhs) + 1):
+    varNames.append("var" + str(i))
+  # this is only for avoiding python mess
+  varNames.append("end");
   print "Generating lib/grammar_semantics.c"
   grammar_semantics_c = open(out_core + "grammar_semantics.c", "w")
   grammar_semantics_c.write('#include "grammar_semantics.h"\n\n')
   grammar_semantics_c.write('/* Preamble from grammar definition. */\n%s/* End of the preamble. */\n\n' % cPreamble)
+  grammar_semantics_c.write("void semantic_fun(uint32_t rule_number, token_node *p, vect_stack *stack, parsing_ctx *ctx){\n\n")
+  grammar_semantics_c.write("  switch(rule_number){\n")
   for rule in rules:
-    grammar_semantics_c.write("void %s(token_node *p, token_node_stack *stack, parsing_ctx *ctx)\n{\n" % rule.headerName)
-    grammar_semantics_c.write("  token_node *%s" % rule.tokenMap["lhs"])
-    for rhsIndex in xrange(0, len(rule.rhs)):
+    grammar_semantics_c.write("    case " + str(rule.index) + ":\n")
+    grammar_semantics_c.write("    {\n")
+    grammar_semantics_c.write("      // variables declaration\n")
+    grammar_semantics_c.write("      token_node *%s" % rule.tokenMap["lhs"])
+    for rhsIndex in range(0, len(rule.rhs)):
       grammar_semantics_c.write(", *%s" % rule.tokenMap[rhsIndex + 1])
-    grammar_semantics_c.write(";\n\n")
-    grammar_semantics_c.write("  %s = push_token_node_on_stack(stack, %s, NULL, ctx->NODE_REALLOC_SIZE);\n" % (rule.tokenMap["lhs"], rule.lhs))
-    grammar_semantics_c.write("  if (p->token == __TERM) {\n")
-    grammar_semantics_c.write("    %s = ctx->token_list;\n" % rule.tokenMap[1])
-    grammar_semantics_c.write("    ctx->token_list = %s;\n" % rule.tokenMap["lhs"])
-    grammar_semantics_c.write("  } else {\n")
-    grammar_semantics_c.write("    %s = p->next;\n" % rule.tokenMap[1])
-    grammar_semantics_c.write("  }\n")
-    grammar_semantics_c.write("  p->next = %s;\n" % rule.tokenMap["lhs"])
+    grammar_semantics_c.write(";\n")
+    grammar_semantics_c.write("      token_node *ttp = (token_node*) malloc(sizeof(token_node));\n")
+    grammar_semantics_c.write("      ttp->token = %s;\n" % rule.lhs)
+    grammar_semantics_c.write("      ttp->value = NULL;\n")
+    grammar_semantics_c.write("      ttp->next = NULL;\n")
+    grammar_semantics_c.write("      ttp->parent = NULL;\n")
+    grammar_semantics_c.write("      ttp->child = NULL;\n")
+    grammar_semantics_c.write("      %s = vect_stack_push(stack, ttp, ctx->NODE_REALLOC_SIZE);\n" % (rule.tokenMap["lhs"]))
+    grammar_semantics_c.write("      if (p->token == __TERM) {\n")
+    grammar_semantics_c.write("        %s = ctx->token_list;\n" % rule.tokenMap[1])
+    grammar_semantics_c.write("        ctx->token_list = %s;\n" % rule.tokenMap["lhs"])
+    grammar_semantics_c.write("      } else {\n")
+    grammar_semantics_c.write("        %s = p->next;\n" % rule.tokenMap[1])
+    grammar_semantics_c.write("      }\n")
+    grammar_semantics_c.write("      p->next = %s;\n" % rule.tokenMap["lhs"])
     for rhsIndex in xrange(1, len(rule.rhs)):
-      grammar_semantics_c.write("  %s = %s->next;\n" % (rule.tokenMap[rhsIndex + 1], rule.tokenMap[rhsIndex]))
+      grammar_semantics_c.write("      %s = %s->next;\n" % (rule.tokenMap[rhsIndex + 1], rule.tokenMap[rhsIndex]))
     for rhsIndex in xrange(0, len(rule.rhs)):
-      grammar_semantics_c.write("  %s->parent = %s;\n" % (rule.tokenMap[rhsIndex + 1], rule.tokenMap["lhs"]))
-    grammar_semantics_c.write("  %s->next = %s->next;\n" % (rule.tokenMap["lhs"], rule.tokenMap[len(rule.rhs)]))
-    grammar_semantics_c.write("  %s->child = %s;\n" % (rule.tokenMap["lhs"], rule.tokenMap[1]))
-    grammar_semantics_c.write("/* Semantic action follows. */\n%s\n/* End of semantic action. */\n}\n\n" % rule.text)
+      grammar_semantics_c.write("      %s->parent = %s;\n" % (rule.tokenMap[rhsIndex + 1], rule.tokenMap["lhs"]))
+    grammar_semantics_c.write("      %s->next = %s->next;\n" % (rule.tokenMap["lhs"], rule.tokenMap[len(rule.rhs)]))
+    grammar_semantics_c.write("      %s->child = %s;\n" % (rule.tokenMap["lhs"], rule.tokenMap[1]))
+    grammar_semantics_c.write("      /* Semantic action follows. */\n      %s\n      /* End of semantic action. */\n    }\n" % rule.text)
+    grammar_semantics_c.write("    break;\n")
+  grammar_semantics_c.write("  }\n}")  
   grammar_semantics_c.close()
   
 def emit_reduction_tree(vectorTree,out_header_path):

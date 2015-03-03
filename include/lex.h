@@ -5,6 +5,7 @@
 #include "config.h"
 #include "debug_functions.h"
 #include "grammar_tokens.h"
+#include "vect_stack.h"
 #include "token_node_stack.h"
 #include "../lexer/flex.yy.h"
 
@@ -20,6 +21,6 @@ extern lex_token *flex_token;
 
 void perform_lexing(char *file_name, parsing_ctx *ctx);
 void compute_alloc_realloc_size(FILE *input_file, uint32_t *alloc_size, uint32_t *realloc_size);
-void append_token_node(lex_token *token, token_node **token_builder, parsing_ctx *ctx, token_node_stack *stack, uint32_t realloc_size);
+void append_token_node(lex_token *token, token_node **token_builder, parsing_ctx *ctx, vect_stack *stack, uint32_t realloc_size);
 
 #endif
