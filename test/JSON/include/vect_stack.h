@@ -12,7 +12,7 @@ typedef struct vect_stack {
   uint32_t ceil;
 } vect_stack;
 
-static void init_vect_stack(vect_stack *stack, uint32_t vect_stack_alloc_size)
+inline static void init_vect_stack(vect_stack *stack, uint32_t vect_stack_alloc_size)
 {
   stack->vect_stack = (token_node**) calloc(vect_stack_alloc_size,sizeof(token_node*));
   stack->ceil = vect_stack_alloc_size;
