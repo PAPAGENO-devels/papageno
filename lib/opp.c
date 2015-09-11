@@ -6,6 +6,7 @@
 #include "matrix.h"
 #include "reduction_tree.h"
 #include "rewrite_rules.h"
+#include "equivalence_matrix.h"
 #define __END_OF_INPUT 1
 #define __MORE_INPUT 0
 
@@ -29,11 +30,23 @@ uint8_t rewrite_to_axiom(gr_token token)
 uint32_t get_son_with(const uint16_t * tree, uint32_t offset, gr_token label)
 {
     uint32_t itr;
-    for (itr = offset + 2; itr < offset + tree[offset + 1] + 2; itr += 2) {
-    if (tree[itr] == token_value(label)) {
-        return tree[itr + 1];
+    for (itr = offset + 2; itr < offset + tree[offset + 1] + 2; itr += 2) {  // for all the branches
+         if (tree[itr] == token_value(label)) {  // exact match
+               return tree[itr + 1];
+         }
     }
+    #ifndef SKIP_ADVANCED_MATCHING
+    for (itr = offset + 2; itr < offset + tree[offset + 1] + 2; itr += 2) {  // for all the branches
+         if (!is_terminal(label) && !is_terminal(tree[itr])) {  // try again: if both are nonterminals
+               if (is_related(tree[itr], label)) {  // and are related
+                  #ifdef __DEBUG
+                  DEBUG_PRINT("Found compatible branch.\n");
+                  #endif
+                  return tree[itr + 1];
+               }
+         }
     }
+    #endif
     return 0;
 }
 

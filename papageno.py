@@ -1,10 +1,10 @@
 #!/usr/bin/env python2
 
-import sys, os, re, argparse
-from papageno_lib import input_parse, scanner, bitPack, classes, check, matrix, code_emission, transform
+import sys, copy, os, re, argparse
+from papageno_lib import input_parse, scanner, bitPack, classes, check, matrix, code_emission, transform, equivalence_graph
 
 commandline_args = input_parse.parse_commandline_args()
-print commandline_args;
+print commandline_args
 rules,axiom,cPreamble = input_parse.parse_grammar_description(commandline_args)
 
 # Infer (non)terminals.
@@ -60,6 +60,9 @@ if repeatedError:
 
   repeatedError = False
 
+  for newindex in xrange(len(rules)):
+    rules[newindex].index = newindex
+
   if commandline_args.verbose==2:
     print "Printing new nonterminals:"
     print nonterminals
@@ -85,6 +88,28 @@ check.detectUnusedTerm(terminals, rules)
 
 # Detect lhs terminals.
 check.detectDefinedTerm(terminals, rules)
+
+# Detect renaming rules
+renamingRules = check.detectRenamingRules(nonterminals, rules)
+
+graphlist = equivalence_graph.GraphsList()
+if len(renamingRules) > 0:
+  print "Generating nonterminal equivalence graphs"
+  for rule in renamingRules:
+    graphlist.processRule(rule)
+
+  if commandline_args.verbose==2:
+    fname = "debug_graph.dot"
+    print "saving nonterminal equivalence graphs to " + fname
+    savefile = open(fname,"w")
+    savefile.write(graphlist.formatToDot())
+    savefile.close()
+
+  for graph in graphlist.graphs:
+    if equivalence_graph.hasCycles(graph):
+      sys.stdout.write("\33[1;31mERROR\33[0m: the following renaming rules are causing ambiguity:\n")
+      print graph.rulesToString()
+      sys.exit(-1)
 
 # Compute precedence matrix.
 origMatrix, conflictError = matrix.buildAndCheckMatrix(nonterminals, terminals, rules)
@@ -288,6 +313,10 @@ average_rule_len=average_rule_len/len(rules)
 
 # Generate grammar_tokens.h
 code_emission.emit_grammar_symbols(nonterminals,terminals,axiom,commandline_args.out_header)
+
+# Genarate equivalence_matrix.h
+code_emission.emit_equivalence_matrix(graphlist, nonterminals, axiom, commandline_args.out_header,
+  (len(renamingRules) == 0 or commandline_args.skip_advanced_matching))
 
 # Generate grammar_semantics.h
 code_emission.emit_semantic_actions_header(rules,commandline_args.out_header)

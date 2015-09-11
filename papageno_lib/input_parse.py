@@ -12,6 +12,7 @@ def parse_commandline_args():
   parser.add_argument('--prealloc_stack' , metavar='prealloc_stack',help='Preallocated number of symbols for buffered parsing stack. Defaults to 1024',default=1024,type=int)  
   parser.add_argument('--token_avg_size' , metavar='token_avg_size',help='Size, in bytes of the average token. Default is 5 bytes',default='5.0')  
   parser.add_argument('--cache_line_size', metavar='cache_line_size',help='Size, in bytes of cache line. Default is 64 bytes',default=64,type=int)  
+  parser.add_argument('--skip_advanced_matching',help='Force disable the copy-rules support features, may improve parsing performance', action='store_true')
   return parser.parse_args()
 
 def parse_grammar_description(args):

@@ -144,3 +144,15 @@ def detectDefinedTerm(terminals, rules):
       sys.stdout.write("\33[1;34m%s\33[0m\n" % terminal)
       for rule in definedTerm[terminal]:
         sys.stdout.write("  %s\n" % rule.toString())
+
+def detectRenamingRules(nonterminals, rules):
+  renamingRules = []
+  for rule in rules:
+    if len(rule.rhs) == 1:
+      if (rule.lhs in nonterminals) and (rule.rhs[0] in nonterminals):
+        renamingRules.append(rule)
+  if len(renamingRules) > 0:
+    sys.stdout.write("\33[1;31mWARNING\33[0m: the grammar contains the following renaming rules:\n")
+    for renaming in renamingRules:
+      sys.stdout.write("  %s\n" % renaming.toString())
+  return renamingRules

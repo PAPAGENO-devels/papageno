@@ -1,5 +1,8 @@
 import ctypes
 
+nonterminal_bit_flag_pos=30
+nonterminal_bit_mask=1<<nonterminal_bit_flag_pos
+
 def emit_precedence_matrix_header(intMatrix,terminals_no,out_header_path): 
   print "Generating include/matrix.h"
   matrix_h = open(out_header_path + "matrix.h", "w")
@@ -26,9 +29,7 @@ static const uint8_t precedence_matrix[__ROW_LEN*__TERM_LEN] = {%d""" % intMatri
   matrix_h.close()
   
 def emit_grammar_symbols(nonterminals,terminals,axiom,out_header_path):
-  nonterminal_bit_flag_pos=30
-  nonterminal_bit_mask=1<<nonterminal_bit_flag_pos
-
+  # the grammar symbols' numbering convention used here must be coherent with emit_equivalence_matrix()
   print "Generating include/grammar_tokens.h"
   grammar_tokens_h = open(out_header_path + "grammar_tokens.h", "w")
   grammar_tokens_h.write("""#ifndef __FLEX_GRAMMAR_H_
@@ -256,3 +257,74 @@ def emit_config_header(cache_line_size,average_rule_len,token_avg_size,prealloc_
 #define __CACHE_LINE_SIZE """)
   config_h.write('%d\n' % cache_line_size)  
   config_h.write("""#endif\n""")
+
+def emit_equivalence_matrix(graphlist, nonterminals, axiom, out_header_path, skipAdvanced):
+  """
+  Build the c header containing the nonterminal-equivalence matrix;
+  The matrix is a simple 2-dimensional array of char
+  After that, the function is_related(candidate,parent) is created
+  inside the same header.
+  :param graphlist:
+  :param nonterminals:
+  :param axiom:
+  :param out_header_path:
+  :param skipAdvanced: if set to true, the opp parser will skip the matrix-based matching
+  :return:
+  """
+  def nontermToInt(symbol):  # get the integer value as assigned in the C enum
+    # note that if emit_grammar_symbols() is modified, this procedure must be changed too.
+    if symbol == axiom:
+      return 0
+    else:
+      pos = 1
+      for nont in nonterminals:
+        if nont == axiom:
+          continue
+        if symbol == nont:
+          return pos
+        pos += 1
+
+  print "Generating include/equivalence_matrix.h"
+  matrix_size = len(nonterminals)  # first we build the matrix in python
+  matrix_empty_value = 0  # evaluated as False in C
+  matrix_match_value = 1  # evaluated as True in C
+  matrix = [[matrix_empty_value for x in range(matrix_size)] for x in range(matrix_size)]  # matrix[col][row]
+  for i in xrange(matrix_size):  # fill the main diagonal (not strictly required)
+    matrix[i][i] = matrix_match_value
+  for graph in graphlist.graphs:  # convert the graphs
+    parent = nontermToInt(graph.root.value)
+    for node in graph.nodes:
+      child = nontermToInt(node.value)
+      matrix[parent][child] = matrix_match_value
+
+  equivalence_matrix_h = open(out_header_path + "equivalence_matrix.h", "w")  # now we write the actual C code
+  tabsize = "      "
+  equivalence_matrix_h.write("""#ifndef __EQUIVALENCE_MATRIX_H_
+#define __EQUIVALENCE_MATRIX_H_
+""")
+  if skipAdvanced:
+    print "   with SKIP_ADVANCED_MATCHING enabled"
+    equivalence_matrix_h.write("""#define SKIP_ADVANCED_MATCHING
+""")
+  equivalence_matrix_h.write("const char equivalence_matrix[" + str(matrix_size) + "][" + str(matrix_size) + "] = {\n")
+  for row in xrange(matrix_size):
+    equivalence_matrix_h.write(tabsize + "{")
+    for col in xrange(matrix_size):
+      equivalence_matrix_h.write("%d" % matrix[col][row])
+      if col + 1 < matrix_size:
+        equivalence_matrix_h.write(",")
+    equivalence_matrix_h.write("}")
+    if row + 1 < matrix_size:
+      equivalence_matrix_h.write(",")
+    equivalence_matrix_h.write("\n")
+  equivalence_matrix_h.write("};\n")
+
+  equivalence_matrix_h.write("""static inline char is_related(int candidate, int parent)
+{
+  #ifdef __DEBUG
+    printf("checking if %d is related to parent: %d\\n", candidate, parent);
+  #endif
+  return equivalence_matrix[parent][candidate];
+}\n#endif""")
+
+  equivalence_matrix_h.close()
